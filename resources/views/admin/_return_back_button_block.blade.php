@@ -1,0 +1,1 @@
+<a href="{{ redirect()->getUrlGenerator()->previous() }}">@include('admin._button_block', ['type' => 'button', 'icon' => 'icon-backward2', 'text' => trans('admin.return_back'), 'addClass' => 'pull-right'])</a>

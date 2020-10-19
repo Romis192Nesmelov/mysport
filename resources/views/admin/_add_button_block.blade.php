@@ -1,0 +1,1 @@
+<a href="{{ (isset($btnModalType) && $btnModalType ? '#' : '/admin/').$href }}" {{ isset($btnModalType) && $btnModalType ? 'data-toggle=modal' : '' }}>@include('admin._button_block', ['type' => 'submit', 'icon' => 'icon-database-add', 'text' => $text, 'addClass' => 'pull-right'])</a>

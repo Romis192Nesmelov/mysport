@@ -1,0 +1,2 @@
+<sup>You can unsubscribe from the mailing list in your account by clicking on the <a href="{{ url('profile?unsubscribe=1') }}">link</a> or unchecking the “Send mail” box in the <a href="{{ url('/profile/user') }}">user’s profile.</a></sup>
+<sup>Отказаться от рассылки можно в личном кабинете, пройдя по <a href="{{ url('profile?unsubscribe=1') }}">ссылке</a> или убрав галочку «Отправлять письма» в <a href="{{ url('/profile/user') }}">профиле</a> пользователя.</sup>

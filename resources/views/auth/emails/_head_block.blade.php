@@ -1,0 +1,1 @@
+<h{{ $hLevel }} style="box-sizing:border-box; color:#3d4852; font-size:19px; font-weight:bold; margin-top:0; text-align:left;">{!! $head !!}</h{{ $hLevel }}>

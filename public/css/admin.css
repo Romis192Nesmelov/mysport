@@ -1,0 +1,61 @@
+.error {
+    color: red;
+}
+
+.id {
+    width: 20px;
+}
+
+td.image {
+    width: 10%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+td.image img,
+.image img,
+.edit-image-preview img {
+    width: 100%;
+}
+
+.avatar img {
+    border-radius: 50%;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #316885;
+    background: url("../images/avatar.svg") white 50% 50% no-repeat;
+    background-size: 100% 100%;
+    margin: auto;
+}
+
+
+.language-switch img {
+    width: 16px;
+}
+
+.delete, .edit {
+    text-align: center;
+}
+
+td.delete > span {
+    cursor: pointer;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    resize: vertical;
+}
+
+.modal-body {
+    width: 100%;
+    background-color: #f1f1f1;
+    border: 1px solid #eaeaea;
+    display: table;
+    margin-bottom: 20px;
+}

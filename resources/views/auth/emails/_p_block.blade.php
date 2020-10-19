@@ -1,0 +1,1 @@
+<p style="box-sizing:border-box; color:#3d4852; font-size:16px; line-height:1.5em; margin-top:0; text-align:left;">{{ $content }}</p>
