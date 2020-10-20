@@ -7,7 +7,7 @@ trait GoogleCapchaTrait
     public function reCapchaRequest($response)
     {
         $data = array(
-            'secret' => "6LfIM9IUAAAAAExd24de_OJTBsGyN1OYssXKyxwF",
+            'secret' => env('RE_CAPTCHA_SECRET'),
             'response' => $response
         );
 

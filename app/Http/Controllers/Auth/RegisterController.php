@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Session;
-use Config;
+use Illuminate\Support\Facades\Session;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Http\Controllers\HelperTrait;
 
 class RegisterController extends Controller
 {
@@ -56,7 +54,6 @@ class RegisterController extends Controller
             'phone' => $this->validationPhone,
             'email' => 'required|string|email|max:255|unique:users',
             'password' => $this->validationPassword,
-            'type' => 'required|integer|in:2,3',
             'g-recaptcha-response' => 'required|string',
         ]);
     }
@@ -75,7 +72,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'confirm_token' => $this->randString(),
             'active' => false,
-            'type' => $data['type'],
+            'type' => 1,
             'send_mail' => 1
         ]);
         return $user;

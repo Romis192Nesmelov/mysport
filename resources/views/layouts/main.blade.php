@@ -27,6 +27,7 @@
     <link href="{{ asset('css/loader.css') }}" rel="stylesheet" type="text/css">
     {{--<link href="{{ asset('css/owl.carousel.min.css') }}" rel="stylesheet" type="text/css">--}}
     {{--<link href="{{ asset('css/owl.theme.default.min.css') }}" rel="stylesheet" type="text/css">--}}
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Core JS files -->
     <script type="text/javascript" src="{{ asset('js/core/libraries/jquery.min.js') }}"></script>
@@ -94,16 +95,18 @@
                     </ul>
                 </li>
 
-                {{--<li class="dropdown dropdown-user">--}}
-                    {{--<a class="dropdown-toggle" data-toggle="dropdown">--}}
-                        {{--<span>{{ Auth::user()->email }}</span>--}}
-                        {{--<i class="caret"></i>--}}
-                    {{--</a>--}}
-            {{----}}
-                    {{--<ul class="dropdown-menu dropdown-menu-right">--}}
-                        {{--<li><a href="{{ url('/logout') }}"><i class="icon-switch2"></i> {{ trans('auth.logout') }}</a></li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
+                @if (!Auth::guest())
+                    <li class="dropdown dropdown-user">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <span>{{ Auth::user()->email }}</span>
+                            <i class="caret"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="{{ url('/logout') }}"><i class="icon-switch2"></i> {{ trans('auth.logout') }}</a></li>
+                        </ul>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>

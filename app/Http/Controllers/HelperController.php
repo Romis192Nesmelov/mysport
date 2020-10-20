@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 //use Illuminate\Http\Request;
-use App\Executor;
-use App\ContractsCollection;
-use App\ResumesCollection;
-use Illuminate\Support\Facades\Auth;
+//use Illuminate\Support\Facades\Auth;
 
 class HelperController extends Controller
 {

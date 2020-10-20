@@ -6,28 +6,21 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Google_Client;
 use Google_Service_Oauth2;
-use Config;
-use Session;
 
 class OAuthController extends Controller
 {
     use HelperTrait;
 
-//    const APP_FB_ID = 1248766955469754;
-//    const APP_FB_SECRET = '3e8727809d6414128a62f932c2dcbae6';
+//    const APP_FB_ID = ;
+//    const APP_FB_SECRET = '';
 //    const URL_FB_CALLBACK = 'fb-callback';
 //    const URL_FB_OAUTH = 'https://www.facebook.com/v8.0/dialog/oauth';
 //    const URL_ACCESS_FB_TOKEN = 'https://graph.facebook.com/v8.0/oauth/access_token';
 //    const URL_GET_FB_ME = 'https://graph.facebook.com/me';
 
-    const APP_VK_ID = 7581103;
-    const APP_VK_SECRET = 'GVUrtBZVuNnDtvNeztDB';
     const URL_VK_CALLBACK = 'vk-callback';
     const URL_VK_OAUTH = 'https://oauth.vk.com/authorize';
     const URL_VK_ACCESS_TOKEN = 'https://oauth.vk.com/access_token';
-
-    const APP_GOOGLE_ID = '814904297218-kbl4lb0v8h02jqkv750uvk51opk0t9t1.apps.googleusercontent.com';
-    const APP_GOOGLE_SECRET = 'l3k2GkB6RtsffmPt1aJ_uoLV';
     const URL_GOOGLE_CALLBACK = 'google-callback';
 
     public $googleClient;
@@ -35,8 +28,8 @@ class OAuthController extends Controller
     public function __construct()
     {
         $this->googleClient = new Google_Client();
-        $this->googleClient->setClientId(self::APP_GOOGLE_ID);
-        $this->googleClient->setClientSecret(self::APP_GOOGLE_SECRET);
+        $this->googleClient->setClientId(env('APP_GOOGLE_ID'));
+        $this->googleClient->setClientSecret(env('APP_GOOGLE_SECRET'));
         $this->googleClient->setRedirectUri(url(self::URL_GOOGLE_CALLBACK));
         $this->googleClient->addScope("email");
         $this->googleClient->addScope("profile");
@@ -54,7 +47,7 @@ class OAuthController extends Controller
     public function oAuthVk()
     {
         return redirect(self::URL_VK_OAUTH.
-            '?client_id='.self::APP_VK_ID.
+            '?client_id='.env('APP_VK_ID').
             '&display=page&redirect_uri='.urlencode(url(self::URL_VK_CALLBACK))
             .'&scope=email&response_type=code&v=5.21', 301);
     }
@@ -100,8 +93,8 @@ class OAuthController extends Controller
             return redirect('/')->with('message',$request->input('error_description'));
 
         $response = json_decode(file_get_contents(self::URL_VK_ACCESS_TOKEN.
-            '?client_id='.self::APP_VK_ID.
-            '&client_secret='.self::APP_VK_SECRET.
+            '?client_id='.env('APP_VK_ID').
+            '&client_secret='.env('APP_VK_SECRET').
             '&redirect_uri='.urlencode(url(self::URL_VK_CALLBACK)).
             '&code='.$request->input('code')));
 
@@ -139,7 +132,7 @@ class OAuthController extends Controller
         }
     }
 
-    private function getUser($fieldName, $userId, $email, $phone, $nick)
+    private function getUser($fieldName, $userId, $email, $phone, $name)
     {
         if ($fieldName && $userId) {
             $userModel = User::where($fieldName,$userId);
@@ -154,11 +147,11 @@ class OAuthController extends Controller
             $user = User::create([
                 $fieldName => $userId,
                 'email' => $email ? $email : '',
-                'nick' => $nick,
+                'name' => $name,
                 'phone' => '',
                 'password' => '',
                 'active' => 1,
-                'type' => 0,
+                'type' => 1,
                 'send_mail' => $email ? 1 : 0
             ]);
         }
@@ -166,7 +159,7 @@ class OAuthController extends Controller
         if (!$user->active) return redirect('/profile')->with('message',trans('auth.your_account_is_blocked'));
         Auth::login($user, true);
 
-        if (!$user->email || !$user->type) return redirect('/profile')->with('message',trans('auth.finish_auth'));
+        if (!$user->email) return redirect('/profile')->with('message',trans('auth.finish_auth'));
         return redirect('/');
     }
 }

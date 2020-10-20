@@ -17,29 +17,18 @@ class User extends Authenticatable
      */
     protected $fillable = [
 //        'fb_id',
-//        'vk_id',
-//        
-//        'email',
-//        'avatar',
-//        'document',
-//        'nick',
-//        'phone',
-//
-//        'name',
-//        'director',
-//        'bank',
-//        'bank_id',
-//        'user_id',
-//        'checking_account',
-//        'correspondent_account',
-//        
-//        'password',
-//        'confirm_token',
-//        'active',
-//        'type',
-//        'confirmed',
-//        'rating',
-//        'send_mail'
+        'vk_id',
+
+        'name',
+        'email',
+        'avatar',
+        'email',
+        'phone',
+        'password',
+        'confirm_token',
+        'type',
+        'active',
+        'send_mail'
     ];
 
     /**

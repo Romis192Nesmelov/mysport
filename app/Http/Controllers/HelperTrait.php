@@ -6,14 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\User;
-use App\Message;
-use App\Contract;
-use App\MyResume;
-use App\ContractDirection;
-use App\ResumeDirection;
-use Carbon\Carbon;
+//use Carbon\Carbon;
 use Illuminate\Support\Facades\Settings;
-use Illuminate\Support\Facades\Auth;
+//use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 
 trait HelperTrait

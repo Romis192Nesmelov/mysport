@@ -5,10 +5,9 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Mail;
+//use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\HelperTrait;
-use Config;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 trait RegistersUsers
 {
