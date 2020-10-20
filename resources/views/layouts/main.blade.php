@@ -101,7 +101,6 @@
                             <span>{{ Auth::user()->email }}</span>
                             <i class="caret"></i>
                         </a>
-
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li><a href="{{ url('/logout') }}"><i class="icon-switch2"></i> {{ trans('auth.logout') }}</a></li>
                         </ul>
@@ -133,7 +132,8 @@
 
         <ul class="breadcrumb-elements">
             @if (Auth::guest())
-                <li><a href="{{ url('login') }}"><i class="icon-enter3 position-left"></i> {{ trans('auth.login').'/'.trans('auth.register') }}</a></li>
+                <li><a href="{{ url('login') }}"><i class="icon-enter3 position-left"></i> {{ trans('auth.login') }}</a></li>
+                <li><a href="{{ url('register') }}"><i class="icon-user-plus position-left"></i> {{ trans('auth.register') }}</a></li>
             @endif
             {{--<li class="dropdown">--}}
                 {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}
@@ -155,13 +155,13 @@
 
     <div class="page-header-content">
         <div class="page-title">
-            <h4>
-                <i class="icon-arrow-left52 position-left"></i>
-                <span class="text-semibold">{{ $lastCrumb ? $lastCrumb : trans('content.home_page') }}</span>
-                @if (!Auth::guest())
-                    <small>{{  Auth::user()->name }}</small>
-                @endif
-            </h4>
+            {{--<h4>--}}
+                {{--<i class="icon-arrow-left52 position-left"></i>--}}
+                {{--<span class="text-semibold">{{ $lastCrumb ? $lastCrumb : trans('content.home_page') }}</span>--}}
+                {{--@if (!Auth::guest())--}}
+                    {{--<small>{{  Auth::user()->name }}</small>--}}
+                {{--@endif--}}
+            {{--</h4>--}}
         </div>
 
         {{--<div class="heading-elements">--}}
