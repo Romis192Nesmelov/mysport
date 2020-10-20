@@ -47,6 +47,7 @@
     <script type="text/javascript" src="{{ asset('js/plugins/pickers/pickadate/legacy.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/pages/picker_date.js') }}"></script>
 
+    <script type="text/javascript" src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/tables/datatables/datatables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/forms/selects/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/media/fancybox.min.js') }}"></script>
@@ -59,12 +60,11 @@
     <script type="text/javascript" src="{{ asset('js/preview_image.js') }}"></script>
     {{--<script type="text/javascript" src="{{ asset('js/pages/picker_color.js') }}"></script>--}}
     <!-- /theme JS files -->
-    <script type="text/javascript" src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+
     <script type="text/javascript" src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
     {{--<script type="text/javascript" src="{{ asset('js/map.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('js/loader.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/edit-employee.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/delete.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/delete.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
 

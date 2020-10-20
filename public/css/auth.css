@@ -1,0 +1,47 @@
+.login-container .page-container {
+    padding: 0;
+}
+
+.content-wrapper {
+    vertical-align: middle;
+}
+
+.content-group-lg {
+    line-height: 1em;
+}
+
+.form-group {
+    margin-bottom: 7px;
+}
+
+.btn {
+    margin-bottom: 5px;
+}
+
+.soc-icons-container {
+    display: table;
+    margin: 10px auto 20px auto;
+}
+
+.soc-icons-container .divider {
+    width: 10px;
+    display: table-cell;
+}
+
+.soc-icon {
+    width: 45px;
+    height: 45px;
+    border: 2px solid #1E88E5;
+    display: table-cell;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.soc-icon:first-child {
+    margin-right: 10px;
+}
+
+.soc-icon i {
+    font-size: 20px;
+}

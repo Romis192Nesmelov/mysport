@@ -18,18 +18,23 @@ class StaticController extends Controller
         return $this->showView('home');
     }
 
-//    public function changeLang(Request $request)
-//    {
-//        $this->validate($request, ['lang' => 'required|in:en,ru']);
-//        setcookie('lang', $request->input('lang'), time()+(60*60*24*365));
-//        return redirect()->back();
-//    }
+    public function changeLang(Request $request)
+    {
+        $this->validate($request, ['lang' => 'required|in:en,ru']);
+        setcookie('lang', $request->input('lang'), time()+(60*60*24*365));
+        return redirect()->back();
+    }
 
     protected function showView($view)
     {
         $this->data['seo'] = Settings::getSeoTags();
 
-//        $mainMenu = [];
+        $mainMenu = [
+            ['href' => 'settings', 'name' => trans('admin.settings'), 'icon' => 'icon-gear'],
+            ['href' => 'settings', 'name' => trans('admin.settings'), 'icon' => 'icon-gear'],
+            ['href' => 'settings', 'name' => trans('admin.settings'), 'icon' => 'icon-gear'],
+            ['href' => 'settings', 'name' => trans('admin.settings'), 'icon' => 'icon-gear'],
+        ];
 //        if (Auth::guest()) {
 //            $mainMenu[] = ['name' => trans('auth.login'), 'modal-data' => 'login'];
 //            $mainMenu[] = ['name' => trans('auth.register'), 'modal-data' => 'register'];
@@ -47,7 +52,7 @@ class StaticController extends Controller
 
         return view($view, [
             'breadcrumbs' => $this->breadcrumbs,
-//            'mainMenu' => $mainMenu,
+            'mainMenu' => $mainMenu,
             'data' => $this->data,
             'metas' => $this->metas
         ]);

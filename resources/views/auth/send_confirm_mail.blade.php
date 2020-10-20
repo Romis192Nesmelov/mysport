@@ -10,7 +10,7 @@
         </div>
 
         @include('_input_block',['name' => 'email', 'type' => 'email', 'placeholder' => 'E-mail', 'icon' => 'icon-user'])
-        @include('auth._re_capcha_block')
+        @include('auth._re_captcha_block')
 
         <div class="form-group">
             @include('_button_block', ['type' => 'submit', 'mainClass' => 'bg-orange-800 btn-block', 'text' => trans('auth.send_confirm_mail'), 'icon' => 'icon-circle-right2 position-right'])

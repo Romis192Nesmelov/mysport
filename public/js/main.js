@@ -1,9 +1,3 @@
-window.activeHover = [];
-window.hoverInterval = null;
-window.criticalResolution = 1024;
-window.menuClickFlag = false;
-window.prevOpenedModal = null;
-
 $(window).ready(function() {
     // Reload page
     // setTimeout(function () {
@@ -18,16 +12,16 @@ $(window).ready(function() {
     //         $('#'+window.openedModal).modal('hide');
     //     }
     // });
-    $(window).resize(function() {
-        singleHeight();
-    });
-    singleHeight();
+    // $(window).resize(function() {
+    //     singleHeight();
+    // });
+    // singleHeight();
 
     // $('.styled').uniform();
-    $('a.img-preview').fancybox({padding: 3});
+    // $('a.img-preview').fancybox({padding: 3});
 
-    window.phoneRegExp = /^((\+)[0-9]{11})$/gi;
-    $('input[name=phone]').mask("+7(999)999-99-99");
+    // window.phoneRegExp = /^((\+)[0-9]{11})$/gi;
+    // $('input[name=phone]').mask("+7(999)999-99-99");
 
     // var sr = ScrollReveal();
     // sr.reveal('.navbar-default', {duration:1000});

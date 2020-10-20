@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Smart Freelancer'),
+    'name' => env('APP_NAME', 'My Sport St.Peterburg'),
 
     /*
     |--------------------------------------------------------------------------
@@ -67,11 +67,11 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://free-ex/'),
+    'url' => env('APP_URL', 'http://mysport/'),
     
     /* Main Title */
 
-    'main_title' => env('MAIN_TITLE', 'Smart Freelancer'),
+    'main_title' => env('MAIN_TITLE', 'My Sport St.Peterburg'),
 
     /*
     |--------------------------------------------------------------------------
@@ -97,7 +97,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
