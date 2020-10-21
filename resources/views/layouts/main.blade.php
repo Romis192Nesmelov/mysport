@@ -15,6 +15,7 @@
     @endforeach
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
     <link href="{{ asset('css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
     {{--<link href="{{ asset('css/icons/fontawesome/styles.min.css') }}" rel="stylesheet" type="text/css">--}}
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css">
@@ -67,7 +68,7 @@
     <script type="text/javascript" src="{{ asset('js/loader.js') }}"></script>
     {{--<script type="text/javascript" src="{{ asset('js/owl.carousel.js') }}"></script>--}}
 {{--    <script type="text/javascript" src="{{ asset('js/preview_image.js') }}"></script>--}}
-    {{--<script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>--}}
+    <script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js?').Helper::randHash() }}"></script>
 </head>
 <body>
@@ -76,7 +77,10 @@
 <!-- Main navbar -->
 <div class="navbar navbar-inverse">
     <div class="navbar-header">
-        <a class="navbar-brand" href="/">{{ $data['seo']['title'] }}</a>
+        <a class="navbar-brand" href="/">
+            <img src="{{ asset('images/logo.svg') }}" alt="{{ $data['seo']['title'] }}">
+            <div>{{ $data['seo']['title'] }}</div>
+        </a>
     </div>
 
     <div class="navbar-collapse collapse" id="navbar-mobile">
@@ -85,7 +89,7 @@
                 <li class="dropdown language-switch">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         <img src="{{ asset('images/'.(App::getLocale() == 'en' ? 'eng' : 'rus').'.png') }}" class="position-left">
-                        {{ App::getLocale() == 'en' ? 'English' : 'Русский' }}
+                        {{ App::getLocale() == 'en' ? trans('content.en') : trans('content.ru') }}
                         <span class="caret"></span>
                     </a>
 
@@ -155,13 +159,11 @@
 
     <div class="page-header-content">
         <div class="page-title">
-            {{--<h4>--}}
-                {{--<i class="icon-arrow-left52 position-left"></i>--}}
-                {{--<span class="text-semibold">{{ $lastCrumb ? $lastCrumb : trans('content.home_page') }}</span>--}}
-                {{--@if (!Auth::guest())--}}
-                    {{--<small>{{  Auth::user()->name }}</small>--}}
-                {{--@endif--}}
-            {{--</h4>--}}
+            <h1>
+                <span class="part1">{{ trans('content.head_part1') }}</span>
+                <span class="part2">{{ trans('content.head_part2') }}</span>
+                <span class="part3">{{ trans('content.head_part3') }}</span>
+            </h1>
         </div>
 
         {{--<div class="heading-elements">--}}
@@ -179,6 +181,7 @@
 <div class="page-container">
     <!-- Page content -->
     <div class="page-content">
+
         <!-- Main sidebar -->
         <div class="sidebar sidebar-main sidebar-default">
             <div class="sidebar-content">
@@ -192,7 +195,6 @@
 
                 <!-- Main navigation -->
                 <div class="sidebar-category sidebar-category-visible">
-
                     <div class="category-content no-padding">
                         <ul class="navigation navigation-main navigation-accordion">
                             <!-- Main -->
@@ -200,36 +202,79 @@
                                 @if ($menu['href'] == '/')
                                     <li><a href="{{ url('/') }}"><i class="{{ $menu['icon'] }}"></i> <span>{{ str_limit($menu['name'], 20) }}</span></a></li>
                                 @else
-                                    <li {{ preg_match('/^('.str_replace('/','\/',$menu['href']).')/', Request::path()) ? 'class=active' : '' }}>
-                                        <a href="{{ url($menu['href']) }}"><i class="{{ $menu['icon'] }}"></i> <span>{{ str_limit($menu['name'], 20) }}</span></a>
-                                        @if (isset($menu['submenu']) && count($menu['submenu']))
-                                            <ul>
-                                                @foreach ($menu['submenu'] as $submenu)
-                                                    <?php
-                                                    $addAttrStr = '';
-                                                    if (isset($submenu['addAttr']) && count($submenu['addAttr']) ) {
-                                                        foreach ($submenu['addAttr'] as $attr => $val) {
-                                                            $addAttrStr .= $attr.'="'.$val.'"';
-                                                        }
-                                                    }
-                                                    ?>
-                                                    <li {{ (preg_match('/^(admin\/'.str_replace('/','\/',$menu['href'].'/'.$submenu['href']).')/', Request::path())) /*|| (Request::path() == 'admin/products' && Request::has('id') && Request::input('id') == (int)str_replace('?id=','',$submenu['href']))*/ ? 'class=active' : '' }}>
-                                                        <a href="{{ url('/admin/'.$menu['href'].'/'.$submenu['href']) }}" {!! $addAttrStr !!}>{{ str_limit($submenu['name'], 20) }}</a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
-                                    </li>
+                                    @include('layouts._menu_item_block', ['menu' => $menu, 'prefix' => null])
                                 @endif
                             @endforeach
+
+                            @if (Helper::isAdmin())
+                                <li class="navigation-header"><span>{{ trans('menu.admin_menu') }}</span> <i class="icon-menu" title="" data-original-title="{{ trans('menu.admin_menu') }}"></i></li>
+                                @foreach ($adminMenu as $menu)
+                                    @include('layouts._menu_item_block', ['menu' => $menu, 'prefix' => 'admin/'])
+                                @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>
                 <!-- /main navigation -->
+                <!-- Calendar -->
+                <hr>
+                <h2 class="panel-heading">{{ trans('content.events_calendar') }}</h2>
+                <div class="panel-body">
+                    <?php $week = 1; ?>
+                    @for($month=1;$month<=12;$month++)
+                        <?php
+                        $weeksOnMonth = 1;
+                        for($d=1;$d<=cal_days_in_month(CAL_GREGORIAN, $month, date('Y'));$d++) {
+                            if ($d > 1 && date('N', strtotime($month.'/'.$d.'/'.date('Y'))) == 1) $weeksOnMonth++;
+                        }
+                        ?>
+                        <table id="month_{{ $month }}" class="calendar single-height {{ $month != date('n') && $month != date('n')+1 ? 'hidden' : ''}}">
+                            <tr>
+                                <th class="arrow backward">
+                                    @if ($month != 1)
+                                        <i class="icon-backward2"></i>
+                                    @endif
+                                </th>
+                                <th colspan="6" class="month">{{ trans('calendar.m'.$month) }}</th>
+                                <th class="arrow forward">
+                                    @if ($month != 12)
+                                        <i class="icon-forward3"></i>
+                                    @endif
+                                </th>
+                            </tr>
+                            <tr>
+                                @for($wd=0;$wd<=7;$wd++)
+                                    <th>{{ $wd ? trans('calendar.d'.$wd) : '' }}</th>
+                                @endfor
+                            </tr>
+                            <?php $day = 0; ?>
+                            @for($w=1;$w<=$weeksOnMonth;$w++)
+                                <tr>
+                                    @for($wd=0;$wd<=7;$wd++)
+                                        @if(!$wd)
+                                            <td><b>{{ $week }}</b></td>
+                                        @else
+                                            <?php if ($w == 1 && $wd == date('N', strtotime($month.'/1/'.date('Y')))) $day = 1; ?>
+                                            <td>
+                                                @if ($day && $day <= cal_days_in_month(CAL_GREGORIAN, $month, date('Y')))
+                                                <?php $incrementWeek = true; ?>
+                                                    {{ $day }}
+                                                @else
+                                                    <?php $incrementWeek = false; ?>
+                                                @endif
+                                            </td>
+                                        @endif
+                                        <?php if ($day && $wd) $day++; ?>
+                                    @endfor
+                                </tr>
+                                <?php if ($incrementWeek) $week++; ?>
+                            @endfor
+                        </table>
+                    @endfor
+                </div>
             </div>
         </div>
         <!-- /main sidebar -->
-
         <!-- Main content -->
         <div class="content-wrapper">
             @yield('content')
@@ -252,7 +297,7 @@
             &copy; 2020. <a href="#" class="navbar-link" target="_blank">{{ trans('content.official_support') }}</a>
         </div>
 
-        <div class="navbar-right">
+        <div class="navbar-right hidden-sm">
             <ul class="nav navbar-nav">
                 <li><a href="/">{{ trans('content.home_page') }}</a></li>
                 @foreach ($mainMenu as $menu)

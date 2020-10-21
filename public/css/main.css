@@ -1,3 +1,97 @@
+.navbar-inverse {
+    background-color: #000635;
+    border-color: #00aaea;
+}
+
+.navbar-brand {
+    width: 160px;
+    padding: 5px 0 5px 20px;
+    color: gainsboro;
+    font-family: 'Rubik', sans-serif;
+}
+
+.navbar-brand > img {
+    height: 30px;
+    float: left;
+}
+
+.navbar-brand > div {
+    float: right;
+    padding-top: 9px;
+}
+
 .dropdown img {
     height: 20px;
+}
+
+.page-title {
+    padding: 20px 0 20px 10px;
+}
+
+.page-title h1 {
+    font-size: 32px;
+    font-family: 'Rubik', sans-serif;
+}
+
+.page-title h1 span {
+    position: relative;
+    margin-left: -5px;
+}
+
+.page-title h1 .part1, .page-title h1 .part2 {
+    text-transform: uppercase;
+}
+
+.page-title h1 .part1, .page-title h1 .part3 {
+    color: #0b88a5;
+}
+
+.page-title h1 .part2 {
+    color: #fe670c;
+}
+
+.sidebar-content h2 {
+    padding: 0;
+    margin-bottom: 0;
+    font-size: 15px;
+    text-align: center;
+    color: #999999;
+}
+
+table.calendar {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+table.calendar tr {
+    border-bottom: 1px solid #999999;
+}
+
+table.calendar .month {
+    color: #999999;
+    font-size: 15px;
+}
+
+table.calendar th,
+table.calendar td {
+    font-size: 11px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.calendar th i {
+    cursor: pointer;
+}
+
+table.calendar th i:hover {
+    color: #999999;
+}
+
+table.calendar td {
+    color: #999999;
+}
+
+table.calendar th,
+table.calendar tr td:first-child {
+    color: black;
 }

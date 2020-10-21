@@ -1,6 +1,12 @@
 <?php
 
-return [    
+return [
+    'head_part1' => 'Мой',
+    'head_part2' => 'Спорт',
+    'head_part3' => 'СПб',
+    
+    'events_calendar' => 'Календарь мероприятий',
+    
     'image' => 'Картинка',
     'link' => 'Ссылка',
     'save' => 'Сохранить',

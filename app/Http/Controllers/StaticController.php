@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+//use Illuminate\Support\Facades\Gate;
+//use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Helper;
 use Illuminate\Support\Facades\Settings;
 
 class StaticController extends Controller
@@ -30,29 +32,24 @@ class StaticController extends Controller
         $this->data['seo'] = Settings::getSeoTags();
 
         $mainMenu = [
-            ['href' => 'settings', 'name' => trans('admin.settings'), 'icon' => 'icon-gear'],
-            ['href' => 'settings', 'name' => trans('admin.settings'), 'icon' => 'icon-gear'],
-            ['href' => 'settings', 'name' => trans('admin.settings'), 'icon' => 'icon-gear'],
-            ['href' => 'settings', 'name' => trans('admin.settings'), 'icon' => 'icon-gear'],
+            ['href' => 'area', 'name' => trans('menu.area'), 'icon' => 'icon-office'],
+            ['href' => 'kind', 'name' => trans('menu.kind_of_sport'), 'icon' => 'icon-accessibility'],
+            ['href' => 'centers', 'name' => trans('menu.sports_centers'), 'icon' => 'icon-city'],
+            ['href' => 'sections', 'name' => trans('menu.sport_sections'), 'icon' => 'icon-power2'],
+            ['href' => 'workouts', 'name' => trans('menu.workouts'), 'icon' => 'icon-location4'],
+            ['href' => 'trainers', 'name' => trans('menu.trainers'), 'icon' => 'icon-trophy3'],
+            ['href' => 'groups', 'name' => trans('menu.age_groups'), 'icon' => 'icon-users4'],
         ];
-//        if (Auth::guest()) {
-//            $mainMenu[] = ['name' => trans('auth.login'), 'modal-data' => 'login'];
-//            $mainMenu[] = ['name' => trans('auth.register'), 'modal-data' => 'register'];
-//            $mainMenu[] = ['name' => trans('menu.terms_of_use'), 'href' => 'terms-of-use'];
-//        } else {
-//            if (count(Auth::user()->contractsCollections) || count(Auth::user()->resumesCollections))
-//                $mainMenu[] = ['name' => trans('content.my_collection'), 'href' => 'collection'];
-//            $mainMenu[] = ['name' => Auth::user()->type == 1 || Auth::user()->type == 3 ? trans('content.my_contracts') : trans('content.contracts'), 'href' => 'contracts'];
-//            $mainMenu[] = ['name' => Auth::user()->type == 2 ? trans('content.my_resumes') : trans('content.resumes'), 'href' => 'resumes'];
-//            if (Auth::user()->type == 2 && count(Auth::user()->exeContracts)) $mainMenu[] = ['name' => trans('content.my_contracts'), 'href' => 'my-contracts'];
-//        }
-//
-//        if (!Auth::guest() && Gate::allows('contracts')) $mainMenu[] = ['name' => trans('menu.payment_details'), 'modal' => 'payment_details'];
-//        if (!Auth::guest() && Auth::user()->type == 1) $mainMenu[] = ['name' => trans('menu.admin_page'), 'href' => 'admin'];
+
+        $adminMenu = [];
+        if (Helper::isAdmin()) {
+            $adminMenu[] = ['href' => 'users', 'name' => trans('menu.admin_users'), 'icon' => 'icon-users2'];
+        }
 
         return view($view, [
             'breadcrumbs' => $this->breadcrumbs,
             'mainMenu' => $mainMenu,
+            'adminMenu' => $adminMenu,
             'data' => $this->data,
             'metas' => $this->metas
         ]);

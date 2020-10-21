@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 //use Illuminate\Http\Request;
-//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 
 class HelperController extends Controller
 {
@@ -19,11 +19,15 @@ class HelperController extends Controller
         $oauth = new OAuthController();
         return $oauth->googleClient->createAuthUrl();
     }
-    
    
     public function valueFormat($value)
     {
         return number_format((int)$value, 0, ',', ' ').'$';
+    }
+    
+    public function isAdmin()
+    {
+        return !Auth::guest() && Auth::user()->type == 4;
     }
 
     public function valueWordsFormat($value)

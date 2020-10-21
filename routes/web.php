@@ -21,8 +21,8 @@ Route::post('/confirm-user', 'Auth\RegisterController@confirmUser');
 //Route::post('/profile', 'UserController@editProfile');
 //Route::post('/profile-delete', 'UserController@deleteProfile');
 
-//Route::get('/fb-oauth', 'OAuthController@oAuthFb');
-//Route::get('/fb-callback', 'OAuthController@fbCallback');
+Route::get('/fb-oauth', 'OAuthController@oAuthFb');
+Route::get('/fb-callback', 'OAuthController@fbCallback');
 
 Route::get('/vk-oauth', 'OAuthController@oAuthVk');
 Route::get('/vk-callback', 'OAuthController@vkCallback');
@@ -44,4 +44,4 @@ Route::get('/google-callback', 'OAuthController@googleCallback');
 //Route::post('/admin/settings', 'AdminController@editSettings');
 
 Route::get('/', 'StaticController@index');
-//Route::get('/change-lang', 'StaticController@changeLang');
+Route::get('/change-lang', 'StaticController@changeLang');

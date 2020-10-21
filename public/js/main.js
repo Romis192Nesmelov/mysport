@@ -1,4 +1,31 @@
 $(window).ready(function() {
+    singleHeight();
+    
+    $('table.calendar th i').click(function () {
+        var thisTable = $(this).parents('table.calendar'),
+            monthNum = parseInt(thisTable.attr('id').replace('month_','')),
+            prevTable = thisTable.prev(),
+            nextTable = thisTable.next();
+
+        if ($(this).hasClass('icon-backward2') && !(monthNum == 2 && prevTable.is(':visible'))) {
+            if (prevTable.is(':hidden')) {
+                prevTable.removeClass('hidden');
+                nextTable.addClass('hidden');
+            } else {
+                prevTable.prev().removeClass('hidden');
+                thisTable.addClass('hidden');
+            }
+        } else if ($(this).hasClass('icon-forward3') && !(monthNum == 11 && nextTable.is(':visible')) ) {
+            if (nextTable.is(':hidden')) {
+                prevTable.addClass('hidden');
+                nextTable.removeClass('hidden');
+            } else {
+                thisTable.addClass('hidden');
+                nextTable.next().removeClass('hidden');
+            }
+        }
+    });
+
     // Reload page
     // setTimeout(function () {
     //     location.reload(true);

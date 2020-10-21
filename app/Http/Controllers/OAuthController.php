@@ -35,14 +35,14 @@ class OAuthController extends Controller
         $this->googleClient->addScope("profile");
     }
     
-//    public function oAuthFb()
-//    {
-//        return redirect(self::URL_FB_OAUTH.
-//            '?client_id='.sprintf('%.0f', self::APP_FB_ID).
-//            '&display=popup'.
-//            '&response_type=token'.
-//            '&redirect_uri='.urlencode(url(self::URL_FB_CALLBACK)), 301);
-//    }
+    public function oAuthFb()
+    {
+        return redirect(self::URL_FB_OAUTH.
+            '?client_id='.sprintf('%.0f', self::APP_FB_ID).
+            '&display=popup'.
+            '&response_type=token'.
+            '&redirect_uri='.urlencode(url(self::URL_FB_CALLBACK)), 301);
+    }
 
     public function oAuthVk()
     {
@@ -52,40 +52,40 @@ class OAuthController extends Controller
             .'&scope=email&response_type=code&v=5.21', 301);
     }
     
-//    public function fbCallback(Request $request)
-//    {
-//        // Пришёл ответ с ошибкой.
-//        if ($request->has('error'))
-//            return redirect('/')->with('message',$request->input('error'));
-//
-//        // Ответ от facebook пришёл удачный:
-//        // Проверка state
-//        if (!$request->has('state')) return redirect('/')->with('message',trans('auth.fb_oauth_err1'));
-//
-//        // Запрос токена
-//        $url = self::URL_ACCESS_FB_TOKEN.
-//            '?client_id='.sprintf('%.0f', self::APP_FB_ID).
-//            '&redirect_uri='.urlencode(url(self::URL_FB_CALLBACK)).
-//            '&client_secret='.self::APP_FB_SECRET.
-//            '&code='.$request->input('code');
-//
-//        $response = json_decode(file_get_contents($url));
-//        if (!isset($response->access_token) || !$response->access_token) return redirect('/')->with('message',trans('auth.fb_oauth_err2'));
-//
-//        // Запрос пользователя
-//        $url = self::URL_GET_FB_ME.
-//            '?access_token='.$response->access_token;
-//        $response = json_decode(file_get_contents($url));
-//        if (!$response) return redirect('/')->with('message',trans('auth.auth_err'));
-//
-//        return $this->getUser(
-//            'fb_id',
-//            $response->id,
-//            (isset($response->email) ? $response->email : null),
-//            null,
-//            (isset($response->name) ? $response->name : null)
-//        );
-//    }
+    public function fbCallback(Request $request)
+    {
+        // Пришёл ответ с ошибкой.
+        if ($request->has('error'))
+            return redirect('/')->with('message',$request->input('error'));
+
+        // Ответ от facebook пришёл удачный:
+        // Проверка state
+        if (!$request->has('state')) return redirect('/')->with('message',trans('auth.fb_oauth_err1'));
+
+        // Запрос токена
+        $url = self::URL_ACCESS_FB_TOKEN.
+            '?client_id='.sprintf('%.0f', self::APP_FB_ID).
+            '&redirect_uri='.urlencode(url(self::URL_FB_CALLBACK)).
+            '&client_secret='.self::APP_FB_SECRET.
+            '&code='.$request->input('code');
+
+        $response = json_decode(file_get_contents($url));
+        if (!isset($response->access_token) || !$response->access_token) return redirect('/')->with('message',trans('auth.fb_oauth_err2'));
+
+        // Запрос пользователя
+        $url = self::URL_GET_FB_ME.
+            '?access_token='.$response->access_token;
+        $response = json_decode(file_get_contents($url));
+        if (!$response) return redirect('/')->with('message',trans('auth.auth_err'));
+
+        return $this->getUser(
+            'fb_id',
+            $response->id,
+            (isset($response->email) ? $response->email : null),
+            null,
+            (isset($response->name) ? $response->name : null)
+        );
+    }
 
     public function vkCallback(Request $request)
     {

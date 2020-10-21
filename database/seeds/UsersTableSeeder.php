@@ -10,10 +10,10 @@ class UsersTableSeeder extends Seeder
         $data = [
             [
                 'email' => 'romis.nesmelov@gmail.com',
-                'phone' => '+79262477725',
+                'phone' => '+7(926)247-77-25',
                 'password' => bcrypt('apg192'),
                 'active' => 1,
-                'type' => 1,
+                'type' => 4,
                 'send_mail' => 1
             ]
         ];
