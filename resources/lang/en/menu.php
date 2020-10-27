@@ -1,14 +1,11 @@
 <?php
 
 return [
-    'area' => 'Area',
-    'kind_of_sport' => 'Kind of sport',
-    'sports_centers' => 'Sports centers',
-    'sport_sections' => 'Sport sections',
-    'workouts' => 'Workouts',
+    'news' => 'News',
+    'map' => 'Map',
+    'events' => 'Sport events',
     'trainers' => 'Trainers',
-    'age_groups' => 'Age groups',
-
-    'admin_menu' => 'Admin menu',
-    'admin_users' => 'Users',
+    'tech_support' => 'Tech support',
+    'my_scheduler' => 'My scheduler',
+    'my_setting' => 'My setting'
 ];

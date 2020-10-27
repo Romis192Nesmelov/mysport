@@ -1,7 +1,7 @@
-<li {{ preg_match('/^('.($prefix ? str_replace('/','\/',$prefix) : '').str_replace('/','\/',$menu['href']).')/', Request::path()) ? 'class=active' : '' }}>
-    <a href="{{ url($prefix.$menu['href']) }}"><i class="{{ $menu['icon'] }}"></i> <span>{{ str_limit($menu['name'], 20) }}</span></a>
+<li class="{{ preg_match('/^('.($prefix ? str_replace('/','\/',$prefix) : '').str_replace('/','\/',$menu['href']).')/', Request::path()) ? 'active' : '' }} {{ isset($menu['submenu']) && count($menu['submenu']) ? 'dropdown mega-menu mega-menu-wide' : '' }}">
+    <a {{ isset($menu['submenu']) && count($menu['submenu']) ? 'class=dropdown-toggle data-toggle=dropdown' : '' }} href="{{ url($prefix.$menu['href']) }}"><i class="{{ $menu['icon'] }}"></i> <span>{{ str_limit($menu['name'], 20) }}</span></a>
     @if (isset($menu['submenu']) && count($menu['submenu']))
-        <ul>
+        <ul class="dropdown-menu width-250">
             @foreach ($menu['submenu'] as $submenu)
                 <?php
                 $addAttrStr = '';

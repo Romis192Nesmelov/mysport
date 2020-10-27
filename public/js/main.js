@@ -1,5 +1,6 @@
 $(window).ready(function() {
     singleHeight();
+    // $('.styled').uniform();
     
     $('table.calendar th i').click(function () {
         var thisTable = $(this).parents('table.calendar'),

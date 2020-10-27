@@ -1089,10 +1089,6 @@ a.badge,
     right: 20px;
   }
 }
-.layout-boxed .page-header .breadcrumb-boxed {
-  padding-left: 20px;
-  padding-right: 20px;
-}
 @media (min-width: 769px) {
   .layout-boxed .page-container,
   .layout-boxed .navbar .navbar-boxed,
@@ -11609,6 +11605,10 @@ body.stop-scrolling {
 .navbar-bottom-xs .fab-menu-bottom-left.reached-bottom,
 .navbar-bottom-xs .fab-menu-bottom-right.reached-bottom {
   bottom: 82px;
+}
+.fab-menu-top-left,
+.fab-menu-bottom-left {
+  left: 20px;
 }
 .fab-menu-top-right,
 .fab-menu-bottom-right {

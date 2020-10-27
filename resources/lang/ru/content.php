@@ -6,6 +6,7 @@ return [
     'head_part3' => 'СПб',
     
     'events_calendar' => 'Календарь мероприятий',
+    'all_news' => 'Все новости',
     
     'image' => 'Картинка',
     'link' => 'Ссылка',
@@ -27,6 +28,15 @@ return [
     'show_by' => 'Показывать по',
     'next' => 'Следующий',
     'previous' => 'Предыдущий',
+
+    'filter_area' => 'Район',
+    'filter_kind_of_sport' => 'Вид спорта',
+    'filter_location_of_sport' => 'Локация для спорта',
+    'filter_spot_organisation' => 'Спорт-организация',
+    'filter_old_group' => 'Возрастная группа',
+    'filter_gender' => 'Пол',
+    'filter_skills_level' => 'Уровень подготовки',
+    'filter_event_type' => 'Тип мероприятия',
     
     'yes' => 'Да',
     'no' => 'Нет',

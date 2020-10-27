@@ -32,13 +32,10 @@ class StaticController extends Controller
         $this->data['seo'] = Settings::getSeoTags();
 
         $mainMenu = [
-            ['href' => 'area', 'name' => trans('menu.area'), 'icon' => 'icon-office'],
-            ['href' => 'kind', 'name' => trans('menu.kind_of_sport'), 'icon' => 'icon-accessibility'],
-            ['href' => 'centers', 'name' => trans('menu.sports_centers'), 'icon' => 'icon-city'],
-            ['href' => 'sections', 'name' => trans('menu.sport_sections'), 'icon' => 'icon-power2'],
-            ['href' => 'workouts', 'name' => trans('menu.workouts'), 'icon' => 'icon-location4'],
-            ['href' => 'trainers', 'name' => trans('menu.trainers'), 'icon' => 'icon-trophy3'],
-            ['href' => 'groups', 'name' => trans('menu.age_groups'), 'icon' => 'icon-users4'],
+            ['href' => 'news', 'name' => trans('menu.news'), 'icon' => 'icon-newspaper'],
+            ['href' => 'map', 'name' => trans('menu.map'), 'icon' => 'icon-location4'],
+            ['href' => 'events', 'name' => trans('menu.events'), 'icon' => ' icon-calendar'],
+            ['href' => 'trainers', 'name' => trans('menu.trainers'), 'icon' => 'icon-trophy3']
         ];
 
         $adminMenu = [];
