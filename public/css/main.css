@@ -1,3 +1,8 @@
+button.big {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
 .table-cell {
     display: table-cell;
     vertical-align: middle;
@@ -105,40 +110,18 @@ ul.news td {
     font-size: 12px;
 }
 
-table.calendar {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-table.calendar tr {
-    border-bottom: 1px solid #999999;
-}
-
-table.calendar .month {
-    color: #999999;
-    font-size: 15px;
-}
-
-table.calendar th,
-table.calendar td {
-    font-size: 11px;
+.framed-image {
+    width: 95px;
+    height: 95px;
     text-align: center;
-    vertical-align: middle;
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid grey;
+    padding: 5px;
+    float: left;
+    margin-right: 15px;
 }
 
-table.calendar th i {
-    cursor: pointer;
-}
-
-table.calendar th i:hover {
-    color: #999999;
-}
-
-table.calendar td {
-    color: #999999;
-}
-
-table.calendar th,
-table.calendar tr td:first-child {
-    color: black;
+.framed-image img {
+    width: 100%;
 }

@@ -6,6 +6,7 @@ return [
     'head_part3' => 'СПб',
     
     'events_calendar' => 'Календарь мероприятий',
+    'sports_events' => 'Спортивные мероприятия',
     'all_news' => 'Все новости',
     
     'image' => 'Картинка',

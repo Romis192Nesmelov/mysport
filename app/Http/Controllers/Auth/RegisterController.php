@@ -23,7 +23,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers, GoogleCapchaTrait;
+    use RegistersUsers, GoogleCaptchaTrait;
 
     /**
      * Where to redirect users after registration.

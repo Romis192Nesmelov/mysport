@@ -4,6 +4,14 @@
     <div class="row">
         <div class="col-md-3 col-sm-4 col-xs-12">
             <div class="panel panel-flat">
+                <div class="panel-body">
+                    @include('_button_block',['text' => trans('menu.to_record'), 'type' => 'button', 'addClass' => 'big'])
+                    @include('_button_block',['text' => trans('menu.create_a_training'), 'type' => 'button', 'addClass' => 'big'])
+                    @include('_button_block',['text' => trans('menu.organize_an_event'), 'type' => 'button', 'addClass' => 'big'])
+                </div>
+            </div>
+
+            <div class="panel panel-flat">
                 <div class="panel-heading">
                     <h2 class="panel-title">{{ trans('content.filtering_by') }}</h2>
                 </div>
@@ -217,8 +225,76 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-9 col-sm-8 col-xs-12">
+
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h2 class="panel-title">{{ trans('content.events_calendar') }}</h2>
+                </div>
+                <div class="panel-body">
+                    @php $week = 36; $year = 2020; @endphp
+                    @for($month=9;$month<=12;$month++)
+                        @php
+                        $weeksOnMonth = 1;
+                        for($d=1;$d<=cal_days_in_month(CAL_GREGORIAN, $month, $year);$d++) {
+                            if ($d > 1 && date('N', strtotime($month.'/'.$d.'/'.$year)) == 1) $weeksOnMonth++;
+                        }
+                        @endphp
+
+                        <div class="col-md-3 col-sm-4 col-xs-12 month">
+                            <div class="panel-heading text-center">
+                                <h5>{{ trans('calendar.m'.$month) }}</h5>
+                            </div>
+                            <table>
+                                <tr>
+                                    @for($wd=0;$wd<=7;$wd++)
+                                        <th>{{ $wd ? trans('calendar.d'.$wd) : '' }}</th>
+                                    @endfor
+                                </tr>
+                                @php $day = 0; @endphp
+                                @for($w=1;$w<=$weeksOnMonth;$w++)
+                                    <tr>
+                                        @for($wd=0;$wd<=7;$wd++)
+                                            @if(!$wd)
+                                                <td><b>{{ $week }}</b></td>
+                                            @else
+                                                @php if ($w == 1 && $wd == date('N', strtotime($month.'/1/'.$year))) $day = 1; @endphp
+                                                <td>
+                                                    @if ($day && $day <= cal_days_in_month(CAL_GREGORIAN, $month, $year))
+                                                        @php $incrementWeek = true; @endphp
+                                                        {{ $day }}
+                                                    @else
+                                                        @php $incrementWeek = false; @endphp
+                                                    @endif
+                                                </td>
+                                            @endif
+                                            @php if ($day && $wd) $day++; @endphp
+                                        @endfor
+                                    </tr>
+                                    @php if ($incrementWeek) $week++; @endphp
+                                @endfor
+                            </table>
+                        </div>
+                    @endfor
+                </div>
+            </div>
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h2 class="panel-title">{{ trans('content.sports_events') }}</h2>
+                </div>
+                <div class="panel-body">
+                    @for ($i=0;$i<4;$i++)
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="panel panel-flat">
+                                <div class="panel-body">
+                                    <div class="framed-image"><img src="{{ asset('images/placeholder.jpg') }}" /></div>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor libero eget lorem eleifend faucibus.
+                                </div>
+                            </div>
+                        </div>
+                    @endfor
+                </div>
+            </div>
+
             <div class="panel panel-flat">
                 <div class="panel-heading">
                     <h2 class="panel-title">{{ trans('menu.map') }}</h2>
