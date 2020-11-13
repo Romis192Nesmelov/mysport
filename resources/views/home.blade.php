@@ -235,7 +235,7 @@
                     @for($month=9;$month<=12;$month++)
                         @php
                         $weeksOnMonth = 1;
-                        for($d=1;$d<=cal_days_in_month(CAL_GREGORIAN, $month, $year);$d++) {
+                        for($d=1;$d<=Helper::getDaysInMonth($month, $year);$d++) {
                             if ($d > 1 && date('N', strtotime($month.'/'.$d.'/'.$year)) == 1) $weeksOnMonth++;
                         }
                         @endphp
@@ -259,7 +259,7 @@
                                             @else
                                                 @php if ($w == 1 && $wd == date('N', strtotime($month.'/1/'.$year))) $day = 1; @endphp
                                                 <td>
-                                                    @if ($day && $day <= cal_days_in_month(CAL_GREGORIAN, $month, $year))
+                                                    @if ($day && $day <= Helper::getDaysInMonth($month, $year))
                                                         @php $incrementWeek = true; @endphp
                                                         {{ $day }}
                                                     @else
