@@ -455,7 +455,7 @@ class ComposerStaticInit36700ca7ce84343aa349dca1a0daa316
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
-        'App\\Http\\Controllers\\Auth\\GoogleCapchaTrait' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/GoogleCapchaTrait.php',
+        'App\\Http\\Controllers\\Auth\\GoogleCaptchaTrait' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/GoogleCaptchaTrait.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',

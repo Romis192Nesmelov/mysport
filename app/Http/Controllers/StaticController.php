@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Gate;
 //use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Helper;
 use Illuminate\Support\Facades\Settings;
 
