@@ -2,14 +2,14 @@
 
 namespace Illuminate\Foundation\Auth;
 
-use App\Http\Controllers\Auth\GoogleCapchaTrait;
+use App\Http\Controllers\Auth\GoogleCaptchaTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 trait AuthenticatesUsers
 {
-    use RedirectsUsers, ThrottlesLogins, GoogleCapchaTrait;
+    use RedirectsUsers, ThrottlesLogins, GoogleCaptchaTrait;
 
     /**
      * Show the application's login form.

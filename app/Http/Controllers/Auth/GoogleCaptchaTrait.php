@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-trait GoogleCapchaTrait
+trait GoogleCaptchaTrait
 {
     public function reCapchaRequest($response)
     {
