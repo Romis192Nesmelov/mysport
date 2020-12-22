@@ -6,6 +6,8 @@ return [
     'head_part3' => 'St.Petersburg',
 
     'events_calendar' => 'Events calendar',
+    'sports_events' => 'Sports events',
+    'all_news' => 'All news',
     
     'image' => 'Image',
     'link' => 'Link',

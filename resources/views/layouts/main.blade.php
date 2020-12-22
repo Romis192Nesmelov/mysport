@@ -28,6 +28,7 @@
     <link href="{{ asset('css/loader.css') }}" rel="stylesheet" type="text/css">
     {{--<link href="{{ asset('css/owl.carousel.min.css') }}" rel="stylesheet" type="text/css">--}}
     {{--<link href="{{ asset('css/owl.theme.default.min.css') }}" rel="stylesheet" type="text/css">--}}
+    <link href="{{ asset('css/calendar.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Core JS files -->
@@ -149,10 +150,10 @@
                 <h1><span class="my">{{ trans('content.head_part1') }}</span>{{ trans('content.head_part2') }}<span class="sptb">{{ trans('content.head_part3') }}</span></h1>
                 <ul class="breadcrumb breadcrumb-caret">
                     <li><a href="{{ url('/') }}"><i class="icon-home2 position-left"></i>{{ trans('content.home_page') }}</a></li>
-                    <?php
+                    @php
                     $bcCounter = 0;
                     $lastCrumb = '';
-                    ?>
+                    @endphp
                     @foreach ($breadcrumbs as $href => $crumb)
                         <?php
                         $bcCounter++;
@@ -196,10 +197,7 @@
     </ul>
 
     <div class="navbar-collapse collapse" id="footer">
-        <div class="navbar-text">
-            &copy; 2020. <a href="#" class="navbar-link" target="_blank">{{ trans('content.official_support') }}</a>
-        </div>
-
+        <div class="navbar-text">&copy; 2020. <a href="#" class="navbar-link" target="_blank">{{ trans('content.official_support') }}</a></div>
         <div class="navbar-right hidden-sm">
             <ul class="nav navbar-nav">
                 <li><a href="/">{{ trans('content.home_page') }}</a></li>

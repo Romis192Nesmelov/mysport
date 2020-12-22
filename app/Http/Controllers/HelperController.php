@@ -30,6 +30,12 @@ class HelperController extends Controller
         return !Auth::guest() && Auth::user()->type == 4;
     }
 
+    public function getDaysInMonth($month, $year)
+    {
+        $daysInMonth = [31,(!($year%4) ? 29 : 28),31,30,31,30,31,31,30,31,30,31];
+        return $daysInMonth[$month-1];
+    }
+
     public function valueWordsFormat($value)
     {
         $mbStrToUpper = function ($str, $encoding = 'UTF8')
