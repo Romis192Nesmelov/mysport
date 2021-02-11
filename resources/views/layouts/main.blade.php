@@ -110,14 +110,7 @@
 
 <div class="container">
     <div class="col-md-4 col-sm-12 col-xs-12 logo-container">
-        <div id="main-logo-container">
-            <img src="{{ asset('images/logo.png') }}" />
-            <h1>
-                <span class="text-green">{{ trans('content.head_part1') }}</span>
-                <span class="text-red">{{ trans('content.head_part2') }}</span>
-                <span class="text-green">{{ trans('content.head_part3') }}</span>
-            </h1>
-        </div>
+        @include('layouts._logo_block',['tagName' => 'h1', 'withSpan' => true])
     </div>
     <div class="col-md-8 col-sm-12 col-xs-12 menu-container">
         <div class="over-menu hidden-xs">
@@ -128,9 +121,7 @@
                         <option value="{{ $k+1 }}">{{ $area }}</option>
                     @endforeach
                 </select>
-                @foreach($socnets as $socnet)
-                    <div class="soc-net"><a href="{{ $socnet['href'] }}" target="_blank"><img src="{{ asset('images/soc_nets/'.$socnet['icon'].'.png') }}" /></a></div>
-                @endforeach
+                @include('layouts._soc_nets_block')
                 <div class="button pull-right red small"><a data-scroll="map">{{ trans('menu.search') }}</a><i class="glyphicon glyphicon-search"></i></div>
             </div>
         </div>
@@ -145,10 +136,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a {{ Request::path() == '/' ? 'class=active' : '' }} href="{{ url('/') }}">{{ trans('content.home_page') }}</a></li>
-                    @foreach($mainMenu as $menu)
-                        <li><a {{ isset($menu['href']) ? 'href='.$menu['href'] : (Request::path() == '/' ? 'data-scroll='.$menu['data_scroll'] : 'href='.url('/#'.$menu['data_scroll'])) }}>{{ $menu['name'] }}</a></li>
-                    @endforeach
+                    @include('layouts._menu_items_block',['menu' => $mainMenu, 'start' => 0, 'end' => count($mainMenu), 'break' => false])
                 </ul>
             </div>
         </nav>
@@ -160,28 +148,6 @@
         </div>
     </div>
 </div>
-
-<!-- Page header -->
-{{--<div class="page-header">--}}
-    {{--<div class="page-header-content">--}}
-        {{--<div class="page-title table">--}}
-            {{--<div class="table-cell"><img width="90" src="{{ asset('images/logo.png') }}" /></div>--}}
-            {{--<div class="table-cell">--}}
-                {{--<h1><span class="my">{{ trans('content.head_part1') }}</span>{{ trans('content.head_part2') }}<span class="sptb">{{ trans('content.head_part3') }}</span></h1>--}}
-
-            {{--</div>--}}
-        {{--</div>--}}
-
-        {{--<div class="heading-elements">--}}
-            {{--<div class="heading-btn-group">--}}
-                {{--<a href="#" class="btn btn-link btn-float has-text"><i class="icon-hammer-wrench text-primary"></i><span>{{ trans('menu.tech_support') }}</span></a>--}}
-                {{--<a href="#" class="btn btn-link btn-float has-text"><i class="icon-calendar2 text-primary"></i> <span>{{ trans('menu.my_scheduler') }}</span></a>--}}
-                {{--<a href="#" class="btn btn-link btn-float has-text"><i class="icon-cogs text-primary"></i> <span>{{ trans('menu.my_setting') }}</span></a>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-{{--</div>--}}
-<!-- /page header -->
 
 <!-- Page container -->
 <div class="page-container">
@@ -198,23 +164,29 @@
 <!-- /page container -->
 
 <!-- Footer -->
-{{--<div class="navbar navbar-default navbar-fixed-bottom footer">--}}
-    {{--<ul class="nav navbar-nav visible-xs-block">--}}
-        {{--<li><a class="text-center collapsed" data-toggle="collapse" data-target="#footer"><i class="icon-circle-up2"></i></a></li>--}}
-    {{--</ul>--}}
-
-    {{--<div class="navbar-collapse collapse" id="footer">--}}
-        {{--<div class="navbar-text">&copy; 2020. <a href="#" class="navbar-link" target="_blank">{{ trans('content.official_support') }}</a></div>--}}
-        {{--<div class="navbar-right hidden-sm">--}}
-            {{--<ul class="nav navbar-nav">--}}
-                {{--<li><a href="/">{{ trans('content.home_page') }}</a></li>--}}
-                {{--@foreach ($mainMenu as $menu)--}}
-                    {{--<li><a href="{{ url($menu['href']) }}">{{ $menu['name'] }}</a></li>--}}
-                {{--@endforeach--}}
-            {{--</ul>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-{{--</div>--}}
+<div class="footer">
+    <div class="container">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            @include('layouts._logo_block',['tagName' => 'div', 'withSpan' => true])
+        </div>
+        <div class="col-md-5 hidden-sm hidden-xs">
+            @php $divider = ceil(count($mainMenu)/2); @endphp
+            <ul class="menu">
+                @include('layouts._menu_items_block',['menu' => $mainMenu, 'start' => 0, 'end' => $divider, 'break' => true])
+            </ul>
+            <ul class="menu">
+                @include('layouts._menu_items_block',['menu' => $mainMenu, 'start' => $divider, 'end' => count($mainMenu), 'break' => true])
+            </ul>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <img id="hooks-logo" src="{{ asset('images/hooks_logo.png') }}" />
+            <div class="copyright">
+                {!! trans('content.footer_text') !!}
+                <div>@include('layouts._soc_nets_block')</div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- /footer -->
 
 </body>

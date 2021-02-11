@@ -16,7 +16,8 @@ body {
     color: #ff7070;
 }
 
-h1 span {
+h1 span,
+.footer .main-logo-container > div span {
     position: relative;
     display: inline-block;
     margin-right: -0.2em;
@@ -161,18 +162,21 @@ select.type1:focus {
     outline:none;
 }
 
-#main-logo-container {
-    height: 156px;
+.main-logo-container {
     display: flex;
     align-items: center;
 }
 
-#main-logo-container > img {
+.logo-container .main-logo-container {
+    height: 156px;
+}
+
+.logo-container .main-logo-container > img {
     width: 100px;
     margin-right: 10px;
 }
 
-#main-logo-container > h1 {
+.logo-container .main-logo-container > h1 {
     font-size: 30px;
     line-height: 1.2em;
 }
@@ -202,13 +206,13 @@ select.type1:focus {
     padding: 15px 10px;
 }
 
-.navbar-default .navbar-nav > li > a:hover {
+a:hover {
     background: none;
-    color: #ff7070;
+    color: #ff7070 !important;
 }
 
-.navbar-default .navbar-nav > li > a.active {
-    color: #ff7070;
+a.active {
+    color: #ff7070 !important;
 }
 
 #main-slider {
@@ -216,6 +220,85 @@ select.type1:focus {
     height: 550px;
     background: url("../images/slide1.jpg") center center no-repeat;
     background-size: cover;
+}
+
+
+
+.footer {
+    width: 100%;
+    padding: 30px 0;
+    background-color: #dbe2ea;
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+}
+
+.footer .main-logo-container {
+    height: 73px;
+}
+
+.footer .main-logo-container > img {
+    width: 90px;
+    margin-right: 10px;
+}
+
+.footer .main-logo-container > div {
+    font-size: 30px;
+}
+
+.footer ul.menu {
+    list-style-type: none;
+    margin-bottom: 0;
+    float: left;
+}
+
+.footer ul.menu > li {
+    margin-top: 5px;
+}
+
+.footer ul.menu > li:first-child {
+    margin-top: 0;
+}
+
+.footer ul.menu > li > a {
+    text-transform: uppercase;
+    color: black;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+}
+
+#hooks-logo {
+    width: 80px;
+    float: left;
+}
+
+.footer .copyright {
+    width: calc(100% - 100px);
+    float: left;
+    margin-left: 20px;
+    line-height: 1.2em;
+    text-transform: uppercase;
+}
+
+.footer .copyright > div {
+    display: table;
+    margin-top: 7px;
+}
+
+.footer .copyright .soc-net {
+    width: 24px;
+    margin-left: 5px;
+}
+
+.footer .copyright .soc-net:last-child {
+    margin-left: 0;
+}
+
+@media screen and (max-width: 1300px) {
+    #main-slider {
+        height: 400px;
+    }
 }
 
 @media screen and (max-width: 1200px) {
@@ -245,6 +328,18 @@ select.type1:focus {
         width: 25px;
         margin-left: 5px;
     }
+
+    .footer .main-logo-container > div {
+        font-size: 27px;
+    }
+
+    .footer .copyright {
+        font-size: 12px;
+    }
+
+    .footer .copyright .soc-net {
+        width: 20px;
+    }
 }
 
 @media screen and (max-width: 1024px) {
@@ -252,10 +347,14 @@ select.type1:focus {
         width: 100%;
     }
 
-    #main-logo-container {
+    .logo-container .main-logo-container {
         padding-top: 15px;
         justify-content: center;
         height: auto;
+    }
+
+    #main-slider {
+        height: 300px;
     }
 }
 
@@ -277,6 +376,11 @@ select.type1:focus {
         margin: auto;
     }
 
+    .logo-container,
+    .menu-container {
+        padding: 0;
+    }
+
     .navbar-header {
         padding: 3px 0;
         text-align: center;
@@ -293,7 +397,47 @@ select.type1:focus {
 
     .button {
         float: none;
-        margin: 0 auto 12px auto;
+        margin: 0 auto 12px auto !important;
+    }
+
+    #main-slider {
+        height: 250px;
+    }
+
+    .footer .col-xs-12 {
+        margin-bottom: 15px;
+    }
+
+    #hooks-logo {
+        width: 70px;
+        margin-left: 10px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #main-slider {
+        height: 200px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .main-logo-container > img {
+        width: 50px;
+    }
+
+    #main-slider {
+        height: 150px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .logo-container .main-logo-container > h1,
+    .footer .main-logo-container > div {
+        font-size: 20px;
+    }
+
+    #main-slider {
+        height: 120px;
     }
 }
 
@@ -306,5 +450,13 @@ select.type1:focus {
 
     .navbar-right .navbar-nav > li.button a {
         font-size: 12px;
+    }
+
+    #main-slider {
+        height: 100px;
+    }
+
+    .footer .main-logo-container > div {
+        font-size: 15px;
     }
 }
