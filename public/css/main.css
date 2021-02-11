@@ -1,127 +1,310 @@
-button.big {
-    width: 100%;
-    margin-bottom: 10px;
+body {
+    font-family: 'Rubik', sans-serif;
+    padding: 0;
+    margin: 0;
 }
 
-.table-cell {
-    display: table-cell;
-    vertical-align: middle;
-    padding: 5px;
+.page-container {
+    padding: 20px 0;
 }
 
-.simple-radio {
-    font-size: 12px;
-    font-weight: bold;
-    margin-right: 10px;
+.text-green {
+    color: #087fae;
 }
 
-.simple-radio .choice {
-    margin-right: 10px;
+.text-red {
+    color: #ff7070;
 }
 
-.simple-radio i {
-    font-size: 20px;
-    margin-right: 5px;
+h1 span {
+    position: relative;
+    display: inline-block;
+    margin-right: -0.2em;
 }
 
 .navbar-inverse {
     background-color: #000635;
-    border-color: #00aaea;
+    padding: 0;
+}
+
+.button {
+    min-width: 275px;
+    padding: 5px 0 4px 0;
+    border-radius: 12px;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    float: left;
+    background-color: #087fae;
+}
+
+.button.small {
+    min-width: 150px;
+}
+
+.line-menu .button.pull-right {
+    margin: 0 20px;
+}
+
+.line-menu .button.pull-left {
+    margin: 0 10px;
+}
+
+.button a {
+    color: inherit;
+}
+
+.button i {
+    margin-left: 5px;
+}
+
+.soc-net {
+    width: 31px;
+    height: 31px;
+    float: right;
+    margin-left: 10px;
+}
+
+.soc-net img {
+    width: 100%;
+}
+
+.navbar-inverse .navbar-logo {
+    min-width: 185px;
+}
+
+.navbar-right .navbar-nav {
+    margin-left: 0;
+}
+
+.navbar-right .navbar-nav > li.button {
+    margin-top: 12px;
+    margin-left: 20px;
+}
+
+.button.green {
+    background-color: #13a28a;
+}
+
+.button.red {
+    background-color: #ff7070;
+}
+
+.button.gray1 {
+    background-color: #7c9bbe;
+}
+
+.button.gray2 {
+    background-color: #756e85;
+}
+
+.navbar-nav > li.button > a {
+    padding: 0;
 }
 
 .navbar-brand {
-    width: 160px;
-    padding: 5px 0 5px 20px;
+    padding: 7px 0;
+    margin-left: 0 !important;
     color: gainsboro;
-    font-family: 'Rubik', sans-serif;
 }
 
 .navbar-brand > img {
-    height: 30px;
+    height: 35px;
     float: left;
 }
 
 .navbar-brand > div {
     float: right;
+    font-size: 16px;
+    margin-left: 15px;
     padding-top: 9px;
 }
 
 .dropdown img {
-    height: 20px;
+    height: 25px;
 }
 
-/*.page-title {*/
-    /*padding: 20px 0 20px 10px;*/
-/*}*/
-
-.page-header .page-title h1 {
-    font-size: 32px;
-    font-family: 'Rubik', sans-serif;
-    color: #fe670c;
+.logo-container {
+    padding-left: 0;
 }
 
-.page-header .page-title h1 i {
-    color: grey;
+.menu-container {
+    padding-right: 0;
+    padding-top: 10px;
 }
 
-.page-header .page-title h1 span.my {
-    color: #0b88a5;
-    font-weight: normal;
+.over-menu {
+    width: 100%;
+    padding: 15px 10px;
+    margin: auto;
+    border-bottom: 1px solid black;
 }
 
-.page-header .page-title h1 span.sptb {
-    color: lightgrey;
-    font-size: 30px;
-    font-weight: normal;
+.line-menu {
+    display: table;
+    margin: auto;
+    font-size: 15px;
+    color: #087fae;
 }
 
-.sport-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 4px;
-    border: 1px solid #000635;
+.line-menu:first-child {
+    font-size: 17px;
+}
+
+select.type1,
+select.type1:focus {
+    padding: 5px;
+    border: none;
+    border-bottom: 1px solid #ff7070;
+    background: none;
+    color: #13a28a;
+    outline:none;
+}
+
+#main-logo-container {
+    height: 156px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    float: left;
-    margin-right: 5px;
-    color: #000635;
-    cursor: pointer;
 }
 
-ul.news li {
-    list-style-type: none;
-    font-size: 12px;
-    margin-bottom: 5px;
+#main-logo-container > img {
+    width: 100px;
+    margin-right: 10px;
 }
 
-ul.news td {
-    vertical-align: top;
-    padding: 5px;
+#main-logo-container > h1 {
+    font-size: 30px;
+    line-height: 1.2em;
 }
 
-.news-date {
-    font-size: 16px;
-    font-weight: bold;
-    color: grey;
+.navbar-default {
+    background: none;
+    border: none;
+    min-height: 0;
+    padding: 0;
 }
 
-.news-date.in-line {
-    font-size: 12px;
+.navbar-default .navbar-nav {
+    display: table;
+    float: none;
+    margin: auto;
 }
 
-.framed-image {
-    width: 95px;
-    height: 95px;
-    text-align: center;
-    overflow: hidden;
-    border-radius: 5px;
-    border: 1px solid grey;
-    padding: 5px;
-    float: left;
-    margin-right: 15px;
+.navbar-default .navbar-collapse {
+    margin: 0;
 }
 
-.framed-image img {
+.navbar-default .navbar-nav > li > a {
+    text-transform: uppercase;
+    color: black;
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    padding: 15px 10px;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    background: none;
+    color: #ff7070;
+}
+
+.navbar-default .navbar-nav > li > a.active {
+    color: #ff7070;
+}
+
+#main-slider {
     width: 100%;
+    height: 550px;
+    background: url("../images/slide1.jpg") center center no-repeat;
+    background-size: cover;
+}
+
+@media screen and (max-width: 1200px) {
+    .navbar-default .navbar-nav > li > a {
+        font-size: 14px;
+        letter-spacing: 0;
+    }
+
+    .button {
+        min-width: 250px;
+        font-size: 14px;
+    }
+
+    .button.small {
+        min-width: 120px;
+    }
+
+    .line-menu .button.pull-right {
+        margin: 0 5px;
+    }
+
+    .line-menu .button.pull-left {
+        margin: 0 5px;
+    }
+
+    .soc-net {
+        width: 25px;
+        margin-left: 5px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .navbar-inverse .container {
+        width: 100%;
+    }
+
+    #main-logo-container {
+        padding-top: 15px;
+        justify-content: center;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 945px) {
+    .navbar-inverse .navbar-logo {
+        display: none;
+    }
+
+    .navbar-right {
+        display: table;
+        float: none !important;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .dropdown.language-switch {
+        display: table;
+        margin: auto;
+    }
+
+    .navbar-header {
+        padding: 3px 0;
+        text-align: center;
+    }
+
+    .navbar-toggle {
+        width: 100%;
+        padding: 3px 0;
+        float: none;
+        margin: auto;
+        background-color: #13a28a;
+        color: white;
+    }
+
+    .button {
+        float: none;
+        margin: 0 auto 12px auto;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .navbar-right .navbar-nav > li.button {
+        min-width: calc(100% - 5px);
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .navbar-right .navbar-nav > li.button a {
+        font-size: 12px;
+    }
 }

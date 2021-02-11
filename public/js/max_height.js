@@ -1,11 +1,11 @@
 function singleHeight() {
-    var singleHeight = [
-        $('.single-height')
-    ];
-
-    $.each(singleHeight, function (k,obj) {
-        maxHeight(obj);
-    });
+//     var singleHeight = [
+//         $('.single-height')
+//     ];
+//
+//     $.each(singleHeight, function (k,obj) {
+//         maxHeight(obj);
+//     });
 }
 
 function maxHeight(objects,exceptClassName) {

@@ -12,7 +12,7 @@ class StaticController extends Controller
     use HelperTrait;
 
     protected $data = [];
-    protected $breadcrumbs = [];
+//    protected $breadcrumbs = [];
 
     public function index()
     {
@@ -30,22 +30,37 @@ class StaticController extends Controller
     {
         $this->data['seo'] = Settings::getSeoTags();
 
-        $mainMenu = [
-            ['href' => 'news', 'name' => trans('menu.news'), 'icon' => 'icon-newspaper'],
-            ['href' => 'map', 'name' => trans('menu.map'), 'icon' => 'icon-location4'],
-            ['href' => 'events', 'name' => trans('menu.events'), 'icon' => ' icon-calendar'],
-            ['href' => 'trainers', 'name' => trans('menu.trainers'), 'icon' => 'icon-trophy3']
+        $topMenu = [
+            ['href' => '#', 'name' => trans('menu.blind_version')],
+            ['href' => '#', 'name' => trans('menu.login_register'), 'addClass' => 'green'],
         ];
 
-        $adminMenu = [];
-        if (Helper::isAdmin()) {
-            $adminMenu[] = ['href' => 'users', 'name' => trans('menu.admin_users'), 'icon' => 'icon-users2'];
+        $mainMenu = [
+            ['data_scroll' => 'news', 'name' => trans('menu.news')],
+            ['data_scroll' => 'events', 'name' => trans('menu.events')],
+            ['data_scroll' => 'map', 'name' => trans('menu.map')],
+            ['data_scroll' => 'trainers', 'name' => trans('menu.trainers')]
+        ];
+        
+        $areas = [];
+        for ($i=1;$i<=18;$i++) {
+            $areas[] = trans('areas.area'.$i);
         }
+        
+        $socnets = [
+            ['icon' => 'yt', 'href' => '#'],
+            ['icon' => 'fb', 'href' => '#'],
+            ['icon' => 'inst', 'href' => '#'],
+            ['icon' => 'ok', 'href' => '#'],
+            ['icon' => 'vk', 'href' => '#']
+        ]; 
 
         return view($view, [
-            'breadcrumbs' => $this->breadcrumbs,
+//            'breadcrumbs' => $this->breadcrumbs,
+            'topMenu' => $topMenu,
             'mainMenu' => $mainMenu,
-            'adminMenu' => $adminMenu,
+            'areas' => $areas,
+            'socnets' => $socnets,
             'data' => $this->data,
             'metas' => $this->metas
         ]);
