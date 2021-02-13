@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-//use Illuminate\Support\Facades\Gate;
+use App\News;
+use App\KindOfSport;
+use App\Trainer;
 //use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Helper;
+//use Illuminate\Support\Facades\Helper;
 use Illuminate\Support\Facades\Settings;
 
 class StaticController extends Controller
@@ -16,6 +18,9 @@ class StaticController extends Controller
 
     public function index()
     {
+        $this->data['news'] = News::where('active',1)->orderBy('id','desc')->get();
+        $this->data['sports'] = KindOfSport::where('active',1)->get();
+        $this->data['trainers'] = Trainer::where('active',1)->where('best',1)->get();
         return $this->showView('home');
     }
 

@@ -36,5 +36,26 @@ return [
     'head' => 'Заголовок',
     'name' => 'Название',
 
+    'triple_block_text1' => 'Запишитесь на тренировку по видам спорта и площадкам',
+    'triple_block_text2' => 'Узнайте, какой вид спорта вам подходит',
+    'triple_block_text3' => 'Найти тренера для занятий спортом',
+
+    'triple_block_button_text1' => 'Площадки<br>рядом',
+    'triple_block_button_text2' => 'Пройти<br>тестирование',
+    'triple_block_button_text3' => 'Места для занятий<br>с тренером рядом',
+
+    'sports_events_poster' => 'Афиша спортивных<br>событий <span>Санкт-Петербурга</span>',
+    'all_events' => 'Все мероприятия',
+    'the_calendar_of_sports_events' => 'Календарь<br>мероприятий',
+    'sports_news' => 'Спортивные новости<br><span>Санкт-Петербурга</span>',
+    'read_all_news' => 'Читать все новости',
+    'kind_of_sport' => 'Виды спорта<br><span>Санкт-Петербурга</span>',
+    'open_all_kind_of_sport' => 'Открыть все виды спорта',
+    'sport_map' => 'Карта спортивных объектов<br><span>Санкт-Петербурга</span>',
+    'best_trainers' => 'Лучшие тренеры<br><span>Санкт-Петербурга</span>',
+    'show_all_trainers' => 'Показать всех тренеров',
+    'trainer_section' => 'Секция: :section',
+    'created_with_support' => 'Сайт создан<br>при поддержке',
+    
     'footer_text' => '© 2020 Комитет по физической<br>культуре и спорту<br>Санкт-Петербурга'
 ];

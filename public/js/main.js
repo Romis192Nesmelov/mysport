@@ -14,25 +14,48 @@ $(window).ready(function() {
     // $('input[name=phone]').mask("+7(999)999-99-99");
     
     // Owlcarousel
-    // var owlCarousel = $('.owl-carousel');
-    // owlCarousel.owlCarousel({
-    //     margin: 20,
-    //     loop: true,
-    //     nav: true,
-    //     autoplay: true,
-    //     responsive: {
-    //         0: {
-    //             items: 1
-    //         },
-    //         729: {
-    //             items: 2
-    //         },
-    //         1200: {
-    //             items: 3
-    //         }
-    //     },
-    //     navText : ['<i class="fa fa-angle-left" aria-hidden="true"></i>','<i class="fa fa-angle-right" aria-hidden="true"></i>']
-    // });
+    var navButton1 = '<img src="/images/arrow_left.svg" />',
+        navButton2 = '<img src="/images/arrow_right.svg" />';
+
+    $('.owl-carousel.sports').owlCarousel({
+        margin: 10,
+        loop: true,
+        nav: true,
+        autoplay: true,
+        dots: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            729: {
+                items: 3
+            },
+            1200: {
+                items: 4
+            }
+        },
+        navText:[navButton1,navButton2]
+    });
+
+    $('.owl-carousel.trainers').owlCarousel({
+        margin: 20,
+        loop: true,
+        nav: true,
+        autoplay: false,
+        dots: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            729: {
+                items: 3
+            },
+            1200: {
+                items: 4
+            }
+        },
+        navText:[navButton1,navButton2]
+    });
 
     // Scroll menu
     $('a[data-scroll]').click(function (e) {
