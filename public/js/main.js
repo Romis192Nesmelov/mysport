@@ -1,10 +1,10 @@
-$(window).ready(function() {
-    // singleHeight();
+$(document).ready(function() {
+    unifiedHeight();
     // $('.styled').uniform();
     
-    // $(window).resize(function() {
-    //     singleHeight();
-    // });
+    $(window).resize(function() {
+        unifiedHeight();
+    });
     // singleHeight();
 
     // $('.styled').uniform();

@@ -70,7 +70,7 @@
     <script type="text/javascript" src="{{ asset('js/loader.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/owl.carousel.js') }}"></script>
     {{--<script type="text/javascript" src="{{ asset('js/preview_image.js') }}"></script>--}}
-    {{--<script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>--}}
+    <script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js?').Helper::randHash() }}"></script>
 </head>
 <body>

@@ -32,14 +32,25 @@
     <div class="section" data-scroll-destination="events">
         <a name="events"></a>
         <div class="container">
-                @include('_header_block', [
-                    'tagName' => 'h1',
-                    'icon' => 'icon_sports_events',
-                    'head' => trans('content.sports_events_poster'),
-                    'button' => ['class' => '', 'href' => 'events', 'text' => trans('content.all_events')]
-                ])
+            @include('_header_block', [
+                'tagName' => 'h1',
+                'icon' => 'icon_sports_events',
+                'head' => trans('content.sports_events_poster'),
+                'button' => ['class' => '', 'href' => 'events', 'text' => trans('content.all_events')]
+            ])
+            <div class="col-md-3 col-sm-3 col-xs-12 event">
 
-
+            </div>
+            @foreach($data['events'] as $k => $event)
+                <div class="col-md-3 col-sm-3 col-xs-12 event">
+                    <div class="button green">{{ date('j',$event->time).' '.trans('months.'.date('m',$event->time)).' '.date('Y',$event->time).' '.date('G:i',$event->time) }}</div>
+                    <h3>{{ $event['name_'.App::getLocale()] }}</h3>
+                    <p>{{ $event['description_'.App::getLocale()] }}</p>
+                </div>
+            @endforeach
+            <div class="col-md-6 col-sm-6 col-xs-12 event">
+                <div class="banner"><img src="{{ asset('images/banner3.jpg') }}" /></div>
+            </div>
         </div>
     </div>
 
