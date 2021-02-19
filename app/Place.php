@@ -3,20 +3,17 @@
 namespace App;
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class Place extends Model
 {
     protected $fillable = [
-        'time',
-        'name_ru',
         'description_ru',
-        'name_en',
         'description_en',
         'latitude',
         'longitude',
         'active',
-        
+
         'area_id',
-        'trainer_id',
+        'sport_id'
     ];
 
     public function area()
@@ -24,8 +21,8 @@ class Event extends Model
         return $this->belongsTo('App\Area');
     }
 
-    public function trainer()
+    public function sports()
     {
-        return $this->belongsTo('App\Area');
+        return $this->hasMany('App\Sport');
     }
 }

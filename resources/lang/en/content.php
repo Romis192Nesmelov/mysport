@@ -35,6 +35,10 @@ return [
 
     'head' => 'Head',
     'name' => 'Name',
+    
+    'sports_grounds' => 'Sports grounds',
+    'sections' => 'Sports sections',
+    'organizations' => 'Sports organizations',
 
     'triple_block_text1' => 'Sign up for a raining session by sport and sports ground',
     'triple_block_text2' => 'Find out which sport is right for you',
@@ -56,6 +60,10 @@ return [
     'show_all_trainers' => 'Show all trainers',
     'trainer_section' => 'Kind of sport: :section',
     'created_with_support' => 'Site created<br>with the support',
+    'select_the_area' => 'Select the area:',
+    'not_select_the_area' => 'An area isn\'t selected',
+    'select_the_kind_of_sport' => 'Select the kind of sport',
+    'not_select_the_kind_of_sport' => 'A kind of sport isn\'t selected',
 
     'footer_text' => '© 2020 Committee for<br>Physical Culture and Sports<br>of St. Petersburg'
 ];

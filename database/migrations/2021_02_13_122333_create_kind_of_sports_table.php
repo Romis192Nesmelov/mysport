@@ -17,7 +17,7 @@ class CreateKindOfSportsTable extends Migration
             $table->bigIncrements('id');
             $table->string('icon');
             $table->string('name_ru');
-            $table->string('name_en');
+            $table->string('name_en')->nullable();
             $table->boolean('active');
             $table->timestamps();
         });

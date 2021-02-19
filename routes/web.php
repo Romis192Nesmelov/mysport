@@ -45,3 +45,4 @@ Route::get('/google-callback', 'OAuthController@googleCallback');
 
 Route::get('/', 'StaticController@index');
 Route::get('/change-lang', 'StaticController@changeLang');
+Route::post('/find-points', 'StaticController@findPoints');

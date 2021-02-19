@@ -11,6 +11,5 @@ return [
     'to_record' => 'To record',
     'create_a_training' => 'Create a training',
     'organize_an_event' => 'Organize an event',
-    'select_area' => 'Select area:',
     'search' => 'Search',
 ];

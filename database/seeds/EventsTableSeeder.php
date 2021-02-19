@@ -1,10 +1,15 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Area;
 use App\Event;
+use App\Trainer;
+use App\Http\Controllers\HelperTrait;
 
 class EventsTableSeeder extends Seeder
 {
+    use HelperTrait;
+
     public function run()
     {
         $day = 0;
@@ -44,15 +49,18 @@ class EventsTableSeeder extends Seeder
                 ]
             ];
 
-        for ($i=0;$i<rand(10,30);$i++) {
-            $month = date('n')+($i < 5 ? $i : ceil($i/3));
+        $areas = Area::pluck('id')->toArray();
+        $trainers = Trainer::pluck('id')->toArray();
+
+        for ($i=0;$i<100;$i++) {
+            $areaId = $areas[rand(0,count($areas)-1)];
+            $month = date('n')+(ceil($i/10));
             $day = $day > cal_days_in_month(CAL_GREGORIAN,$month,2021) ? 1 : $day+1;
             $hour = $hour > 22 ? 8 : $hour+1;
             $halfHour = rand(1,50) > 25 ? '30' : '00';
             $contentCounter++;
             $contentCounter = $contentCounter > count($content)-1 ? 0 : $contentCounter;
-            $latitude = 55 + (rand(570000,900000) / 1000000);
-            $longitude = 37 + (rand(390000,830000) / 1000000);
+            list($latitude,$longitude) = $this->getRandomCoordinates($areaId);
 
             Event::create(
                 [
@@ -63,7 +71,9 @@ class EventsTableSeeder extends Seeder
                     'description_en' => $content[$contentCounter]['description_en'],
                     'latitude' => $latitude,
                     'longitude' => $longitude,
-                    'active' => 1
+                    'active' => 1,
+                    'area_id' => $areaId,
+                    'trainer_id' => $trainers[rand(0,count($trainers)-1)]
                 ]
             );
         }

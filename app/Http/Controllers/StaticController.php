@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\News;
 use App\KindOfSport;
 use App\Trainer;
+use App\Area;
 use App\Event;
 //use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Helper;
@@ -22,7 +23,8 @@ class StaticController extends Controller
         $this->data['news'] = News::where('active',1)->orderBy('id','desc')->limit(3)->get();
         $this->data['sports'] = KindOfSport::where('active',1)->get();
         $this->data['trainers'] = Trainer::where('active',1)->where('best',1)->get();
-        $this->data['events'] = Event::where('active',1)->orderBy('time','desc')->limit(5)->get();
+        $this->data['events'] = Event::where('active',1)->get();
+        $this->data['points'] = $this->findSport();
         return $this->showView('home');
     }
 
@@ -31,6 +33,21 @@ class StaticController extends Controller
         $this->validate($request, ['lang' => 'required|in:en,ru']);
         setcookie('lang', $request->input('lang'), time()+(60*60*24*365));
         return redirect()->back();
+    }
+    
+    public function findPoints(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'points' => $this->findSport(
+                $request->input('area_id'),
+                $request->input('kind_of_sport'),
+                $request->input('events'),
+                $request->input('organizations'),
+                $request->input('sections'),
+                $request->input('places')
+            )
+        ]);
     }
 
     protected function showView($view)
@@ -49,11 +66,7 @@ class StaticController extends Controller
             ['data_scroll' => 'trainers', 'name' => trans('menu.trainers')]
         ];
         
-        $areas = [];
-        for ($i=1;$i<=18;$i++) {
-            $areas[] = trans('areas.area'.$i);
-        }
-        
+        $areas = Area::where('active',1)->get();
         $socnets = [
             ['icon' => 'yt', 'href' => '#'],
             ['icon' => 'fb', 'href' => '#'],

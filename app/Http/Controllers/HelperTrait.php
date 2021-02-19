@@ -5,7 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\User;
+use App\Area;
+use App\KindOfSport;
+use App\Event;
+use App\Organization;
+use App\Section;
+use App\Place;
+//use App\User;
 //use Carbon\Carbon;
 use Illuminate\Support\Facades\Settings;
 //use Illuminate\Support\Facades\Auth;
@@ -19,6 +25,7 @@ trait HelperTrait
     public $validationCoordinates = 'required|regex:/^(\d{2}\.\d{5,6})$/';
     public $validationDate = 'required|regex:/^(((\d){2}\.){2}(\d){4})$/';
     public $validationImage = 'image|min:5|max:5000';
+    public $validationArea = 'required|integer|exists:areas,id';
     public $metas = [
         'meta_description' => ['name' => 'description', 'property' => false],
         'meta_keywords' => ['name' => 'keywords', 'property' => false],
@@ -117,6 +124,83 @@ trait HelperTrait
     {
         $fullPath = base_path('public/'.$path.$table[$file]);
         if (isset($table[$file]) && $table[$file] && file_exists($fullPath)) unlink($fullPath);
+    }
+
+    public function findSport($areaId=null,$kindOfSport=null,$events=1,$organizations=1,$sections=1,$places=1)
+    {  
+        $eventsPoints = $events ? $this->getPoints(new Event(),$areaId,false) : null;
+        $organizationsPoints = $organizations ? $this->getPoints(new Organization(),$areaId,false) : null;
+        $sectionsPoints = $sections ? $this->getPoints(new Section(),$areaId,$kindOfSport) : null;
+        $placesPoints = $places ? $this->getPoints(new Place(),$areaId,false) : null;
+
+        $organizationsPoints = $this->cutLeftPoints($organizationsPoints, 'sections', $kindOfSport);
+        $placesPoints = $this->cutLeftPoints($placesPoints, 'sports', $kindOfSport);
+        
+        return [
+            'events' => $eventsPoints,
+            'organizations' => $organizationsPoints,
+            'sections' => $sectionsPoints,
+            'places' => $placesPoints
+        ];
+    }
+
+    private function getPoints(Model $model, $areaId, $kindOfSport)
+    {
+        $model = $model->where('active',1);
+        if ($areaId) $model = $model->where('area_id',$areaId);
+        if ($kindOfSport) $model = $model->where('kind_of_sport_id',$kindOfSport);
+        return $model->get();
+    }
+
+    private function cutLeftPoints($points, $subItems, $kindOfSport)
+    {
+        if ($points && $kindOfSport) {
+            $matches = false;
+            for ($i=0;$i<count($points);$i++) {
+                foreach ($points[$i]->$subItems as $item) {
+                    if ($item->kind_of_sport_id == $kindOfSport) {
+                        $matches = true;
+                        break;
+                    }
+                }
+                if (!$matches) unset($points[$i]);
+            }
+        }
+        return $points;
+    }
+    
+    public function getRandomCoordinates($areaId)
+    {
+        $areaId--;
+        $areasCoords = [
+            ['latitude' => 59.916825,'longitude' => 30.297542],
+            ['latitude' => 59.941425,'longitude' => 30.248045],
+            ['latitude' => 60.050448,'longitude' => 30.328696],
+            ['latitude' => 59.997685,'longitude' => 30.396824],
+            ['latitude' => 59.876391,'longitude' => 30.257603],
+            ['latitude' => 59.775082,'longitude' => 30.595792],
+            ['latitude' => 59.964458,'longitude' => 30.460398],
+            ['latitude' => 59.790793,'longitude' => 30.121823],
+            ['latitude' => 60.013056,'longitude' => 29.714374],
+            ['latitude' => 60.181218,'longitude' => 29.864878],
+            ['latitude' => 59.852176,'longitude' => 30.323073],
+            ['latitude' => 59.881932,'longitude' => 30.464602],
+            ['latitude' => 59.967687,'longitude' => 30.281660],
+            ['latitude' => 59.877791,'longitude' => 29.866827],
+            ['latitude' => 60.017715,'longitude' => 30.185145],
+            ['latitude' => 59.696674,'longitude' => 30.421276],
+            ['latitude' => 59.869964,'longitude' => 30.390788],
+            ['latitude' => 59.930908,'longitude' => 30.361817],
+        ];
+
+        $latitude = $areasCoords[$areaId]['latitude'] - $this->getRandomCoords();
+        $longitude =$areasCoords[$areaId]['longitude'] - $this->getRandomCoords();
+        return [$latitude,$longitude];
+    }
+
+    private function getRandomCoords()
+    {
+        return rand(-100000,100000)/1000000;
     }
 
     private function convertTime($time)

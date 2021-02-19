@@ -11,6 +11,5 @@ return [
     'to_record' => 'Записаться',
     'create_a_training' => 'Создать тренировку',
     'organize_an_event' => 'Организовать мероприятие',
-    'select_area' => 'Выберите район:',
     'search' => 'Поиск',
 ];

@@ -35,6 +35,10 @@ return [
     
     'head' => 'Заголовок',
     'name' => 'Название',
+    
+    'sports_grounds' => 'Спортивные площадки',
+    'sections' => 'Спортивные секции',
+    'organizations' => 'Спортивные организации',
 
     'triple_block_text1' => 'Запишитесь на тренировку по видам спорта и площадкам',
     'triple_block_text2' => 'Узнайте, какой вид спорта вам подходит',
@@ -56,6 +60,12 @@ return [
     'show_all_trainers' => 'Показать всех тренеров',
     'trainer_section' => 'Секция: :section',
     'created_with_support' => 'Сайт создан<br>при поддержке',
+    'find' => 'Поиск',
+    'execute_find' => 'Выполнить поиск',
+    'select_the_area' => 'Выберите район:',
+    'not_select_the_area' => 'Район не выбран',
+    'select_the_kind_of_sport' => 'Выберите вид спорта',
+    'not_select_the_kind_of_sport' => 'Вид спорта не выбран',
     
     'footer_text' => '© 2020 Комитет по физической<br>культуре и спорту<br>Санкт-Петербурга'
 ];

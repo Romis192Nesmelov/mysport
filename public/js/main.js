@@ -83,7 +83,46 @@ $(document).ready(function() {
         // if ($(window).scrollTop() > $(window).height()) onTopButton.fadeIn();
         // else onTopButton.fadeOut();
     });
+
+    // Processing custom radio buttons
+    $('.radio-buttons .cir').click(function () {
+        var self = $(this),
+            parent = self.parents('.radio-buttons'),
+            input = parent.find('input'),
+            currentActive = parent.find('.cir.active');
+
+        if (parent.hasClass('type1') && !parent.hasClass('checkbox')) {
+            currentActive.find('i').addClass('hidden');
+            self.addClass('active').find('i').removeClass('hidden');
+        }
+
+        if (!parent.hasClass('checkbox')) {
+            var newVal = self.attr('data');
+            currentActive.removeClass('active');
+            self.addClass('active');
+            input.val(newVal);
+        } else {
+            if (self.hasClass('active')) {
+                self.removeClass('active').find('i').addClass('hidden');
+                input.val(0);
+            } else {
+                self.addClass('active').find('i').removeClass('hidden');
+                input.val(1);
+            }
+        }
+    });
+
+    // Changing area select
+    bindAreaChange();
 });
+
+function bindAreaChange() {
+    $('select[name=area]').change(function (e) {
+        var value = $(this).val();
+        $('select[name=area]').unbind().val(value).change();
+        bindAreaChange();
+    });
+}
 
 function goToScroll(scrollData) {
     $('html,body').animate({

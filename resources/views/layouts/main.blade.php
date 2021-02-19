@@ -31,6 +31,7 @@
     <link href="{{ asset('css/calendar.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css">
 
+    <script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
     <!-- Core JS files -->
     <script type="text/javascript" src="{{ asset('js/core/libraries/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/core/libraries/bootstrap.min.js') }}"></script>
@@ -71,6 +72,8 @@
     <script type="text/javascript" src="{{ asset('js/owl.carousel.js') }}"></script>
     {{--<script type="text/javascript" src="{{ asset('js/preview_image.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('/js/yamap.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js?').Helper::randHash() }}"></script>
 </head>
 <body>
@@ -88,17 +91,17 @@
 
         <div class="navbar-right">
             <ul class="nav navbar-nav">
-                <li class="dropdown language-switch">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ asset('images/'.(App::getLocale() == 'en' ? 'eng' : 'rus').'.png') }}" class="position-left">
-                        {{ App::getLocale() == 'en' ? trans('content.en') : trans('content.ru') }}
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ url('/change-lang?lang=en') }}" class="english"><img src="{{ asset('images/eng.png') }}" alt="{{ trans('content.en') }}"> {{ trans('content.en') }}</a></li>
-                        <li><a href="{{ url('/change-lang?lang=ru') }}" class="russian"><img src="{{ asset('images/rus.png') }}" alt="{{ trans('content.ru') }}"> {{ trans('content.ru') }}</a></li>
-                    </ul>
-                </li>
+                {{--<li class="dropdown language-switch">--}}
+                    {{--<a class="dropdown-toggle" data-toggle="dropdown">--}}
+                        {{--<img src="{{ asset('images/'.(App::getLocale() == 'en' ? 'eng' : 'rus').'.png') }}" class="position-left">--}}
+                        {{--{{ App::getLocale() == 'en' ? trans('content.en') : trans('content.ru') }}--}}
+                        {{--<span class="caret"></span>--}}
+                    {{--</a>--}}
+                    {{--<ul class="dropdown-menu">--}}
+                        {{--<li><a href="{{ url('/change-lang?lang=en') }}" class="english"><img src="{{ asset('images/eng.png') }}" alt="{{ trans('content.en') }}"> {{ trans('content.en') }}</a></li>--}}
+                        {{--<li><a href="{{ url('/change-lang?lang=ru') }}" class="russian"><img src="{{ asset('images/rus.png') }}" alt="{{ trans('content.ru') }}"> {{ trans('content.ru') }}</a></li>--}}
+                    {{--</ul>--}}
+                {{--</li>--}}
                 @foreach($topMenu as $top)
                     <li class="button {{ isset($top['addClass']) ? $top['addClass'] : '' }}"><a href="{{ $top['href'] }}">{{ $top['name'] }}</a></li>
                 @endforeach
@@ -115,12 +118,11 @@
     <div class="col-md-8 col-sm-12 col-xs-12 menu-container">
         <div class="over-menu hidden-xs">
             <div class="line-menu">
-                {{ trans('menu.select_area') }}
-                <select name="area" class="type1">
-                    @foreach($areas as $k => $area)
-                        <option value="{{ $k+1 }}">{{ $area }}</option>
-                    @endforeach
-                </select>
+                {{ trans('content.select_the_area') }}
+                @include('layouts._areas_select_block',[
+                    'type' => 1,
+                    'useLabel' => false
+                ])
                 @include('layouts._soc_nets_block')
                 <div class="button pull-right red small"><a data-scroll="map">{{ trans('menu.search') }}</a><i class="glyphicon glyphicon-search"></i></div>
             </div>

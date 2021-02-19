@@ -17,7 +17,7 @@ class CreateTrainersTable extends Migration
             $table->bigIncrements('id');
             $table->string('image');
             $table->string('name_ru');
-            $table->string('name_en');
+            $table->string('name_en')->nullable();
             $table->boolean('best');
             $table->boolean('active');
             $table->timestamps();
