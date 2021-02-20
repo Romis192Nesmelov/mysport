@@ -38,7 +38,82 @@
                 'head' => trans('content.sports_events_poster'),
                 'button' => ['class' => '', 'href' => 'events', 'text' => trans('content.all_events')]
             ])
-            @for($i=0;$i<(count($data['events']) > 6 ? 6 : count($data['events']));$i++)
+            <div class="col-md-3 col-sm-3 col-xs-12 event">
+                @include('_header_block', [
+                    'tagName' => 'h2',
+                    'icon' => 'icon_sports_events',
+                    'head' => trans('content.the_calendar_of_sports_events')
+                ])
+
+                <div class="owl-carousel calendar">
+                    @php $week = 1; @endphp
+                    @for($month=1;$month <= (date('n') > 10 ? 12 + date('n') - 8 : 12);$month++)
+                        @php
+                            if ($month > 12) {
+                                $month = $month - 12;
+                                $year = $data['year'] + 1;
+                            } else {
+                                $year = $data['year'];
+                            }
+                        @endphp
+                        <div class="calendar-block">
+                            @php
+                                // Calculate how many weeks in month
+                                $weeksOnMonth = 1;
+                                for($d=1;$d<=cal_days_in_month(CAL_GREGORIAN, $month, $year);$d++) {
+                                    if ($d > 1 && date('N', strtotime($month.'/'.$d.'/'.$year)) == 1) $weeksOnMonth++;
+                                }
+                            @endphp
+
+                            <div class="month">{{ trans('calendar.m'.$month).' '.$year }}</div>
+                            <table>
+                                <tr class="week">
+                                    @for($wd=0;$wd<=7;$wd++)
+                                        <td>{{ $wd ? trans('calendar.d'.$wd) : '' }}</td>
+                                    @endfor
+                                </tr>
+                                @php $day = 0; @endphp
+                                @for($w=1;$w<=$weeksOnMonth;$w++)
+                                    <tr>
+                                        @for($wd=0;$wd<=7;$wd++)
+                                            @if(!$wd)
+                                                <td><i>{{ $week }}</i></td>
+                                            @else
+                                                @php if ($w == 1 && $wd == date('N', strtotime($month.'/1/'.$year))) $day = 1; @endphp
+                                                <td>
+                                                    @if ($day && $day <= cal_days_in_month(CAL_GREGORIAN, $month, $year))
+                                                        @php
+                                                            $eventsMatch = false;
+                                                            foreach ($data['events_on_year'] as $time) {
+                                                                if (date('Y',$time) == $year && date('n',$time) == $month && date('j',$time) == $day) {
+                                                                    $eventsMatch = true;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            $incrementWeek = true;
+                                                        @endphp
+                                                        @if ($eventsMatch)
+                                                            <div class="event-day">{{ $day }}</div>
+                                                        @else
+                                                            {{ $day }}
+                                                        @endif
+                                                    @else
+                                                        @php $incrementWeek = false; @endphp
+                                                    @endif
+                                                </td>
+                                            @endif
+                                            @php if ($day && $wd) $day++; @endphp
+                                        @endfor
+                                    </tr>
+                                    @php if ($incrementWeek) $week++; @endphp
+                                @endfor
+                            </table>
+                        </div>
+                    @endfor
+                </div>
+
+            </div>
+            @for($i=0;$i<(count($data['events']) > 5 ? 5 : count($data['events']));$i++)
                 @php $event = $data['events'][$i]; @endphp
                 <div class="col-md-3 col-sm-3 col-xs-12 event">
                     <div class="button green">{{ date('j',$event->time).' '.trans('months.'.date('m',$event->time)).' '.date('Y',$event->time).' '.date('G:i',$event->time) }}</div>
@@ -222,7 +297,10 @@
         </div>
     </div>
 
-    <script> window.points = {}; </script>
+    <script>
+        window.currentMonth = parseInt("{{ date('n') }}")-1;
+        window.points = {};
+    </script>
     @foreach($data['points'] as $k => $pointsArr)
         <script>window.points["{{ $k }}"] = [];</script>
         @if ($pointsArr && count($pointsArr))

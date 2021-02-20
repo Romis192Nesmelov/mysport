@@ -23,8 +23,12 @@ class StaticController extends Controller
         $this->data['news'] = News::where('active',1)->orderBy('id','desc')->limit(3)->get();
         $this->data['sports'] = KindOfSport::where('active',1)->get();
         $this->data['trainers'] = Trainer::where('active',1)->where('best',1)->get();
-        $this->data['events'] = Event::where('active',1)->get();
         $this->data['points'] = $this->findSport();
+        $this->data['year'] = date('Y');
+        $limitInPast = strtotime('1/1/'.$this->data['year']);
+        $limitInFuture = date('n') <= 10 ? strtotime('12/31/'.$this->data['year']) : strtotime((date('n')+4-12).'1/'.($this->data['year']+1));
+        $this->data['events_on_year'] = Event::where('active',1)->where('time','>=',$limitInPast)->where('time','<=',$limitInFuture)->pluck('time')->toArray();
+        $this->data['events'] = Event::where('active',1)->orderBy('id','desc')->limit(5)->get();
         return $this->showView('home');
     }
 

@@ -14,8 +14,34 @@ $(document).ready(function() {
     // $('input[name=phone]').mask("+7(999)999-99-99");
     
     // Owlcarousel
-    var navButton1 = '<img src="/images/arrow_left.svg" />',
-        navButton2 = '<img src="/images/arrow_right.svg" />';
+    var navButton1 = '<img src="/images/arrow_left_black.svg" />',
+        navButton2 = '<img src="/images/arrow_right_black.svg" />';
+
+    var enentsCalendar = $('.owl-carousel.calendar').owlCarousel({
+        margin: 5,
+        loop: true,
+        nav: true,
+        autoplay: false,
+        dots: false,
+        responsive: {
+            0: {
+                items: 1
+            },
+            729: {
+                items: 1
+            },
+            1200: {
+                items: 1
+            }
+        },
+        navText:['<img src="/images/arrow_left_white.svg" />','<img src="/images/arrow_right_white.svg" />']
+    });
+
+    if (window.currentMonth) {
+        for (var click=1;click<=window.currentMonth;click++) {
+            enentsCalendar.trigger('next.owl.carousel');
+        }
+    }
 
     $('.owl-carousel.sports').owlCarousel({
         margin: 10,

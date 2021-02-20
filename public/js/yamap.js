@@ -29,15 +29,6 @@ function init() {
         }, function (data) {
             if (data.success) {
                 processingPoints(myMap, data.points);
-                
-                // $.each(data.points, function (k1,points) {
-                //     if (points && points.length) {
-                //         var icon = ymaps.templateLayoutFactory.createClass('<div class="map-point '+k1+'"></div>');
-                //         for (var i=0;i<points.length;i++) {
-                //             console.log(points[i]);
-                //         }
-                //     }
-                // });
             }
         });
     });

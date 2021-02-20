@@ -587,6 +587,23 @@ a.active {
     margin: auto;
 }
 
+.owl-carousel.calendar {
+    width: 100%;
+}
+
+.owl-carousel.calendar .owl-nav button {
+    height: 30px;
+    top: 30px;
+}
+
+.owl-carousel.calendar .owl-nav button.owl-prev {
+    left: 10px;
+}
+
+.owl-carousel.calendar .owl-nav button.owl-next {
+    right: 10px;
+}
+
 .owl-nav button {
     height: 120px;
     position: absolute;
@@ -722,6 +739,89 @@ a.active {
 
 .event .banner {
     margin-top: 0;
+}
+
+.section .event .header {
+    margin-bottom: 10px;
+}
+
+.section .event .header img {
+    height: 50px;
+    margin-right: 15px;
+}
+
+.section .event .header h2 {
+    font-size: 25px;
+    float: left;
+    text-align: left;
+    line-height: 1em;
+    margin: 0;
+}
+
+.calendar-block {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid #756e85;
+    overflow: hidden;
+}
+
+.calendar-block table {
+    width: 100%;
+}
+
+.calendar-block table tr:nth-child(even) {
+    background-color: #d8dbde;
+}
+
+.calendar-block table tr.week {
+    background-color: #bab6c2;
+}
+
+.calendar-block table tr td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 5px;
+    font-size: 15px;
+    color: black;
+}
+
+.calendar-block table tr td i {
+    color: grey;
+    font-weight: normal;
+    font-size: 15px;
+}
+
+.calendar-block table tr td .event-day {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #13a28a;
+    color: white;
+}
+
+.calendar-block table tr td:first-child {
+    padding-left: 15px;
+}
+
+.calendar-block table tr td:last-child {
+    padding-right: 15px;
+}
+
+.calendar-block table tr.week td {
+    text-transform: uppercase;
+    color: white;
+}
+
+.calendar-block .month {
+    width: 100%;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 22px;
+    color: white;
+    background-color: #756e85;
 }
 
 .footer {
