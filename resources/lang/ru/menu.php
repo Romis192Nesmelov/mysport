@@ -2,6 +2,7 @@
 
 return [
     'blind_version' => 'Версия для слабовидящих',
+    'normal_version' => 'Обычная версия',
     'login_register' => 'Вход/Регистрация',
     
     'news' => 'Новости',

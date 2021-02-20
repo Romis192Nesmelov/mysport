@@ -1,14 +1,21 @@
 function unifiedHeight() {
     var unifiedHeight = [
-        {'obj':$('.event'),'reserve':5,'except':null}
+        {
+            'obj'       :$('.event'),
+            'reserve'   :0,
+            'except'    :null,
+            'include'   :$('.calendar-container')
+        }
     ];
 
-    $.each(unifiedHeight, function (k,item) {
-        maxHeight(item.obj,item.reserve,item.except);
-    });
+    setTimeout(function () {
+        $.each(unifiedHeight, function (k,item) {
+            maxHeight(item.obj,item.reserve,item.except,item.include);
+        });
+    },1000);
 }
 
-function maxHeight(objects,reserve,exceptClassName) {
+function maxHeight(objects,reserve,exceptClassName,include) {
     if ($(window).width() > 768) {
         var maxHeight = 0
         objects.css('height','auto');
@@ -17,6 +24,7 @@ function maxHeight(objects,reserve,exceptClassName) {
             if (currentHeight > maxHeight) maxHeight = currentHeight;
         });
         objects.not('.'+exceptClassName).css('height',maxHeight+reserve);
+        if (include) include.css('height',maxHeight+reserve);
     } else {
         objects.not('.'+exceptClassName).css('height','auto');
     }

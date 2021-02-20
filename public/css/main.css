@@ -646,10 +646,10 @@ a.active {
 }
 
 .kind-of-sport {
-    display: table;
     text-align: center;
     font-weight: bold;
     font-size: 15px;
+    padding: 30px;
     color: black;
     margin: auto;
 }
@@ -741,16 +741,20 @@ a.active {
     margin-top: 0;
 }
 
-.section .event .header {
+.section .calendar-container {
+    overflow: hidden;
+}
+
+.section .calendar-container .header {
     margin-bottom: 10px;
 }
 
-.section .event .header img {
+.section .calendar-container .header img {
     height: 50px;
     margin-right: 15px;
 }
 
-.section .event .header h2 {
+.section .calendar-container .header h2 {
     font-size: 25px;
     float: left;
     text-align: left;
@@ -1021,6 +1025,19 @@ a.active {
 
     .event p {
         font-size: 12px;
+    }
+
+    .calendar-block .month {
+        font-size: 18px;
+    }
+
+    .calendar-block table tr td,
+    .calendar-block table tr i {
+        font-size: 13px;
+    }
+
+    .rounded-block.gray {
+        margin-top: 15px;
     }
 }
 

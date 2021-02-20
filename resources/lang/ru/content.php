@@ -64,7 +64,7 @@ return [
     'execute_find' => 'Выполнить поиск',
     'select_the_area' => 'Выберите район:',
     'not_select_the_area' => 'Район не выбран',
-    'select_the_kind_of_sport' => 'Выберите вид спорта',
+    'select_the_kind_of_sport' => 'Выберите вид спорта:',
     'not_select_the_kind_of_sport' => 'Вид спорта не выбран',
     
     'footer_text' => '© 2020 Комитет по физической<br>культуре и спорту<br>Санкт-Петербурга'

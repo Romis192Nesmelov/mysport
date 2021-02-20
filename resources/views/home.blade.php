@@ -18,7 +18,7 @@
                             break;
                     }
                 @endphp
-                <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="col-md-{{ $blindVer ? 12 : 4 }} col-sm-{{ $blindVer ? 12 : 4 }} col-xs-12">
                     <div class="triple-block {{ $addClass }}" style="background-image: url({{ asset('images/triple_block_bg'.$i.'.png') }})">
                         <div>{{ trans('content.triple_block_text'.$i) }}</div>
                         <a data-scroll="map"><button><span>{!! trans('content.triple_block_button_text'.$i) !!}</span><i class="icon-arrow-right32"></i></button></a>
@@ -38,10 +38,10 @@
                 'head' => trans('content.sports_events_poster'),
                 'button' => ['class' => '', 'href' => 'events', 'text' => trans('content.all_events')]
             ])
-            <div class="col-md-3 col-sm-3 col-xs-12 event">
+            <div class="col-md-{{ $blindVer ? '4' : '3' }} col-sm-4 col-xs-12 calendar-container">
                 @include('_header_block', [
                     'tagName' => 'h2',
-                    'icon' => 'icon_sports_events',
+                    'icon' => 'icon_date',
                     'head' => trans('content.the_calendar_of_sports_events')
                 ])
 
@@ -115,13 +115,13 @@
             </div>
             @for($i=0;$i<(count($data['events']) > 5 ? 5 : count($data['events']));$i++)
                 @php $event = $data['events'][$i]; @endphp
-                <div class="col-md-3 col-sm-3 col-xs-12 event">
+                <div class="col-md-{{ $blindVer ? '4' : '3' }} col-sm-4 col-xs-12 event">
                     <div class="button green">{{ date('j',$event->time).' '.trans('months.'.date('m',$event->time)).' '.date('Y',$event->time).' '.date('G:i',$event->time) }}</div>
                     <h3>{{ $event['name_'.App::getLocale()] }}</h3>
                     <p>{{ $event['description_'.App::getLocale()] }}</p>
                 </div>
             @endfor
-            <div class="col-md-6 col-sm-6 col-xs-12 event">
+            <div class="col-md-6 col-sm-6 col-xs-12 banner3">
                 <div class="banner"><img src="{{ asset('images/banner3.jpg') }}" /></div>
             </div>
         </div>
@@ -190,10 +190,10 @@
                 'head' => trans('content.sport_map')
             ])
 
-            <div class="col-md-8 col-sm-6 col-xs-12">
+            <div class="col-md-{{ $blindVer ? '12' : '8' }} col-sm-{{ $blindVer ? '12' : '12' }} col-xs-12">
                 <div id="map" class="rounded-block"></div>
             </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="col-md-{{ $blindVer ? '12' : '4' }} col-sm-{{ $blindVer ? '12' : '12' }} col-xs-12">
                 <div class="rounded-block gray">
                     {!! csrf_field() !!}
 

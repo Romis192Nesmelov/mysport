@@ -62,7 +62,7 @@ return [
     'created_with_support' => 'Site created<br>with the support',
     'select_the_area' => 'Select the area:',
     'not_select_the_area' => 'An area isn\'t selected',
-    'select_the_kind_of_sport' => 'Select the kind of sport',
+    'select_the_kind_of_sport' => 'Select the kind of sport:',
     'not_select_the_kind_of_sport' => 'A kind of sport isn\'t selected',
 
     'footer_text' => '© 2020 Committee for<br>Physical Culture and Sports<br>of St. Petersburg'

@@ -31,6 +31,10 @@
     <link href="{{ asset('css/calendar.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css">
 
+    @if ($blindVer)
+        <link href="{{ asset('css/blind.css') }}" rel="stylesheet" type="text/css">
+    @endif
+
     <script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
     <!-- Core JS files -->
     <script type="text/javascript" src="{{ asset('js/core/libraries/jquery.min.js') }}"></script>
@@ -112,10 +116,12 @@
 <!-- /top navbar -->
 
 <div class="container">
-    <div class="col-md-4 col-sm-12 col-xs-12 logo-container">
-        @include('layouts._logo_block',['tagName' => 'h1', 'withSpan' => true])
-    </div>
-    <div class="col-md-8 col-sm-12 col-xs-12 menu-container">
+    @if (!$blindVer)
+        <div class="col-md-4 col-sm-12 col-xs-12 logo-container">
+            @include('layouts._logo_block',['tagName' => 'h1', 'withSpan' => true])
+        </div>
+    @endif
+    <div class="col-md-{{ $blindVer ? '12' : '8' }} col-sm-12 col-xs-12 menu-container">
         <div class="over-menu hidden-xs">
             <div class="line-menu">
                 {{ trans('content.select_the_area') }}
@@ -168,10 +174,12 @@
 <!-- Footer -->
 <div class="footer">
     <div class="container">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            @include('layouts._logo_block',['tagName' => 'div', 'withSpan' => true])
-        </div>
-        <div class="col-md-5 hidden-sm hidden-xs">
+        @if (!$blindVer)
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                @include('layouts._logo_block',['tagName' => 'div', 'withSpan' => true])
+            </div>
+        @endif
+        <div class="col-md-{{ $blindVer ? '6' : '5' }} hidden-sm hidden-xs">
             @php $divider = ceil(count($mainMenu)/2); @endphp
             <ul class="menu">
                 @include('layouts._menu_items_block',['menu' => $mainMenu, 'start' => 0, 'end' => $divider, 'break' => true])
@@ -180,7 +188,7 @@
                 @include('layouts._menu_items_block',['menu' => $mainMenu, 'start' => $divider, 'end' => count($mainMenu), 'break' => true])
             </ul>
         </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="col-md-{{ $blindVer ? '6' : '3' }} col-sm-6 col-xs-12">
             <img id="hooks-logo" src="{{ asset('images/hooks_logo.png') }}" />
             <div class="copyright">
                 {!! trans('content.footer_text') !!}

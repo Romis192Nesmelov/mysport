@@ -18,7 +18,7 @@ class StaticController extends Controller
     protected $data = [];
 //    protected $breadcrumbs = [];
 
-    public function index()
+    public function index(Request $request)
     {
         $this->data['news'] = News::where('active',1)->orderBy('id','desc')->limit(3)->get();
         $this->data['sports'] = KindOfSport::where('active',1)->get();
@@ -29,7 +29,7 @@ class StaticController extends Controller
         $limitInFuture = date('n') <= 10 ? strtotime('12/31/'.$this->data['year']) : strtotime((date('n')+4-12).'1/'.($this->data['year']+1));
         $this->data['events_on_year'] = Event::where('active',1)->where('time','>=',$limitInPast)->where('time','<=',$limitInFuture)->pluck('time')->toArray();
         $this->data['events'] = Event::where('active',1)->orderBy('id','desc')->limit(5)->get();
-        return $this->showView('home');
+        return $this->showView($request,'home');
     }
 
     public function changeLang(Request $request)
@@ -54,12 +54,13 @@ class StaticController extends Controller
         ]);
     }
 
-    protected function showView($view)
+    protected function showView(Request $request, $view)
     {
         $this->data['seo'] = Settings::getSeoTags();
+        $blindVer = $request->has('blind') && $request->input('blind');
 
         $topMenu = [
-            ['href' => '#', 'name' => trans('menu.blind_version')],
+            ['href' => '?blind='.($blindVer ? '0' : '1'), 'name' => $blindVer ? trans('menu.normal_version') : trans('menu.blind_version'), 'addClass' => 'hidden-sm hidden-xs'],
             ['href' => '#', 'name' => trans('menu.login_register'), 'addClass' => 'green'],
         ];
 
@@ -81,6 +82,7 @@ class StaticController extends Controller
 
         return view($view, [
 //            'breadcrumbs' => $this->breadcrumbs,
+            'blindVer' => $blindVer,
             'topMenu' => $topMenu,
             'mainMenu' => $mainMenu,
             'areas' => $areas,

@@ -2,6 +2,7 @@
 
 return [
     'blind_version' => 'Ver. for the visually impaired',
+    'normal_version' => 'Normal version',
     'login_register' => 'Login/Register',
     
     'news' => 'News',
