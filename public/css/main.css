@@ -800,6 +800,7 @@ a.active {
     height: 20px;
     text-align: center;
     border-radius: 50%;
+    margin: auto;
     background-color: #13a28a;
     color: white;
 }
@@ -1000,7 +1001,9 @@ a.active {
         margin: 10px auto 0 auto !important;
     }
 
-    .section .header h1 {
+    .section .header h1,
+    .section .header h2,
+    .section .calendar-container .header h2 {
         float: none;
         margin: 0;
         text-align: center;
@@ -1039,6 +1042,10 @@ a.active {
     .rounded-block.gray {
         margin-top: 15px;
     }
+
+    .support-logo {
+        margin-bottom: 10px;
+    }
 }
 
 @media screen and (max-width: 945px) {
@@ -1054,6 +1061,10 @@ a.active {
 }
 
 @media screen and (max-width: 768px) {
+    .navbar-right .navbar-nav {
+        margin-top: 10px;
+    }
+
     .dropdown.language-switch {
         display: table;
         margin: auto;

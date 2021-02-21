@@ -60,7 +60,7 @@ class StaticController extends Controller
         $blindVer = $request->has('blind') && $request->input('blind');
 
         $topMenu = [
-            ['href' => '?blind='.($blindVer ? '0' : '1'), 'name' => $blindVer ? trans('menu.normal_version') : trans('menu.blind_version'), 'addClass' => 'hidden-sm hidden-xs'],
+            ['href' => '?blind='.($blindVer ? '0' : '1'), 'name' => $blindVer ? trans('menu.normal_version') : trans('menu.blind_version')],
             ['href' => '#', 'name' => trans('menu.login_register'), 'addClass' => 'green'],
         ];
 

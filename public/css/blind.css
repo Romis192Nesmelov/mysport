@@ -1,138 +1,245 @@
-@media screen and (min-width: 1024px) {
-    .navbar-brand > div {
-        font-size: 20px;
+.navbar-brand > div {
+    font-size: 20px;
+}
+
+.button {
+    min-width: 350px;
+    font-size: 20px;
+}
+
+.line-menu:first-child {
+    font-size: 20px;
+}
+
+.navbar-default .navbar-nav > li > a {
+    font-size: 19px;
+}
+
+.triple-block {
+    font-size: 35px;
+    margin-bottom: 20px;
+    background-position: right;
+    background-size: 45%;
+}
+
+.triple-block > div {
+    width: 50%;
+}
+
+.triple-block button {
+    width: 50%;
+    height: 100px;
+    font-size: 25px;
+    bottom: 50px;
+    left: 40px;
+    transform: none;
+}
+
+.section .header > .button {
+    font-size: 20px;
+}
+
+.event .button {
+    font-size: 30px;
+}
+
+.event h3 {
+    font-size: 25px;
+}
+
+.event p {
+    font-size: 18px;
+}
+
+.section .calendar-container .header img {
+    height: 60px;
+}
+
+.section .calendar-container .header h2 {
+    font-size: 30px;
+}
+
+.calendar-block .month {
+    font-size: 25px;
+}
+
+.calendar-block table tr td,
+.calendar-block table tr td i {
+    font-size: 20px;
+}
+
+.calendar-block table tr td .event-day {
+    width: 30px;
+    height: 30px;
+}
+
+.news .text > .head {
+    font-size: 35px;
+}
+
+.news .text > .content,
+.col-md-4 .news .text > .head {
+    font-size: 22px;
+}
+
+.kind-of-sport {
+    padding: 20px;
+    font-size: 25px;
+}
+
+.map-point {
+    width: 40px;
+}
+
+.rounded-block.gray {
+    margin-top: 15px;
+}
+
+.rounded-block.gray h1 {
+    font-size: 35px;
+}
+
+.label {
+    font-size: 18px;
+}
+
+select.type2 {
+    font-size: 25px;
+}
+
+.radio-buttons .label-block {
+    font-size: 25px;
+}
+
+.rounded-block .button {
+    font-size: 22px;
+}
+
+.trainer .family {
+    font-size: 22px;
+}
+
+.trainer {
+    font-size: 20px;
+}
+
+.trainer .section-name {
+    font-size: 15px;
+}
+
+.footer ul.menu > li > a {
+    font-size: 18px;
+}
+
+.footer .copyright {
+    font-size: 17px;
+}
+
+@media screen and (max-width: 1200px) {
+    .button.small {
+        width: 170px;
     }
 
+    .section .header > .button {
+        min-width: 250px;
+        font-size: 16px;
+    }
+
+    .event .button {
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
     .button {
-        min-width: 350px;
-        font-size: 20px;
-    }
-
-    .line-menu:first-child {
+        min-width: 280px;
         font-size: 20px;
     }
 
     .navbar-default .navbar-nav > li > a {
-        font-size: 19px;
+        font-size: 17px;
+        padding: 15px 5px;
     }
 
-    .triple-block {
-        font-size: 35px;
-        margin-bottom: 20px;
-        background-position: right;
-        background-size: 45%;
+    .button.small {
+        width: 150px;
     }
 
-    .triple-block > div {
-        width: 50%;
+    .line-menu .button.pull-left {
+        margin: 0 2px;
     }
 
-    .triple-block button {
-        width: 50%;
-        height: 100px;
-        font-size: 25px;
-        bottom: 50px;
-        left: 40px;
-        transform: none;
-    }
-
-    .section .header > .button {
-        font-size: 20px;
-    }
-
-    .event .button {
-        font-size: 30px;
+    .section .header h1 {
+        font-size: 50px;
     }
 
     .event h3 {
-        font-size: 25px;
-    }
-
-    .event p {
-        font-size: 18px;
-    }
-
-    .section .calendar-container .header img {
-        height: 60px;
-    }
-
-    .section .calendar-container .header h2 {
         font-size: 30px;
     }
 
-    .calendar-block .month {
-        font-size: 25px;
+    .news .text > .content,
+    .news .text > .head,
+    .col-md-4 .news .text > .head {
+        font-size: 33px;
     }
+}
 
-    .calendar-block table tr td,
-    .calendar-block table tr td i {
+@media screen and (max-width: 768px) {
+    .navbar-default .navbar-nav > li > a {
         font-size: 20px;
     }
 
-    .calendar-block table tr td .event-day {
-        width: 30px;
-        height: 30px;
+    .triple-block {
+        background-size: 50%;
     }
 
-    .news .text > .head {
-        font-size: 35px;
+    .triple-block button {
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
+    .triple-block button i {
+        top: 5px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .triple-block {
+        background-size: 70%;
+    }
+
+    .triple-block > div {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 500px) {
     .news .text > .content,
+    .news .text > .head,
     .col-md-4 .news .text > .head {
-        font-size: 22px;
-    }
-
-    .kind-of-sport {
-        padding: 20px;
-        font-size: 25px;
-    }
-
-    .map-point {
-        width: 40px;
-    }
-
-    .rounded-block.gray {
-        margin-top: 15px;
-    }
-
-    .rounded-block.gray h1 {
-        font-size: 35px;
-    }
-
-    .label {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     select.type2 {
-        font-size: 25px;
-    }
-
-    .radio-buttons .label-block {
-        font-size: 25px;
-    }
-
-    .rounded-block .button {
-        font-size: 22px;
-    }
-
-    .trainer .family {
-        font-size: 22px;
-    }
-
-    .trainer {
         font-size: 20px;
     }
+}
 
-    .trainer .section-name {
-        font-size: 15px;
+@media screen and (max-width: 350px) {
+    .calendar-block table tr td,
+    .calendar-block table tr td i {
+        font-size: 16px;
     }
 
-    .footer ul.menu > li > a {
+    .calendar-block table tr td .event-day {
+        width: 22px;
+        height: 22px;
+    }
+
+    .news .text > .content,
+    .news .text > .head,
+    .col-md-4 .news .text > .head {
         font-size: 18px;
-    }
-
-    .footer .copyright {
-        font-size: 17px;
     }
 }

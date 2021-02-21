@@ -38,7 +38,7 @@
                 'head' => trans('content.sports_events_poster'),
                 'button' => ['class' => '', 'href' => 'events', 'text' => trans('content.all_events')]
             ])
-            <div class="col-md-{{ $blindVer ? '4' : '3' }} col-sm-4 col-xs-12 calendar-container">
+            <div class="col-md-{{ $blindVer ? '4' : '3' }} col-sm-{{ $blindVer ? '6' : '4' }} col-xs-12 calendar-container">
                 @include('_header_block', [
                     'tagName' => 'h2',
                     'icon' => 'icon_date',
@@ -115,13 +115,13 @@
             </div>
             @for($i=0;$i<(count($data['events']) > 5 ? 5 : count($data['events']));$i++)
                 @php $event = $data['events'][$i]; @endphp
-                <div class="col-md-{{ $blindVer ? '4' : '3' }} col-sm-4 col-xs-12 event">
+                <div class="col-md-{{ $blindVer ? '4' : '3' }} col-sm-{{ $blindVer ? '6' : '4' }} col-xs-12 event">
                     <div class="button green">{{ date('j',$event->time).' '.trans('months.'.date('m',$event->time)).' '.date('Y',$event->time).' '.date('G:i',$event->time) }}</div>
                     <h3>{{ $event['name_'.App::getLocale()] }}</h3>
                     <p>{{ $event['description_'.App::getLocale()] }}</p>
                 </div>
             @endfor
-            <div class="col-md-6 col-sm-6 col-xs-12 banner3">
+            <div class="col-md-6 col-sm-{{ $blindVer ? '12' : '6' }} col-xs-12 banner3">
                 <div class="banner"><img src="{{ asset('images/banner3.jpg') }}" /></div>
             </div>
         </div>
@@ -290,7 +290,7 @@
                 'head' => trans('content.created_with_support')
             ])
             @for($i=1;$i<=4;$i++)
-                <div class="col-md-3 col-sm-6 col-xs-12 support-logo">
+                <div class="col-md-3 col-sm-6 col-xs-6 support-logo">
                     <img src="{{ asset('images/logo'.$i.'.png') }}" />
                 </div>
             @endfor
