@@ -1,10 +1,6 @@
 <?php
 
 return [
-    'head_part1' => 'Мой',
-    'head_part2' => 'Спорт',
-    'head_part3' => 'СПб',
-    
     'events_calendar' => 'Календарь мероприятий',
     'sports_events' => 'Спортивные мероприятия',
     'all_news' => 'Все новости',

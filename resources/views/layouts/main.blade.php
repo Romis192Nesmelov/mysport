@@ -87,10 +87,7 @@
 <div class="navbar navbar-inverse">
     <div class="container">
         <div class="navbar-logo">
-            <a class="navbar-brand" href="/">
-                <img src="{{ asset('images/logo.svg') }}" alt="{{ $data['seo']['title'] }}">
-                <div>{{ trans('content.head_part1').trans('content.head_part2').trans('content.head_part3') }}</div>
-            </a>
+            <a class="navbar-brand" href="/"><img src="{{ asset('images/logo.svg') }}" alt="{{ $data['seo']['title'] }}"></a>
         </div>
 
         <div class="navbar-right">
@@ -175,11 +172,11 @@
 <div class="footer">
     <div class="container">
         @if (!$blindVer)
-            <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="col-md-3 col-sm-4 col-xs-12">
                 @include('layouts._logo_block',['tagName' => 'div', 'withSpan' => true])
             </div>
         @endif
-        <div class="col-md-{{ $blindVer ? '6' : '5' }} hidden-sm hidden-xs">
+        <div class="col-md-6 hidden-sm hidden-xs">
             @php $divider = ceil(count($mainMenu)/2); @endphp
             <ul class="menu">
                 @include('layouts._menu_items_block',['menu' => $mainMenu, 'start' => 0, 'end' => $divider, 'break' => true])
@@ -189,7 +186,7 @@
             </ul>
         </div>
         <div class="col-md-{{ $blindVer ? '6' : '3' }} col-sm-6 col-xs-12">
-            <img id="hooks-logo" src="{{ asset('images/hooks_logo.png') }}" />
+            <img id="anchors-logo" src="{{ asset('images/hooks_logo.png') }}" />
             <div class="copyright">
                 {!! trans('content.footer_text') !!}
                 <div>@include('layouts._soc_nets_block')</div>

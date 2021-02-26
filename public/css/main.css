@@ -86,13 +86,6 @@ body {
     width: 100%;
 }
 
-.main-logo-container h1 span,
-.footer .main-logo-container > div span {
-    position: relative;
-    display: inline-block;
-    margin-right: -0.2em;
-}
-
 .navbar-inverse {
     background-color: #000635;
     padding: 0;
@@ -170,6 +163,10 @@ body {
     background-color: #756e85;
 }
 
+.logo-container .main-logo-container {
+    margin-top: 10px;
+}
+
 .navbar-nav > li.button > a {
     padding: 0;
 }
@@ -182,14 +179,6 @@ body {
 
 .navbar-brand > img {
     height: 35px;
-    float: left;
-}
-
-.navbar-brand > div {
-    float: right;
-    font-size: 16px;
-    margin-left: 15px;
-    padding-top: 9px;
 }
 
 .dropdown img {
@@ -316,25 +305,6 @@ p.label {
     font-size: 15px;
     line-height: 1.2em;
     color: #959595;
-}
-
-.main-logo-container {
-    display: flex;
-    align-items: center;
-}
-
-.logo-container .main-logo-container {
-    height: 156px;
-}
-
-.logo-container .main-logo-container > img {
-    width: 100px;
-    margin-right: 10px;
-}
-
-.logo-container .main-logo-container > h1 {
-    font-size: 30px;
-    line-height: 1.2em;
 }
 
 .navbar-default {
@@ -562,7 +532,7 @@ a.active {
     border-width: 2px;
     border-radius: 50%;
     box-shadow: 0 0 2px rgba(0,0,0,0.8);
-    background: url('../images/logo.png') no-repeat white;
+    background: url('../images/logo_single.svg') no-repeat white;
     background-size: 100% 100%;
 }
 
@@ -831,7 +801,7 @@ a.active {
 
 .footer {
     width: 100%;
-    padding: 30px 0;
+    padding: 10px 0;
     background-color: #dbe2ea;
     position: relative;
     left: auto;
@@ -839,22 +809,9 @@ a.active {
     bottom: auto;
 }
 
-.footer .main-logo-container {
-    height: 73px;
-}
-
-.footer .main-logo-container > img {
-    width: 90px;
-    margin-right: 10px;
-}
-
-.footer .main-logo-container > div {
-    font-size: 30px;
-}
-
 .footer ul.menu {
     list-style-type: none;
-    margin-bottom: 0;
+    margin: 15px 30px 0 0;
     float: left;
 }
 
@@ -873,14 +830,16 @@ a.active {
     letter-spacing: 0.1em;
 }
 
-#hooks-logo {
+#anchors-logo {
     width: 80px;
     float: left;
+    margin-top: 10px;
 }
 
 .footer .copyright {
     width: calc(100% - 100px);
     float: left;
+    margin-top: 10px;
     margin-left: 20px;
     line-height: 1.2em;
     text-transform: uppercase;
@@ -907,6 +866,10 @@ a.active {
 }
 
 @media screen and (max-width: 1200px) {
+    .logo-container .main-logo-container {
+        margin-top: 25px;
+    }
+
     .navbar-default .navbar-nav > li > a {
         font-size: 14px;
         letter-spacing: 0;
@@ -946,8 +909,8 @@ a.active {
         font-size: 18px;
     }
 
-    .footer .main-logo-container > div {
-        font-size: 27px;
+    .footer .main-logo-container {
+        margin-top: 10px;
     }
 
     .footer .copyright {
@@ -960,14 +923,13 @@ a.active {
 }
 
 @media screen and (max-width: 1024px) {
-    .navbar-inverse .container {
-        width: 100%;
+    .logo-container .main-logo-container {
+        width: 400px;
+        margin: 10px auto 0 auto;
     }
 
-    .logo-container .main-logo-container {
-        padding-top: 15px;
-        justify-content: center;
-        height: auto;
+    .navbar-inverse .container {
+        width: 100%;
     }
 
     #main-slider {
@@ -1134,11 +1096,6 @@ a.active {
     .footer .col-xs-12 {
         margin-bottom: 15px;
     }
-
-    #hooks-logo {
-        width: 70px;
-        margin-left: 10px;
-    }
 }
 
 @media screen and (max-width: 600px) {
@@ -1159,10 +1116,6 @@ a.active {
 }
 
 @media screen and (max-width: 500px) {
-    .main-logo-container > img {
-        width: 50px;
-    }
-
     #main-slider {
         height: 150px;
     }
@@ -1196,12 +1149,13 @@ a.active {
     }
 }
 
-@media screen and (max-width: 370px) {
-    .logo-container .main-logo-container > h1,
-    .footer .main-logo-container > div {
-        font-size: 20px;
+@media screen and (max-width: 400px) {
+    .logo-container .main-logo-container {
+        width: 100%;
     }
+}
 
+@media screen and (max-width: 370px) {
     #main-slider {
         height: 120px;
     }
@@ -1253,9 +1207,5 @@ a.active {
 
     .triple-block {
         font-size: 16px;
-    }
-
-    .footer .main-logo-container > div {
-        font-size: 15px;
     }
 }

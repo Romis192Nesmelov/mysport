@@ -1,10 +1,6 @@
 <?php
 
 return [
-    'head_part1' => 'My',
-    'head_part2' => 'Sport',
-    'head_part3' => 'St.Petersburg',
-
     'events_calendar' => 'Events calendar',
     'sports_events' => 'Sports events',
     'all_news' => 'All news',
