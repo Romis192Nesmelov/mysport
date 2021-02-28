@@ -57,7 +57,7 @@
 
     {{--<script type="text/javascript" src="{{ asset('js/plugins/tables/datatables/datatables.min.js') }}"></script>--}}
     {{--<script type="text/javascript" src="{{ asset('js/plugins/forms/selects/select2.min.js') }}"></script>--}}
-    {{--<script type="text/javascript" src="{{ asset('js/plugins/media/fancybox.min.js') }}"></script>--}}
+    <script type="text/javascript" src="{{ asset('js/plugins/media/fancybox.min.js') }}"></script>
     {{--<script type="text/javascript" src="{{ asset('js/pages/datatables_basic.js') }}"></script>--}}
     {{--<script type="text/javascript" src="{{ asset('js/pages/components_thumbnails.js') }}"></script>--}}
 
@@ -124,7 +124,8 @@
                 {{ trans('content.select_the_area') }}
                 @include('layouts._areas_select_block',[
                     'type' => 1,
-                    'useLabel' => false
+                    'useLabel' => false,
+                    'selected' => isset($data['area']) ? $data['area']->id : null
                 ])
                 @include('layouts._soc_nets_block')
                 <div class="button pull-right red small"><a data-scroll="map">{{ trans('menu.search') }}</a><i class="glyphicon glyphicon-search"></i></div>
@@ -195,6 +196,8 @@
     </div>
 </div>
 <!-- /footer -->
+
+<script>window.uri = "{{ Request::path() }}";</script>
 
 </body>
 </html>

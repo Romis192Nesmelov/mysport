@@ -1,8 +1,15 @@
 <?php
 
 return [
+    'area' => 'area',
+    'trainers' => 'trainers',
+    'events' => 'events',
+    'of_spb' => 'of St. Petersburg',
+    'area_leader' => 'Area leader',
+    'phone' => 'Phone',
     'events_calendar' => 'Events calendar',
     'sports_events' => 'Sports events',
+    'sports_objects_in_area' => 'Sports objects in area',
     'all_news' => 'All news',
     
     'image' => 'Image',

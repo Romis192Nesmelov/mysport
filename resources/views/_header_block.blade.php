@@ -1,6 +1,8 @@
 <div class="header">
     <div>
-        <img class="icon" src="{{ asset('images/'.$icon.'.svg') }}" />
+        @if (isset($icon) && $icon)
+            <img class="icon" src="{{ asset('images/'.$icon.'.svg') }}" />
+        @endif
         {!! '<'.$tagName.'>'.$head.'</'.$tagName.'>' !!}
         @if (isset($image) && $image)
             <img class="header-image" src="{!! $image !!}" />

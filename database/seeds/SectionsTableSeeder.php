@@ -26,11 +26,17 @@ class SectionsTableSeeder extends Seeder
             $trainerId = $trainers[rand(0,count($trainers)-1)];
             list($latitude,$longitude) = $this->getRandomCoordinates($areaId);
 
+            $name = 'Секция №'.($i+1);
+            $address = 'ул. '.str_random(16).' д.'.rand(1,50).(rand(0,1) ? ' стр.'.rand(1,10) : '');
+            
             Section::create(
                 [
-                    'name_ru' => 'Секция №'.($i+1),
+                    'slug' => str_slug($name),
+                    'name_ru' => $name,
+                    'name_en' => $this->transliteration($name),
                     'description_ru' => '',
-                    'address_ru' => '',
+                    'address_ru' => $address,
+                    'address_en' => $this->transliteration($address),
                     'latitude' => $latitude,
                     'longitude' => $longitude,
                     'phone' => '',

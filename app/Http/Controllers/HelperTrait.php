@@ -255,6 +255,11 @@ trait HelperTrait
         return 'rgb('.round($dR).', '.round($dG).', '.round($dB).')';
     }
 
+    public function transliteration($string)
+    {
+        return str_replace('_',' ',str_slug($string));
+    }
+
     public function sendMessage($destination, $template, array $fields, $copyTo=null, $pathToFile=null)
     {
         $title = (string)Settings::getSeoTags()['title'];

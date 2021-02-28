@@ -8,14 +8,16 @@ $(document).ready(function() {
     // singleHeight();
 
     // $('.styled').uniform();
-    // $('a.img-preview').fancybox({padding: 3});
+    $('a.img-preview').fancybox({padding: 3});
 
     // window.phoneRegExp = /^((\+)[0-9]{11})$/gi;
     // $('input[name=phone]').mask("+7(999)999-99-99");
     
     // Owlcarousel
-    var navButton1 = '<img src="/images/arrow_left_black.svg" />',
-        navButton2 = '<img src="/images/arrow_right_black.svg" />';
+    var navButtonBlack1 = '<img src="/images/arrow_left_black.svg" />',
+        navButtonBlack2 = '<img src="/images/arrow_right_black.svg" />',
+        navButtonWhite1 = '<img src="/images/arrow_left_white.svg" />',
+        navButtonWhite2 = '<img src="/images/arrow_right_white.svg" />';
 
     var enentsCalendar = $('.owl-carousel.calendar').owlCarousel({
         margin: 5,
@@ -34,7 +36,7 @@ $(document).ready(function() {
                 items: 1
             }
         },
-        navText:['<img src="/images/arrow_left_white.svg" />','<img src="/images/arrow_right_white.svg" />']
+        navText:[navButtonWhite1,navButtonWhite2]
     });
 
     if (window.currentMonth) {
@@ -60,7 +62,7 @@ $(document).ready(function() {
                 items: 4
             }
         },
-        navText:[navButton1,navButton2]
+        navText:[navButtonBlack1,navButtonBlack2]
     });
 
     $('.owl-carousel.trainers').owlCarousel({
@@ -80,8 +82,29 @@ $(document).ready(function() {
                 items: 4
             }
         },
-        navText:[navButton1,navButton2]
+        navText:[navButtonBlack1,navButtonBlack2]
     });
+
+    $('.owl-carousel.gallery').owlCarousel({
+        margin: 5,
+        loop: true,
+        nav: true,
+        autoplay: true,
+        dots: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            729: {
+                items: 1
+            },
+            1200: {
+                items: 1
+            }
+        },
+        navText:[navButtonWhite1,navButtonWhite2]
+    });
+
 
     // Scroll menu
     $('a[data-scroll]').click(function (e) {
@@ -143,10 +166,15 @@ $(document).ready(function() {
 });
 
 function bindAreaChange() {
-    $('select[name=area]').change(function (e) {
-        var value = $(this).val();
-        $('select[name=area]').unbind().val(value).change();
-        bindAreaChange();
+    var select = $('select[name=area]');
+    select.change(function () {
+        if (window.uri == '/') {
+            var value = $(this).val();
+            select.unbind().val(value).change();
+            bindAreaChange();
+        } else {
+            window.location.href = '/area/?id='+select.val();
+        }
     });
 }
 

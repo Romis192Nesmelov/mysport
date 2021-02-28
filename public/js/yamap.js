@@ -9,6 +9,8 @@ function init() {
         center: [59.941627, 30.317027],
         zoom: 10,
         controls: []
+    },{
+        suppressMapOpenBlock: true
     });
     processingPoints(myMap, window.points);
 

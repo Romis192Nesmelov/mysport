@@ -44,5 +44,6 @@ Route::get('/google-callback', 'OAuthController@googleCallback');
 //Route::post('/admin/settings', 'AdminController@editSettings');
 
 Route::get('/', 'StaticController@index');
+Route::get('/area/{slug?}', 'StaticController@area');
 Route::get('/change-lang', 'StaticController@changeLang');
 Route::post('/find-points', 'StaticController@findPoints');

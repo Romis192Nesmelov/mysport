@@ -15,6 +15,11 @@ class CreatePlacesTable extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('slug');
+            $table->string('name_ru');
+            $table->string('name_en')->nullable();
+            $table->string('address_ru');
+            $table->string('address_en')->nullable();
             $table->text('description_ru')->nullable();
             $table->text('description_en')->nullable();
             $table->double('latitude');

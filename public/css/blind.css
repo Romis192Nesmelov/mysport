@@ -1,3 +1,7 @@
+p {
+    font-size: 22px;
+}
+
 .navbar-brand > div {
     font-size: 20px;
 }
@@ -99,6 +103,10 @@
     font-size: 35px;
 }
 
+.rounded-block.gray h2 {
+    font-size: 30px;
+}
+
 .label {
     font-size: 18px;
 }
@@ -127,6 +135,16 @@ select.type2 {
     font-size: 15px;
 }
 
+.rounded-block.gray .credentials-block .description {
+    font-size: 20px;
+    color: #756e85;
+}
+
+.rounded-block.gray .credentials-block .credential {
+    font-size: 35px;
+    color: #087fae;
+}
+
 .footer ul.menu > li > a {
     font-size: 18px;
 }
@@ -153,7 +171,7 @@ select.type2 {
 @media screen and (max-width: 1024px) {
     .button {
         min-width: 280px;
-        font-size: 20px;
+        font-size: 17px;
     }
 
     .navbar-default .navbar-nav > li > a {

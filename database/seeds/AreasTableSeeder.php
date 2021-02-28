@@ -2,34 +2,65 @@
 
 use Illuminate\Database\Seeder;
 use App\Area;
+use App\Gallery;
+use App\Http\Controllers\HelperTrait;
 
 class AreasTableSeeder extends Seeder
 {
+    use HelperTrait;
+    
     public function run()
     {
         $data = [
-            ['name_ru' => 'Адмиралтейский', 'name_en' => 'Admiraltejskij', 'active' => 1],
-            ['name_ru' => 'Василеостровский', 'name_en' => 'Vasileostrovskij', 'active' => 1],
-            ['name_ru' => 'Выборгский', 'name_en' => 'Vyborgskij', 'active' => 1],
-            ['name_ru' => 'Калининский', 'name_en' => 'Kalininskij', 'active' => 1],
-            ['name_ru' => 'Кировский', 'name_en' => 'Kirovskij', 'active' => 1],
-            ['name_ru' => 'Колпинский', 'name_en' => 'Kolpinskij', 'active' => 1],
-            ['name_ru' => 'Красногвардейский', 'name_en' => 'Krasnogvardejskij', 'active' => 1],
-            ['name_ru' => 'Красносельский', 'name_en' => 'Krasnosel\'skij', 'active' => 1],
-            ['name_ru' => 'Кронштадтский', 'name_en' => 'Kronshtadtskij', 'active' => 1],
-            ['name_ru' => 'Курортный', 'name_en' => 'Kurortnyj', 'active' => 1],
-            ['name_ru' => 'Московский', 'name_en' => 'Moskovskij', 'active' => 1],
-            ['name_ru' => 'Невский', 'name_en' => 'Nevskij', 'active' => 1],
-            ['name_ru' => 'Петроградский', 'name_en' => 'Petrogradskij', 'active' => 1],
-            ['name_ru' => 'Петродворцовый', 'name_en' => 'Petrodvorcovyj', 'active' => 1],
-            ['name_ru' => 'Приморский', 'name_en' => 'Primorskij', 'active' => 1],
-            ['name_ru' => 'Пушкинский', 'name_en' => 'Pushkinskij', 'active' => 1],
-            ['name_ru' => 'Фрунзенский', 'name_en' => 'Frunzenskij', 'active' => 1],
-            ['name_ru' => 'Центральный', 'name_en' => 'Central\'nyj', 'active' => 1]
+            ['name_ru' => 'Адмиралтейский'],
+            ['name_ru' => 'Василеостровский'],
+            ['name_ru' => 'Выборгский'],
+            ['name_ru' => 'Калининский'],
+            ['name_ru' => 'Кировский'],
+            ['name_ru' => 'Колпинский'],
+            ['name_ru' => 'Красногвардейский'],
+            ['name_ru' => 'Красносельский'],
+            ['name_ru' => 'Кронштадтский'],
+            ['name_ru' => 'Курортный'],
+            ['name_ru' => 'Московский'],
+            ['name_ru' => 'Невский'],
+            ['name_ru' => 'Петроградский'],
+            ['name_ru' => 'Петродворцовый'],
+            ['name_ru' => 'Приморский'],
+            ['name_ru' => 'Пушкинский', 'arms' => 'images/arms/pushkinskij.jpg'],
+            ['name_ru' => 'Фрунзенский'],
+            ['name_ru' => 'Центральный']
         ];
 
         foreach ($data as $item) {
-            Area::create($item);
+            if ($item['name_ru'] == 'Курортный' || $item['name_ru'] == 'Центральный') {
+                $prefix = str_replace('ный','ном',$item['name_ru']);
+            } elseif ($item['name_ru'] == 'Петродворцовый') {
+                $prefix = 'Петродворцовом';
+            } else {
+                $prefix = str_replace('кий','ком',$item['name_ru']);
+            }
+
+            $item['slug'] = str_slug($item['name_ru']);
+            $item['name_en'] = $this->transliteration($item['name_ru']);
+            $item['description_ru'] = '
+                <p>В '.$prefix.' районе отремонтирована спортивная волейбольная площадка около дома 25А.</p>
+                <p>На спортивной площадке выровняли основание и столбы ограждения, постелили новое покрытие из искусственной травы 20мм, установили новые секции ограждения и оборудование для игры в волейбол.</p> 
+                <p>В этом году в '.$prefix.' районе предусмотрен ремонт и оснащение оборудованием пяти площадок, а также проведение проектных работ для двух подобных спортивных объекта.</p> 
+            ';
+            $item['leader_ru'] = 'Волынкина Эвелина Георгиевна';
+            $item['phone'] = '+7 (932) 142-63-49';
+            $item['email'] = 'volinkina1969@mail.ru';
+            $item['active'] = 1;
+            
+            $area = Area::create($item);
+            
+            for($g=1;$g<=5;$g++) {
+                Gallery::create([
+                    'photo' => 'images/galleries/gallery_temp'.$g.'.jpg',
+                    'area_id' => $area->id
+                ]);
+            }
         }
     }
 }

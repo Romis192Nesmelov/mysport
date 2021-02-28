@@ -15,8 +15,16 @@ class CreateAreasTable extends Migration
     {
         Schema::create('areas', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('slug');
+            $table->string('arms')->nullable();
             $table->string('name_ru');
-            $table->string('name_en')->nullable();
+            $table->string('name_en');
+            $table->text('description_ru')->nullable();
+            $table->text('description_en')->nullable();
+            $table->string('leader_ru');
+            $table->string('leader_en')->nullable();
+            $table->string('phone');
+            $table->string('email');
             $table->boolean('active');
             $table->timestamps();
         });

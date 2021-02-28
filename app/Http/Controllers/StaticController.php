@@ -21,7 +21,6 @@ class StaticController extends Controller
     public function index(Request $request)
     {
         $this->data['news'] = News::where('active',1)->orderBy('id','desc')->limit(3)->get();
-        $this->data['sports'] = KindOfSport::where('active',1)->get();
         $this->data['trainers'] = Trainer::where('active',1)->where('best',1)->get();
         $this->data['points'] = $this->findSport();
         $this->data['year'] = date('Y');
@@ -30,6 +29,20 @@ class StaticController extends Controller
         $this->data['events_on_year'] = Event::where('active',1)->where('time','>=',$limitInPast)->where('time','<=',$limitInFuture)->pluck('time')->toArray();
         $this->data['events'] = Event::where('active',1)->orderBy('id','desc')->limit(5)->get();
         return $this->showView($request,'home');
+    }
+
+    public function area(Request $request,$slug=null)
+    {
+        if ($slug) {
+            $this->data['area'] = Area::where('slug',$slug)->first();
+        } else {
+            $this->validate($request, ['id' => $this->validationArea]);
+            $this->data['area'] = Area::find($request->input('id'));
+        }
+
+        if (!$this->data['area']) abort(404);
+        $this->data['points'] = $this->findSport($this->data['area']->id);
+        return $this->showView($request,'area');
     }
 
     public function changeLang(Request $request)
@@ -72,6 +85,7 @@ class StaticController extends Controller
         ];
         
         $areas = Area::where('active',1)->get();
+        $sports = KindOfSport::where('active',1)->get();
         $socnets = [
             ['icon' => 'yt', 'href' => '#'],
             ['icon' => 'fb', 'href' => '#'],
@@ -86,6 +100,7 @@ class StaticController extends Controller
             'topMenu' => $topMenu,
             'mainMenu' => $mainMenu,
             'areas' => $areas,
+            'sports' => $sports,
             'socnets' => $socnets,
             'data' => $this->data,
             'metas' => $this->metas

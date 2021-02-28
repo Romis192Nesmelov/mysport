@@ -1,0 +1,1 @@
+<p><a href="{{ url($prefix.'/'.$item->slug) }}">{{ $item['name_'.App::getLocale()].' '.$item['address_'.App::getLocale()] }}</a></p>

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Section extends Model
 {
     protected $fillable = [
+        'slug',
         'name_ru',
         'name_en',
         'description_ru',

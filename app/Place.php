@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 class Place extends Model
 {
     protected $fillable = [
+        'slug',
+        'name_ru',
+        'name_en',
+        'address_ru',
+        'address_en',
         'description_ru',
         'description_en',
         'latitude',
