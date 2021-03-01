@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 //use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 
 class HelperController extends Controller
 {
@@ -34,6 +35,40 @@ class HelperController extends Controller
     {
         $daysInMonth = [31,(!($year%4) ? 29 : 28),31,30,31,30,31,31,30,31,30,31];
         return $daysInMonth[$month-1];
+    }
+
+    public function eventsCaseFormat($value)
+    {
+        if (App::getLocale() == 'en') {
+            return $value.' event'.($value > 1 ? 's' : '');
+        } else {
+            $number = (int)substr($value,-1);
+            if ($value > 10 && $value < 20) {
+                $numeral = 'мероприятий';
+            } else {
+                if ($number == 1) $numeral = 'мероприятие';
+                elseif ($number > 1 && $number < 5) $numeral = 'мероприятия';
+                else $numeral = 'мероприятий';
+            }
+            return $value.' '.$numeral;
+        }
+    }
+
+    public function objectsCaseFormat($value)
+    {
+        if (App::getLocale() == 'en') {
+            return $value.' sports object'.($value > 1 ? 's' : '');
+        } else {
+            $number = (int)substr($value,-1);
+            if ($value > 10 && $value < 20) {
+                $numeral = 'объектов';
+            } else {
+                if ($number == 1) $numeral = 'объект';
+                elseif ($number > 1 && $number < 5) $numeral = 'объекта';
+                else $numeral = 'объектов';
+            }
+            return $value.' спортивных '.$numeral;
+        }
     }
 
     public function valueWordsFormat($value)

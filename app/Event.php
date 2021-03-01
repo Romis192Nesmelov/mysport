@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $fillable = [
+        'slug',
         'time',
         'name_ru',
-        'description_ru',
         'name_en',
+        'description_ru',
         'description_en',
         'latitude',
         'longitude',
@@ -26,6 +27,11 @@ class Event extends Model
 
     public function trainer()
     {
-        return $this->belongsTo('App\Area');
+        return $this->belongsTo('App\Trainer');
+    }
+
+    public function eventsRecord()
+    {
+        return $this->hasMany('App\EventsRecord')->orderBy('id','desc');
     }
 }

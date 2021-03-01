@@ -15,10 +15,14 @@ class CreateOrganizationsTable extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('slug');
+            $table->string('image')->nullable();
             $table->string('name_ru');
             $table->string('name_en')->nullable();
             $table->text('description_ru');
             $table->text('description_en')->nullable();
+            $table->string('leader_ru');
+            $table->string('leader_en')->nullable();
             $table->string('address_ru');
             $table->string('address_en')->nullable();
             $table->double('latitude');

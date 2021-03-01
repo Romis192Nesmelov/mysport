@@ -30,4 +30,9 @@ class Place extends Model
     {
         return $this->hasMany('App\Sport');
     }
+
+    public function gallery()
+    {
+        return $this->hasMany('App\Gallery','place_id');
+    }
 }

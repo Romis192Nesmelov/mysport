@@ -38,10 +38,10 @@ class User extends Authenticatable
      */
     protected $hidden = ['password', 'remember_token'];
 
-//    public function tickets()
-//    {
-//        return $this->hasMany('App\Ticket')->orderBy('id','desc');
-//    }
+    public function eventsRecord()
+    {
+        return $this->hasMany('App\EventsRecord')->orderBy('id','desc');
+    }
 
 //    public function openTickets()
 //    {

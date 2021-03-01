@@ -7,7 +7,7 @@ class Area extends Model
 {
     protected $fillable = [
         'slug',
-        'arms',
+        'image',
         'name_ru',
         'name_en',
         'description_ru',
@@ -24,6 +24,11 @@ class Area extends Model
         return $this->hasMany('App\Event')->where('active',1)->orderBy('id','desc');
     }
 
+    public function organizations()
+    {
+        return $this->hasMany('App\Organization');
+    }
+    
     public function sections()
     {
         return $this->hasMany('App\Section');

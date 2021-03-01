@@ -54,20 +54,23 @@ class EventsTableSeeder extends Seeder
 
         for ($i=0;$i<100;$i++) {
             $areaId = $areas[rand(0,count($areas)-1)];
-            $month = date('n')+(ceil($i/10));
+            $month = date('n')+(ceil($i/11));
             $day = $day > cal_days_in_month(CAL_GREGORIAN,$month,2021) ? 1 : $day+1;
             $hour = $hour > 22 ? 8 : $hour+1;
             $halfHour = rand(1,50) > 25 ? '30' : '00';
             $contentCounter++;
             $contentCounter = $contentCounter > count($content)-1 ? 0 : $contentCounter;
+            $nameRu = $content[$contentCounter]['name_ru'];
+            $nameEn = $content[$contentCounter]['name_en'];
             list($latitude,$longitude) = $this->getRandomCoordinates($areaId);
 
             Event::create(
                 [
+                    'slug' => str_slug($nameRu),
                     'time' => strtotime($month.'/'.$day.'/2021 '.$hour.':'.$halfHour.':00'),
-                    'name_ru' => $content[$contentCounter]['name_ru'],
+                    'name_ru' => $nameRu,
+                    'name_en' => $nameEn,
                     'description_ru' => $content[$contentCounter]['description_ru'],
-                    'name_en' => $content[$contentCounter]['name_en'],
                     'description_en' => $content[$contentCounter]['description_en'],
                     'latitude' => $latitude,
                     'longitude' => $longitude,

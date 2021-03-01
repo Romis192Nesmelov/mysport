@@ -1,4 +1,4 @@
-<div class="section" data-scroll-destination="map">
+<div class="section {{ isset($addClass) ? $addClass : '' }}" data-scroll-destination="map">
     <a name="map"></a>
     <div class="container">
         @if ($useHeader)
@@ -20,7 +20,7 @@
                 @include('layouts._areas_select_block',[
                     'type' => 2,
                     'useLabel' => true,
-                    'selected' => isset($data['area']) ? $data['area']->id : null
+                    'selected' => isset($data['area_id']) ? $data['area_id'] : null
                 ])
 
                 @include('_select_type2_block',[

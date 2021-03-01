@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
 use App\News;
 use App\KindOfSport;
 use App\Trainer;
 use App\Area;
+use App\Organization;
+use App\Section;
 use App\Event;
 //use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Helper;
@@ -33,18 +36,61 @@ class StaticController extends Controller
 
     public function area(Request $request,$slug=null)
     {
-        if ($slug) {
-            $this->data['area'] = Area::where('slug',$slug)->first();
-        } else {
-            $this->validate($request, ['id' => $this->validationArea]);
-            $this->data['area'] = Area::find($request->input('id'));
-        }
-
-        if (!$this->data['area']) abort(404);
-        $this->data['points'] = $this->findSport($this->data['area']->id);
+        $this->getItem($request, new Area(), $slug);
+        $this->data['area_id'] = $this->data['item']->id;
+        $this->data['points'] = $this->findSport($this->data['item']->id);
         return $this->showView($request,'area');
     }
 
+    public function events(Request $request,$slug=null)
+    {
+
+    }
+    
+    public function organization(Request $request,$slug=null)
+    {
+        return $this->getObject($request, new Organization(), $slug);
+    }
+
+    public function section(Request $request,$slug=null)
+    {
+        return $this->getObject($request, new Section(), $slug);
+    }
+
+    public function place(Request $request)
+    {
+        
+    }
+    
+    public function trainers(Request $request)
+    {
+        
+    }
+    
+    public function kindOfSport(Request $request)
+    {
+        
+    }
+
+    private function getItem(Request $request, Model $model, $slug)
+    {
+        if ($slug) {
+            $this->data['item'] = $model->where('slug',$slug)->first();
+        } else {
+            $this->validate($request, ['id' => $this->validationArea]);
+            $this->data['item'] = $model->find($request->input('id'));
+        }
+        if (!$this->data['item']) abort(404);
+    }
+
+    private function getObject(Request $request, Model $model, $slug)
+    {
+        $this->getItem($request, $model, $slug);
+        $this->data['area_id'] = $this->data['item']->area->id;
+        $this->data['points'] = $this->findSport($this->data['item']->area->id);
+        return $this->showView($request,'object');
+    }
+    
     public function changeLang(Request $request)
     {
         $this->validate($request, ['lang' => 'required|in:en,ru']);

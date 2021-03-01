@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Area;
 use App\Place;
 use App\Sport;
+use App\Gallery;
 use App\KindOfSport;
 use App\Http\Controllers\HelperTrait;
 
@@ -42,7 +43,7 @@ class PlacesTableSeeder extends Seeder
             list($latitude,$longitude) = $this->getRandomCoordinates($areaId);
             
             $name = $names[rand(0,count($names)-1)];
-            $address = 'ул. '.str_random(16).' '.$locations[rand(0,count($locations)-1)].' дома.'.rand(1,50).(rand(0,1) ? ' стр.'.rand(1,10) : '');
+            $address = $this->getRandomAddress(true).', '.$locations[rand(0,count($locations)-1)].' дома '.rand(1,50).(rand(0,1) ? ' стр.'.rand(1,10) : '');
 
             $place = Place::create(
                 [
@@ -65,6 +66,13 @@ class PlacesTableSeeder extends Seeder
                 Sport::create([
                     'place_id' => $place->id,
                     'kind_of_sport_id' => $sports[$s]
+                ]);
+            }
+
+            for($g=6;$g<=9;$g++) {
+                Gallery::create([
+                    'photo' => 'images/galleries/gallery_temp'.$g.'.jpg',
+                    'place_id' => $place->id
                 ]);
             }
         }

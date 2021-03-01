@@ -27,7 +27,7 @@ class AreasTableSeeder extends Seeder
             ['name_ru' => 'Петроградский'],
             ['name_ru' => 'Петродворцовый'],
             ['name_ru' => 'Приморский'],
-            ['name_ru' => 'Пушкинский', 'arms' => 'images/arms/pushkinskij.jpg'],
+            ['name_ru' => 'Пушкинский', 'image' => 'images/arms/pushkinskij.jpg'],
             ['name_ru' => 'Фрунзенский'],
             ['name_ru' => 'Центральный']
         ];
@@ -49,8 +49,9 @@ class AreasTableSeeder extends Seeder
                 <p>В этом году в '.$prefix.' районе предусмотрен ремонт и оснащение оборудованием пяти площадок, а также проведение проектных работ для двух подобных спортивных объекта.</p> 
             ';
             $item['leader_ru'] = 'Волынкина Эвелина Георгиевна';
-            $item['phone'] = '+7 (932) 142-63-49';
-            $item['email'] = 'volinkina1969@mail.ru';
+            $item['leader_en'] = $this->transliteration($item['leader_ru']);
+            $item['phone'] = $this->getRandomPhone();
+            $item['email'] = $this->getRandomEmail();
             $item['active'] = 1;
             
             $area = Area::create($item);

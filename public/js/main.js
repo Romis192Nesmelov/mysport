@@ -180,7 +180,7 @@ function bindAreaChange() {
 
 function goToScroll(scrollData) {
     $('html,body').animate({
-        scrollTop: $('.section[data-scroll-destination="' + scrollData + '"]').offset().top
+        scrollTop: $('div[data-scroll-destination="' + scrollData + '"]').offset().top
     }, 1500, 'easeInOutQuint');
 }
 

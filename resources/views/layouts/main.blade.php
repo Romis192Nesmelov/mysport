@@ -125,7 +125,7 @@
                 @include('layouts._areas_select_block',[
                     'type' => 1,
                     'useLabel' => false,
-                    'selected' => isset($data['area']) ? $data['area']->id : null
+                    'selected' => isset($data['area_id']) ? $data['area_id'] : null
                 ])
                 @include('layouts._soc_nets_block')
                 <div class="button pull-right red small"><a data-scroll="map">{{ trans('menu.search') }}</a><i class="glyphicon glyphicon-search"></i></div>

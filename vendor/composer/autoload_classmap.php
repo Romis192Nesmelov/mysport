@@ -9,6 +9,7 @@ return array(
     'App\\Area' => $baseDir . '/app/Area.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Event' => $baseDir . '/app/Event.php',
+    'App\\EventsRecord' => $baseDir . '/app/EventsRecord.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Gallery' => $baseDir . '/app/Gallery.php',
     'App\\Http\\Controllers\\AdminController' => $baseDir . '/app/Http/Controllers/AdminController.php',

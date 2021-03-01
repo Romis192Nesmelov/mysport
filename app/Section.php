@@ -7,6 +7,7 @@ class Section extends Model
 {
     protected $fillable = [
         'slug',
+        'image',
         'name_ru',
         'name_en',
         'description_ru',
@@ -38,13 +39,18 @@ class Section extends Model
         return $this->belongsTo('App\Organization');
     }
 
-    public function sport()
+    public function kindOfSport()
     {
         return $this->belongsTo('App\KindOfSport','kind_of_sport_id');
     }
 
-    public function trainer()
+    public function leader()
     {
-        return $this->belongsTo('App\Trainer');
+        return $this->belongsTo('App\Trainer','trainer_id');
+    }
+
+    public function gallery()
+    {
+        return $this->hasMany('App\Gallery','section_id');
     }
 }

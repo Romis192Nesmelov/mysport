@@ -6,10 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 class Organization extends Model
 {
     protected $fillable = [
+        'slug',
+        'image',
         'name_ru',
         'name_en',
         'description_ru',
         'description_en',
+        'leader_ru',
+        'leader_en',
         'address_ru',
         'address_en',
         'latitude',
@@ -32,5 +36,10 @@ class Organization extends Model
     public function sections()
     {
         return $this->hasMany('App\Section');
+    }
+
+    public function gallery()
+    {
+        return $this->hasMany('App\Gallery','organization_id');
     }
 }

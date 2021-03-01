@@ -18,6 +18,10 @@ p {
     padding-bottom: 50px;
 }
 
+.section.simplified {
+    padding-top: 0;
+}
+
 .section.gray {
     background-color: #dbe2ea;
 }
@@ -527,7 +531,7 @@ a.active {
     opacity: 0.8;
 }
 
-.area-arms {
+.rounded-block.gray.left-block .cir-image {
     width: 220px;
     height: 220px;
     border-radius: 50%;
@@ -537,7 +541,6 @@ a.active {
 
 .rounded-block.gray.left-block h1,
 .rounded-block.gray.left-block h2 {
-    margin: 0;
     text-align: center;
 }
 
@@ -564,7 +567,7 @@ a.active {
     display: table;
 }
 
-.rounded-block.gray .credentials-block .description {
+.rounded-block.gray .description {
     margin-top: 20px;
     font-size: 15px;
     color: #756e85;
@@ -1099,7 +1102,7 @@ a.active {
         padding-right: 10px;
     }
 
-    .area-arms {
+    .rounded-block.gray.left-block .cir-image {
         width: 180px;
         height: 180px;
     }
