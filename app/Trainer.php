@@ -19,6 +19,11 @@ class Trainer extends Model
         return $this->belongsTo('App\KindOfSport','kind_of_sport_id');
     }
 
+    public function sections()
+    {
+        return $this->hasMany('App\Section','trainer_id');
+    }
+
     public function events()
     {
         return $this->hasMany('App\Events');

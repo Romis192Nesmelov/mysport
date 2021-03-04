@@ -116,7 +116,7 @@
             @for($i=0;$i<(count($data['events']) > 5 ? 5 : count($data['events']));$i++)
                 @php $event = $data['events'][$i]; @endphp
                 <div class="col-md-{{ $blindVer ? '4' : '3' }} col-sm-{{ $blindVer ? '6' : '4' }} col-xs-12 event">
-                    <div class="button green">{{ date('j',$event->time).' '.trans('months.'.date('m',$event->time)).' '.date('Y',$event->time).' '.date('G:i',$event->time) }}</div>
+                    <div class="button green">{{ date('j',$event->start_time).' '.trans('months.'.date('m',$event->start_time)).' '.date('Y',$event->start_time).' '.date('G:i',$event->start_time) }}</div>
                     <h3>{{ $event['name_'.App::getLocale()] }}</h3>
                     <p>{{ $event['description_'.App::getLocale()] }}</p>
                 </div>

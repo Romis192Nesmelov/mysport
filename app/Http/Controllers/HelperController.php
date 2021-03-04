@@ -26,6 +26,11 @@ class HelperController extends Controller
         return number_format((int)$value, 0, ',', ' ').'$';
     }
     
+    public function getAgeGroup($group)
+    {
+        return ['5-10','10-15','15-20','20-35','35-45','45-55','55-65','65-75','75+'][$group-1].' '.trans('content.years');
+    }
+    
     public function isAdmin()
     {
         return !Auth::guest() && Auth::user()->type == 4;
@@ -39,35 +44,43 @@ class HelperController extends Controller
 
     public function eventsCaseFormat($value)
     {
-        if (App::getLocale() == 'en') {
-            return $value.' event'.($value > 1 ? 's' : '');
-        } else {
-            $number = (int)substr($value,-1);
-            if ($value > 10 && $value < 20) {
-                $numeral = 'мероприятий';
-            } else {
-                if ($number == 1) $numeral = 'мероприятие';
-                elseif ($number > 1 && $number < 5) $numeral = 'мероприятия';
-                else $numeral = 'мероприятий';
-            }
-            return $value.' '.$numeral;
-        }
+        return $this->wordNumeral($value, 'event', true, 'мероприятий', 'мероприятие', 'мероприятия');
     }
 
     public function objectsCaseFormat($value)
     {
+        return $this->wordNumeral($value, 'sports object', true, 'спортивных объектов', 'спортивный объект', 'спортивных объекта');
+    }
+
+    public function sectionsCaseFormat($value)
+    {
+        return $this->wordNumeral($value, 'section', true, 'спортивных секций', 'спортивная секция', 'спортивных секции');
+    }
+
+    public function kindOfSportCaseFormat($value)
+    {
+        return $this->wordNumeral($value, 'sports kind', true, 'видов спорта', 'вид спорта', 'вида спорта');
+    }
+
+    public function haveJoinedCaseFormat($value)
+    {
+        return $this->wordNumeral($value, 'have joined', false, 'присоединившихся', 'присоединившийся', 'присоединившихся');
+    }
+
+    private function wordNumeral($value, $pluralForm, $englishCase, $numeral1, $numeral2, $numeral3)
+    {
         if (App::getLocale() == 'en') {
-            return $value.' sports object'.($value > 1 ? 's' : '');
+            return $value.' '.$englishCase.($value > 1 && $pluralForm ? 's' : '');
         } else {
             $number = (int)substr($value,-1);
             if ($value > 10 && $value < 20) {
-                $numeral = 'объектов';
+                $numeral = $numeral1;
             } else {
-                if ($number == 1) $numeral = 'объект';
-                elseif ($number > 1 && $number < 5) $numeral = 'объекта';
-                else $numeral = 'объектов';
+                if ($number == 1) $numeral = $numeral2;
+                elseif ($number > 1 && $number < 5) $numeral = $numeral3;
+                else $numeral = $numeral1;
             }
-            return $value.' спортивных '.$numeral;
+            return $value.' '.$numeral;
         }
     }
 

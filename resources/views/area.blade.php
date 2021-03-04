@@ -27,7 +27,7 @@
                 @include('_credentials_block',[
                     'colMd' => 12,
                     'colSm' => 12,
-                    'description' => trans('content.area_leader').':',
+                    'description' => trans('content.area_leader'),
                     'credential' => $data['item']['leader_'.App::getLocale()]
                 ])
 
@@ -35,7 +35,7 @@
                     @include('_credentials_block',[
                         'colMd' => $blindVer ? 12 : 6,
                         'colSm' => $blindVer ? 12 : 6,
-                        'description' => trans('content.phone').':',
+                        'description' => trans('content.phone'),
                         'credential' => $data['item']->phone
                     ])
                 @endif
@@ -45,7 +45,9 @@
                         'colMd' => $blindVer ? 12 : 6,
                         'colSm' => $blindVer ? 12 : 6,
                         'description' => 'E-mail:',
-                        'credential' => $data['item']->email
+                        'credential' => $data['item']->email,
+                        'href' => 'mailto:'.$data['item']->email,
+                        'blank' => true
                     ])
                 @endif
             </div>

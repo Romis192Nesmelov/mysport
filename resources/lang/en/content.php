@@ -1,25 +1,30 @@
 <?php
 
 return [
+    'years' => 'years',
     'area' => 'area',
-    '_area' => 'Area',
+    '_area' => 'Area:',
     'trainers' => 'trainers',
     'of_spb' => 'of St. Petersburg',
-    'area_leader' => 'Area leader',
-    'leader' => 'Leader',
-    'phone' => 'Phone',
+    'area_leader' => 'Area leader:',
+    'leader' => 'Leader:',
+    'phone' => 'Phone:',
+    'contact_number' => 'Contact phone:',
+    'contact_email' => 'Contact e-mail:',
+    'age_group' => 'Age group:',
     'events_calendar' => 'Events calendar',
     'sports_events' => 'Sports events',
     'sports_events_in_area' => 'Sports events in area',
     'sports_objects_in_area' => 'Sports objects in area',
     'all_news' => 'All news',
     'description' => 'Description',
-    'address' => 'Address',
-    'organization' => 'Organization',
-    'main_trainer' => 'Main trainer',
-    'site' => 'Site',
-    'timetable' => 'Timetable of classes',
-    'list_of_sections' => 'List of sections',
+    'address' => 'Address:',
+    'organization' => 'Organization:',
+    'main_trainer' => 'Main trainer:',
+    'trainer' => 'Trainer:',
+    'site' => 'Site:',
+    'timetable' => 'Timetable of classes:',
+    'list_of_sections' => 'List of sections:',
     
     'image' => 'Image',
     'link' => 'Link',
@@ -39,7 +44,8 @@ return [
     'send' => 'Send',
     'close' => 'Close',
     'go_back' => 'Go back',
-    'date' => 'Date',
+    'date' => 'Date:',
+    'time' => 'Time:',
     'save_complete' => 'Save complete',
 
     'en' => 'English',
@@ -47,6 +53,7 @@ return [
 
     'head' => 'Head',
     'name' => 'Name',
+    'object_name' => 'Object name:',
     
     'sports_grounds' => 'Sports grounds',
     'sections' => 'Sports sections',
@@ -65,7 +72,7 @@ return [
     'the_calendar_of_sports_events' => 'The calendar<br>of sports events',
     'sports_news' => 'Sports news<br><span>of St.Petersburg</span>',
     'read_all_news' => 'Read all news',
-    'kind_of_sport_object' => 'Kind of sport',
+    'kind_of_sport_object' => 'Kind of sport:',
     'kind_of_sport' => 'Kind of sport<br><span>of St.Petersburg</span>',
     'open_all_kind_of_sport' => 'Open all kind of sport',
     'sport_map' => 'Sports facilities map<br><span>of St.Petersburg</span>',
@@ -77,6 +84,7 @@ return [
     'not_select_the_area' => 'An area isn\'t selected',
     'select_the_kind_of_sport' => 'Select the kind of sport:',
     'not_select_the_kind_of_sport' => 'A kind of sport isn\'t selected',
+    'to_record_kid' => 'To record my kid',
 
     'footer_text' => '© 2020 Committee for<br>Physical Culture and Sports<br>of St. Petersburg'
 ];

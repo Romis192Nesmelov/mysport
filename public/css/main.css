@@ -367,6 +367,15 @@ a.active {
     background-size: cover;
 }
 
+.record-block {
+    margin: 5px auto;
+}
+
+.record-block .button {
+    margin: 10px auto;
+    float: none;
+}
+
 .triple-block {
     width: 100%;
     height: 430px;
@@ -567,6 +576,10 @@ a.active {
     display: table;
 }
 
+.rounded-block.gray .credentials-block a {
+    text-decoration: underline;
+}
+
 .rounded-block.gray .description {
     margin-top: 20px;
     font-size: 15px;
@@ -576,6 +589,11 @@ a.active {
 .rounded-block.gray .credentials-block .credential {
     font-size: 25px;
     color: #087fae;
+    line-height: 1.2em;
+}
+
+.rounded-block.gray .content-block .credential {
+    font-size: 25px;
     line-height: 1.2em;
 }
 

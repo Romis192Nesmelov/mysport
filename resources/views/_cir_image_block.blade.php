@@ -3,10 +3,10 @@
 @if ( (isset($counter1) && $counter1) || (isset($counter2) && $counter2) )
     <h2>
         @if (isset($counter1) && $counter1)
-            <a data-scroll="{{ $scroll1 }}">{{ $counter1 }}</a><br>
+            {!! isset($scroll1) && $scroll1 ? '<a data-scroll="'.$scroll1.'">'.$counter1.'</a>' : $counter1 !!}
         @endif
         @if (isset($counter2) && $counter2)
-            <a data-scroll="{{ $scroll2 }}">{{ $counter2 }}</a>
+            <br>{!! isset($scroll2) && $scroll2 ? '<a data-scroll="'.$scroll2.'">'.$counter2.'</a>' : $counter2 !!}
         @endif
     </h2>
 @endif

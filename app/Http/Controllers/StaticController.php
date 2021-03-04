@@ -29,7 +29,7 @@ class StaticController extends Controller
         $this->data['year'] = date('Y');
         $limitInPast = strtotime('1/1/'.$this->data['year']);
         $limitInFuture = date('n') <= 10 ? strtotime('12/31/'.$this->data['year']) : strtotime((date('n')+4-12).'1/'.($this->data['year']+1));
-        $this->data['events_on_year'] = Event::where('active',1)->where('time','>=',$limitInPast)->where('time','<=',$limitInFuture)->pluck('time')->toArray();
+        $this->data['events_on_year'] = Event::where('active',1)->where('start_time','>=',$limitInPast)->where('start_time','<=',$limitInFuture)->pluck('start_time')->toArray();
         $this->data['events'] = Event::where('active',1)->orderBy('id','desc')->limit(5)->get();
         return $this->showView($request,'home');
     }
@@ -44,7 +44,16 @@ class StaticController extends Controller
 
     public function events(Request $request,$slug=null)
     {
-
+        $this->getItem($request, new Event(), $slug);
+        $this->data['area_id'] = $this->data['item']->area->id;
+        $this->data['points'] =
+            [
+                'events' => [$this->data['item']],
+                'organizations' => null,
+                'sections' => null,
+                'places' => null
+            ];
+        return $this->showView($request,'event');
     }
     
     public function organization(Request $request,$slug=null)

@@ -2,9 +2,12 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Http\Controllers\HelperTrait;
 
 class UsersTableSeeder extends Seeder
 {
+    use HelperTrait;
+    
     public function run()
     {
         $data = [
@@ -36,6 +39,17 @@ class UsersTableSeeder extends Seeder
 
         foreach ($data as $user) {
             User::create($user);
+        }
+        
+        for ($u=0;$u<rand(20,50);$u++) {
+            User::create([
+                'email' => $this->getRandomEmail(),
+                'phone' => $this->getRandomPhone(),
+                'password' => bcrypt(str_random(10)),
+                'active' => 1,
+                'type' => 4,
+                'send_mail' => 0
+            ]);
         }
     }
 }

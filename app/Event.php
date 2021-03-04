@@ -7,13 +7,17 @@ class Event extends Model
 {
     protected $fillable = [
         'slug',
-        'time',
+        'start_time',
+        'end_time',
         'name_ru',
         'name_en',
         'description_ru',
         'description_en',
+        'address_ru',
+        'address_en',
         'latitude',
         'longitude',
+        'age_group',
         'active',
         
         'area_id',

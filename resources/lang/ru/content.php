@@ -1,25 +1,30 @@
 <?php
 
 return [
+    'years' => 'лет',
     'area' => 'район',
-    '_area' => 'Район',
+    '_area' => 'Район:',
     'trainers' => 'тренеров',
     'of_spb' => 'Санкт-Петербурга',
-    'area_leader' => 'Руководитель района',
-    'leader' => 'Руководитель',
-    'phone' => 'Телефон',
+    'area_leader' => 'Руководитель района:',
+    'leader' => 'Руководитель:',
+    'phone' => 'Телефон:',
+    'contact_number' => 'Контактаный телефон:',
+    'age_group' => 'Возрастная группа:',
+    'contact_email' => 'Контактный e-mail:',
     'events_calendar' => 'Календарь мероприятий',
     'sports_events' => 'Спортивные мероприятия',
     'sports_events_in_area' => 'Спортивные мероприятия района',
     'sports_objects_in_area' => 'Спортивные объекты района',
     'all_news' => 'Все новости',
     'description' => 'Описание',
-    'address' => 'Адрес',
-    'organization' => 'Организация',
-    'main_trainer' => 'Главный тренер',
-    'site' => 'Сайт',
-    'timetable' => 'Расписание занятий',
-    'list_of_sections' => 'Список секций',
+    'address' => 'Адрес:',
+    'organization' => 'Организация:',
+    'main_trainer' => 'Главный тренер:',
+    'trainer' => 'Тренер:',
+    'site' => 'Сайт:',
+    'timetable' => 'Расписание занятий:',
+    'list_of_sections' => 'Список секций:',
     
     'image' => 'Картинка',
     'link' => 'Ссылка',
@@ -39,7 +44,8 @@ return [
     'send' => 'Отправить',
     'close' => 'Закрыть',
     'go_back' => 'Вернуться назад',
-    'date' => 'Дата',
+    'date' => 'Дата:',
+    'time' => 'Время:',
     'save_complete' => 'Сохранение произведено',
     
     'en' => 'Английский',
@@ -47,6 +53,7 @@ return [
     
     'head' => 'Заголовок',
     'name' => 'Название',
+    'object_name' => 'Название объекта:',
     
     'sports_grounds' => 'Спортивные площадки',
     'sections' => 'Спортивные секции',
@@ -65,7 +72,7 @@ return [
     'the_calendar_of_sports_events' => 'Календарь<br>мероприятий',
     'sports_news' => 'Спортивные новости<br><span>Санкт-Петербурга</span>',
     'read_all_news' => 'Читать все новости',
-    'kind_of_sport_object' => 'Виды спорта',
+    'kind_of_sport_object' => 'Виды спорта:',
     'kind_of_sport' => 'Виды спорта<br><span>Санкт-Петербурга</span>',
     'open_all_kind_of_sport' => 'Открыть все виды спорта',
     'sport_map' => 'Карта спортивных объектов<br><span>Санкт-Петербурга</span>',
@@ -79,6 +86,7 @@ return [
     'not_select_the_area' => 'Район не выбран',
     'select_the_kind_of_sport' => 'Выберите вид спорта:',
     'not_select_the_kind_of_sport' => 'Вид спорта не выбран',
+    'to_record_kid' => 'Записать ребенка',
     
     'footer_text' => '© 2020 Комитет по физической<br>культуре и спорту<br>Санкт-Петербурга'
 ];

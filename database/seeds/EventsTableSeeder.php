@@ -4,6 +4,8 @@ use Illuminate\Database\Seeder;
 use App\Area;
 use App\Event;
 use App\Trainer;
+use App\User;
+use App\EventsRecord;
 use App\Http\Controllers\HelperTrait;
 
 class EventsTableSeeder extends Seeder
@@ -51,6 +53,7 @@ class EventsTableSeeder extends Seeder
 
         $areas = Area::pluck('id')->toArray();
         $trainers = Trainer::pluck('id')->toArray();
+        $users = User::pluck('id')->toArray();
 
         for ($i=0;$i<100;$i++) {
             $areaId = $areas[rand(0,count($areas)-1)];
@@ -58,27 +61,43 @@ class EventsTableSeeder extends Seeder
             $day = $day > cal_days_in_month(CAL_GREGORIAN,$month,2021) ? 1 : $day+1;
             $hour = $hour > 22 ? 8 : $hour+1;
             $halfHour = rand(1,50) > 25 ? '30' : '00';
+            $startTime = strtotime($month.'/'.$day.'/2021 '.$hour.':'.$halfHour.':00');
+            $endTime = $startTime + (rand(1,5) * 60 * 60);
             $contentCounter++;
             $contentCounter = $contentCounter > count($content)-1 ? 0 : $contentCounter;
             $nameRu = $content[$contentCounter]['name_ru'];
             $nameEn = $content[$contentCounter]['name_en'];
+            $address = $this->getRandomAddress();
             list($latitude,$longitude) = $this->getRandomCoordinates($areaId);
 
-            Event::create(
+            $event = Event::create(
                 [
                     'slug' => str_slug($nameRu),
-                    'time' => strtotime($month.'/'.$day.'/2021 '.$hour.':'.$halfHour.':00'),
+                    'start_time' => $startTime,
+                    'end_time' => $endTime,
                     'name_ru' => $nameRu,
                     'name_en' => $nameEn,
                     'description_ru' => $content[$contentCounter]['description_ru'],
                     'description_en' => $content[$contentCounter]['description_en'],
+                    'address_ru' => $address,
+                    'address_en' => $this->transliteration($address),
                     'latitude' => $latitude,
                     'longitude' => $longitude,
+                    'age_group' => rand(1,9),
                     'active' => 1,
                     'area_id' => $areaId,
                     'trainer_id' => $trainers[rand(0,count($trainers)-1)]
                 ]
             );
+
+            $joinedToEvent = rand(0,count($users)-1);
+            for ($j=0;$j<=$joinedToEvent;$j++) {
+                $joinedId = $users[$j];
+                EventsRecord::create([
+                    'user_id' => $joinedId,
+                    'event_id' => $event->id
+                ]);
+            }
         }
     }
 }
