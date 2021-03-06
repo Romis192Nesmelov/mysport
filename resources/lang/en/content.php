@@ -19,6 +19,7 @@ return [
     'all_news' => 'All news',
     'description' => 'Description',
     'address' => 'Address:',
+    'coordinates' => 'Coordinates:',
     'organization' => 'Organization:',
     'main_trainer' => 'Main trainer:',
     'trainer' => 'Trainer:',

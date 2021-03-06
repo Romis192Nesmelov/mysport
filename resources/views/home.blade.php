@@ -84,16 +84,16 @@
                                                     @if ($day && $day <= Helper::getNumberDaysInMonth($month, $year))
                                                         @php
                                                             $eventsMatch = false;
-                                                            foreach ($data['events_on_year'] as $time) {
-                                                                if (date('Y',$time) == $year && date('n',$time) == $month && date('j',$time) == $day) {
-                                                                    $eventsMatch = true;
+                                                            foreach ($data['events_on_year'] as $event) {
+                                                                if (date('Y',$event->start_time) == $year && date('n',$event->start_time) == $month && date('j',$event->start_time) == $day) {
+                                                                    $eventsMatch = $event;
                                                                     break;
                                                                 }
                                                             }
                                                             $incrementWeek = true;
                                                         @endphp
                                                         @if ($eventsMatch)
-                                                            <div class="event-day">{{ $day }}</div>
+                                                            <div class="event-day"><a href="{{ url('/events/'.$eventsMatch->slug) }}">{{ $day }}</a></div>
                                                         @else
                                                             {{ $day }}
                                                         @endif
@@ -181,7 +181,82 @@
         </div>
     </div>
 
-    @include('_map_block',['useHeader' => false])
+    <div class="section" data-scroll-destination="map">
+        <a name="map"></a>
+        <div class="container">
+            @include('_header_block', [
+                'tagName' => 'h1',
+                'icon' => 'icon_map',
+                'head' => trans('content.sport_map')
+            ])
+
+            <div class="col-md-{{ $blindVer ? '12' : '8' }} col-sm-{{ $blindVer ? '12' : '12' }} col-xs-12">
+                <div id="map" class="rounded-block"></div>
+            </div>
+
+            <div class="col-md-{{ $blindVer ? '12' : '4' }} col-sm-{{ $blindVer ? '12' : '12' }} col-xs-12">
+                <div class="rounded-block gray">
+                    {!! csrf_field() !!}
+
+                    <h1>{{ trans('content.find') }}</h1>
+                    @include('layouts._areas_select_block',[
+                        'type' => 2,
+                        'useLabel' => true,
+                        'selected' => isset($data['area_id']) ? $data['area_id'] : null
+                    ])
+
+                    @include('_select_type2_block',[
+                        'name' => 'kind_of_sport',
+                        'items' => $sports,
+                        'nullItem' => trans('content.not_select_the_kind_of_sport'),
+                        'label' => trans('content.select_the_kind_of_sport')
+                    ])
+
+                    {{--@include('_radio_buttons_type2_block',[--}}
+                    {{--'name' => 'test1',--}}
+                    {{--'label' => 'Укажите ваш пол',--}}
+                    {{--'items' => ['М','Ж'],--}}
+                    {{--'active' => 'М'--}}
+                    {{--])--}}
+
+                    {{--@include('_radio_buttons_type1_block',[--}}
+                    {{--'name' => 'test2',--}}
+                    {{--'items' => [--}}
+                    {{--'text1' => 'Тестовый<br>текст о чем-то1',--}}
+                    {{--'text2' => 'Тестовый<br>текст о чем-то2'--}}
+                    {{--],--}}
+                    {{--'active' => 'text2'--}}
+                    {{--])--}}
+
+                    @include('_checkbox_type1_block',[
+                        'name' => 'events',
+                        'label' => trans('content.sports_events'),
+                        'active' => 1
+                    ])
+
+                    @include('_checkbox_type1_block',[
+                        'name' => 'organizations',
+                        'label' => trans('content.organizations'),
+                        'active' => 1
+                    ])
+
+                    @include('_checkbox_type1_block',[
+                        'name' => 'sections',
+                        'label' => trans('content.sections'),
+                        'active' => 1
+                    ])
+
+                    @include('_checkbox_type1_block',[
+                        'name' => 'places',
+                        'label' => trans('content.sports_grounds'),
+                        'active' => 1
+                    ])
+
+                    <div id="exec-find" class="button green">{{ trans('content.execute_find') }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="section" data-scroll-destination="trainers">
         <a name="trainers"></a>
@@ -225,4 +300,6 @@
         </div>
     </div>
     <script>window.currentMonth = parseInt("{{ date('n') }}")-1;</script>
+
+    @include('_map_script_block')
 @endsection

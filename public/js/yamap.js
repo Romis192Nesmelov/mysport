@@ -15,7 +15,8 @@ function init() {
     processingPoints(myMap, window.points);
 
     myMap.geoObjects.events.add('click', function (e) {
-        console.log(e.get('target').properties._data.baseId);
+        var data = e.get('target').properties._data;
+        window.location.href = '/' + data.baseType + '?id=' + data.baseId;
     });
 
     $('#exec-find').click(function () {
@@ -37,19 +38,26 @@ function init() {
 }
 
 function processingPoints(myMap, collectionPoints) {
-    $.each(collectionPoints, function (k1,points) {
+    $.each(collectionPoints, function (type,points) {
         if (points && points.length) {
-            var icon = ymaps.templateLayoutFactory.createClass('<div class="map-point '+k1+'"></div>');
+            var icon = ymaps.templateLayoutFactory.createClass('<div class="map-point '+type+'"></div>');
             for (var i=0;i<points.length;i++) {
-                addingPoints(myMap, [points[i].latitude,points[i].longitude], k1, points[i].id, icon);
+                addingPoints(myMap, [points[i].latitude,points[i].longitude], type, points[i].id, points[i]['name_'+window.locale], points[i]['address_'+window.locale], icon);
             }
         }
     });
 }
 
-function addingPoints(myMap, coordinates, type, id, icon) {
+function addingPoints(myMap, coordinates, type, id, name, address, icon) {
     var place = new ymaps.Placemark(coordinates,{
-            // hintContent: points[i].id
+            hintContent: '<div class="point-hit">' +
+                            '<div class="description">' + window.nameScript + '</div>' +
+                            '<div class="credential">' + name + '</div>' +
+                            '<div class="description">' + window.addressScript + '</div>' +
+                            '<div class="credential">' + address + '</div>' +
+                            '<div class="description">' + window.coordinatesScript + '</div>' +
+                            '<div class="credential">' + coordinates[0] + ',' + coordinates[1] + '</div>' +
+                        '</div>',
             baseType: type,
             baseId: id
         },{
@@ -65,8 +73,5 @@ function addingPoints(myMap, coordinates, type, id, icon) {
             }
         }
     );
-    // place.events.add('click', function (e) {
-    //     console.log(e.get('coordPosition'));
-    // });
     myMap.geoObjects.add(place);
 }

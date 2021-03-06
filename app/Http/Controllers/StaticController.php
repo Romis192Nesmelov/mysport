@@ -29,7 +29,7 @@ class StaticController extends Controller
         $this->data['year'] = date('Y');
         $limitInPast = strtotime('1/1/'.$this->data['year']);
         $limitInFuture = date('n') <= 10 ? strtotime('12/31/'.$this->data['year']) : strtotime((date('n')+4-12).'1/'.($this->data['year']+1));
-        $this->data['events_on_year'] = Event::where('active',1)->where('start_time','>=',$limitInPast)->where('start_time','<=',$limitInFuture)->pluck('start_time')->toArray();
+        $this->data['events_on_year'] = Event::where('active',1)->where('start_time','>=',$limitInPast)->where('start_time','<=',$limitInFuture)->get();
         $this->data['events'] = Event::where('active',1)->orderBy('id','desc')->limit(5)->get();
         return $this->showView($request,'home');
     }
@@ -68,7 +68,7 @@ class StaticController extends Controller
 
     public function place(Request $request)
     {
-        
+
     }
     
     public function trainers(Request $request)
@@ -86,7 +86,7 @@ class StaticController extends Controller
         if ($slug) {
             $this->data['item'] = $model->where('slug',$slug)->first();
         } else {
-            $this->validate($request, ['id' => $this->validationArea]);
+            $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id']);
             $this->data['item'] = $model->find($request->input('id'));
         }
         if (!$this->data['item']) abort(404);
@@ -96,7 +96,16 @@ class StaticController extends Controller
     {
         $this->getItem($request, $model, $slug);
         $this->data['area_id'] = $this->data['item']->area->id;
-        $this->data['points'] = $this->findSport($this->data['item']->area->id);
+        $this->data['points'] = ['events' => null, 'places' => null];
+
+        if ($model instanceof Organization) {
+            $this->data['points']['organizations'] = [$this->data['item']];
+            $this->data['points']['sections'] = null;
+        } else {
+            $this->data['points']['organizations'] = null;
+            $this->data['points']['sections'] = [$this->data['item']];
+        }
+
         return $this->showView($request,'object');
     }
     

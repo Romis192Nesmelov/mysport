@@ -11,7 +11,8 @@ class Trainer extends Model
         'name_en',
         'active',
         'best',
-        'kind_of_sport_id'
+        'kind_of_sport_id',
+        'user_id'
     ];
 
     public function sport()
@@ -19,6 +20,11 @@ class Trainer extends Model
         return $this->belongsTo('App\KindOfSport','kind_of_sport_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+    
     public function sections()
     {
         return $this->hasMany('App\Section','trainer_id');

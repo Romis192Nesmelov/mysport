@@ -43,13 +43,8 @@ class User extends Authenticatable
         return $this->hasMany('App\EventsRecord')->orderBy('id','desc');
     }
 
-//    public function openTickets()
-//    {
-//        return $this->hasMany('App\Ticket')->where('status',0)->orderBy('id','desc');
-//    }
-
-//    public function closedTickets()
-//    {
-//        return $this->hasMany('App\Ticket')->where('status',1)->orderBy('id','desc');
-//    }
+    public function trainer()
+    {
+        return $this->belongsTo('App\Trainer');
+    }
 }

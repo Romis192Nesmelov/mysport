@@ -48,7 +48,7 @@ Route::get('/area/{slug?}', 'StaticController@area');
 Route::get('/events/{slug?}', 'StaticController@events');
 Route::get('/organizations/{slug?}', 'StaticController@organization');
 Route::get('/sections/{slug?}', 'StaticController@section');
-Route::get('/places/{slug}', 'StaticController@place');
+Route::get('/places/{slug?}', 'StaticController@place');
 Route::get('/trainers', 'StaticController@trainers');
 Route::get('/kind-of-sport', 'StaticController@kindOfSport');
 

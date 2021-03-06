@@ -18,10 +18,6 @@ p {
     padding-bottom: 50px;
 }
 
-.section.simplified {
-    padding-top: 0;
-}
-
 .section.gray {
     background-color: #dbe2ea;
 }
@@ -560,6 +556,7 @@ a.active {
 .rounded-block.gray.right-block {
     padding-left: 80px;
     padding-right: 80px;
+    margin-bottom: 20px;
 }
 
 .rounded-block.gray .content-block {
@@ -611,6 +608,24 @@ a.active {
     box-shadow: 0 0 2px rgba(0,0,0,0.8);
     background: url('../images/logo_single.svg') no-repeat white;
     background-size: 100% 100%;
+}
+
+.point-hit {
+    min-width: 200px;
+    display: table;
+    padding: 10px;
+}
+
+.point-hit .description {
+    font-size: 11px;
+    color: #756e85;
+}
+
+.point-hit .credential {
+    font-size: 13px;
+    color: #087fae;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .map-point.events {
@@ -879,6 +894,10 @@ a.active {
     margin: auto;
     background-color: #13a28a;
     color: white;
+}
+
+.calendar-block table tr td .event-day a {
+    color: inherit;
 }
 
 .calendar-block table tr td:first-child {

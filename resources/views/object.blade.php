@@ -149,11 +149,11 @@
                         'credential' => $data['item']['schedule_'.App::getLocale()]
                     ])
                 @endif
-
             </div>
-            @include('_right_gray_block',['content' => ob_get_clean()])
+
+            @include('_right_gray_block',['content' => ob_get_clean(), 'useMap' => true])
         </div>
     </div>
 
-    @include('_map_block',['useHeader' => false, 'addClass' => 'simplified'])
+    @include('_map_script_block')
 @endsection

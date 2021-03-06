@@ -19,6 +19,7 @@ return [
     'all_news' => 'Все новости',
     'description' => 'Описание',
     'address' => 'Адрес:',
+    'coordinates' => 'Координаты:',
     'organization' => 'Организация:',
     'main_trainer' => 'Главный тренер:',
     'trainer' => 'Тренер:',
