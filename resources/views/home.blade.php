@@ -175,7 +175,7 @@
             <div class="owl-carousel sports">
                 @foreach($sports as $sport)
                     <div class="kind-of-sport">
-                        <a href="{{ url('sport/?id='.$sport->id) }}"><img src="{{ asset($sport->icon) }}" /></a>
+                        <a href="{{ url('/sport/?id='.$sport->id) }}"><img src="{{ asset($sport->icon) }}" /></a>
                         {{ $sport['name_'.App::getLocale()] }}
                     </div>
                 @endforeach
@@ -274,7 +274,7 @@
                 @foreach($data['trainers'] as $trainer)
                     @if ($trainer->sport->active)
                         <div class="trainer">
-                            <a href="{{ url('$trainers/?id='.$trainer->id) }}">
+                            <a href="{{ url('/trainers/?id='.$trainer->id) }}">
                                 <div class="photo"><img src="{{ asset($trainer->image) }}" /></div>
                                 @php $partsOfName = explode(' ',$trainer['name_'.App::getLocale()]); @endphp
                                 <div class="family">{{ $partsOfName[0] }}</div>
