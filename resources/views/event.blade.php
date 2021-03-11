@@ -69,7 +69,7 @@
                 @include('_credentials_block',[
                     'colMd' => $blindVer ? 12 : 6,
                     'colSm' => $blindVer ? 12 : 6,
-                    'description' => trans('content.contact_phone'),
+                    'description' => trans('content.contact_number'),
                     'credential' => $data['item']->trainer->sections[0]->phone
                 ])
 
