@@ -95,11 +95,14 @@ class StaticController extends Controller
                 if (count($this->data['gallery']) >= 10) break;
             }
 
-//            foreach ($this->data['sport']->places as $item) {
-//                foreach ($item->place->gallery as $gallery) {
-//                    $this->data['gallery'][] = $gallery;
-//                }
-//            }
+            if (count($this->data['gallery']) < 10)
+            foreach ($this->data['sport']->places as $item) {
+                foreach ($item->place->gallery as $gallery) {
+                    if (count($this->data['gallery']) >= 10) break;
+                    else $this->data['gallery'][] = $gallery;
+                }
+                if (count($this->data['gallery']) >= 10) break;
+            }
 
             $this->data['counters'] = [];
             $this->data['counters']['events'] = 0;
@@ -107,7 +110,7 @@ class StaticController extends Controller
                 $this->data['counters']['events'] += count($trainer->events);
             }
 //            $this->data['counters']['places'] = count($this->data['sport']->places);
-            
+
             return $this->showView($request,'kind_of_sport');
         } else {
 
