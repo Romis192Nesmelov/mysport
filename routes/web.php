@@ -50,7 +50,7 @@ Route::get('/organizations/{slug?}', 'StaticController@organization');
 Route::get('/sections/{slug?}', 'StaticController@section');
 Route::get('/places/{slug?}', 'StaticController@place');
 Route::get('/trainers', 'StaticController@trainers');
-Route::get('/kind-of-sport', 'StaticController@kindOfSport');
+Route::get('/kinds-of-sport', 'StaticController@kindsOfSport');
 
 Route::get('/change-lang', 'StaticController@changeLang');
 Route::post('/find-points', 'StaticController@findPoints');

@@ -542,6 +542,15 @@ a.active {
     border-radius: 50%;
     overflow: hidden;
     margin: auto;
+    background-color: #dbe2ea;
+}
+
+.kind-of-sport-page .rounded-block.gray.left-block .cir-image img {
+    width: 80%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 .rounded-block.gray.left-block h1,

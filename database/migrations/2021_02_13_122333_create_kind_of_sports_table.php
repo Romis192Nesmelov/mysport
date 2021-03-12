@@ -18,6 +18,12 @@ class CreateKindOfSportsTable extends Migration
             $table->string('icon');
             $table->string('name_ru');
             $table->string('name_en')->nullable();
+            $table->text('description_ru');
+            $table->text('description_en')->nullable();
+            $table->text('recommendation_ru');
+            $table->text('recommendation_en')->nullable();
+            $table->text('needed_ru');
+            $table->text('needed_en')->nullable();
             $table->boolean('active');
             $table->timestamps();
         });

@@ -73,12 +73,45 @@ class StaticController extends Controller
     
     public function trainers(Request $request)
     {
-        
+        if ($request->has('id')) {
+
+        } else {
+
+        }
     }
     
-    public function kindOfSport(Request $request)
+    public function kindsOfSport(Request $request)
     {
-        
+        if ($request->has('id')) {
+            $this->data['sport'] = KindOfSport::find($request->input('id'));
+            if (!$this->data['sport'] || !$this->data['sport']->active) abort(404);
+
+            $this->data['gallery'] = [];
+            foreach ($this->data['sport']->sections as $section) {
+                foreach ($section->gallery as $gallery) {
+                    if (count($this->data['gallery']) >= 10) break;
+                    else $this->data['gallery'][] = $gallery;
+                }
+                if (count($this->data['gallery']) >= 10) break;
+            }
+
+//            foreach ($this->data['sport']->places as $item) {
+//                foreach ($item->place->gallery as $gallery) {
+//                    $this->data['gallery'][] = $gallery;
+//                }
+//            }
+
+            $this->data['counters'] = [];
+            $this->data['counters']['events'] = 0;
+            foreach ($this->data['sport']->trainers as $trainer) {
+                $this->data['counters']['events'] += count($trainer->events);
+            }
+//            $this->data['counters']['places'] = count($this->data['sport']->places);
+            
+            return $this->showView($request,'kind_of_sport');
+        } else {
+
+        }
     }
 
     private function getItem(Request $request, Model $model, $slug)

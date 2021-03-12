@@ -9,6 +9,12 @@ class KindOfSport extends Model
         'icon',
         'name_ru',
         'name_en',
+        'description_ru',
+        'description_en',
+        'recommendation_ru',
+        'recommendation_en',
+        'needed_ru',
+        'needed_en',
         'active'
     ];
 
