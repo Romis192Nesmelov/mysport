@@ -6,7 +6,7 @@
     </div>
     <!-- Основное содержимое модального окна -->
     @if (isset($message))
-        <div class="modal-body"><h3>{!! $message !!}</h3></div>
+        <div class="modal-body"><h1>{!! $message !!}</h1></div>
         <!-- Футер модального окна -->
         <div class="modal-footer">
             @include('_button_block', ['type' => 'button', 'text' => 'Ok', 'addAttr' => ['data-dismiss' => 'modal']])

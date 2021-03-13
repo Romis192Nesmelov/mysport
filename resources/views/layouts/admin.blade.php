@@ -66,7 +66,7 @@
     <script type="text/javascript" src="{{ asset('js/loader.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/delete.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/preview_image.js') }}"></script>
 
     {{--<script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>--}}
 </head>

@@ -1454,7 +1454,7 @@ input[class*=bg-] + .form-control-feedback {
 }
 .form-horizontal .has-feedback-left .form-control-feedback {
   right: auto;
-  left: 10px;
+  /*left: 10px;*/
 }
 .form-horizontal .has-feedback-left > .form-control-feedback {
   left: 0;

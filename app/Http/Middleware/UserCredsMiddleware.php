@@ -16,8 +16,8 @@ class UserCredsMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ((!Auth::user()->email || !Auth::user()->type) && $request->path() != 'profile') {
-            return redirect('/profile')->with('message',trans('auth.define_your_creds'));
+        if (!Auth::user()->email && $request->path() != 'profile') {
+            return redirect()->guest('/profile')->with('message',trans('auth.define_your_creds'));
         }
         return $next($request);
     }

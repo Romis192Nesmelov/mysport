@@ -19,11 +19,14 @@ class User extends Authenticatable
 //        'fb_id',
         'vk_id',
 
-        'name',
-        'email',
         'avatar',
+        'name',
+        'surname',
+        'family',
+        'gender',
         'email',
         'phone',
+        'born',
         'password',
         'confirm_token',
         'type',
@@ -43,6 +46,11 @@ class User extends Authenticatable
         return $this->hasMany('App\EventsRecord')->orderBy('id','desc');
     }
 
+    public function kids()
+    {
+        return $this->hasMany('App\Kid');
+    }
+    
     public function trainer()
     {
         return $this->belongsTo('App\Trainer');

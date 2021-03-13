@@ -10,6 +10,27 @@ class HelperController extends Controller
 {
     use HelperTrait;
 
+    public function userCreds()
+    {
+        $user = '';
+        if (Auth::user()->name) {
+            if (Auth::user()->family) {
+                $user = Auth::user()->family.'<br>';
+            }
+            $user .= Auth::user()->name;
+            if (Auth::user()->surname){
+                $user .= ' '.Auth::user()->surname;
+            }
+        } elseif (Auth::user()->email) {
+            $user = Auth::user()->email;
+        } elseif (Auth::user()->phone) {
+            $user = Auth::user()->phone;
+        } else {
+            $user = Auth::user()->vk_id;
+        }
+        return $user;
+    }
+    
     public function randHash()
     {
         return '?' . $this->randString();
@@ -64,10 +85,15 @@ class HelperController extends Controller
 
     public function haveJoinedCaseFormat($value)
     {
-        return $this->wordNumeral($value, 'have joined', false, 'присоединившихся', 'присоединившийся', 'присоединившихся');
+        return $this->wordNumeral($value, 'have joined', false, 'присоединившихся', 'присоединившийся');
+    }
+    
+    public function countKids($value)
+    {
+        return $this->wordNumeral($value, 'kid', true, 'детей', 'ребенок', 'ребенка');
     }
 
-    private function wordNumeral($value, $pluralForm, $englishCase, $numeral1, $numeral2, $numeral3)
+    private function wordNumeral($value, $pluralForm, $englishCase, $numeral1, $numeral2, $numeral3=null)
     {
         if (App::getLocale() == 'en') {
             return $value.' '.$englishCase.($value > 1 && $pluralForm ? 's' : '');
@@ -77,7 +103,7 @@ class HelperController extends Controller
                 $numeral = $numeral1;
             } else {
                 if ($number == 1) $numeral = $numeral2;
-                elseif ($number > 1 && $number < 5) $numeral = $numeral3;
+                elseif ($number > 1 && $number < 5) $numeral = $numeral3 ? $numeral3 : $numeral1;
                 else $numeral = $numeral1;
             }
             return $value.' '.$numeral;
@@ -147,9 +173,9 @@ class HelperController extends Controller
         return mb_substr(strip_tags($content),0,$length,'UTF-8').( mb_strlen(strip_tags($content), 'UTF-8') > $length ? '…' : '');
     }
 
-    public function getNumberDaysInMonth($month,$years)
+    public function getNumberDaysInMonth($month,$year)
     {
-        $days = [31,(!($years%2) ? 29 : 28),31,30,31,30,31,31,30,31,30,31];
+        $days = [31,(!($year%2) ? 29 : 28),31,30,31,30,31,31,30,31,30,31];
         return $days[$month-1];
     }
 }

@@ -11,7 +11,8 @@ $(document).ready(function() {
     $('a.img-preview').fancybox({padding: 3});
 
     // window.phoneRegExp = /^((\+)[0-9]{11})$/gi;
-    // $('input[name=phone]').mask("+7(999)999-99-99");
+    $('input[name=phone]').mask("+7(999)999-99-99");
+    $('input[name=born]').mask("99.99.9999");
     
     // Owlcarousel
     var navButtonBlack1 = '<img src="/images/arrow_left_black.svg" />',

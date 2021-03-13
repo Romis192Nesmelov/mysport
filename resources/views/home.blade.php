@@ -214,13 +214,6 @@
                         'label' => trans('content.select_the_kind_of_sport')
                     ])
 
-                    {{--@include('_radio_buttons_type2_block',[--}}
-                    {{--'name' => 'test1',--}}
-                    {{--'label' => 'Укажите ваш пол',--}}
-                    {{--'items' => ['М','Ж'],--}}
-                    {{--'active' => 'М'--}}
-                    {{--])--}}
-
                     {{--@include('_radio_buttons_type1_block',[--}}
                     {{--'name' => 'test2',--}}
                     {{--'items' => [--}}

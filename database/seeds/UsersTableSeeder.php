@@ -12,9 +12,15 @@ class UsersTableSeeder extends Seeder
     {
         $data = [
             [
+                'avatar' => 'images/avatars/user_avatar1.jpg',
+                'name' => 'Роман',
+                'surname' => 'Сергеевич',
+                'family' => 'Несмелов',
+                'gender' => 1,
                 'email' => 'romis.nesmelov@gmail.com',
                 'phone' => '+7(926)247-77-25',
                 'password' => bcrypt('apg192'),
+                'born' => 206150400,
                 'active' => 1,
                 'type' => 1,
                 'send_mail' => 1

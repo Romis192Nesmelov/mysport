@@ -88,6 +88,7 @@ return [
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
     'deadline'             => 'The lead time cannot be less than tomorrow',
+    'invalid_date'         => 'Invalid date',
 
     /*
     |--------------------------------------------------------------------------

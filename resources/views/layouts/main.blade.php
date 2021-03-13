@@ -21,7 +21,7 @@
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/core.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/components.css') }}" rel="stylesheet" type="text/css">
-    {{--<link href="{{ asset('css/colors.css') }}" rel="stylesheet" type="text/css">--}}
+    <link href="{{ asset('css/colors.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/bootstrap-switch.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-toggle.min.css') }}" rel="stylesheet">
 
@@ -34,6 +34,11 @@
     @if ($blindVer)
         <link href="{{ asset('css/blind.css') }}" rel="stylesheet" type="text/css">
     @endif
+
+    <script>
+        window.uri = "{{ Request::path() }}";
+        window.no_file_selected = "{{ trans('content.no_file_selected') }}";
+    </script>
 
     <script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
     <!-- Core JS files -->
@@ -64,24 +69,24 @@
     {{--<script type="text/javascript" src="{{ asset('js/core/main.controls.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('js/scrollreveal.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
-    {{--<script type="text/javascript" src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>--}}
+    <script type="text/javascript" src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
     {{--<script type="text/javascript" src="{{ asset('js/core/libraries/jquery_ui/widgets.min.js') }}"></script>--}}
     {{--<script type="text/javascript" src="{{ asset('js/core/libraries/jquery_ui/touch.min.js') }}"></script>--}}
     {{--<script type="text/javascript" src="{{ asset('js/plugins/sliders/slider_pips.min.js') }}"></script>--}}
     {{--<script type="text/javascript" src="{{ asset('js/plugins/forms/styling/switchery.min.js') }}"></script>--}}
     {{--<script type="text/javascript" src="{{ asset('js/core/app.js') }}"></script>--}}
-    {{--<script type="text/javascript" src="{{ asset('js/core/main.controls.js') }}"></script>--}}
+    <script type="text/javascript" src="{{ asset('js/core/main.controls.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('js/loader.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/owl.carousel.js') }}"></script>
-    {{--<script type="text/javascript" src="{{ asset('js/preview_image.js') }}"></script>--}}
+    <script type="text/javascript" src="{{ asset('js/preview_image.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('/js/yamap.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/main.js?').Helper::randHash() }}"></script>
+    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
 </head>
 <body>
-{{--@include('layouts._message_modal_block')--}}
+@include('layouts._message_modal_block')
 
 <!-- Top navbar -->
 <div class="navbar navbar-inverse">
@@ -103,8 +108,22 @@
                         {{--<li><a href="{{ url('/change-lang?lang=ru') }}" class="russian"><img src="{{ asset('images/rus.png') }}" alt="{{ trans('content.ru') }}"> {{ trans('content.ru') }}</a></li>--}}
                     {{--</ul>--}}
                 {{--</li>--}}
-                @foreach($topMenu as $top)
-                    <li class="button {{ isset($top['addClass']) ? $top['addClass'] : '' }}"><a href="{{ $top['href'] }}">{{ $top['name'] }}</a></li>
+                @foreach($topMenu as $k => $top)
+                    @if ($k != count($topMenu)-1 || Auth::guest())
+                        <li class="button {{ isset($top['addClass']) ? $top['addClass'] : '' }}"><a href="{{ $top['href'] }}">{{ $top['name'] }}</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <div class="avatar"><img src="{{ asset(Auth::user()->avatar ? Auth::user()->avatar : 'images/placeholder.jpg') }}"></div>
+                                <div class="user-creds">{!! Helper::userCreds() !!}</div>
+                                <i class="caret"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="{{ url('/profile') }}"><i class="icon-user-plus"></i> {{ trans('content.my_profile') }}</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="icon-switch2"></i> {{ trans('content.logout') }}</a></li>
+                            </ul>
+                        </li>
+                    @endif
                 @endforeach
             </ul>
         </div>
@@ -196,8 +215,6 @@
     </div>
 </div>
 <!-- /footer -->
-
-<script>window.uri = "{{ Request::path() }}";</script>
 
 </body>
 </html>

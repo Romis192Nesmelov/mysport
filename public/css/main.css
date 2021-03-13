@@ -13,6 +13,10 @@ p {
     font-weight: normal;
 }
 
+.modal-body h1 {
+    text-align: center;
+}
+
 .section {
     padding-top: 50px;
     padding-bottom: 50px;
@@ -98,6 +102,12 @@ p {
     padding: 0;
 }
 
+.uploader.bg-blue,
+.btn-primary {
+    background-color: #087fae;
+    border-color: #087fae;
+}
+
 .button {
     min-width: 275px;
     padding: 5px 0 4px 0;
@@ -107,6 +117,7 @@ p {
     text-align: center;
     float: left;
     background-color: #087fae;
+    border: none;
 }
 
 .button.small {
@@ -146,6 +157,40 @@ p {
 
 .navbar-right .navbar-nav {
     margin-left: 0;
+}
+
+.navbar-right .navbar-nav a.dropdown-toggle {
+    padding: 5px 10px;
+}
+
+.navbar-right .navbar-nav .avatar {
+    width: 42px;
+    height: 42px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid white;
+    float: left;
+}
+
+.navbar-right .navbar-nav .user-creds {
+    height: 42px;
+    float: left;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    color: white;
+    line-height: 1.2em;
+}
+
+.navbar-right .navbar-nav a.dropdown-toggle .caret {
+    float: right;
+    margin-top: 13px;
+}
+
+.navbar-right .navbar-nav .avatar img {
+    width: 100%;
+    height: auto;
 }
 
 .navbar-right .navbar-nav > li.button {
@@ -219,6 +264,10 @@ p {
     font-size: 17px;
 }
 
+.form-horizontal .form-group {
+    margin: 0;
+}
+
 select.type1,
 select.type1:focus {
     padding: 5px;
@@ -229,15 +278,45 @@ select.type1:focus {
     outline: none;
 }
 
-select.type2 {
+select.type2,
+input[type=email],
+input[type=text],
+input[type=password] {
     width: 100%;
     padding: 10px 20px;
     border-radius: 20px;
     font-size: 15px;
     color: #959595;
     box-shadow: 0 0 2px rgba(0,0,0,0.3);
-    outline: none;
     border: 1px solid #ddebf0;
+}
+
+input[type=email],
+input[type=text],
+input[type=password] {
+    height: 50px;
+    font-size: 20px;
+}
+
+.form-horizontal .has-feedback-left > .form-control-feedback {
+    width: 60px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.has-feedback-left .form-control {
+    padding-left: 30px !important;
+}
+
+.form-horizontal .has-feedback-left > .form-control-feedback i {
+    font-size: 23px;
+    top: 0;
+}
+
+select.type2 {
+    outline: none;
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -249,6 +328,24 @@ select.type2:focus {
     border: 1px solid #087fae;
     background: url("../images/arrow_down_blue.svg") 100% white no-repeat;
 }
+
+input[type=email]:focus,
+input[type=text]:focus,
+input[type=password]:focus {
+    border: 1px solid #087fae;
+}
+
+.form-group.has-feedback.has-error input {
+    color: #ff7070;
+}
+
+.error {
+    color: #ff7070;
+    font-size: 15px;
+    padding-left: 30px;
+}
+
+
 
 p.label {
     margin-bottom: 0;
@@ -284,6 +381,7 @@ p.label {
 
 .radio-buttons.type2 {
     width: 50%;
+    padding-top: 10px;
 }
 
 .radio-buttons.type2 .cir {
@@ -363,11 +461,11 @@ a.active {
     background-size: cover;
 }
 
-.record-block {
+.sub-buttons-block {
     margin: 5px auto;
 }
 
-.record-block .button {
+.sub-buttons-block .button {
     margin: 10px auto;
     float: none;
 }
@@ -568,6 +666,11 @@ a.active {
     margin-bottom: 20px;
 }
 
+.rounded-block.gray.right-block.narrow {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
 .rounded-block.gray .content-block {
     margin-top: 30px;
 }
@@ -590,6 +693,10 @@ a.active {
     margin-top: 20px;
     font-size: 15px;
     color: #756e85;
+}
+
+.rounded-block.gray .description.input-label {
+    padding-left: 20px;
 }
 
 .rounded-block.gray .credentials-block .credential {

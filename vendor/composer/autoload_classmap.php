@@ -36,6 +36,7 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\UserCredsMiddleware' => $baseDir . '/app/Http/Middleware/UserCredsMiddleware.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Kid' => $baseDir . '/app/Kid.php',
     'App\\KindOfSport' => $baseDir . '/app/KindOfSport.php',
     'App\\News' => $baseDir . '/app/News.php',
     'App\\Organization' => $baseDir . '/app/Organization.php',

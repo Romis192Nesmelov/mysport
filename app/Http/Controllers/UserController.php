@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Model;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Helper;
 
 class UserController extends StaticController
@@ -25,88 +21,63 @@ class UserController extends StaticController
         $this->middleware('auth.creds');
     }
 
-    public function index()
+    public function profile(Request $request)
     {
-        return redirect('/profile/user');
+        return $this->showView($request,'profile');
     }
 
-//    public function profile(Request $request)
-//    {
-//        $this->data['user'] = Auth::user();
-//        $this->breadcrumbs['profile'] = trans('auth.your_profile');
-//        if ($request->has('unsubscribe') && $request->input('unsubscribe')) {
-//            $this->data['user']->send_mail = 0;
-//            $this->data['user']->save();
-//            Session::flash('message',trans('auth.unsubscribe'));
-//        }
-//        return $this->showView('user');
-//    }
-  
-//    private function sortByUserRating($items)
-//    {
-//        $collection = collect();
-//        foreach ($items as $item) {
-//            $collection->push([
-//                'item' => $item,
-//                'rating' => $item->user->rating
-//            ]);
-//        }
-//        $this->data['items'] = $collection->sortBy('rating')->paginate(10);
-//    }
+    public function editProfile(Request $request)
+    {
+        $validationArr = [
+            'email' => 'required|email|unique:users,email,'.Auth::id(),
+            'phone' => $this->validationPhone,
+            'name' => 'required|min:3|max:255',
+            'surname' => 'required|min:3|max:255',
+            'family' => 'required|min:3|max:255',
+            'born' => $this->validationDate,
+            'gender' => 'required|in:M,W,М,Ж',
+            'avatar' => $this->validationImage,
+            'document' => $this->validationImage
+        ];
 
-//    public function search(Request $request)
-//    {
-//        $this->validate($request,['search' => 'required|min:3']);
-//        $this->data['search'] = $request->input('search');
-//        $this->data['words'] = preg_split('/[\s,\.;]+/', $this->data['search']);
-//
-//        if (Gate::allows('contracts')) {
-//            $this->data['block'] = 'resume';
-//            $this->data['item_name'] = 'resume';
-//            $this->sortByUserRating($this->searching(new MyResume(), 'skills', 'resumeDirections'));
-//        } else {
-//            $this->data['block'] = 'contract_cover';
-//            $this->data['item_name'] = 'contract';
-//            $this->sortByUserRating($this->searching(new Contract(), 'description', 'contractDirections'));
-//        }
-//        return $this->showView('search');
-//    }
+        $fields = $this->processingFields($request, 'send_mail', ['avatar','password','password_confirmation']);
+        $fields['gender'] = $fields['gender'] == 'M' || $fields['gender'] == 'М' ? 1 : 0;
 
-//    private function searching(Model $model, $secondField, $dependenceField)
-//    {
-//        $selected = [];
-//        $items = $model->where('status',2)->get();
-//        foreach ($items as $item) {
-//            $match = false;
-//            foreach ($this->data['words'] as $word) {
-//                if (
-//                    preg_match('/'.$word.'/ui',$item->name) ||
-//                    preg_match('/'.$word.'/ui',$item[$secondField])
-//                ){
-//                    $selected[] = $item;
-//                    $match = true;
-//                    break;
-//                }
-//            }
-//
-//            if (!$match) {
-//                foreach ($this->data['words'] as $word) {
-//                    foreach ($item[$dependenceField] as $field) {
-//                        if (
-//                            preg_match('/'.$word.'/ui',$field->direction->name_en) ||
-//                            preg_match('/'.$word.'/ui',$field->direction->name_ru)
-//                        ){
-//                            $selected[] = $item;
-//                            $match = true;
-//                            break;
-//                        }
-//                    }
-//                    if ($match) break;
-//                }
-//            }
-//        }
-//        return $selected;
-//    }
+        if ($request->has('password') && $request->input('password')) {
+            $fields['password'] = bcrypt($request->input('password'));
+            $validationArr['old_password'] = 'required|min:4|max:50';
+            $validationArr['password'] = $this->validationPassword;
+        }
+
+        $this->validate($request, $validationArr);
+
+        $bornDate = explode('.',$fields['born']);
+        $day = (int)$bornDate[0];
+        $month = (int)$bornDate[1];
+        $year = (int)$bornDate[2];
+        $maxDaysInMonth = Helper::getNumberDaysInMonth($month <= 12 && $month > 0 ? $month : 1,$year);
+        
+        if (
+            $year > (int)date('Y') - 18
+            || $year < (int)date('Y') - 150
+            || $month < 1
+            || $month > 12
+            || $day < 1
+            || $day > $maxDaysInMonth
+        ) return redirect()->back()->withInput()->withErrors(['born' => trans('validation.invalid_date')]);
+
+        $fields['born'] = strtotime($month.'/'.$day.'/'.$year);
+
+        $user = User::find(Auth::id());
+        $user->update($fields);
+
+        if ($request->hasFile('avatar')) {
+            $fields = $this->processingImage($request, $user, 'avatar', 'user_avatar'.$user->id, 'images/avatars');
+            $user->update($fields);
+        }
+        
+        return redirect('/profile')->with('message',trans('content.save_complete'));
+    }
 
 //    public function deleteProfile()
 //    {
@@ -115,16 +86,5 @@ class UserController extends StaticController
 //        $user->save();
 //        Auth::logout();
 //        return redirect('/')->with('message', trans('auth.account_has_been_deleted'));
-//    }
-
-//    private function deleteItem(Request $request, Model $model, $contractCondition, $dependenceFieldId, $parent=null)
-//    {
-//        $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id']);
-//        $item = $model->find($request->input('id'));
-//        if ( (!$contractCondition || $item->status != 4) && (!$parent ? Gate::denies('is_owner',$item) : Gate::denies('is_owner', $item[$parent]) ) ) abort(403);
-//        $item->status = 4;
-//        $item->save();
-//        $this->dampingMessages($item->id, $dependenceFieldId);
-//        return response()->json(['success' => true]);
 //    }
 }

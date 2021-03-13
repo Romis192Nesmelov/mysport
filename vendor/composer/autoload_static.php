@@ -481,6 +481,7 @@ class ComposerStaticInit36700ca7ce84343aa349dca1a0daa316
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\UserCredsMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/UserCredsMiddleware.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Kid' => __DIR__ . '/../..' . '/app/Kid.php',
         'App\\KindOfSport' => __DIR__ . '/../..' . '/app/KindOfSport.php',
         'App\\News' => __DIR__ . '/../..' . '/app/News.php',
         'App\\Organization' => __DIR__ . '/../..' . '/app/Organization.php',

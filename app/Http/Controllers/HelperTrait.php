@@ -21,9 +21,9 @@ trait HelperTrait
 {
     public $validationPhone = 'required|regex:/^((\+)?(\d)(\s)?(\()?[0-9]{3}(\))?(\s)?([0-9]{3})(\-)?([0-9]{2})(\-)?([0-9]{2}))$/';
     public $validationUser = 'required|integer|exists:users,id';
-    public $validationPassword = 'required|confirmed|min:8|max:50';
+    public $validationPassword = 'required|confirmed|min:4|max:50';
     public $validationCoordinates = 'required|regex:/^(\d{2}\.\d{5,6})$/';
-    public $validationDate = 'required|regex:/^(((\d){2}\.){2}(\d){4})$/';
+    public $validationDate = 'required|regex:/^([0-3][0-9]\.[0-1][0-9]\.\d{4})$/';
     public $validationImage = 'image|min:5|max:5000';
     public $validationArea = 'required|integer|exists:areas,id';
     public $metas = [

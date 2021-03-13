@@ -86,23 +86,8 @@ class StaticController extends Controller
             $this->data['sport'] = KindOfSport::find($request->input('id'));
             if (!$this->data['sport'] || !$this->data['sport']->active) abort(404);
 
-            $this->data['gallery'] = [];
-            foreach ($this->data['sport']->sections as $section) {
-                foreach ($section->gallery as $gallery) {
-                    if (count($this->data['gallery']) >= 10) break;
-                    else $this->data['gallery'][] = $gallery;
-                }
-                if (count($this->data['gallery']) >= 10) break;
-            }
-
-            if (count($this->data['gallery']) < 10)
-            foreach ($this->data['sport']->places as $item) {
-                foreach ($item->place->gallery as $gallery) {
-                    if (count($this->data['gallery']) >= 10) break;
-                    else $this->data['gallery'][] = $gallery;
-                }
-                if (count($this->data['gallery']) >= 10) break;
-            }
+            $this->getForegnGallery($this->data['sport']->sections);
+            $this->getForegnGallery($this->data['sport']->places, 'place');
 
             $this->data['counters'] = [];
             $this->data['counters']['events'] = 0;
@@ -114,6 +99,19 @@ class StaticController extends Controller
             return $this->showView($request,'kind_of_sport');
         } else {
 
+        }
+    }
+    
+    private function getForegnGallery($items, $pivotModel=null)
+    {
+        if (!isset($this->data['gallery'])) $this->data['gallery'] = [];
+        foreach ($items as $item) {
+            $galleries = $pivotModel ? $item[$pivotModel]->gallery : $item->gallery;
+            foreach ($galleries as $gallery) {
+                if (count($this->data['gallery']) >= 10) break;
+                else $this->data['gallery'][] = $gallery;
+            }
+            if (count($this->data['gallery']) >= 10) break;
         }
     }
 

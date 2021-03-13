@@ -17,8 +17,8 @@ Route::get('/send-confirm', 'Auth\RegisterController@sendConfirmMail');
 Route::get('/confirm-registration/{token}', 'Auth\RegisterController@confirmRegistration');
 Route::post('/confirm-user', 'Auth\RegisterController@confirmUser');
 
-//Route::get('/profile', 'UserController@profile');
-//Route::post('/profile', 'UserController@editProfile');
+Route::get('/profile', 'UserController@profile');
+Route::post('/profile', 'UserController@editProfile');
 //Route::post('/profile-delete', 'UserController@deleteProfile');
 
 Route::get('/fb-oauth', 'OAuthController@oAuthFb');
