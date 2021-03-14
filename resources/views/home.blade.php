@@ -268,10 +268,13 @@
                     @if ($trainer->sport->active)
                         <div class="trainer">
                             <a href="{{ url('/trainers/?id='.$trainer->id) }}">
-                                <div class="photo"><img src="{{ asset($trainer->image) }}" /></div>
-                                @php $partsOfName = explode(' ',$trainer['name_'.App::getLocale()]); @endphp
-                                <div class="family">{{ $partsOfName[0] }}</div>
-                                {{ $partsOfName[1].(isset($partsOfName[2]) ? ' '.$partsOfName[2] : '') }}
+                                <div class="photo"><img src="{{ asset($trainer->avatar) }}" /></div>
+                                <div class="family">{{ App::getLocale() == 'en' ? str_slug($trainer->family) : $trainer->family }}</div>
+                                @if (App::getLocale() == 'en')
+                                    {{ str_slug($trainer->name).' '.str_slug($trainer->surname) }}
+                                @else
+                                    {{ $trainer->name.' '.$trainer->surname }}
+                                @endif
                                 <div class="section-name">{{ trans('content.trainer_section', ['section' => $trainer->sport['name_'.App::getLocale()]]) }}</div>
                             </a>
                         </div>

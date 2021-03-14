@@ -3,9 +3,16 @@
 return [
     'active' => 'Active',
     'years' => 'years',
+    'year' => 'year',
     'area' => 'area',
     '_area' => 'Area:',
     'trainers' => 'trainers',
+    'trainer_info' => 'Trainer info',
+    'about_me' => 'About me:',
+    'education' => 'Education:',
+    'add_education' => 'Additional education:',
+    'achievements' => 'Achievements:',
+    'experience_since' => 'Experience since:',
     'of_spb' => 'of St. Petersburg',
     'in_spb' => 'in St. Petersburg',
     'area_leader' => 'Area leader:',
@@ -31,6 +38,7 @@ return [
     'site' => 'Site:',
     'timetable' => 'Timetable of classes:',
     'list_of_sections' => 'List of sections:',
+    'sport_organizations_and_sections' => 'Sport organizations and sections:',
     
     'image' => 'Image',
     'link' => 'Link',
@@ -84,6 +92,7 @@ return [
     
     'sports_grounds' => 'Sports grounds',
     'sections' => 'Sports sections',
+    'section' => 'Sports section:',
     'organizations' => 'Sports organizations',
 
     'triple_block_text1' => 'Sign up for a raining session by sport and sports ground',

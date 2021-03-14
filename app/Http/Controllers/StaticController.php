@@ -74,7 +74,9 @@ class StaticController extends Controller
     public function trainers(Request $request)
     {
         if ($request->has('id')) {
-
+            $this->data['trainer'] = Trainer::find($request->input('id'));
+            if (!$this->data['trainer'] || !$this->data['trainer']->active) abort(404);
+            return $this->showView($request,'trainer');
         } else {
 
         }

@@ -34,10 +34,11 @@
 
             @include('_gallery_block',['galleries' => $data['item']->gallery])
 
-            <div class="content-block">
-                <div class="description">{{ trans('content.description') }}</div>
-                {!! $data['item']['description_'.App::getLocale()] !!}
-            </div>
+            @include('_description_block',[
+                'description' => trans('content.description'),
+                'content' => $data['item']['description_'.App::getLocale()]
+            ])
+
             <div class="credentials-block">
                 @include('_credentials_block',[
                     'colMd' => 12,

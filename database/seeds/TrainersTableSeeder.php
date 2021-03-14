@@ -11,73 +11,86 @@ class TrainersTableSeeder extends Seeder
         $sports = KindOfSport::where('active',1)->pluck('id')->toArray();
         $data = [
             [
-                'image' => 'images/trainers/trainer1.jpg',
-                'name_ru' => 'Константинопольский Константин Константинович',
-                'name_en' => 'Konstantinopol\'skij Konstantin',
+                'avatar' => 'images/trainers/trainer1.jpg',
+                'name' => 'Константин',
+                'surname' => 'Константинович',
+                'family' => 'Константинопольский',
                 'active' => 1,
                 'best' => 1,
                 'kind_of_sport_id' => $sports[array_rand($sports)]
             ],
             [
-                'image' => 'images/trainers/trainer2.jpg',
-                'name_ru' => 'Христорождественская Вильгельмина Имануиловна',
-                'name_en' => 'Hristorozhdestvenskaya Vil\'gel\'mina',
+                'avatar' => 'images/trainers/trainer2.jpg',
+                'name' => 'Вильгельмина',
+                'surname' => 'Имануиловна',
+                'family' => 'Константинович',
                 'active' => 1,
                 'best' => 1,
                 'kind_of_sport_id' => $sports[array_rand($sports)]
             ],
             [
-                'image' => 'images/trainers/trainer3.jpg',
-                'name_ru' => 'Денисенков Николай Петрович',
-                'name_en' => 'Denisenkov Nikolaj',
+                'avatar' => 'images/trainers/trainer3.jpg',
+                'name' => 'Николай',
+                'surname' => 'Петрович',
+                'family' => 'Денисенков',
                 'active' => 1,
                 'best' => 1,
                 'kind_of_sport_id' => $sports[array_rand($sports)]
             ],
             [
-                'image' => 'images/trainers/trainer4.jpg',
-                'name_ru' => 'Иваненкова Екатерина Константиновна',
-                'name_en' => 'Ivanenkova Ekaterina',
+                'avatar' => 'images/trainers/trainer4.jpg',
+                'name' => 'Екатерина',
+                'surname' => 'Константиновна',
+                'family' => 'Иваненкова',
                 'active' => 1,
                 'best' => 1,
                 'kind_of_sport_id' => $sports[array_rand($sports)]
             ],
             [
-                'image' => 'images/trainers/trainer5.jpg',
-                'name_ru' => 'Десяцкова Эвелина Геннадьевна',
-                'name_en' => 'Desyackova Evelina',
+                'avatar' => 'images/trainers/trainer5.jpg',
+                'name' => 'Эвелина',
+                'surname' => 'Геннадьевна',
+                'family' => 'Десяцкова',
                 'active' => 1,
                 'best' => 1,
                 'kind_of_sport_id' => $sports[array_rand($sports)]
             ],
             [
-                'image' => 'images/trainers/trainer6.jpg',
-                'name_ru' => 'Николяшин Иван Сергеевич',
-                'name_en' => 'Nikolyashin Ivan',
+                'avatar' => 'images/trainers/trainer6.jpg',
+                'name' => 'Иван',
+                'surname' => 'Сергеевич',
+                'family' => 'Николяшин',
                 'active' => 1,
                 'best' => 1,
                 'kind_of_sport_id' => $sports[array_rand($sports)]
             ],
             [
-                'image' => 'images/trainers/trainer7.jpg',
-                'name_ru' => 'Петрова Елена Викторовна',
-                'name_en' => 'Petrova Elena',
+                'avatar' => 'images/trainers/trainer7.jpg',
+                'name' => 'Елена',
+                'surname' => 'Викторовна',
+                'family' => 'Петрова',
                 'active' => 1,
                 'best' => 1,
                 'kind_of_sport_id' => $sports[array_rand($sports)]
             ],
             [
-                'image' => 'images/trainers/trainer8.jpg',
-                'name_ru' => 'Серебряков Денис Александрович',
-                'name_en' => 'Serebryakov Denis',
+                'avatar' => 'images/trainers/trainer8.jpg',
+                'name' => 'Денис',
+                'surname' => 'Александрович',
+                'family' => 'Серебряков',
                 'active' => 1,
                 'best' => 1,
                 'kind_of_sport_id' => $sports[array_rand($sports)]
             ],
         ];
 
-        foreach ($data as $user) {
-            Trainer::create($user);
+        foreach ($data as $trainer) {
+            $trainer['about_ru'] = '<p>С сентября 2010 года - тренер подмосковного профессионального бадминтонного клуба «Фаворит-Раменское».</p> <p>С 2019 года - главный тренер молодежной сборной России по бадминтону.</p><p>В апреле 2019 года получила титул «Тренер года» от Европейской конфедерации бадминтона.</p>';
+            $trainer['education_ru'] = 'Первое высшее образование, РГАФК, Физическая культура и спорт';
+            $trainer['add_education_ru'] = 'Профессиональная переподготовка, АНО «Школа бадминтона Санкт-Петербурга»';
+            $trainer['achievements_ru'] = 'Заслуженный тренер России, Высшая тренерская категория';
+            $trainer['since'] = 2008;
+            Trainer::create($trainer);
         }
     }
 }

@@ -31,9 +31,10 @@ class HelperController extends Controller
         return $user;
     }
     
-    public function kidCreds($kid)
+    public function simpleCreds($user)
     {
-        return $kid->family.'<br>'.$kid->name.' '.$kid->surname;
+        if (App::getLocale() == 'en') return str_slug($user->family).'<br>'.str_slug($user->name).' '.str_slug($user->surname);
+        else return $user->family.'<br>'.$user->name.' '.$user->surname;
     }
     
     public function randHash()

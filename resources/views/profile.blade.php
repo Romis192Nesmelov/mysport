@@ -113,7 +113,7 @@
                                 'deleteModal' => 'delete-modal',
                                 'delData' => $kid->id
                             ])
-                            <p class="text-center"><a href="{{ url('/profile/child?id='.$kid->id) }}">{!! Helper::kidCreds($kid) !!}</a></p>
+                            <p class="text-center"><a href="{{ url('/profile/child?id='.$kid->id) }}">{!! Helper::simpleCreds($kid) !!}</a></p>
                             <div class="description born">{{ date('d.m.Y', $kid->born) }}</div>
                         </div>
                     @endforeach

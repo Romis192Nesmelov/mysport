@@ -13,7 +13,7 @@
                 @include('_cir_image_block', [
                     'inputName' => 'avatar',
                     'image' => isset($data['kid']) ? $data['kid']->avatar : null,
-                    'name' => isset($data['kid']) ? Helper::kidCreds($data['kid']) : trans('content.adding_kid_profile')
+                    'name' => isset($data['kid']) ? Helper::simpleCreds($data['kid']) : trans('content.adding_kid_profile')
                 ])
 
                 @include('_left_gray_block',[
