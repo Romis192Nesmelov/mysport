@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'active' => 'Активен',
     'years' => 'лет',
     'area' => 'район',
     '_area' => 'Район:',
@@ -63,14 +64,17 @@ return [
     'family' => 'Фамилия:',
     'object_name' => 'Название объекта:',
     'account' => 'Аккаунт',
+    'children_accounts' => 'Аккаунты детей',
     'information' => 'Информация',
     'my_profile' => 'Мой профиль',
     'logout' => 'Выйти',
     'born_date' => 'Дата рождения:',
     'your_gender' => 'Ваш пол:',
+    'kid_gender' => 'Пол ребенка:',
     'man_letter' => 'М',
     'woman_letter' => 'Ж',
     'add_kid_profile' => 'Добавить профиль ребенка',
+    'adding_kid_profile' => 'Добавление профиля ребенка',
     'change_password' => 'Изменить пароль',
     'enter_old_password' => 'Введите старый пароль:',
     'enter_new_password' => 'Введите новый пароль:',
@@ -110,6 +114,7 @@ return [
     'select_the_kind_of_sport' => 'Выберите вид спорта:',
     'not_select_the_kind_of_sport' => 'Вид спорта не выбран',
     'to_record_kid' => 'Записать ребенка',
+    'confirm_delete_record' => 'Вы действительно хотите удалить эту запись?',
 
     'no_file_selected' => 'Файл не выбран',
     'footer_text' => '© 2020 Комитет по физической<br>культуре и спорту<br>Санкт-Петербурга'

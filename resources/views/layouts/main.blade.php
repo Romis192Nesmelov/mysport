@@ -17,7 +17,7 @@
     {{--<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">--}}
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
     <link href="{{ asset('css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
-    {{--<link href="{{ asset('css/icons/fontawesome/styles.min.css') }}" rel="stylesheet" type="text/css">--}}
+    <link href="{{ asset('css/icons/fontawesome/styles.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/core.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/components.css') }}" rel="stylesheet" type="text/css">
@@ -83,6 +83,7 @@
     <script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('/js/yamap.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/delete.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
 </head>
 <body>
@@ -114,7 +115,7 @@
                     @else
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown">
-                                <div class="avatar"><img src="{{ asset(Auth::user()->avatar ? Auth::user()->avatar : 'images/placeholder.jpg') }}"></div>
+                                @include('layouts._avatar_block',['avatar' => Auth::user()->avatar])
                                 <div class="user-creds">{!! Helper::userCreds() !!}</div>
                                 <i class="caret"></i>
                             </a>

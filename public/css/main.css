@@ -13,6 +13,33 @@ p {
     font-weight: normal;
 }
 
+.modal-header h1 {
+    color: #ff7070;
+}
+
+.modal-body.modal-delete h3 {
+    text-align: center;
+}
+
+p.text-center {
+    line-height: 1.2em;
+    margin-bottom: 0;
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.vertical-delimiter {
+    width: 1px;
+    height: 50px;
+    margin: 0 10px;
+    background-color: #959595;
+}
+
 .modal-body h1 {
     text-align: center;
 }
@@ -36,6 +63,10 @@ p {
 
 .section .header > div {
     display: table;
+}
+
+.section .header.center > div {
+    margin: auto;
 }
 
 .section .header > .button {
@@ -120,6 +151,11 @@ p {
     border: none;
 }
 
+button[type=submit] {
+    float: none;
+    margin-bottom: 20px;
+}
+
 .button.small {
     min-width: 150px;
 }
@@ -160,16 +196,29 @@ p {
 }
 
 .navbar-right .navbar-nav a.dropdown-toggle {
+    display: table;
     padding: 5px 10px;
+}
+
+.dropdown img {
+    height: 25px;
+}
+
+.avatar {
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.avatar img {
+    width: 100%;
+    height: auto;
 }
 
 .navbar-right .navbar-nav .avatar {
     width: 42px;
     height: 42px;
     position: relative;
-    overflow: hidden;
-    border-radius: 50%;
-    border: 2px solid white;
     float: left;
 }
 
@@ -186,11 +235,6 @@ p {
 .navbar-right .navbar-nav a.dropdown-toggle .caret {
     float: right;
     margin-top: 13px;
-}
-
-.navbar-right .navbar-nav .avatar img {
-    width: 100%;
-    height: auto;
 }
 
 .navbar-right .navbar-nav > li.button {
@@ -231,10 +275,6 @@ p {
 
 .navbar-brand > img {
     height: 35px;
-}
-
-.dropdown img {
-    height: 25px;
 }
 
 .logo-container {
@@ -339,13 +379,26 @@ input[type=password]:focus {
     color: #ff7070;
 }
 
+.rounded-block.gray.right-block .avatar {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 10px auto;
+}
+
+.rounded-block.gray.right-block .avatar .delete-icon {
+    font-size: 20px;
+    color: #087fae;
+    cursor: pointer;
+    position: absolute;
+    margin-left: 130px;
+    margin-top: 5px;
+}
+
 .error {
     color: #ff7070;
     font-size: 15px;
     padding-left: 30px;
 }
-
-
 
 p.label {
     margin-bottom: 0;
@@ -353,8 +406,12 @@ p.label {
     color: black;
 }
 
+.radio-buttons {
+    display: table;
+    padding: 0 !important;
+}
+
 .radio-buttons .cir-block {
-    width: 100%;
     display: table;
     padding: 5px;
 }
@@ -368,6 +425,8 @@ p.label {
 .radio-buttons .cir {
     width: 40px;
     height: 40px;
+    margin: 0 10px;
+    font-size: 20px;
     border-radius: 50%;
     box-shadow: 0 0 2px rgba(0,0,0,0.3);
     background-color: white;
@@ -375,20 +434,12 @@ p.label {
     cursor: pointer;
 }
 
-.radio-buttons.type1 .cir-cell {
-    width: 70px;
-}
-
-.radio-buttons.type2 {
-    width: 50%;
-    padding-top: 10px;
+.radio-buttons .cir.second {
+    margin-left: 0;
 }
 
 .radio-buttons.type2 .cir {
-    width: 30px;
-    height: 30px;
     padding-top: 5px;
-    margin-left: 5px;
 }
 
 .radio-buttons .cir:hover,
@@ -695,6 +746,11 @@ a.active {
     color: #756e85;
 }
 
+.rounded-block.gray .description.born {
+    text-align: center;
+    margin-top: 0;
+}
+
 .rounded-block.gray .description.input-label {
     padding-left: 20px;
 }
@@ -712,7 +768,7 @@ a.active {
 
 #map {
     width: 100%;
-    height: 571px;
+    height: 558px;
 }
 
 .map-point {
@@ -1196,6 +1252,10 @@ a.active {
         margin-right: auto;
     }
 
+    .section .header.second {
+        margin-top: 30px;
+    }
+
     .section .header > .button {
         width: 250px;
         display: block;
@@ -1214,6 +1274,10 @@ a.active {
 
     .section .header img {
         display: none;
+    }
+
+    .sub-buttons-block .button {
+        min-width: 100%;
     }
 
     .col-md-4 .news .text > .head {

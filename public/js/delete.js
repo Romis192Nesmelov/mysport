@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // Click to delete items
-    $('.glyphicon-remove-circle').click(function () {
+    $('.delete-icon').click(function () {
         var obj = $(this),
             deleteModal = $('#'+obj.attr('modal-data'));
 
@@ -11,12 +11,6 @@ $(document).ready(function() {
         window.deleteModal = obj.attr('modal-data');
 
         deleteModal.modal('show');
-    });
-
-    // Click to delete executor
-    $('a.delete-executor').click(function () {
-        var id = $(this).attr('del-data');
-        $('#delete-executor-modal input[name=id]').val(id);
     });
 
     // Click YES on delete modal

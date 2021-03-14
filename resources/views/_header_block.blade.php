@@ -1,4 +1,4 @@
-<div class="header" {{ isset($scroll) && $scroll ? 'data-scroll-destination='.$scroll : '' }}>
+<div class="header {{ isset($addClass) ? $addClass : '' }}" {{ isset($scroll) && $scroll ? 'data-scroll-destination='.$scroll : '' }}>
     <div>
         @if (isset($icon) && $icon)
             <img class="icon" src="{{ asset('images/'.$icon.'.svg') }}" />

@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'active' => 'Active',
     'years' => 'years',
     'area' => 'area',
     '_area' => 'Area:',
@@ -63,14 +64,17 @@ return [
     'family' => 'Family:',
     'object_name' => 'Object name:',
     'account' => 'Account',
+    'children_accounts' => 'Children\'s accounts',
     'information' => 'Information',
     'my_profile' => 'My profile',
     'logout' => 'Logout',
     'born_date' => 'Born date:',
     'your_gender' => 'Your gender:',
+    'kid_gender' => 'Child gender:',
     'man_letter' => 'M',
     'woman_letter' => 'W',
     'add_kid_profile' => 'Add child profile',
+    'adding_kid_profile' => 'Adding child profile',
     'change_password' => 'Change password',
     'enter_old_password' => 'Enter old password:',
     'enter_new_password' => 'Enter new password:',
@@ -108,6 +112,7 @@ return [
     'select_the_kind_of_sport' => 'Select the kind of sport:',
     'not_select_the_kind_of_sport' => 'A kind of sport isn\'t selected',
     'to_record_kid' => 'To record my kid',
+    'confirm_delete_record' => 'Are you sure you want to delete this entry?',
 
     'no_file_selected' => 'No file selected',
     'footer_text' => '© 2020 Committee for<br>Physical Culture and Sports<br>of St. Petersburg'

@@ -20,6 +20,9 @@ Route::post('/confirm-user', 'Auth\RegisterController@confirmUser');
 Route::get('/profile', 'UserController@profile');
 Route::post('/profile', 'UserController@editProfile');
 //Route::post('/profile-delete', 'UserController@deleteProfile');
+Route::get('/profile/child', 'UserController@child');
+Route::post('/child', 'UserController@editChild');
+Route::post('/profile/delete-child', 'UserController@deleteChild');
 
 Route::get('/fb-oauth', 'OAuthController@oAuthFb');
 Route::get('/fb-callback', 'OAuthController@fbCallback');

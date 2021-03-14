@@ -10,7 +10,7 @@
         </div>
     @elseif (isset($kidsMode) && $kidsMode)
         <div class="sub-buttons-block">
-            <div class="button"><a href="{{ url('/profile/add-kid') }}">{{ trans('content.add_kid_profile') }}</a></div>
+            <div class="button"><a href="{{ url('/profile/child') }}">{{ trans('content.add_kid_profile') }}</a></div>
         </div>
     @endif
 </div>

@@ -19,8 +19,11 @@ use Illuminate\Support\Facades\Config;
 
 trait HelperTrait
 {
+    public $validationEmail = 'required|email|unique:users,email';
     public $validationPhone = 'required|regex:/^((\+)?(\d)(\s)?(\()?[0-9]{3}(\))?(\s)?([0-9]{3})(\-)?([0-9]{2})(\-)?([0-9]{2}))$/';
     public $validationUser = 'required|integer|exists:users,id';
+    public $validationCharField = 'required|min:3|max:255'; 
+    public $validationGender = 'required|in:M,W,М,Ж';
     public $validationPassword = 'required|confirmed|min:4|max:50';
     public $validationCoordinates = 'required|regex:/^(\d{2}\.\d{5,6})$/';
     public $validationDate = 'required|regex:/^([0-3][0-9]\.[0-1][0-9]\.\d{4})$/';
@@ -118,6 +121,22 @@ trait HelperTrait
             $imageField[$field] = $path.'/'.$imageName;
         }
         return $imageField;
+    }
+
+    private function deleteSomething(Request $request, Model $model, $files=null, $addValidation=null)
+    {
+        $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id'.($addValidation ? '|'.$addValidation : '')]);
+        $table = $model->find($request->input('id'));
+        $table->delete();
+
+        if ($files) {
+            if (is_array($files)) {
+                foreach ($files as $file) {
+                    $this->unlinkFile($table, $file);
+                }
+            } else $this->unlinkFile($table, $files);
+        }
+        return response()->json(['success' => true]);
     }
 
     public function unlinkFile($table, $file, $path='')

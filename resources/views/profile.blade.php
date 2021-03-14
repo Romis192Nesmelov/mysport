@@ -10,7 +10,9 @@
                 @include('_cir_image_block', [
                     'inputName' => 'avatar',
                     'image' => Auth::user()->avatar,
-                    'name' => Helper::userCreds()
+                    'name' => Helper::userCreds(),
+                    'counter1' => count(Auth::user()->kids) ? Helper::countKids(count(Auth::user()->kids)) : null,
+                    'scroll1' => 'kids'
                 ])
 
                 @include('_left_gray_block',[
@@ -67,55 +69,55 @@
                 </div>
 
                 <div class="col-md-6 col-sm-12 col-xs-12">
-                    @include('_header_block', [
-                        'tagName' => 'h1',
-                        'head' => trans('content.information')
+                    @include('_user_info_block',[
+                        'user' => Auth::user(),
+                        'secondHead' => true
                     ])
 
-                    @include('_input_block',[
-                        'label' => trans('content.user_name'),
-                        'type' => 'text',
-                        'name' => 'name',
-                        'value' => Auth::user()->name
-                    ])
-
-                    @include('_input_block',[
-                        'label' => trans('content.surname'),
-                        'type' => 'text',
-                        'name' => 'surname',
-                        'value' => Auth::user()->surname
-                    ])
-
-                    @include('_input_block',[
-                        'label' => trans('content.family'),
-                        'type' => 'text',
-                        'name' => 'family',
-                        'value' => Auth::user()->family
-                    ])
-
-                    @include('_input_block',[
-                        'label' => trans('content.born_date'),
-                        'type' => 'text',
-                        'name' => 'born',
-                        'placeholder' => trans('content.date_placeholder'),
-                        'value' => Auth::user()->born ? date('d.m.Y',Auth::user()->born) : ''
-                    ])
-
-                    @include('_radio_buttons_type2_block',[
-                        'name' => 'gender',
-                        'label' => trans('content.your_gender'),
-                        'items' => [trans('content.man_letter'),trans('content.woman_letter')],
-                        'active' => Auth::user()->gender ? trans('content.man_letter') : trans('content.woman_letter')
-                    ])
-
-                    @include('_checkbox_type1_block',[
-                        'name' => 'send_mail',
-                        'label' => trans('content.receive_spam'),
-                        'active' => Auth::user()->send_mail
-                    ])
+                    <div class="flex-container">
+                        @include('_checkbox_type1_block',[
+                            'name' => 'send_mail',
+                            'label' => trans('content.receive_spam'),
+                            'active' => Auth::user()->send_mail
+                        ])
+                        <div class="vertical-delimiter"></div>
+                        @include('_radio_buttons_type2_block',[
+                            'name' => 'gender',
+                            'label' => trans('content.your_gender'),
+                            'items' => [trans('content.man_letter'),trans('content.woman_letter')],
+                            'active' => Auth::user()->gender ? trans('content.man_letter') : trans('content.woman_letter')
+                        ])
+                    </div>
                 </div>
 
-                <button type="submit" class="button">{{ trans('content.save') }}</button>
+                @include('_submit_button_block')
+
+                @if (count(Auth::user()->kids))
+                    @include('_modal_delete_block',[
+                        'modalId' => 'delete-modal',
+                        'function' => 'profile/delete-child',
+                         'head' => trans('content.confirm_delete_record')
+                     ])
+
+                    @include('_header_block', [
+                        'tagName' => 'h2',
+                        'addClass' => 'center',
+                        'head' => trans('content.children_accounts'),
+                        'scroll' => 'kids'
+                    ])
+
+                    @foreach(Auth::user()->kids as $kid)
+                        <div id="kid_{{ $kid->id }}" class="col-md-6 col-sm-6 col-xs-12">
+                            @include('layouts._avatar_block',[
+                                'avatar' => $kid->avatar,
+                                'deleteModal' => 'delete-modal',
+                                'delData' => $kid->id
+                            ])
+                            <p class="text-center"><a href="{{ url('/profile/child?id='.$kid->id) }}">{!! Helper::kidCreds($kid) !!}</a></p>
+                            <div class="description born">{{ date('d.m.Y', $kid->born) }}</div>
+                        </div>
+                    @endforeach
+                @endif
 
                 @include('_right_gray_block',[
                     'addClass' => 'narrow',

@@ -31,6 +31,11 @@ class HelperController extends Controller
         return $user;
     }
     
+    public function kidCreds($kid)
+    {
+        return $kid->family.'<br>'.$kid->name.' '.$kid->surname;
+    }
+    
     public function randHash()
     {
         return '?' . $this->randString();

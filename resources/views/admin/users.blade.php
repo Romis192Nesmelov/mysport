@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-    @include('admin._modal_delete_block',['modalId' => 'delete-user-modal', 'function' => url('admin/delete-user'), 'head' => trans('admin.do_you_want_to_delete_user')])
+    @include('_modal_delete_block',['modalId' => 'delete-user-modal', 'function' => url('admin/delete-user'), 'head' => trans('admin.do_you_want_to_delete_user')])
     {{ csrf_field() }}
     <div class="panel panel-flat">
         @include('_panel_title_block',['title' => trans('admin.users')])
