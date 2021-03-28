@@ -5,31 +5,32 @@ namespace App\Http\Controllers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Area;
-use App\KindOfSport;
 use App\Event;
 use App\Organization;
 use App\Section;
 use App\Place;
 //use App\User;
 //use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Settings;
-//use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use phpDocumentor\Reflection\Types\Integer;
 
 trait HelperTrait
 {
-    public $validationEmail = 'required|email|unique:users,email';
-    public $validationPhone = 'required|regex:/^((\+)?(\d)(\s)?(\()?[0-9]{3}(\))?(\s)?([0-9]{3})(\-)?([0-9]{2})(\-)?([0-9]{2}))$/';
-    public $validationUser = 'required|integer|exists:users,id';
-    public $validationCharField = 'required|min:3|max:255'; 
-    public $validationGender = 'required|in:M,W,М,Ж';
-    public $validationPassword = 'required|confirmed|min:4|max:50';
-    public $validationCoordinates = 'required|regex:/^(\d{2}\.\d{5,6})$/';
-    public $validationDate = 'required|regex:/^([0-3][0-9]\.[0-1][0-9]\.\d{4})$/';
-    public $validationImage = 'image|min:5|max:5000';
-    public $validationArea = 'required|integer|exists:areas,id';
-    public $metas = [
+    private $validationEmail = 'required|email|unique:users,email';
+    private $validationPhone = 'required|regex:/^((\+)?(\d)(\s)?(\()?[0-9]{3}(\))?(\s)?([0-9]{3})(\-)?([0-9]{2})(\-)?([0-9]{2}))$/';
+    private $validationUser = 'required|integer|exists:users,id';
+    private $validationCharField = 'required|min:3|max:255';
+    private $validationGender = 'required|in:M,W,М,Ж';
+    private $validationPassword = 'required|confirmed|min:4|max:50';
+    private $validationCoordinates = 'required|regex:/^(\d{2}\.\d{5,6})$/';
+    private $validationDate = ['required','regex:/^((([0-2][0-9])|(3[0-1]))\.((0[1-9])|([0-1][0-2]))\.((19\d{2})|(20[0-2][0-9])))$/'];
+    private $validationTime = ['required','regex:/^((([0-1][0-9])|(2[0-4]))\.[0-5][0-9])$/'];
+    private $validationImage = 'image|min:5|max:5000';
+    private $validationArea = 'required|integer|exists:areas,id';
+    private $validationEvent = 'required|integer|exists:events,id';
+    private $metas = [
         'meta_description' => ['name' => 'description', 'property' => false],
         'meta_keywords' => ['name' => 'keywords', 'property' => false],
         'meta_twitter_card' => ['name' => 'twitter:card', 'property' => false],
@@ -44,18 +45,40 @@ trait HelperTrait
         'meta_googlebot' => ['name' => 'googlebot', 'property' => false],
         'meta_google_site_verification' => ['name' => 'robots', 'property' => false],
     ];
-    
-    public function masterMail()
+
+    private function getEventOnTheYear($useOwner=false,$useActive=true)
+    {
+        $this->data['year'] = date('Y');
+        $limitInPast = strtotime('1/1/'.$this->data['year']);
+        $limitInFuture = date('n') <= 10 ? strtotime('12/31/'.$this->data['year']) : strtotime((date('n')+4-12).'1/'.($this->data['year']+1));
+        $events = Event::where('start_time','>=',$limitInPast)->where('start_time','<=',$limitInFuture);
+        if ($useActive) $events->where('active',1);
+        if ($useOwner) $events->where('trainer_id',Auth::id());
+        $this->data['events_on_year'] = $events->get();
+    }
+
+    private function getItem(Request $request, Model $model, $slug)
+    {
+        if ($slug) {
+            $this->data['item'] = $model->where('slug',$slug)->first();
+        } else {
+            $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id']);
+            $this->data['item'] = $model->find($request->input('id'));
+        }
+        if (!$this->data['item']) abort(404);
+    }
+
+    private function masterMail()
     {
         return (string)Settings::getSettings()->email;
     }
-      
-    public function randString()
+
+    private function randString()
     {
         return md5(rand(0,100000));
     }
 
-    public function processingFields(Request $request, $checkboxFields=null, $ignoreFields=null, $timeFields=null, $colorFields=null)
+    private function processingFields(Request $request, $checkboxFields=null, $ignoreFields=null, $timeFields=null, $colorFields=null)
     {
 
         $exceptFields = ['_token','id'];
@@ -80,12 +103,12 @@ trait HelperTrait
         if ($timeFields) {
             if (is_array($timeFields)) {
                 foreach ($timeFields as $field) {
-//                    $fields[$field] = Carbon::createFromTimestamp(strtotime($this->convertTime($fields[$field])))->toDateTimeString();
-                    $fields[$field] = strtotime($this->convertTime($fields[$field]));
+//                    $fields[$field] = Carbon::createFromTimestamp($this->convertDate($fields[$field]))->toDateTimeString();
+                    $fields[$field] = $this->convertDate($fields[$field]);
                 }
             } else {
-//                $fields[$timeFields] = Carbon::createFromTimestamp(strtotime($this->convertTime($fields[$timeFields])))->toDateTimeString();
-                $fields[$timeFields] = strtotime($this->convertTime($fields[$timeFields]));
+//                $fields[$timeFields] = Carbon::createFromTimestamp($this->convertDate($fields[$timeFields]))->toDateTimeString();
+                $fields[$timeFields] = $this->convertDate($fields[$timeFields]);
             }
         }
 
@@ -101,7 +124,7 @@ trait HelperTrait
         return $fields;
     }
 
-    public function processingImage(Request $request, Model $model=null, $field=null, $name=null, $path=null)
+    private function processingImage(Request $request, Model $model=null, $field=null, $name=null, $path=null)
     {
         $imageField = [];
         $field = $field ? $field : 'image';
@@ -139,13 +162,13 @@ trait HelperTrait
         return response()->json(['success' => true]);
     }
 
-    public function unlinkFile($table, $file, $path='')
+    private function unlinkFile($table, $file, $path='')
     {
         $fullPath = base_path('public/'.$path.$table[$file]);
         if (isset($table[$file]) && $table[$file] && file_exists($fullPath)) unlink($fullPath);
     }
 
-    public function findSport($areaId=null,$kindOfSport=null,$events=1,$organizations=1,$sections=1,$places=1)
+    private function findSport($areaId=null,$kindOfSport=null,$events=1,$organizations=1,$sections=1,$places=1)
     {  
         $eventsPoints = $events ? $this->getPoints(new Event(),$areaId,false) : null;
         $organizationsPoints = $organizations ? $this->getPoints(new Organization(),$areaId,false) : null;
@@ -187,8 +210,8 @@ trait HelperTrait
         }
         return $points;
     }
-    
-    public function getRandomAddress($onlyStreet=false)
+
+    private function getRandomAddress($onlyStreet=false)
     {
         $streets = [
             'Литейный проспект',
@@ -382,23 +405,23 @@ trait HelperTrait
         
         return $streets[rand(0,count($streets)-1)].($onlyStreet ? '' : ' д.'.rand(1,50).(rand(0,1) ? ' стр.'.rand(1,10) : ''));
     }
-    
-    public function getRandomPhone()
+
+    private function getRandomPhone()
     {
         return '+7(812)'.rand(1,9).rand(1,9).rand(1,9).'-'.rand(1,9).rand(1,9).'-'.rand(1,9).rand(1,9);
     }
-    
-    public function getRandomEmail()
+
+    private function getRandomEmail()
     {
         return strtolower(str_random(5)).'@mail.ru';
     }
 
-    public function getRandomSite()
+    private function getRandomSite()
     {
         return 'http://'.strtolower(str_random(5)).'.ru';
     }
-    
-    public function getRandomCoordinates($areaId)
+
+    private function getRandomCoordinates($areaId)
     {
         $areaId--;
         $areasCoords = [
@@ -422,8 +445,8 @@ trait HelperTrait
             ['latitude' => 59.930908,'longitude' => 30.361817],
         ];
 
-        $latitude = $areasCoords[$areaId]['latitude'] - $this->getRandomCoords();
-        $longitude =$areasCoords[$areaId]['longitude'] - $this->getRandomCoords();
+        $latitude = round($areasCoords[$areaId]['latitude'] - $this->getRandomCoords(),6);
+        $longitude = round($areasCoords[$areaId]['longitude'] - $this->getRandomCoords(),6);
         return [$latitude,$longitude];
     }
 
@@ -432,10 +455,21 @@ trait HelperTrait
         return rand(-100000,100000)/1000000;
     }
 
+    private function convertDate($date)
+    {
+        $date = explode('.', $date);
+        return strtotime($date[1].'/'.$date[0].'/'.$date[2]);
+    }
+    
     private function convertTime($time)
     {
         $time = explode('.', $time);
-        return $time[1].'/'.$time[0].'/'.$time[2];
+        return (60 * 60 * $time[0]) + (60 * $time[1]);
+    }
+
+    private function getMoscowTimeZone($timestamp)
+    {
+        return $timestamp - (60 * 60 * 3);
     }
 
     private function convertColor($color)

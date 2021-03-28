@@ -15,7 +15,6 @@ class EventsTableSeeder extends Seeder
     public function run()
     {
         $day = 0;
-        $hour = 7;
         $contentCounter = 0;
 
         $content = [
@@ -59,7 +58,7 @@ class EventsTableSeeder extends Seeder
             $areaId = $areas[rand(0,count($areas)-1)];
             $month = date('n')+(ceil($i/11));
             $day = $day > cal_days_in_month(CAL_GREGORIAN,$month,2021) ? 1 : $day+1;
-            $hour = $hour > 22 ? 8 : $hour+1;
+            $hour = rand(7,15);
             $halfHour = rand(1,50) > 25 ? '30' : '00';
             $startTime = strtotime($month.'/'.$day.'/2021 '.$hour.':'.$halfHour.':00');
             $endTime = $startTime + (rand(1,5) * 60 * 60);
@@ -72,7 +71,6 @@ class EventsTableSeeder extends Seeder
 
             $event = Event::create(
                 [
-                    'slug' => str_slug($nameRu),
                     'start_time' => $startTime,
                     'end_time' => $endTime,
                     'name_ru' => $nameRu,

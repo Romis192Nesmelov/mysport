@@ -6,6 +6,8 @@
                 <i class="icon-check2 {{ !$active ? 'hidden' : '' }}"></i>
             </div>
         </div>
-        <div class="label-block">{!! $label !!}</div>
+        @if (isset($label) && $label)
+            <div class="label-block">{!! $label !!}</div>
+        @endif
     </div>
 </div>

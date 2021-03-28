@@ -8,9 +8,32 @@ h1, h2, h3, h4 {
     line-height: 1.1em;
 }
 
+.pagination {
+    margin: auto;
+}
+
+.pagination .page-link {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    background-color: #13a28a;
+    border-color: #13a28a;
+}
+
 p {
     font-size: 18px;
     font-weight: normal;
+}
+
+div.table {
+    display: table;
 }
 
 .modal-header h1 {
@@ -156,8 +179,25 @@ button[type=submit] {
     margin-bottom: 20px;
 }
 
+.modal-footer button[type=submit] {
+    margin-bottom: 0;
+}
+
 .button.small {
     min-width: 150px;
+}
+
+.line-menu {
+    width: 100%;
+}
+
+.line-menu .button.gray1 {
+    width: 100%;
+}
+
+.line-menu .button.gray2,
+.line-menu .button.green {
+    width: calc(50% - 20px);
 }
 
 .line-menu .button.pull-right {
@@ -318,9 +358,11 @@ select.type1:focus {
     outline: none;
 }
 
+textarea.simple,
 select.type2,
 input[type=email],
 input[type=text],
+input[type=number],
 input[type=password] {
     width: 100%;
     padding: 10px 20px;
@@ -331,8 +373,14 @@ input[type=password] {
     border: 1px solid #ddebf0;
 }
 
+textarea.simple {
+    height: 200px;
+    resize: vertical;
+}
+
 input[type=email],
 input[type=text],
+input[type=number],
 input[type=password] {
     height: 50px;
     font-size: 20px;
@@ -369,14 +417,26 @@ select.type2:focus {
     background: url("../images/arrow_down_blue.svg") 100% white no-repeat;
 }
 
+textarea.simple:focus,
 input[type=email]:focus,
 input[type=text]:focus,
+input[type=number]:focus,
 input[type=password]:focus {
     border: 1px solid #087fae;
 }
 
 .form-group.has-feedback.has-error input {
     color: #ff7070;
+}
+
+.clearfix.form-group.textarea.has-feedback .cke {
+    border: 1px solid #ddebf0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.clearfix.form-group.textarea.has-feedback .cke_top {
+    background-color: #eaf4f8 !important;
 }
 
 .rounded-block.gray.right-block .avatar {
@@ -411,15 +471,29 @@ p.label {
     padding: 0 !important;
 }
 
+.radio-buttons.type3 {
+    width: 100%;
+}
+
 .radio-buttons .cir-block {
     display: table;
     padding: 5px;
+}
+
+.radio-buttons.type3 .cir-block {
+    margin: auto;
+    text-align: center;
 }
 
 .radio-buttons .cir-cell {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
+}
+
+.radio-buttons.type3 .cir-cell {
+    display: inline-block;
+    margin-bottom: 10px;
 }
 
 .radio-buttons .cir {
@@ -711,6 +785,15 @@ a.active {
     margin-top: 20px;
 }
 
+.rounded-block.gray.left-block h2.name .name-part {
+    font-size: 18px;
+    color: grey;
+}
+
+.name-part {
+    text-align: center;
+}
+
 .rounded-block.gray.right-block {
     padding-left: 80px;
     padding-right: 80px;
@@ -744,6 +827,18 @@ a.active {
     margin-top: 20px;
     font-size: 15px;
     color: #756e85;
+}
+
+.radio-buttons.type3 .description {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    line-height: 1.2em;
+}
+
+.rounded-block.gray div.table .description {
+    margin-top: 0;
 }
 
 .rounded-block.gray .description.born {
@@ -917,6 +1012,11 @@ a.active {
     margin: auto;
 }
 
+.rounded-block .kind-of-sport {
+    padding: 12px;
+    font-size: 13px;
+}
+
 .kind-of-sport:hover {
     opacity: 0.7;
     color: #ff7070;
@@ -1052,6 +1152,10 @@ a.active {
     color: black;
 }
 
+.calendar-block table tr td.pickering {
+    cursor: pointer;
+}
+
 .calendar-block table tr td i {
     color: grey;
     font-weight: normal;
@@ -1059,17 +1163,22 @@ a.active {
 }
 
 .calendar-block table tr td .event-day {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
+    padding-top: 2px;
     text-align: center;
     border-radius: 50%;
     margin: auto;
     background-color: #13a28a;
-    color: white;
 }
 
+.calendar-block table tr td.chosen .event-day {
+    background-color: #ff7070;
+}
+
+.calendar-block table tr td .event-day,
 .calendar-block table tr td .event-day a {
-    color: inherit;
+    color: white;
 }
 
 .calendar-block table tr td:first-child {

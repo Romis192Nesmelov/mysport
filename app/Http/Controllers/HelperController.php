@@ -13,11 +13,10 @@ class HelperController extends Controller
     public function userCreds()
     {
         $user = '';
-        if (Auth::user()->name) {
-            if (Auth::user()->family) {
-                $user = Auth::user()->family.'<br>';
-            }
-            $user .= Auth::user()->name;
+        if (Auth::user()->family) {
+            $user = $this->simpleCreds(Auth::user());
+        } elseif (Auth::user()->name) {
+            $user = Auth::user()->name;
             if (Auth::user()->surname){
                 $user .= ' '.Auth::user()->surname;
             }
@@ -33,8 +32,10 @@ class HelperController extends Controller
     
     public function simpleCreds($user)
     {
-        if (App::getLocale() == 'en') return str_slug($user->family).'<br>'.str_slug($user->name).' '.str_slug($user->surname);
-        else return $user->family.'<br>'.$user->name.' '.$user->surname;
+        $divOpen = '<div class="name-part">';
+        $divClose = '</div>';
+        if (App::getLocale() == 'en') return str_slug($user->family).$divOpen.str_slug($user->name).' '.str_slug($user->surname).$divClose;
+        else return $user->family.$divOpen.$user->name.' '.$user->surname.$divClose;
     }
     
     public function randHash()
@@ -52,10 +53,25 @@ class HelperController extends Controller
     {
         return number_format((int)$value, 0, ',', ' ').'$';
     }
+
+    public function ageGroups()
+    {
+        return ['5-10','10-15','15-20','20-35','35-45','45-55','55-65','65-75','75+'];
+    }
     
+    public function addZero($value)
+    {
+        return strlen($value) == 1 ? '0' . $value : $value;
+    }
+    
+    public function setMoscowTimeZone($timestamp)
+    {
+        return $timestamp + (60 * 60 * 3);
+    }
+
     public function getAgeGroup($group)
     {
-        return ['5-10','10-15','15-20','20-35','35-45','45-55','55-65','65-75','75+'][$group-1].' '.trans('content.years');
+        return $this->ageGroups()[$group-1].' '.trans('content.years');
     }
     
     public function isAdmin()

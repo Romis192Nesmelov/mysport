@@ -5,13 +5,19 @@
         <div class="container">
             @php ob_start(); @endphp
             @include('_cir_image_block', [
-                'image' => $data['item']->trainer->image,
-                'name' => $data['item']->trainer['name_'.App::getLocale()],
-                'counter1' => Helper::haveJoinedCaseFormat(count($data['item']->eventsRecord))
+                'image' => $data['item']->trainer->user->avatar,
+                'name' => Helper::simpleCreds($data['item']->trainer->user),
+                'counter1' => Helper::haveJoinedCaseFormat(count($data['item']->records))
             ])
 
-            @include('_left_gray_block',['content' => ob_get_clean(),'buttons' => true])
-
+            @include('_left_gray_block', [
+                'content' => ob_get_clean(),
+                'buttons' => time() < $data['item']->start_time,
+                'recordUserMessage' => trans('content.do_you_want_to_sign_up_for_this_event'),
+                'recordKidMessage' => trans('content.do_you_want_to_sign_up_your_child_for_this_event'),
+                'recordUserAction' => 'event-user-record',
+                'recordKidAction' => 'event-kids-record',
+            ])
 
             @php ob_start(); @endphp
             @include('_header_block', [
@@ -24,14 +30,14 @@
                     'colMd' => 6,
                     'colSm' => 6,
                     'description' => trans('content.date'),
-                    'credential' => date('d.m.Y',$data['item']->start_time)
+                    'credential' => date('d.m.Y',Helper::setMoscowTimeZone($data['item']->start_time))
                 ])
 
                 @include('_credentials_block',[
                     'colMd' => 6,
                     'colSm' => 6,
                     'description' => trans('content.time'),
-                    'credential' => date('H:i',$data['item']->start_time).' – '.date('H:i',$data['item']->end_time)
+                    'credential' => date('H:i',Helper::setMoscowTimeZone($data['item']->start_time)).' – '.date('H:i',Helper::setMoscowTimeZone($data['item']->end_time))
                 ])
             </div>
             <div class="credentials-block">

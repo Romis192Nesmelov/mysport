@@ -6,10 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 class Trainer extends Model
 {
     protected $fillable = [
-        'image',
-        'name',
-        'surname',
-        'family',
         'about_ru',
         'about_en',
         'education_ru',

@@ -89,6 +89,8 @@ return [
     'url'                  => 'The :attribute format is invalid.',
     'deadline'             => 'The lead time cannot be less than tomorrow',
     'invalid_date'         => 'Invalid date',
+    'invalid_time'         => 'Invalid time',
+    'invalid_coordinates'  => 'invalid coordinates',
 
     /*
     |--------------------------------------------------------------------------

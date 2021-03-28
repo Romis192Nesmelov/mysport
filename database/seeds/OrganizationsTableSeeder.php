@@ -26,7 +26,6 @@ class OrganizationsTableSeeder extends Seeder
 
             $organization = Organization::create(
                 [
-                    'slug' => str_slug($name),
                     'image' => 'images/objects/temp.jpg',
                     'name_ru' => $name,
                     'name_en' => $this->transliteration($name),

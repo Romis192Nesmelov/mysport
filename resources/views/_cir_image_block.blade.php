@@ -10,7 +10,7 @@
 @endif
 
 <h2 class="name">{!! $name !!}</h2>
-@if ( (isset($counter1) && $counter1) || (isset($counter2) && $counter2) )
+@if ( (isset($counter1) && $counter1) || (isset($counter2) && $counter2) || (isset($counter3) && $counter3) )
     <h2>
         @if (isset($counter1) && $counter1)
             @include('_counter_block',[

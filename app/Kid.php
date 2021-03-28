@@ -20,4 +20,9 @@ class Kid extends Model
     {
         return $this->belongsTo('App\User','user_id');
     }
+
+    public function eventsRecord()
+    {
+        return $this->hasMany('App\EventsRecord')->orderBy('start_time','desc');
+    }
 }

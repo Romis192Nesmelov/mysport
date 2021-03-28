@@ -2,6 +2,7 @@
 
 return [
     'active' => 'Active',
+    'event_active' => 'Event active',
     'years' => 'years',
     'year' => 'year',
     'area' => 'area',
@@ -30,6 +31,7 @@ return [
     'sports_objects_in_area' => 'Sports objects in area',
     'all_news' => 'All news',
     'description' => 'Description',
+    'event_description' => 'Event description:',
     'address' => 'Address:',
     'coordinates' => 'Coordinates:',
     'organization' => 'Organization:',
@@ -60,6 +62,8 @@ return [
     'go_back' => 'Go back',
     'date' => 'Date:',
     'time' => 'Time:',
+    'start_time' => 'Start time:',
+    'end_time' => 'End time:',
     'save_complete' => 'Save complete',
 
     'en' => 'English',
@@ -71,6 +75,7 @@ return [
     'surname' => 'Surname:',
     'family' => 'Family:',
     'object_name' => 'Object name:',
+    'event_name' => 'Event name:',
     'account' => 'Account',
     'children_accounts' => 'Children\'s accounts',
     'information' => 'Information',
@@ -89,6 +94,8 @@ return [
     'confirm_new_password' => 'Confirm new password:',
     'receive_spam' => 'Receive newsletter',
     'date_placeholder' => 'dd.mm.YEAR',
+    'time_placeholder' => 'hh.mm',
+    'coords_placeholder' => '__.______',
     
     'sports_grounds' => 'Sports grounds',
     'sections' => 'Sports sections',
@@ -122,6 +129,21 @@ return [
     'not_select_the_kind_of_sport' => 'A kind of sport isn\'t selected',
     'to_record_kid' => 'To record my kid',
     'confirm_delete_record' => 'Are you sure you want to delete this entry?',
+    'do_you_want_to_sign_up_for_this_event' => 'Do you want to sign up for this event?',
+    'do_you_want_to_sign_up_your_child_for_this_event' => 'Do you want to sign up your child/children for this event?',
+    'you_are_record' => 'You are record',
+    'your_kid_is_record' => 'Your child is record',
+    'your_kids_are_record' => 'Your children are record',
+    'cancel_record_for_me' => 'Cancel record for me',
+    'cancel_record_for_my_kids' => 'Cancel record for my kid(s)',
+    'record_canceled' => 'Record canceled',
+    'records_updated' => 'Records updated',
+    'records_canceled' => 'Records canceled',
+    'record_updated' => 'Record updated',
+    'my_sports_events' => 'My sports events',
+    'add_event' => 'Add sports event',
+    'latitude' => 'Latitude:',
+    'longitude' => 'Longitude:',
 
     'no_file_selected' => 'No file selected',
     'footer_text' => '© 2020 Committee for<br>Physical Culture and Sports<br>of St. Petersburg'

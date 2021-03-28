@@ -57,3 +57,8 @@ Route::get('/kinds-of-sport', 'StaticController@kindsOfSport');
 
 Route::get('/change-lang', 'StaticController@changeLang');
 Route::post('/find-points', 'StaticController@findPoints');
+
+Route::get('/trainer/events/{slug?}', 'UserController@events');
+Route::post('/event', 'UserController@editEvent');
+Route::post('/event-user-record', 'UserController@eventUserRecord');
+Route::post('/event-kids-record', 'UserController@eventKidsRecord');

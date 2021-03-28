@@ -90,7 +90,9 @@
                     </div>
                 </div>
 
-                @include('_submit_button_block')
+                @if (!Auth::user()->trainer)
+                    @include('_submit_button_block')
+                @endif
 
                 @if (count(Auth::user()->kids))
                     @include('_modal_delete_block',[
@@ -124,6 +126,89 @@
                     'content' => ob_get_clean(),
                     'useMap' => false
                 ])
+
+                @if (Gate::allows('trainer', Auth::user()))
+                    @php ob_start(); @endphp
+
+                    @include('_header_block', [
+                        'tagName' => 'h1',
+                        'head' => trans('content.trainer_info')
+                    ])
+
+                    @include('_textarea_block', [
+                        'label' => trans('content.about_me'),
+                        'name' => 'about_ru',
+                        'value' => Auth::user()->trainer->about_ru
+                    ])
+
+                    @include('_input_block',[
+                        'label' => trans('content.education'),
+                        'type' => 'text',
+                        'name' => 'education_ru',
+                        'value' => Auth::user()->trainer->education_ru
+                    ])
+
+                    @include('_input_block',[
+                        'label' => trans('content.add_education'),
+                        'type' => 'text',
+                        'name' => 'add_education_ru',
+                        'value' => Auth::user()->trainer->add_education_ru
+                    ])
+
+                    @include('_input_block',[
+                        'label' => trans('content.achievements'),
+                        'type' => 'text',
+                        'name' => 'achievements_ru',
+                        'value' => Auth::user()->trainer->achievements_ru
+                    ])
+
+                    @include('_input_block',[
+                        'label' => trans('content.experience_since').' ('.trans('content.year').')',
+                        'type' => 'number',
+                        'name' => 'since',
+                        'min' => 1970,
+                        'max' => (int)date('Y'),
+                        'value' => Auth::user()->trainer->since,
+                        'addAttr' => ['style' => 'width:150px']
+                    ])
+
+                    @include('_submit_button_block')
+
+                    @include('_right_gray_block',[
+                        'addClass' => 'narrow',
+                        'content' => ob_get_clean(),
+                        'useMap' => false
+                    ])
+
+                    @php ob_start(); @endphp
+
+                    @include('_header_block', [
+                        'tagName' => 'h2',
+                        'head' => trans('content.my_sports_events')
+                    ])
+
+                    <div class="content-block">
+                        @foreach ($data['events'] as $event)
+                            @include('_event_block', [
+                                'prefix' => 'trainer',
+                                'colMd' => 6,
+                                'blindColMd' => 12,
+                                'colSm' => 6,
+                                'blindColSm' => 12
+                            ])
+                        @endforeach
+
+                        <div class="table text-center">{{ $data['events']->render() }}</div>
+                    </div>
+
+                    <div class="button gray2"><a href="{{ url('/trainer/events/add') }}">{{ trans('content.add_event') }}</a></div>
+
+                    @include('_right_gray_block',[
+                        'addClass' => 'narrow',
+                        'content' => ob_get_clean(),
+                        'useMap' => false
+                    ])
+                @endif
             </form>
         </div>
     </div>

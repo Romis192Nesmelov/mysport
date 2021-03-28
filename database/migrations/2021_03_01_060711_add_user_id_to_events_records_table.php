@@ -14,7 +14,7 @@ class AddUserIdToEventsRecordsTable extends Migration
     public function up()
     {
         Schema::table('events_records', function (Blueprint $table) {
-            $table->bigInteger('user_id', false, true);
+            $table->bigInteger('user_id', false, true)->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }

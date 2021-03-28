@@ -49,6 +49,7 @@
 
     <script type="text/javascript" src="{{ asset('js/plugins/forms/styling/uniform.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/forms/styling/bootstrap-switch.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
     {{--<script type="text/javascript" src="{{ asset('js/plugins/ui/moment/moment.min.js') }}"></script>--}}
     {{--<script type="text/javascript" src="{{ asset('js/plugins/pickers/daterangepicker.js') }}"></script>--}}
@@ -168,9 +169,12 @@
         </nav>
         <!-- /main navbar -->
         <div class="line-menu hidden-xs">
-            <div class="button pull-left gray1 small"><a data-scroll="#">{{ trans('menu.to_record') }}</a></div>
-            <div class="button pull-left gray2"><a data-scroll="#">{{ trans('menu.create_a_training') }}</a></div>
-            <div class="button pull-left green"><a data-scroll="#">{{ trans('menu.organize_an_event') }}</a></div>
+            @if (Auth::guest() || Gate::denies('trainer'))
+                <div class="button gray1"><a data-scroll="#">{{ trans('menu.to_record') }}</a></div>
+            @else
+                <div class="button pull-left gray2"><a href="#">{{ trans('menu.create_a_training') }}</a></div>
+                <div class="button pull-left green"><a href="{{ url('/trainer/events/add') }}">{{ trans('menu.organize_an_event') }}</a></div>
+            @endif
         </div>
     </div>
 </div>

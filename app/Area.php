@@ -1,10 +1,14 @@
 <?php
 
 namespace App;
+
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Area extends Model
 {
+    use Sluggable;
+    
     protected $fillable = [
         'slug',
         'image',
@@ -18,6 +22,24 @@ class Area extends Model
         'email',
         'active'
     ];
+
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name_ru',
+                'maxLength' => 255,
+                'maxLengthKeepWords' => true,
+                'method' => null,
+                'separator' => '-',
+                'unique' => true,
+                'uniqueSuffix' => null,
+                'includeTrashed' => false,
+                'reserved' => null,
+                'onUpdate' => false
+            ]
+        ];
+    }
 
     public function events()
     {

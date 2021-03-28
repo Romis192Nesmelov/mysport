@@ -5,8 +5,8 @@
         <div class="container">
             @php ob_start(); @endphp
             @include('_cir_image_block', [
-                'image' => $data['trainer']->avatar,
-                'name' => Helper::simpleCreds($data['trainer']),
+                'image' => $data['trainer']->user->avatar,
+                'name' => Helper::simpleCreds($data['trainer']->user),
                 'scroll1' => 'kind-of-sports',
                 'counter1' => $data['trainer']->sport['name_'.App::getLocale()],
             ])

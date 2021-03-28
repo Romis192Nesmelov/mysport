@@ -47,11 +47,11 @@ class PlacesTableSeeder extends Seeder
 
             $place = Place::create(
                 [
-                    'slug' => str_slug($name),
                     'name_ru' => $name,
                     'name_en' => $this->transliteration($name),
                     'address_ru' => $address,
                     'address_en' => $this->transliteration($address),
+                    'description_ru' => 'Всесезонный корт в Купчино на Бухарестской улице. Летом подходит для игр в футбол и баскетбол. Летом для хоккея и катания на коньках.',
                     'latitude' => $latitude,
                     'longitude' => $longitude,
                     'area_id' => $areaId,

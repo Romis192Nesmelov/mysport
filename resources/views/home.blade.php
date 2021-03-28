@@ -44,84 +44,20 @@
                     'icon' => 'icon_date',
                     'head' => trans('content.the_calendar_of_sports_events')
                 ])
-
-                <div class="owl-carousel calendar">
-                    @php $week = 1; @endphp
-                    @for($month=1;$month <= (date('n') > 10 ? 12 + date('n') - 8 : 12);$month++)
-                        @php
-                            if ($month > 12) {
-                                $month = $month - 12;
-                                $year = $data['year'] + 1;
-                            } else {
-                                $year = $data['year'];
-                            }
-                        @endphp
-                        <div class="calendar-block">
-                            @php
-                                // Calculate how many weeks in month
-                                $weeksOnMonth = 1;
-                                for($d=1;$d<=Helper::getNumberDaysInMonth($month, $year);$d++) {
-                                    if ($d > 1 && date('N', strtotime($month.'/'.$d.'/'.$year)) == 1) $weeksOnMonth++;
-                                }
-                            @endphp
-
-                            <div class="month">{{ trans('calendar.m'.$month).' '.$year }}</div>
-                            <table>
-                                <tr class="week">
-                                    @for($wd=0;$wd<=7;$wd++)
-                                        <td>{{ $wd ? trans('calendar.d'.$wd) : '' }}</td>
-                                    @endfor
-                                </tr>
-                                @php $day = 0; @endphp
-                                @for($w=1;$w<=$weeksOnMonth;$w++)
-                                    <tr>
-                                        @for($wd=0;$wd<=7;$wd++)
-                                            @if(!$wd)
-                                                <td><i>{{ $week }}</i></td>
-                                            @else
-                                                @php if ($w == 1 && $wd == date('N', strtotime($month.'/1/'.$year))) $day = 1; @endphp
-                                                <td>
-                                                    @if ($day && $day <= Helper::getNumberDaysInMonth($month, $year))
-                                                        @php
-                                                            $eventsMatch = false;
-                                                            foreach ($data['events_on_year'] as $event) {
-                                                                if (date('Y',$event->start_time) == $year && date('n',$event->start_time) == $month && date('j',$event->start_time) == $day) {
-                                                                    $eventsMatch = $event;
-                                                                    break;
-                                                                }
-                                                            }
-                                                            $incrementWeek = true;
-                                                        @endphp
-                                                        @if ($eventsMatch)
-                                                            <div class="event-day"><a href="{{ url('/events/'.$eventsMatch->slug) }}">{{ $day }}</a></div>
-                                                        @else
-                                                            {{ $day }}
-                                                        @endif
-                                                    @else
-                                                        @php $incrementWeek = false; @endphp
-                                                    @endif
-                                                </td>
-                                            @endif
-                                            @php if ($day && $wd) $day++; @endphp
-                                        @endfor
-                                    </tr>
-                                    @php if ($incrementWeek) $week++; @endphp
-                                @endfor
-                            </table>
-                        </div>
-                    @endfor
-                </div>
-
+                @include('_calendar_block',[
+                    'year' => $data['year'],
+                    'events' => $data['events_on_year']
+                ])
             </div>
             @for($i=0;$i<(count($data['events']) > 5 ? 5 : count($data['events']));$i++)
                 @php $event = $data['events'][$i]; @endphp
-                <div class="col-md-{{ $blindVer ? '4' : '3' }} col-sm-{{ $blindVer ? '6' : '4' }} col-xs-12 event">
-                    <a href="{{ url('/events/'.$event->slug) }}">
-                        <div class="button green">{{ date('j',$event->start_time).' '.trans('months.'.date('m',$event->start_time)).' '.date('Y',$event->start_time).' '.date('G:i',$event->start_time) }}</div>
-                        <h3>{{ $event['name_'.App::getLocale()] }}</h3>
-                        <p>{{ $event['description_'.App::getLocale()] }}</p>
-                    </a>
-                </div>
+                @include('_event_block', [
+                    'event' => $event,
+                    'colMd' => 3,
+                    'blindColMd' => 4,
+                    'colSm' => 4,
+                    'blindColSm' => 6
+                ])
             @endfor
             <div class="col-md-6 col-sm-{{ $blindVer ? '12' : '6' }} col-xs-12 banner3">
                 <div class="banner"><img src="{{ asset('images/banner3.jpg') }}" /></div>
@@ -172,14 +108,7 @@
     </div>
     <div class="section gray">
         <div class="container">
-            <div class="owl-carousel sports">
-                @foreach($sports as $sport)
-                    <div class="kind-of-sport">
-                        <a href="{{ url('/kinds-of-sport?id='.$sport->id) }}"><img src="{{ asset($sport->icon) }}" /></a>
-                        {{ $sport['name_'.App::getLocale()] }}
-                    </div>
-                @endforeach
-            </div>
+            @include('_kind_of_sports_block')
         </div>
     </div>
 
@@ -268,12 +197,12 @@
                     @if ($trainer->sport->active)
                         <div class="trainer">
                             <a href="{{ url('/trainers/?id='.$trainer->id) }}">
-                                <div class="photo"><img src="{{ asset($trainer->avatar) }}" /></div>
-                                <div class="family">{{ App::getLocale() == 'en' ? str_slug($trainer->family) : $trainer->family }}</div>
+                                <div class="photo"><img src="{{ asset($trainer->user->avatar) }}" /></div>
+                                <div class="family">{{ App::getLocale() == 'en' ? str_slug($trainer->user->family) : $trainer->user->family }}</div>
                                 @if (App::getLocale() == 'en')
-                                    {{ str_slug($trainer->name).' '.str_slug($trainer->surname) }}
+                                    {{ str_slug($trainer->user->name).' '.str_slug($trainer->user->surname) }}
                                 @else
-                                    {{ $trainer->name.' '.$trainer->surname }}
+                                    {{ $trainer->user->name.' '.$trainer->user->surname }}
                                 @endif
                                 <div class="section-name">{{ trans('content.trainer_section', ['section' => $trainer->sport['name_'.App::getLocale()]]) }}</div>
                             </a>
@@ -297,7 +226,6 @@
             @endfor
         </div>
     </div>
-    <script>window.currentMonth = parseInt("{{ date('n') }}")-1;</script>
 
     @include('_map_script_block')
 @endsection

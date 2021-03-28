@@ -1,10 +1,14 @@
 <?php
 
 namespace App;
+
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
+    use Sluggable;
+    
     protected $fillable = [
         'slug',
         'image',
@@ -28,6 +32,24 @@ class Section extends Model
         'kind_of_sport_id',
         'trainer_id',
     ];
+
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name_ru',
+                'maxLength' => 255,
+                'maxLengthKeepWords' => true,
+                'method' => null,
+                'separator' => '-',
+                'unique' => true,
+                'uniqueSuffix' => null,
+                'includeTrashed' => false,
+                'reserved' => null,
+                'onUpdate' => false
+            ]
+        ];
+    }
 
     public function area()
     {

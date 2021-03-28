@@ -2,6 +2,7 @@
 
 return [
     'active' => 'Активен',
+    'event_active' => 'Событие активно',
     'years' => 'лет',
     'year' => 'года',
     'area' => 'район',
@@ -30,6 +31,7 @@ return [
     'sports_objects_in_area' => 'Спортивные объекты района',
     'all_news' => 'Все новости',
     'description' => 'Описание',
+    'event_description' => 'Описание события:',
     'address' => 'Адрес:',
     'coordinates' => 'Координаты:',
     'organization' => 'Организация:',
@@ -60,6 +62,8 @@ return [
     'go_back' => 'Вернуться назад',
     'date' => 'Дата:',
     'time' => 'Время:',
+    'start_time' => 'Время начала:',
+    'end_time' => 'Время конца:',
     'save_complete' => 'Сохранение произведено',
     
     'en' => 'Английский',
@@ -71,6 +75,7 @@ return [
     'surname' => 'Отчество:',
     'family' => 'Фамилия:',
     'object_name' => 'Название объекта:',
+    'event_name' => 'Наименование события:',
     'account' => 'Аккаунт',
     'children_accounts' => 'Аккаунты детей',
     'information' => 'Информация',
@@ -89,6 +94,8 @@ return [
     'confirm_new_password' => 'Подтвердите новый пароль:',
     'receive_spam' => 'Получать рассылку',
     'date_placeholder' => 'дд.ММ.ГГ',
+    'time_placeholder' => 'чч.мм',
+    'coords_placeholder' => '__.______',
     
     'sports_grounds' => 'Спортивные площадки',
     'sections' => 'Спортивные секции',
@@ -124,6 +131,21 @@ return [
     'not_select_the_kind_of_sport' => 'Вид спорта не выбран',
     'to_record_kid' => 'Записать ребенка',
     'confirm_delete_record' => 'Вы действительно хотите удалить эту запись?',
+    'do_you_want_to_sign_up_for_this_event' => 'Вы хотите записать на данное мероприятие?',
+    'do_you_want_to_sign_up_your_child_for_this_event' => 'Вы хотите записать ребенка/детей на данное мероприятие?',
+    'you_are_record' => 'Вы записаны',
+    'your_kid_is_record' => 'Ваш ребенок записан',
+    'your_kids_are_record' => 'Ваши дети записаны',
+    'cancel_record_for_me' => 'Отменить мою запись',
+    'cancel_record_for_my_kids' => 'Отменить запись моего ребенка/детей',
+    'record_canceled' => 'Запись отменена',
+    'records_updated' => 'Записи обновлены',
+    'records_canceled' => 'Записи отменены',
+    'record_updated' => 'Запись обновлена',
+    'my_sports_events' => 'Мои спортивные события',
+    'add_event' => 'Добавить спортивное событие',
+    'latitude' => 'Широта:',
+    'longitude' => 'Долгота:',
 
     'no_file_selected' => 'Файл не выбран',
     'footer_text' => '© 2020 Комитет по физической<br>культуре и спорту<br>Санкт-Петербурга'

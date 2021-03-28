@@ -13,6 +13,8 @@ $(document).ready(function() {
     // window.phoneRegExp = /^((\+)[0-9]{11})$/gi;
     $('input[name=phone]').mask("+7(999)999-99-99");
     $('input[name=born]').mask("99.99.9999");
+    $('input[name=start_time],input[name=end_time]').mask("99.99");
+    $('input[name=latitude],input[name=longitude]').mask("99.999999");
     
     // Owlcarousel
     var navButtonBlack1 = '<img src="/images/arrow_left_black.svg" />',
@@ -106,14 +108,12 @@ $(document).ready(function() {
         navText:[navButtonWhite1,navButtonWhite2]
     });
 
-
     // Scroll menu
     $('a[data-scroll]').click(function (e) {
         e.preventDefault();
         window.menuClickFlag = true;
         goToScroll($(this).attr('data-scroll'));
     });
-
 
     // Scroll controls
     // var onTopButton = $('#on-top-button');
@@ -141,7 +141,7 @@ $(document).ready(function() {
             input = parent.find('input'),
             currentActive = parent.find('.cir.active');
 
-        if (parent.hasClass('type1') && !parent.hasClass('checkbox')) {
+        if ( (parent.hasClass('type1') || parent.hasClass('type3') ) && !parent.hasClass('checkbox')) {
             currentActive.find('i').addClass('hidden');
             self.addClass('active').find('i').removeClass('hidden');
         }

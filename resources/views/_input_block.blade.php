@@ -8,7 +8,7 @@
 ?>
 
 @if (isset($label) && $label)
-<div class="description input-label">
+    <div class="description input-label">
     {{ $label }}
     @if (isset($star) && $star)
         <span>*</span>

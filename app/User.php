@@ -43,7 +43,7 @@ class User extends Authenticatable
 
     public function eventsRecord()
     {
-        return $this->hasMany('App\EventsRecord')->orderBy('id','desc');
+        return $this->hasMany('App\EventsRecord')->orderBy('start_time','desc');
     }
 
     public function kids()
@@ -53,6 +53,6 @@ class User extends Authenticatable
     
     public function trainer()
     {
-        return $this->belongsTo('App\Trainer');
+        return $this->hasOne('App\Trainer');
     }
 }

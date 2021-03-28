@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -25,16 +26,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         
-        Gate::define('is_owner', function ($user, $item) {
-            return $item->user_id == $user->id;
+        Gate::define('trainer', function ($user) {
+            return $user->trainer;
         });
 
-        Gate::define('my-resumes', function ($user) {
-            return $user->type == 2;
-        });
-
-        Gate::define('contracts', function ($user) {
-            return $user->type == 1 || $user->type == 3;
+        Gate::define('owner', function ($user, Model $model) {
+            return $user->trainer && $user->trainer->id == $model->trainer_id;
         });
     }
 }

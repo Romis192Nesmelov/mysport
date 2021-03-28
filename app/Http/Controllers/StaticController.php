@@ -9,6 +9,7 @@ use App\Trainer;
 use App\Area;
 use App\Organization;
 use App\Section;
+use App\Place;
 use App\Event;
 //use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Helper;
@@ -26,11 +27,8 @@ class StaticController extends Controller
         $this->data['news'] = News::where('active',1)->orderBy('id','desc')->limit(3)->get();
         $this->data['trainers'] = Trainer::where('active',1)->where('best',1)->get();
         $this->data['points'] = $this->findSport();
-        $this->data['year'] = date('Y');
-        $limitInPast = strtotime('1/1/'.$this->data['year']);
-        $limitInFuture = date('n') <= 10 ? strtotime('12/31/'.$this->data['year']) : strtotime((date('n')+4-12).'1/'.($this->data['year']+1));
-        $this->data['events_on_year'] = Event::where('active',1)->where('start_time','>=',$limitInPast)->where('start_time','<=',$limitInFuture)->get();
-        $this->data['events'] = Event::where('active',1)->orderBy('id','desc')->limit(5)->get();
+        $this->getEventOnTheYear();
+        $this->data['events'] = Event::where('active',1)->orderBy('start_time','desc')->limit(5)->get();
         return $this->showView($request,'home');
     }
 
@@ -66,9 +64,9 @@ class StaticController extends Controller
         return $this->getObject($request, new Section(), $slug);
     }
 
-    public function place(Request $request)
+    public function place(Request $request,$slug=null)
     {
-
+        return $this->getObject($request, new Place(), $slug);
     }
     
     public function trainers(Request $request)
@@ -115,17 +113,6 @@ class StaticController extends Controller
             }
             if (count($this->data['gallery']) >= 10) break;
         }
-    }
-
-    private function getItem(Request $request, Model $model, $slug)
-    {
-        if ($slug) {
-            $this->data['item'] = $model->where('slug',$slug)->first();
-        } else {
-            $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id']);
-            $this->data['item'] = $model->find($request->input('id'));
-        }
-        if (!$this->data['item']) abort(404);
     }
 
     private function getObject(Request $request, Model $model, $slug)

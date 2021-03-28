@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Kid;
 use App\Http\Controllers\HelperTrait;
 
 class UsersTableSeeder extends Seeder
@@ -10,9 +11,8 @@ class UsersTableSeeder extends Seeder
     
     public function run()
     {
-        $data = [
+        $userData = [
             [
-                'avatar' => 'images/avatars/user_avatar1.jpg',
                 'name' => 'Роман',
                 'surname' => 'Сергеевич',
                 'family' => 'Несмелов',
@@ -21,30 +21,101 @@ class UsersTableSeeder extends Seeder
                 'phone' => '+7(926)247-77-25',
                 'password' => bcrypt('apg192'),
                 'born' => 206150400,
-                'active' => 1,
                 'type' => 1,
-                'send_mail' => 1
             ],
+            [
+                'name' => 'Константин',
+                'surname' => 'Константинович',
+                'family' => 'Константинопольский',
+                'gender' => 1,
+            ],
+            [
+                'name' => 'Вильгельмина',
+                'surname' => 'Имануиловна',
+                'family' => 'Константинович',
+                'gender' => 2,
+            ],
+            [
+                'name' => 'Николай',
+                'surname' => 'Петрович',
+                'family' => 'Денисенков',
+                'gender' => 1,
+            ],
+            [
+                'name' => 'Екатерина',
+                'surname' => 'Константиновна',
+                'family' => 'Иваненкова',
+                'gender' => 2,
+            ],
+            [
+                'name' => 'Эвелина',
+                'surname' => 'Геннадьевна',
+                'family' => 'Десяцкова',
+                'gender' => 2,
+            ],
+            [
+                'name' => 'Иван',
+                'surname' => 'Сергеевич',
+                'family' => 'Николяшин',
+                'gender' => 1,
+            ],
+            [
+                'name' => 'Елена',
+                'surname' => 'Викторовна',
+                'family' => 'Петрова',
+                'gender' => 2,
+            ],
+            [
+                'name' => 'Денис',
+                'surname' => 'Александрович',
+                'family' => 'Серебряков',
+                'gender' => 1,
+            ],
+            
             [
                 'email' => 'vnn@12.ru',
                 'phone' => '+7(926)221-47-19',
                 'password' => bcrypt('vnn12ru'),
-                'active' => 1,
-                'type' => 1,
-                'send_mail' => 1
+                'gender' => 1,
             ],
             [
                 'email' => 'jazzzfank@gmail.com',
                 'phone' => '+7(999)853-89-82',
                 'password' => bcrypt('jazzzfank'),
-                'active' => 1,
-                'type' => 1,
-                'send_mail' => 1
+                'gender' => 2,
             ],
         ];
 
-        foreach ($data as $user) {
+        $kidData = [
+            [
+                'name' => 'Савва',
+                'surname' => 'Романович',
+                'family' => 'Несмелов',
+                'gender' => 1,
+                'born' => 1213966800
+            ],
+        ];
+
+        foreach ($userData as $k => $user) {
+            if ($k) {
+                $user['email'] = $this->getRandomEmail();
+                $user['phone'] = $this->getRandomPhone();
+                $user['password'] = bcrypt(str_random(5));
+                $user['born'] = rand(1,473414255);
+                $user['type'] = 2;
+            }
+
+            $user['avatar'] = 'images/avatars/user_avatar'.($k+1).'.jpg';
+            $user['active'] = 1;
+            $user['send_mail'] = 1;
+
             User::create($user);
+        }
+
+        foreach ($kidData as $kid) {
+            $kid['active'] = 1;
+            $kid['user_id'] = 1;
+            Kid::create($kid);
         }
         
         for ($u=0;$u<rand(20,50);$u++) {

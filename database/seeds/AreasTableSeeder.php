@@ -41,7 +41,6 @@ class AreasTableSeeder extends Seeder
                 $prefix = str_replace('кий','ком',$item['name_ru']);
             }
 
-            $item['slug'] = str_slug($item['name_ru']);
             $item['name_en'] = $this->transliteration($item['name_ru']);
             $item['description_ru'] = '
                 <p>В '.$prefix.' районе отремонтирована спортивная волейбольная площадка около дома 25А.</p>
