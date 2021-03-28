@@ -11,7 +11,7 @@
                 'counter1' => $data['trainer']->sport['name_'.App::getLocale()],
             ])
 
-            @include('_left_gray_block',['content' => ob_get_clean(),'buttons' => true])
+            @include('_left_gray_block',['content' => ob_get_clean(),'buttons' => false])
 
             @php ob_start(); @endphp
             @include('_header_block', [
