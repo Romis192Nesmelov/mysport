@@ -52,7 +52,7 @@ class EventsTableSeeder extends Seeder
             ];
 
         $areas = Area::pluck('id')->toArray();
-        $kindsOfSport = KindOfSport::pluck('id')->toArray();
+        $kindsOfSport = KindOfSport::where('active',1)->pluck('id')->toArray();
         $users = User::where('active',1)->get();
         $usersForEvents = [];
         $usersForAll = [];

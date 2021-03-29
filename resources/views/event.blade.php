@@ -63,7 +63,7 @@
                     'scroll' => 'kind-of-sports'
                 ])
 
-                @if (Gate::allows('trainer'))
+                @if (Gate::forUser($data['item']->user)->allows('trainer'))
                     @include('_credentials_block',[
                         'colMd' => 12,
                         'colSm' => 12,

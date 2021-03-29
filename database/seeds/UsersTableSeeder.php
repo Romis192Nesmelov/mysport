@@ -73,13 +73,21 @@ class UsersTableSeeder extends Seeder
             ],
             
             [
+                'avatar' => null,
                 'email' => 'vnn@12.ru',
+                'name' => 'Владимир',
+                'surname' => 'Батькович',
+                'family' => 'Николашин',
                 'phone' => '+7(926)221-47-19',
                 'password' => bcrypt('vnn12ru'),
                 'gender' => 1,
                 'type' => 2
             ],
             [
+                'avatar' => null,
+                'name' => 'Евгения',
+                'surname' => 'Владимировна',
+                'family' => 'Цаплева',
                 'email' => 'jazzzfank@gmail.com',
                 'phone' => '+7(999)853-89-82',
                 'password' => bcrypt('jazzzfank'),
@@ -107,7 +115,7 @@ class UsersTableSeeder extends Seeder
                 isset($user['type']) ? $user['type'] : $user['type'] = 1;
             }
 
-            $user['avatar'] = 'images/avatars/user_avatar'.($k+1).'.jpg';
+            if (!isset($user['avatar'])) $user['avatar'] = 'images/avatars/user_avatar'.($k+1).'.jpg';
             $user['active'] = 1;
             $user['send_mail'] = 1;
 
