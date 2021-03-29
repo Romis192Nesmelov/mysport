@@ -25,7 +25,7 @@ class Event extends Model
         'active',
         
         'area_id',
-        'trainer_id',
+        'user_id',
     ];
 
     public function sluggable()
@@ -51,13 +51,18 @@ class Event extends Model
         return $this->belongsTo('App\Area');
     }
 
-    public function trainer()
+    public function user()
     {
-        return $this->belongsTo('App\Trainer');
+        return $this->belongsTo('App\User');
     }
 
     public function records()
     {
         return $this->hasMany('App\EventsRecord')->orderBy('id','desc');
+    }
+    
+    public function sports()
+    {
+        return $this->hasMany('App\EventSport');   
     }
 }

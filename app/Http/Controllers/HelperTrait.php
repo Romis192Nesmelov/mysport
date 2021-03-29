@@ -53,7 +53,7 @@ trait HelperTrait
         $limitInFuture = date('n') <= 10 ? strtotime('12/31/'.$this->data['year']) : strtotime((date('n')+4-12).'1/'.($this->data['year']+1));
         $events = Event::where('start_time','>=',$limitInPast)->where('start_time','<=',$limitInFuture);
         if ($useActive) $events->where('active',1);
-        if ($useOwner) $events->where('trainer_id',Auth::id());
+        if ($useOwner) $events->where('user_id',Auth::id());
         $this->data['events_on_year'] = $events->get();
     }
 

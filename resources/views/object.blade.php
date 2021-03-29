@@ -85,9 +85,10 @@
                     @php
                         $kindsOfSport = '';
                         $sections = '';
-                        foreach ($data['item']->sections as $section) {
-                            $kindsOfSport .= '<a href="'.url('/kind-of-sport/?id='.$section->kindOfSport->id).'">'.$section->kindOfSport['name_'.App::getLocale()].'</a>, ';
-                            $sections .= '<a href="'.url('/sections/'.$section->slug).'">'.$section['name_'.App::getLocale()].'</a>, ';
+                        foreach ($data['item']->sections as $k => $section) {
+                            $comma = $k != count($data['item']->sections)-1 ? ', ' : '';
+                            $kindsOfSport .= Helper::kindOfSportLink($section->kindOfSport).$comma;
+                            $sections .= '<a href="'.url('/sections/'.$section->slug).'">'.$section['name_'.App::getLocale()].'</a>'.$comma;
                         }
                     @endphp
                     @include('_credentials_block',[
@@ -115,8 +116,9 @@
                 @elseif (isset($data['item']->sports) && count($data['item']->sports))
                     @php
                         $kindsOfSport = '';
-                        foreach ($data['item']->sports as $crossLink) {
-                            $kindsOfSport .= '<a href="'.url('/kind-of-sport/?id='.$crossLink->sport->id).'">'.$crossLink->sport['name_'.App::getLocale()].'</a>, ';
+                        foreach ($data['item']->sports as $k => $crossLink) {
+                            $comma = $k != count($data['item']->sports)-1 ? ', ' : '';
+                            $kindsOfSport .= Helper::kindOfSportLink($crossLink->sport).$comma;
                         }
                     @endphp
                     @include('_credentials_block',[

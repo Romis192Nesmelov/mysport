@@ -90,7 +90,7 @@
                     </div>
                 </div>
 
-                @if (!Auth::user()->trainer)
+                @if (Gate::denies('trainer') && Gate::denies('organizer'))
                     @include('_submit_button_block')
                 @endif
 
@@ -127,7 +127,7 @@
                     'useMap' => false
                 ])
 
-                @if (Gate::allows('trainer', Auth::user()))
+                @if (Gate::allows('trainer'))
                     @php ob_start(); @endphp
 
                     @include('_header_block', [
@@ -179,37 +179,39 @@
                         'content' => ob_get_clean(),
                         'useMap' => false
                     ])
-
-                    @php ob_start(); @endphp
-
-                    @include('_header_block', [
-                        'tagName' => 'h2',
-                        'head' => trans('content.my_sports_events')
-                    ])
-
-                    <div class="content-block">
-                        @foreach ($data['events'] as $event)
-                            @include('_event_block', [
-                                'prefix' => 'trainer',
-                                'colMd' => 6,
-                                'blindColMd' => 12,
-                                'colSm' => 6,
-                                'blindColSm' => 12
-                            ])
-                        @endforeach
-
-                        <div class="table text-center">{{ $data['events']->render() }}</div>
-                    </div>
-
-                    <div class="button gray2"><a href="{{ url('/trainer/events/add') }}">{{ trans('content.add_event') }}</a></div>
-
-                    @include('_right_gray_block',[
-                        'addClass' => 'narrow',
-                        'content' => ob_get_clean(),
-                        'useMap' => false
-                    ])
                 @endif
             </form>
+            @if (Gate::allows('trainer') || Gate::allows('organizer'))
+
+                @php ob_start(); @endphp
+
+                @include('_header_block', [
+                    'tagName' => 'h2',
+                    'head' => trans('content.my_sports_events')
+                ])
+
+                <div class="content-block">
+                    @foreach ($data['events'] as $event)
+                        @include('_event_block', [
+                            'prefix' => 'trainer',
+                            'colMd' => 6,
+                            'blindColMd' => 12,
+                            'colSm' => 6,
+                            'blindColSm' => 12
+                        ])
+                    @endforeach
+
+                    <div class="table text-center">{{ $data['events']->render() }}</div>
+                </div>
+
+                <div class="button gray2"><a href="{{ url('/trainer/events/add') }}">{{ trans('content.add_event') }}</a></div>
+
+                @include('_right_gray_block',[
+                    'addClass' => 'narrow',
+                    'content' => ob_get_clean(),
+                    'useMap' => false
+                ])
+            @endif
         </div>
     </div>
 @endsection

@@ -1027,6 +1027,24 @@ a.active {
     margin-bottom: 20px;
 }
 
+.kind-of-sport .radio-buttons {
+    margin: auto;
+}
+
+.kind-of-sport .radio-buttons .cir-cell {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.kind-of-sport .radio-buttons .cir-cell .cir {
+    margin: auto;
+}
+
+.kind-of-sport .radio-buttons .label-block {
+    display: block;
+    text-align: center;
+}
+
 .trainer {
     text-align: center;
     font-size: 13px;

@@ -5,8 +5,8 @@
         <div class="container">
             @php ob_start(); @endphp
             @include('_cir_image_block', [
-                'image' => $data['item']->trainer->user->avatar,
-                'name' => Helper::simpleCreds($data['item']->trainer->user),
+                'image' => $data['item']->user->avatar,
+                'name' => Helper::simpleCreds($data['item']->user),
                 'counter1' => Helper::haveJoinedCaseFormat(count($data['item']->records))
             ])
 
@@ -48,43 +48,44 @@
                     'credential' => $data['item']['address_'.App::getLocale()]
                 ])
 
+                @php
+                    $kindsOfSport = '';
+                    foreach ($data['item']->sports as $k => $sport) {
+                        $comma = $k != count($data['item']->sports)-1 ? ', ' : '';
+                        $kindsOfSport .= Helper::kindOfSportLink($sport->kindOfSport).$comma;
+                    }
+                @endphp
                 @include('_credentials_block',[
                     'colMd' => 12,
                     'colSm' => 12,
                     'description' => trans('content.kind_of_sport_object'),
-                    'credential' => $data['item']->trainer->sport['name_'.App::getLocale()],
-                    'href' => '/kind-of-sport?id='.$data['item']->trainer->sport->id
+                    'credential' => $kindsOfSport,
+                    'scroll' => 'kind-of-sports'
                 ])
 
-                @include('_credentials_block',[
-                    'colMd' => 12,
-                    'colSm' => 12,
-                    'description' => trans('content.trainer'),
-                    'credential' => $data['item']->trainer['name_'.App::getLocale()],
-                    'href' => '/trainers?id='.$data['item']->trainer->id
-                ])
+                @if (Gate::allows('trainer'))
+                    @include('_credentials_block',[
+                        'colMd' => 12,
+                        'colSm' => 12,
+                        'description' => trans('content.object_name'),
+                        'credential' => $data['item']->user->trainer->sections[0]->organization['name_'.App::getLocale()],
+                        'href' => '/organizations/'.$data['item']->user->trainer->sections[0]->organization->slug
+                    ])
 
-                @include('_credentials_block',[
-                    'colMd' => 12,
-                    'colSm' => 12,
-                    'description' => trans('content.object_name'),
-                    'credential' => $data['item']->trainer->sections[0]->organization['name_'.App::getLocale()],
-                    'href' => '/organizations/'.$data['item']->trainer->sections[0]->organization->slug
-                ])
+                    @include('_credentials_block',[
+                        'colMd' => $blindVer ? 12 : 6,
+                        'colSm' => $blindVer ? 12 : 6,
+                        'description' => trans('content.contact_number'),
+                        'credential' => $data['item']->user->trainer->sections[0]->phone
+                    ])
 
-                @include('_credentials_block',[
-                    'colMd' => $blindVer ? 12 : 6,
-                    'colSm' => $blindVer ? 12 : 6,
-                    'description' => trans('content.contact_number'),
-                    'credential' => $data['item']->trainer->sections[0]->phone
-                ])
-
-                @include('_credentials_block',[
-                    'colMd' => $blindVer ? 12 : 6,
-                    'colSm' => $blindVer ? 12 : 6,
-                    'description' => trans('content.contact_email'),
-                    'credential' => $data['item']->trainer->sections[0]->email
-                ])
+                    @include('_credentials_block',[
+                        'colMd' => $blindVer ? 12 : 6,
+                        'colSm' => $blindVer ? 12 : 6,
+                        'description' => trans('content.contact_email'),
+                        'credential' => $data['item']->user->trainer->sections[0]->email
+                    ])
+                @endif
 
                 @include('_credentials_block',[
                     'colMd' => 12,

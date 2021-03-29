@@ -92,7 +92,7 @@ class StaticController extends Controller
             $this->data['counters'] = [];
             $this->data['counters']['events'] = 0;
             foreach ($this->data['sport']->trainers as $trainer) {
-                $this->data['counters']['events'] += count($trainer->events);
+                $this->data['counters']['events'] += count($trainer->user->events);
             }
 //            $this->data['counters']['places'] = count($this->data['sport']->places);
 

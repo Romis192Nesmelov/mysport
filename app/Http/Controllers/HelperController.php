@@ -63,6 +63,18 @@ class HelperController extends Controller
     {
         return strlen($value) == 1 ? '0' . $value : $value;
     }
+
+    public function addCoordinatesZero($value)
+    {
+        $strLen = strlen($value);
+        if ($strLen != 9) {
+            $value = (string)$value;
+            for ($z=0;$z<9-$strLen;$z++) {
+                $value .= '0';
+            }
+        }
+        return $value;
+    }
     
     public function setMoscowTimeZone($timestamp)
     {
@@ -84,10 +96,20 @@ class HelperController extends Controller
         $daysInMonth = [31,(!($year%4) ? 29 : 28),31,30,31,30,31,31,30,31,30,31];
         return $daysInMonth[$month-1];
     }
+    
+    public function kindOfSportLink($item)
+    {
+        return '<a href="'.url('/kind-of-sport/?id='.$item->id).'">'.$item['name_'.App::getLocale()].'</a>';
+    }
 
+    public function trainersCaseFormat($value)
+    {
+        return $this->wordNumeral($value, 'trainer', true, 'тренеров', 'тренер', 'тренера');
+    }
+    
     public function eventsCaseFormat($value)
     {
-        return $this->wordNumeral($value, 'event', true, 'мероприятий', 'мероприятие', 'мероприятия');
+        return $this->wordNumeral($value, 'event', true, 'спортивных мероприятий', 'спортивное мероприятие', 'спортивных мероприятия');
     }
 
     public function objectsCaseFormat($value)

@@ -91,6 +91,7 @@ return [
     'invalid_date'         => 'Invalid date',
     'invalid_time'         => 'Invalid time',
     'invalid_coordinates'  => 'invalid coordinates',
+    'one_of_kind_of_sport_must_be_selected' => 'One of kind of sport must be selected', 
 
     /*
     |--------------------------------------------------------------------------

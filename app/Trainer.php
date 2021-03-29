@@ -35,9 +35,4 @@ class Trainer extends Model
     {
         return $this->hasMany('App\Section','trainer_id');
     }
-
-    public function events()
-    {
-        return $this->hasMany('App\Event');
-    }
 }

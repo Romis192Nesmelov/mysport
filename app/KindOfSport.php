@@ -42,4 +42,9 @@ class KindOfSport extends Model
     {
         return $this->hasMany('App\Sport','kind_of_sport_id');
     }
+
+    public function events()
+    {
+        return $this->hasMany('App\EventSport','kind_of_sport_id');
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\EventSport;
+use App\KindOfSport;
 use App\User;
 use App\Kid;
 use App\Event;
@@ -27,7 +29,7 @@ class UserController extends StaticController
 
     public function profile(Request $request)
     {
-        if (Gate::allows('trainer')) $this->data['events'] = Event::where('trainer_id',Auth::user()->trainer->id)->orderBy('start_time','desc')->paginate(6);
+        if (Gate::allows('trainer') || Gate::allows('organizer')) $this->data['events'] = Event::where('user_id',Auth::id())->orderBy('start_time','desc')->paginate(6);
         return $this->showView($request, 'profile');
     }
 
@@ -90,13 +92,15 @@ class UserController extends StaticController
             $this->getItem($request, new Event(), $slug);
             if (Gate::denies('owner', $this->data['item'])) abort(403);
             $this->data['points'] = [[$this->data['item']]];
-        } elseif (Gate::denies('trainer')) abort(403);
+        } elseif (Gate::denies('trainer') && Gate::denies('organizer')) abort(403);
         $this->getEventOnTheYear(true,false);
         return $this->showView($request, 'edit_event');
     }
 
     public function editEvent(Request $request)
     {
+        if (Gate::denies('trainer') && Gate::denies('organizer')) abort(403);
+        
         $validationArr = [
             'name_ru' => $this->validationCharField,
             'description_ru' => 'required|min:3|max:700',
@@ -111,9 +115,21 @@ class UserController extends StaticController
         ];
 
         if ($request->has('id')) $validationArr['id'] = $this->validationEvent;
+        $ignoreFields = ['date','start_time','end_time'];
+        $sportsFields = [];
+        $sportSelectedFlag = false;
+        $sports = KindOfSport::where('active',1)->get();
+        foreach ($sports as $sport) {
+            $fieldName = 'sport'.$sport->id;
+            $fieldValue = (bool)$request->input($fieldName);
+            $ignoreFields[] = $fieldName;
+            $sportsFields[] = ['id' => (int)$sport->id, 'value' => $fieldValue];
+            if ($fieldValue) $sportSelectedFlag = true;
+        }
+
         $this->validate($request, $validationArr);
 
-        $fields = $this->processingFields($request, null, ['date','start_time','end_time']);
+        $fields = $this->processingFields($request, null, $ignoreFields);
         $date = $this->convertDate($request->input('date'));
         $startTime = $this->convertTime($request->input('start_time'));
         $endTime = $this->convertTime($request->input('end_time'));
@@ -121,6 +137,7 @@ class UserController extends StaticController
         $fields['end_time'] = $this->getMoscowTimeZone($date + $endTime);
 
         $errors = [];
+        if (!$sportSelectedFlag) $errors['kind-of-sports'] = trans('validation.one_of_kind_of_sport_must_be_selected');
         if ($startTime > $endTime) $errors['start_time'] = trans('validation.invalid_time');
         if ((int)$fields['latitude'] < 59 || (int)$fields['latitude'] > 60) $errors['latitude'] = trans('validation.invalid_coordinates');
         if ((int)$fields['longitude'] < 29 || (int)$fields['longitude'] > 31) $errors['latitude'] = trans('validation.invalid_coordinates');
@@ -129,10 +146,38 @@ class UserController extends StaticController
 
         if ($request->has('id')) {
             $event = Event::find($request->input('id'));
+            if (Gate::denies('owner',$event)) abort(403);
             $event->update($fields);
+
+            foreach ($sportsFields as $field) {
+                $matchFlag = false;
+                foreach ($event->sports as $eventSport) {
+                    if ($field['id'] == $eventSport->kind_of_sport_id) {
+                        $matchFlag = true;
+                        if (!$field['value']) {
+                            $eventSport->delete();
+                        }
+                    }
+                }
+                if (!$matchFlag && $field['value']) {
+                    EventSport::create([
+                        'event_id' => $event->id,
+                        'kind_of_sport_id' => $field['id']
+                    ]);
+                }
+            }
         } else {
-            $fields['trainer_id'] = Auth::user()->trainer->id;
-            Event::create($fields);
+            $fields['user_id'] = Auth::id();
+            $event = Event::create($fields);
+
+            foreach ($sportsFields as $field) {
+                if ($field['value']) {
+                    EventSport::create([
+                        'event_id' => $event->id,
+                        'kind_of_sport_id' => $field['id']
+                    ]);
+                }
+            }
         }
         return redirect('/profile')->with('message', trans('content.save_complete'));
     }

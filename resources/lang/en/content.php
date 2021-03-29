@@ -35,6 +35,7 @@ return [
     'address' => 'Address:',
     'coordinates' => 'Coordinates:',
     'organization' => 'Organization:',
+    'organizer' => 'Organizer:',
     'main_trainer' => 'Main trainer:',
     'trainer' => 'Trainer:',
     'site' => 'Site:',

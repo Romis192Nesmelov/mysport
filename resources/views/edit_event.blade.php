@@ -14,7 +14,7 @@
             @php ob_start(); @endphp
             @include('_header_block', [
                 'tagName' => 'h1',
-                'head' => trans('content.add_event')
+                'head' => isset($data['item']) ? $data['item']['name_'.App::getLocale()] : trans('content.add_event')
             ])
             <form class="form-horizontal" action="{{ url('/event') }}" method="post">
                 {{ csrf_field() }}
@@ -72,6 +72,33 @@
                         ])
                     </div>
                 </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="description input-label text-center">{{ trans('content.kind_of_sport_object') }}</div>
+                    @foreach($sports as $sport)
+                        <div class="kind-of-sport col-md-3 col-sm-6 col-xs-12">
+                            <a href="{{ url('/kinds-of-sport?id='.$sport->id) }}"><img src="{{ asset($sport->icon) }}" /></a>
+                            @php
+                                $selectFlag = false;
+                                if (isset($data['item'])) {
+                                    foreach ($data['item']->sports as $eventSport) {
+                                        if ($eventSport->kind_of_sport_id == $sport->id) {
+                                            $selectFlag = true;
+                                            break;
+                                        }
+                                    }
+                                } else $selectFlag = Auth::user()->trainer->sport->id == $sport->id;
+                            @endphp
+                            @include('_checkbox_type1_block',[
+                                'label' => $sport['name_'.App::getLocale()],
+                                'name' => 'sport'.$sport->id,
+                                'active' => $selectFlag
+                            ])
+                        </div>
+                    @endforeach
+                    @if (count($errors) && $errors->has('kind-of-sports'))
+                        <div class="help-block error">{!! $errors->first('kind-of-sports') !!}</div>
+                    @endif
+                </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 table">
                     @include('_input_block',[
                         'label' => trans('content.address'),
@@ -87,7 +114,7 @@
                         'type' => 'text',
                         'name' => 'latitude',
                         'placeholder' => trans('content.coords_placeholder'),
-                        'value' => isset($data['item']) ? $data['item']->latitude : ''
+                        'value' => isset($data['item']) ? Helper::addCoordinatesZero($data['item']->latitude) : ''
                     ])
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -96,7 +123,7 @@
                         'type' => 'text',
                         'name' => 'longitude',
                         'placeholder' => trans('content.coords_placeholder'),
-                        'value' => isset($data['item']) ? $data['item']->longitude : ''
+                        'value' => isset($data['item']) ? Helper::addCoordinatesZero($data['item']->longitude) : ''
                     ])
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">

@@ -454,6 +454,7 @@ class ComposerStaticInit36700ca7ce84343aa349dca1a0daa316
         'App\\Area' => __DIR__ . '/../..' . '/app/Area.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Event' => __DIR__ . '/../..' . '/app/Event.php',
+        'App\\EventSport' => __DIR__ . '/../..' . '/app/EventSport.php',
         'App\\EventsRecord' => __DIR__ . '/../..' . '/app/EventsRecord.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Gallery' => __DIR__ . '/../..' . '/app/Gallery.php',

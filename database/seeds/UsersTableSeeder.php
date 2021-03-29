@@ -77,12 +77,14 @@ class UsersTableSeeder extends Seeder
                 'phone' => '+7(926)221-47-19',
                 'password' => bcrypt('vnn12ru'),
                 'gender' => 1,
+                'type' => 2
             ],
             [
                 'email' => 'jazzzfank@gmail.com',
                 'phone' => '+7(999)853-89-82',
                 'password' => bcrypt('jazzzfank'),
                 'gender' => 2,
+                'type' => 2
             ],
         ];
 
@@ -102,7 +104,7 @@ class UsersTableSeeder extends Seeder
                 $user['phone'] = $this->getRandomPhone();
                 $user['password'] = bcrypt(str_random(5));
                 $user['born'] = rand(1,473414255);
-                $user['type'] = 2;
+                isset($user['type']) ? $user['type'] : $user['type'] = 1;
             }
 
             $user['avatar'] = 'images/avatars/user_avatar'.($k+1).'.jpg';
@@ -120,11 +122,15 @@ class UsersTableSeeder extends Seeder
         
         for ($u=0;$u<rand(20,50);$u++) {
             User::create([
+                'name' => str_random(10),
+                'surname' => str_random(10),
+                'family' => str_random(10),
+                'gender' => rand(1,2),
                 'email' => $this->getRandomEmail(),
                 'phone' => $this->getRandomPhone(),
                 'password' => bcrypt(str_random(10)),
                 'active' => 1,
-                'type' => 2,
+                'type' => 1,
                 'send_mail' => 0
             ]);
         }

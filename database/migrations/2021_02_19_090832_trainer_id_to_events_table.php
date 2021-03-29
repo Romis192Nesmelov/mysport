@@ -14,8 +14,8 @@ class TrainerIdToEventsTable extends Migration
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->bigInteger('trainer_id', false, true)->nullable();
-            $table->foreign('trainer_id')->references('id')->on('trainers')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('user_id', false, true)->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -27,8 +27,8 @@ class TrainerIdToEventsTable extends Migration
     public function down()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->dropForeign('events_trainer_id_foreign');
-            $table->dropColumn('trainer_id');
+            $table->dropForeign('events_user_id_foreign');
+            $table->dropColumn('user_id');
         });
     }
 }

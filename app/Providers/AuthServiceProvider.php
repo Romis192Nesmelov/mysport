@@ -30,8 +30,12 @@ class AuthServiceProvider extends ServiceProvider
             return $user->trainer;
         });
 
+        Gate::define('organizer', function ($user) {
+            return $user->type == 2;
+        });
+        
         Gate::define('owner', function ($user, Model $model) {
-            return $user->trainer && $user->trainer->id == $model->trainer_id;
+            return ($user->trainer || $user->type == 2) && $user->id == $model->user_id;
         });
     }
 }

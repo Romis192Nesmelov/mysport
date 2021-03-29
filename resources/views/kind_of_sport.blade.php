@@ -7,9 +7,9 @@
             @include('_cir_image_block', [
                 'image' => $data['sport']->icon,
                 'name' => $data['sport']['name_'.App::getLocale()],
-                'counter1' => count($data['sport']->trainers).' '.trans('content.trainers'),
+                'counter1' => Helper::trainersCaseFormat(count($data['sport']->trainers)),
                 'href1' => '/trainers',
-                'counter2' => $data['counters']['events'].' '.trans('content.events'),
+                'counter2' => Helper::eventsCaseFormat($data['counters']['events']),
                 'href2' => '/events'
             ])
 
@@ -18,7 +18,7 @@
             @php ob_start(); @endphp
             @include('_header_block', [
                 'tagName' => 'h1',
-                'head' => $data['sport']['name_'.App::getLocale()].' <span>'.trans('content.in_spb').'</span>'
+                'head' => $data['sport']['name_'.App::getLocale()].'<br><span>'.trans('content.in_spb').'</span>'
             ])
 
             @include('_gallery_block',['galleries' => $data['gallery']])

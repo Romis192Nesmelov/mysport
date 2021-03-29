@@ -3,9 +3,10 @@
 use Illuminate\Database\Seeder;
 use App\Area;
 use App\Event;
-use App\Trainer;
+use App\KindOfSport;
 use App\User;
 use App\EventsRecord;
+use App\EventSport;
 use App\Http\Controllers\HelperTrait;
 
 class EventsTableSeeder extends Seeder
@@ -51,8 +52,15 @@ class EventsTableSeeder extends Seeder
             ];
 
         $areas = Area::pluck('id')->toArray();
-        $trainers = Trainer::pluck('id')->toArray();
-        $users = User::pluck('id')->toArray();
+        $kindsOfSport = KindOfSport::pluck('id')->toArray();
+        $users = User::where('active',1)->get();
+        $usersForEvents = [];
+        $usersForAll = [];
+
+        foreach ($users as $user) {
+            if ($user->trainer || $user->type == 2) $usersForEvents[] = $user->id;
+            else $usersForAll[] = $user->id;
+        }
 
         for ($i=0;$i<100;$i++) {
             $areaId = $areas[rand(0,count($areas)-1)];
@@ -84,13 +92,20 @@ class EventsTableSeeder extends Seeder
                     'age_group' => rand(1,9),
                     'active' => 1,
                     'area_id' => $areaId,
-                    'trainer_id' => $trainers[rand(0,count($trainers)-1)]
+                    'user_id' => $usersForEvents[rand(0,count($usersForEvents)-1)]
                 ]
             );
 
-            $joinedToEvent = rand(0,count($users)-1);
+            for ($k=0;$k<rand(rand(1,count($kindsOfSport)-2),count($kindsOfSport)-1);$k++) {
+                EventSport::create([
+                    'event_id' => $event->id,
+                    'kind_of_sport_id' => $kindsOfSport[$k]
+                ]);
+            }
+
+            $joinedToEvent = rand(0,count($usersForAll)-1);
             for ($j=0;$j<=$joinedToEvent;$j++) {
-                $joinedId = $users[$j];
+                $joinedId = $usersForAll[$j];
                 EventsRecord::create([
                     'user_id' => $joinedId,
                     'event_id' => $event->id
