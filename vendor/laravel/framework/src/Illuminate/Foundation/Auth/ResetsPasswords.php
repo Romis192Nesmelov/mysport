@@ -2,7 +2,7 @@
 
 namespace Illuminate\Foundation\Auth;
 
-use App\Http\Controllers\Auth\GoogleCapchaTrait;
+use App\Http\Controllers\Auth\GoogleCaptchaTrait;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +12,7 @@ use Illuminate\Auth\Events\PasswordReset;
 
 trait ResetsPasswords
 {
-    use RedirectsUsers, GoogleCapchaTrait;
+    use RedirectsUsers, GoogleCaptchaTrait;
 
     /**
      * Display the password reset view for the given token.
@@ -23,12 +23,12 @@ trait ResetsPasswords
      * @param  string|null  $token
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showResetForm(Request $request, $token = null)
-    {
-        return view('auth.passwords.reset')->with(
-            ['token' => $token, 'email' => $request->email]
-        );
-    }
+//    public function showResetForm(Request $request, $token = null)
+//    {
+//        return view('auth.passwords.reset')->with(
+//            ['token' => $token, 'email' => $request->email]
+//        );
+//    }
 
     /**
      * Reset the given user's password.

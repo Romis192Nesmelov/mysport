@@ -1,55 +1,56 @@
-.login-container .page-container .login-form {
-    width: 345px;
+#login .modal-body,
+#register .modal-body,
+#password-reset .modal-body,
+#send-confirm .modal-body,
+#reset .modal-body {
+    text-align: center;
 }
 
-.login-container .page-container {
-    padding: 0;
+.auth {
+    margin: 10px auto 0 auto;
+    text-align: center;
+    font-size: 18px;
 }
 
-.error {
-    color: darkred;
+p.auth-register {
+    margin-bottom: 10px;
+    color: grey;
+    text-align: center;
+    line-height: 1.2em;
 }
 
-.content-wrapper {
-    vertical-align: middle;
+.g-recaptcha {
+    display: table;
+    margin: auto;
 }
 
 .content-group-lg {
     line-height: 1em;
 }
 
-.form-group {
-    margin-bottom: 7px;
-}
-
-.btn {
-    margin-bottom: 5px;
-}
-
 .soc-icons-container {
     display: table;
-    margin: 10px auto 20px auto;
-}
-
-.soc-icons-container .divider {
-    width: 10px;
-    display: table-cell;
+    margin: 5px auto;
 }
 
 .soc-icon {
-    width: 45px;
-    height: 45px;
-    border: 2px solid #1E88E5;
+    width: 65px;
+    height: 65px;
+    padding: 0 10px;
     display: table-cell;
-    border-radius: 50%;
     text-align: center;
     vertical-align: middle;
 }
 
-.soc-icon:first-child {
-    margin-right: 10px;
+.soc-icon img {
+    width: 100%;
 }
 
-.soc-icon i {
-    font-size: 20px;
+.modal-body button.green {
+    min-width: 260px;
+    border-radius: 25px;
+    height: 50px;
+    font-size: 15px;
+    padding: 0 20px;
+    float: none;
 }

@@ -179,7 +179,12 @@ button[type=submit] {
     margin-bottom: 20px;
 }
 
-.modal-footer button[type=submit] {
+.modal-footer {
+    text-align: center;
+}
+
+.modal-footer button {
+    min-width: 100px;
     margin-bottom: 0;
 }
 
@@ -363,7 +368,8 @@ select.type2,
 input[type=email],
 input[type=text],
 input[type=number],
-input[type=password] {
+input[type=password],
+input[type=tel] {
     width: 100%;
     padding: 10px 20px;
     border-radius: 20px;
@@ -381,12 +387,13 @@ textarea.simple {
 input[type=email],
 input[type=text],
 input[type=number],
-input[type=password] {
+input[type=password],
+input[type=tel] {
     height: 50px;
     font-size: 20px;
 }
 
-.form-horizontal .has-feedback-left > .form-control-feedback {
+.form-horizontal .has-feedback-left .form-control-feedback {
     width: 60px;
     height: 50px;
     display: flex;
@@ -398,9 +405,9 @@ input[type=password] {
     padding-left: 30px !important;
 }
 
-.form-horizontal .has-feedback-left > .form-control-feedback i {
-    font-size: 23px;
-    top: 0;
+.has-feedback-left .form-control-feedback i {
+    font-size: 16px;
+    top: 5px;
 }
 
 select.type2 {
@@ -421,7 +428,8 @@ textarea.simple:focus,
 input[type=email]:focus,
 input[type=text]:focus,
 input[type=number]:focus,
-input[type=password]:focus {
+input[type=password]:focus,
+input[type=tel]:focus {
     border: 1px solid #087fae;
 }
 

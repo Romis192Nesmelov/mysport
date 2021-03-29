@@ -15,7 +15,7 @@ class PlacesTableSeeder extends Seeder
     public function run()
     {
         $areas = Area::pluck('id')->toArray();
-        $sports = KindOfSport::pluck('id')->toArray();
+        $sports = KindOfSport::where('active',1)->pluck('id')->toArray();
         
         $names = [
             'Баскетбольная площадка',

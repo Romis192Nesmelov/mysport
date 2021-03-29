@@ -31,6 +31,10 @@
     <link href="{{ asset('css/calendar.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css">
 
+    @if (Auth::guest())
+        <link href="{{ asset('css/auth.css') }}" rel="stylesheet" type="text/css">
+    @endif
+
     @if ($blindVer)
         <link href="{{ asset('css/blind.css') }}" rel="stylesheet" type="text/css">
     @endif
@@ -41,6 +45,7 @@
     </script>
 
     <script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+    <script src="https://www.google.com/recaptcha/api.js?hl={{ App::getLocale() }}"></script>
     <!-- Core JS files -->
     <script type="text/javascript" src="{{ asset('js/core/libraries/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/core/libraries/bootstrap.min.js') }}"></script>
@@ -88,6 +93,15 @@
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
 </head>
 <body>
+@if (Auth::guest())
+    @if (Request::path() == 'login')                                        @include('auth._login_modal_block')
+    @elseif (Request::path() == 'register')                                 @include('auth._register_modal_block')
+    @elseif (Request::path() == 'password-reset')                           @include('auth._password_reset_modal_block')
+    @elseif (Request::path() == 'send-confirm')                             @include('auth._send_confirm_modal_block')
+    @elseif (preg_match('/^(password\/reset\/.+)$/', Request::path()))      @include('auth._reset_modal_block')
+    @endif
+@endif
+
 @include('layouts._message_modal_block')
 
 <!-- Top navbar -->
@@ -110,23 +124,23 @@
                         {{--<li><a href="{{ url('/change-lang?lang=ru') }}" class="russian"><img src="{{ asset('images/rus.png') }}" alt="{{ trans('content.ru') }}"> {{ trans('content.ru') }}</a></li>--}}
                     {{--</ul>--}}
                 {{--</li>--}}
-                @foreach($topMenu as $k => $top)
-                    @if ($k != count($topMenu)-1 || Auth::guest())
-                        <li class="button {{ isset($top['addClass']) ? $top['addClass'] : '' }}"><a href="{{ $top['href'] }}">{{ $top['name'] }}</a></li>
-                    @else
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown">
-                                @include('layouts._avatar_block',['avatar' => Auth::user()->avatar])
-                                <div class="user-creds">{!! Helper::userCreds() !!}</div>
-                                <i class="caret"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="{{ url('/profile') }}"><i class="icon-user-plus"></i> {{ trans('content.my_profile') }}</a></li>
-                                <li><a href="{{ url('/logout') }}"><i class="icon-switch2"></i> {{ trans('content.logout') }}</a></li>
-                            </ul>
-                        </li>
-                    @endif
-                @endforeach
+
+                <li class="button"><a href="?blind={{ $blindVer ? '0' : '1' }}">{{ $blindVer ? trans('menu.normal_version') : trans('menu.blind_version') }}</a></li>
+                @if (Auth::guest())
+                    <li class="button green"><a href="{{ url('/login') }}">{{ trans('menu.login_register') }}</a></li>
+                @else
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            @include('layouts._avatar_block',['avatar' => Auth::user()->avatar])
+                            <div class="user-creds">{!! Helper::userCreds() !!}</div>
+                            <i class="caret"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="{{ url('/profile') }}"><i class="icon-user-plus"></i> {{ trans('content.my_profile') }}</a></li>
+                            <li><a href="{{ url('/logout') }}"><i class="icon-switch2"></i> {{ trans('content.logout') }}</a></li>
+                        </ul>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>

@@ -2,13 +2,13 @@
 
 namespace Illuminate\Foundation\Auth;
 
-use App\Http\Controllers\Auth\GoogleCapchaTrait;
+use App\Http\Controllers\Auth\GoogleCaptchaTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
 trait SendsPasswordResetEmails
 {
-    use GoogleCapchaTrait;
+    use GoogleCaptchaTrait;
 
     /**
      * Display the form to request a password reset link.

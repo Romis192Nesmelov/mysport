@@ -17,7 +17,7 @@ class SectionsTableSeeder extends Seeder
     {
         $areas = Area::pluck('id')->toArray();
         $organizations = Organization::pluck('id')->toArray();
-        $sports = KindOfSport::pluck('id')->toArray();
+        $sports = KindOfSport::where('active',1)->pluck('id')->toArray();
         $trainers = Trainer::pluck('id')->toArray();
 
         for ($i=0;$i<50;$i++) {

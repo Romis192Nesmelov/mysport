@@ -22,14 +22,14 @@ class StaticController extends Controller
     protected $data = [];
 //    protected $breadcrumbs = [];
 
-    public function index(Request $request)
+    public function index(Request $request, $token=null)
     {
         $this->data['news'] = News::where('active',1)->orderBy('id','desc')->limit(3)->get();
         $this->data['trainers'] = Trainer::where('active',1)->where('best',1)->get();
         $this->data['points'] = $this->findSport();
         $this->getEventOnTheYear();
         $this->data['events'] = Event::where('active',1)->orderBy('start_time','desc')->limit(5)->get();
-        return $this->showView($request,'home');
+        return $this->showView($request, 'home', $token);
     }
 
     public function area(Request $request,$slug=null)
@@ -154,15 +154,10 @@ class StaticController extends Controller
         ]);
     }
 
-    protected function showView(Request $request, $view)
+    protected function showView(Request $request, $view, $token=null)
     {
         $this->data['seo'] = Settings::getSeoTags();
         $blindVer = $request->has('blind') && $request->input('blind');
-
-        $topMenu = [
-            ['href' => '?blind='.($blindVer ? '0' : '1'), 'name' => $blindVer ? trans('menu.normal_version') : trans('menu.blind_version')],
-            ['href' => '#', 'name' => trans('menu.login_register'), 'addClass' => 'green'],
-        ];
 
         $mainMenu = [
             ['data_scroll' => 'news', 'name' => trans('menu.news')],
@@ -184,13 +179,13 @@ class StaticController extends Controller
         return view($view, [
 //            'breadcrumbs' => $this->breadcrumbs,
             'blindVer' => $blindVer,
-            'topMenu' => $topMenu,
             'mainMenu' => $mainMenu,
             'areas' => $areas,
             'sports' => $sports,
             'socnets' => $socnets,
             'data' => $this->data,
-            'metas' => $this->metas
+            'metas' => $this->metas,
+            'token' => $token
         ]);
     }
 }

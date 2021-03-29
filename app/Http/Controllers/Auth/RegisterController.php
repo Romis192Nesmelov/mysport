@@ -91,10 +91,10 @@ class RegisterController extends Controller
         return redirect('/');
     }
 
-    public function sendConfirmMail()
-    {
-        return view('auth.send_confirm_mail');
-    }
+//    public function sendConfirmMail()
+//    {
+//        return view('auth.send_confirm_mail');
+//    }
     
     public function confirmUser(Request $request)
     {

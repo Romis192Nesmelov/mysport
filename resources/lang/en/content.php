@@ -50,6 +50,8 @@ return [
 
     'yes' => 'Yes',
     'no' => 'No',
+    'enter' => 'Enter',
+    'cancel' => 'Cancel',
     'whoops' => 'Whoops!',
     'hello' => 'Hello!',
     'subscribe_message' => 'If you have a problem with button pushing «:action», copy this URL and paste in the address bar of your browser',

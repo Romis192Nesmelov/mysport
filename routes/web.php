@@ -12,8 +12,13 @@
 */
 Route::auth();
 
+Route::get('/login', 'StaticController@index');
+Route::get('/register', 'StaticController@index');
+Route::get('/password-reset', 'StaticController@index');
+Route::get('/send-confirm', 'StaticController@index');
+Route::get('password/reset/{token}', 'StaticController@index');
+
 Route::get('/logout', 'Auth\LoginController@logout');
-Route::get('/send-confirm', 'Auth\RegisterController@sendConfirmMail');
 Route::get('/confirm-registration/{token}', 'Auth\RegisterController@confirmRegistration');
 Route::post('/confirm-user', 'Auth\RegisterController@confirmUser');
 
