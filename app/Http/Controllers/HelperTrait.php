@@ -68,10 +68,10 @@ trait HelperTrait
         if (!$this->data['item']) abort(404);
     }
 
-    private function masterMail()
-    {
-        return (string)Settings::getSettings()->email;
-    }
+//    private function masterMail()
+//    {
+//        return (string)Settings::getSettings()->email;
+//    }
 
     private function randString()
     {

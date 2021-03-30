@@ -14,6 +14,7 @@
         @endif
     @endforeach
 
+    <meta name="google-site-verification" content="8Q5JkMQz_Rz_MJMSU4oysoF0JGTI9JK04e6a2La_Nbg" />
     {{--<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">--}}
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
     <link href="{{ asset('css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
@@ -94,11 +95,13 @@
 </head>
 <body>
 @if (Auth::guest())
-    @if (Request::path() == 'login')                                        @include('auth._login_modal_block')
-    @elseif (Request::path() == 'register')                                 @include('auth._register_modal_block')
-    @elseif (Request::path() == 'password-reset')                           @include('auth._password_reset_modal_block')
-    @elseif (Request::path() == 'send-confirm')                             @include('auth._send_confirm_modal_block')
-    @elseif (preg_match('/^(password\/reset\/.+)$/', Request::path()))      @include('auth._reset_modal_block')
+    @if (Request::has('auth'))
+        @if (Request::input('auth') == 'login') @include('auth._login_modal_block')
+        @elseif (Request::input('auth') == 'register') @include('auth._register_modal_block')
+        @elseif (Request::input('auth') == 'password_reset') @include('auth._password_reset_modal_block')
+        @elseif (Request::input('auth') == 'send_confirm') @include('auth._send_confirm_modal_block')
+        @endif
+    @elseif (preg_match('/^(password\/reset\/.+)$/', Request::path())) @include('auth._reset_modal_block')
     @endif
 @endif
 
@@ -127,7 +130,7 @@
 
                 <li class="button"><a href="?blind={{ $blindVer ? '0' : '1' }}">{{ $blindVer ? trans('menu.normal_version') : trans('menu.blind_version') }}</a></li>
                 @if (Auth::guest())
-                    <li class="button green"><a href="{{ url('/login') }}">{{ trans('menu.login_register') }}</a></li>
+                    <li class="button green"><a href="{{ url('?auth=login') }}">{{ trans('menu.login_register') }}</a></li>
                 @else
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown">

@@ -12,6 +12,6 @@
 </form>
 
 @include('layouts._modal_block',['id' => 'password-reset', 'content' => ob_get_clean()])
-@if (Request::path() == 'password-reset')
-    <script>$('#password-reset').modal('show');</script>
-@endif
+{{--@if (Request::path() == 'password-reset')--}}
+<script>$('#password-reset').modal('show');</script>
+{{--@endif--}}

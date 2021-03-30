@@ -6,10 +6,10 @@
         <table class="auth">
             <tr>
                 <td valign="middle" align="left">@include('_checkbox_block', ['name' => 'remember', 'checked' => true, 'label' => trans('auth.remember_me')])</td>
-                <td valign="middle" align="right"><a href="{{ url('/password-reset') }}">{{ trans('auth.forgot_your_password') }}</a></td>
+                <td valign="middle" align="right"><a href="{{ url('?auth=password_reset') }}">{{ trans('auth.forgot_your_password') }}</a></td>
             </tr>
             <tr>
-                <td colspan="2" valign="middle" align="center"><a href="{{ url('/send-confirm') }}">{{ trans('auth.re_confirmation') }}</a></td>
+                <td colspan="2" valign="middle" align="center"><a href="{{ url('?auth=send_confirm') }}">{{ trans('auth.re_confirmation') }}</a></td>
             </tr>
         </table>
     </div>

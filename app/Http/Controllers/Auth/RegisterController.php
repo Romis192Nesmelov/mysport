@@ -51,7 +51,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'phone' => $this->validationPhone,
+//            'phone' => $this->validationPhone,
             'email' => 'required|string|email|max:255|unique:users',
             'password' => $this->validationPassword,
             'g-recaptcha-response' => 'required|string',
@@ -68,11 +68,11 @@ class RegisterController extends Controller
     {
         $user = User::create([
             'email' => $data['email'],
-            'phone' => $data['phone'],
+//            'phone' => $data['phone'],
             'password' => bcrypt($data['password']),
             'confirm_token' => $this->randString(),
             'active' => false,
-            'type' => 1,
+            'type' => 3,
             'send_mail' => 1
         ]);
         return $user;
@@ -88,7 +88,7 @@ class RegisterController extends Controller
             Session::flash('message', trans('auth.register_success'));
             Auth::login($user);
         } else Session::flash('message', trans('auth.register_error'));
-        return redirect('/');
+        return redirect('/profile');
     }
 
 //    public function sendConfirmMail()
