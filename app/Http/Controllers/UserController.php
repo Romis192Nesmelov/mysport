@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\EventSport;
-use App\KindOfSport;
 use App\User;
 use App\Kid;
 use App\Event;
 use App\EventsRecord;
+use App\SectionsRecord;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -260,25 +260,47 @@ class UserController extends StaticController
     
     public function eventUserRecord(Request $request)
     {
-        $this->validate($request, ['id' => $this->validationEvent]);
+        return $this->userRecord($request, new EventsRecord(), ['id' => $this->validationEvent], 'event_id');
+    }
+
+    public function eventKidsRecord(Request $request)
+    {
+        return $this->kidRecord($request, new EventsRecord(), ['id' => $this->validationEvent], 'event_id');
+    }
+
+    public function sectionUserRecord(Request $request)
+    {
+        return $this->userRecord($request, new SectionsRecord(), ['id' => $this->validationSection], 'section_id');
+    }
+
+    public function sectionKidsRecord(Request $request)
+    {
+        return $this->kidRecord($request, new SectionsRecord(), ['id' => $this->validationEvent], 'section_id');
+    }
+
+    private function userRecord(Request $request, Model $model, array $validationArr, $foreignKey)
+    {
+        $this->validate($request, $validationArr);
         $recordId = $request->input('id');
-        $record = EventsRecord::where('event_id',$recordId)->where('user_id',Auth::id())->first();
+        $record = $model->where($foreignKey,$recordId)->where('user_id',Auth::id())->first();
+        
+        if ($model instanceof EventsRecord && $record->event->start_time >= time()) abort(403);
         if ($record) {
             $record->delete();
             $message = trans('content.record_canceled');
         } else {
-            EventsRecord::create([
+            $model->create([
                 'user_id' => Auth::id(),
-                'event_id' => $recordId
+                $foreignKey => $recordId
             ]);
             $message = trans('content.you_are_record');
         }
         return redirect()->back()->with('message',$message);
     }
-
-    public function eventKidsRecord(Request $request)
+    
+    private function kidRecord(Request $request, Model $model, array $validationArr, $foreignKey)
     {
-        $this->validate($request, ['id' => $this->validationEvent]);
+        $this->validate($request, $validationArr);
         $cancelRecords = 0;
         $createRecords = 0;
         $kidsCount = count(Auth::user()->kids);
@@ -286,15 +308,15 @@ class UserController extends StaticController
         $recordId = $request->input('id');
 
         foreach (Auth::user()->kids as $kid) {
-            $record = EventsRecord::where('event_id',$recordId)->where('kid_id',$kid->id)->first();
+            $record = $model->where($foreignKey,$recordId)->where('kid_id',$kid->id)->first();
             if ($record && !$fields['kid'.$kid->id]) {
                 $cancelRecords++;
                 $record->delete();
             } elseif (!$record && $fields['kid'.$kid->id]) {
                 $createRecords++;
-                EventsRecord::create([
+                $model->create([
                     'kid_id' => $kid->id,
-                    'event_id' => $recordId
+                    $foreignKey => $recordId
                 ]);
             }
         }

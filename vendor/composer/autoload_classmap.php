@@ -50,6 +50,7 @@ return array(
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\Providers\\SettingsProvider' => $baseDir . '/app/Providers/SettingsProvider.php',
     'App\\Section' => $baseDir . '/app/Section.php',
+    'App\\SectionsRecord' => $baseDir . '/app/SectionsRecord.php',
     'App\\Sport' => $baseDir . '/app/Sport.php',
     'App\\Trainer' => $baseDir . '/app/Trainer.php',
     'App\\User' => $baseDir . '/app/User.php',

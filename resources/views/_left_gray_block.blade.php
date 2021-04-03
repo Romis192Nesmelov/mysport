@@ -37,26 +37,26 @@
             @endif
 
         @if (count(Auth::user()->kids))
-                @if ($kidRecordFlag && $kidRecordFlag == count(Auth::user()->kids))
+            @if ($kidRecordFlag && $kidRecordFlag == count(Auth::user()->kids))
+                <div class="text-center">{{ $kidRecordFlag == 1 ? trans('content.your_kid_is_record') : trans('content.your_kids_are_record') }}</div>
+                <div class="button"><a data-toggle="modal" data-target="#kid-cancel-record">{{ trans('content.cancel_record_for_my_kids') }}</a></div>
+                @include('_record_kids_modal_block',[
+                    'id' => 'kid-cancel-record',
+                    'action' => $recordKidAction,
+                    'head' => trans('content.confirm_delete_record')
+                ])
+            @else
+                @if ($kidRecordFlag && $kidRecordFlag < count(Auth::user()->kids))
                     <div class="text-center">{{ $kidRecordFlag == 1 ? trans('content.your_kid_is_record') : trans('content.your_kids_are_record') }}</div>
-                    <div class="button"><a data-toggle="modal" data-target="#kid-cancel-record">{{ trans('content.cancel_record_for_my_kids') }}</a></div>
-                    @include('_record_kids_modal_block',[
-                        'id' => 'kid-cancel-record',
-                        'action' => $recordKidAction,
-                        'head' => trans('content.confirm_delete_record')
-                    ])
-                @else
-                    @if ($kidRecordFlag && $kidRecordFlag < count(Auth::user()->kids))
-                        <div class="text-center">{{ $kidRecordFlag == 1 ? trans('content.your_kid_is_record') : trans('content.your_kids_are_record') }}</div>
-                    @endif
-                    <div class="button"><a data-toggle="modal" data-target="#kid-to-record">{{ trans('content.to_record_kid') }}</a></div>
-                    @include('_record_kids_modal_block',[
-                        'id' => 'kid-to-record',
-                        'action' => $recordKidAction,
-                        'head' => $recordKidMessage
-                    ])
                 @endif
+                <div class="button"><a data-toggle="modal" data-target="#kid-to-record">{{ trans('content.to_record_kid') }}</a></div>
+                @include('_record_kids_modal_block',[
+                    'id' => 'kid-to-record',
+                    'action' => $recordKidAction,
+                    'head' => $recordKidMessage
+                ])
             @endif
+        @endif
         </div>
     @elseif (isset($kidsMode) && $kidsMode)
         <div class="sub-buttons-block">

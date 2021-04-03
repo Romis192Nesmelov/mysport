@@ -146,6 +146,8 @@ return [
     'confirm_delete_record' => 'Are you sure you want to delete this entry?',
     'do_you_want_to_sign_up_for_this_event' => 'Do you want to sign up for this event?',
     'do_you_want_to_sign_up_your_child_for_this_event' => 'Do you want to sign up your child/children for this event?',
+    'do_you_want_to_sign_up_for_this_section' => 'Do you want to sign up to this section?',
+    'do_you_want_to_sign_up_your_child_for_this_section' => 'Do you want to sign up your child/children to this section?',
     'you_are_record' => 'You are record',
     'your_kid_is_record' => 'Your child is record',
     'your_kids_are_record' => 'Your children are record',

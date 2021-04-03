@@ -134,7 +134,6 @@ class StaticController extends Controller
             $this->data['points']['organizations'] = null;
             $this->data['points']['sections'] = [$this->data['item']];
         }
-
         return $this->showView($request,'object');
     }
     

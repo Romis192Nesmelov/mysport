@@ -4,7 +4,7 @@
     <div class="section">
         <div class="container">
             @php ob_start(); @endphp
-            @if (isset($data['item']->sections))
+            @if ($data['item'] instanceof App\Organization)
                 @include('_cir_image_block', [
                     'image' => $data['item']->image,
                     'name' => $data['item']['name_'.App::getLocale()],
@@ -13,21 +13,39 @@
                     'scroll2' => 'sections',
                     'counter2' => Helper::sectionsCaseFormat(count($data['item']->sections)),
                 ])
-            @elseif (isset($data['item']->sections) || isset($data['item']->sports))
+                @include('_left_gray_block',['content' => ob_get_clean(),'buttons' => false])
+            @elseif ($data['item'] instanceof App\Place)
                 @include('_cir_image_block', [
                     'image' => $data['item']->image,
                     'name' => $data['item']['name_'.App::getLocale()],
                     'scroll1' => 'kind-of-sports',
                     'counter1' => Helper::kindOfSportCaseFormat(count(isset($data['item']->sections) ? $data['item']->sections : $data['item']->sports)),
                 ])
+                @include('_left_gray_block',['content' => ob_get_clean(),'buttons' => false])
+            @elseif ($data['item'] instanceof App\Section)
+                @include('_cir_image_block', [
+                    'image' => $data['item']->image,
+                    'name' => $data['item']['name_'.App::getLocale()],
+                    'counter1' => Helper::haveRecordedCaseFormat(count($data['item']->records))
+                ])
+
+                @include('_left_gray_block', [
+                    'content' => ob_get_clean(),
+                    'buttons' => true,
+                    'recordUserMessage' => trans('content.do_you_want_to_sign_up_for_this_section'),
+                    'recordKidMessage' => trans('content.do_you_want_to_sign_up_your_child_for_this_section'),
+                    'recordUserAction' => 'section-user-record',
+                    'recordKidAction' => 'section-kids-record',
+                ])
             @else
                 @include('_cir_image_block', [
                     'image' => $data['item']->image,
                     'name' => $data['item']['name_'.App::getLocale()]
                 ])
+                @include('_left_gray_block',['content' => ob_get_clean(),'buttons' => false])
             @endif
 
-            @include('_left_gray_block',['content' => ob_get_clean(),'buttons' => false])
+
 
             @php ob_start(); @endphp
             @include('_header_block', [
@@ -77,8 +95,8 @@
                     @include('_credentials_block',[
                         'colMd' => 12,
                         'colSm' => 12,
-                        'description' => trans('content.main_trainer'),
-                        'credential' => $data['item']->leader['name_'.App::getLocale()],
+                        'description' => trans('content.trainer'),
+                        'credential' => Helper::simpleCreds($data['item']->leader->user, true),
                         'href' => 'trainers/?id='.$data['item']->leader->id
                     ])
                 @elseif (isset($data['item']->sections) && count($data['item']->sections))

@@ -46,6 +46,11 @@ class User extends Authenticatable
         return $this->hasMany('App\EventsRecord')->orderBy('start_time','desc');
     }
 
+    public function sectionsRecord()
+    {
+        return $this->hasMany('App\SectionsRecord');
+    }
+
     public function kids()
     {
         return $this->hasMany('App\Kid');

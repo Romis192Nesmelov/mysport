@@ -495,6 +495,7 @@ class ComposerStaticInit36700ca7ce84343aa349dca1a0daa316
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Providers\\SettingsProvider' => __DIR__ . '/../..' . '/app/Providers/SettingsProvider.php',
         'App\\Section' => __DIR__ . '/../..' . '/app/Section.php',
+        'App\\SectionsRecord' => __DIR__ . '/../..' . '/app/SectionsRecord.php',
         'App\\Sport' => __DIR__ . '/../..' . '/app/Sport.php',
         'App\\Trainer' => __DIR__ . '/../..' . '/app/Trainer.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',

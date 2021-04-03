@@ -106,6 +106,8 @@ return [
     'event_active' => 'Event is active',
     'event_sport_not_active' => 'Event is not active',
     'start_end' => 'Start-end',
-    
+
+    'users_hy_recorded' => 'Recorded users',
+    'kids_hy_recorded' => 'Recorded kids',
     'do_you_want_to_delete_photo' => 'Do you really want to delete this photo?',
 ];

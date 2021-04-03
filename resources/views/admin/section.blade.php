@@ -49,5 +49,7 @@
     </div>
     @if (isset($data['item']))
         @include('admin._gallery_block',['model' => $data['item']])
+        @include('admin._users_records_table_block',['objectName' => 'user'])
+        @include('admin._users_records_table_block',['objectName' => 'kid'])
     @endif
 @endsection

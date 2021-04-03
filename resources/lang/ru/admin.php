@@ -107,5 +107,7 @@ return [
     'event_sport_not_active' => 'Мероприятие не активно',
     'start_end' => 'Начало-конец',
     
+    'users_hy_recorded' => 'Записавшиеся пользователи',
+    'kids_hy_recorded' => 'Записанные дети',
     'do_you_want_to_delete_photo' => 'Вы действительно хотите удалить эту фотографию?',
 ];

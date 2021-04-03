@@ -133,6 +133,11 @@ class HelperController extends Controller
     {
         return $this->wordNumeral($value, 'have joined', false, 'присоединившихся', 'присоединившийся');
     }
+
+    public function haveRecordedCaseFormat($value)
+    {
+        return $this->wordNumeral($value, 'have recorded', false, 'записавшихся', 'записавшийся');
+    }
     
     public function countKids($value)
     {

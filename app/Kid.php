@@ -25,4 +25,9 @@ class Kid extends Model
     {
         return $this->hasMany('App\EventsRecord')->orderBy('start_time','desc');
     }
+
+    public function sectionsRecord()
+    {
+        return $this->hasMany('App\SectionsRecord');
+    }
 }

@@ -75,4 +75,9 @@ class Section extends Model
     {
         return $this->hasMany('App\Gallery','section_id');
     }
+
+    public function records()
+    {
+        return $this->hasMany('App\SectionsRecord')->orderBy('id','desc');
+    }
 }

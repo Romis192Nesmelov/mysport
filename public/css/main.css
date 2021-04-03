@@ -148,12 +148,20 @@ p.text-center {
 }
 
 .image {
+    display: table;
+}
+
+.image > img {
+    width: 100%;
+}
+
+.cir-image.image {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.image > img {
+.cir-image.image > img {
     height: 100%;
 }
 

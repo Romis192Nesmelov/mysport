@@ -36,6 +36,7 @@ trait HelperTrait
     private $validationImage = 'image|min:5|max:2000';
     private $validationArea = 'required|integer|exists:areas,id';
     private $validationOrganization = 'required|integer|exists:organizations,id';
+    private $validationSection = 'required|integer|exists:sections,id';
     private $validationPlace = 'required|integer|exists:places,id';
     private $validationEvent = 'required|integer|exists:events,id';
     private $metas = [
