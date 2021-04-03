@@ -20,7 +20,7 @@ $(function() {
         columnDefs: [{ 
             orderable: false,
             width: '100px',
-            targets: [ window.dtColumns ? window.dtColumns : 7 ]
+            targets: [ window.dtColumns ? window.dtColumns : 5 ]
         }],
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
         language: {
@@ -41,8 +41,8 @@ $(function() {
         'info': false,
         'paging': true,
         'sort': false,
-        // 'order': [[0, 'asc']],
-        'pageLength': 200
+        'order': [[0, 'desc']],
+        'pageLength': 10
     });
 
     // Alternative pagination

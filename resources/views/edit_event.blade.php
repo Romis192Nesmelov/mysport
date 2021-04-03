@@ -95,7 +95,7 @@
                             ])
                         </div>
                     @endforeach
-                    @if (count($errors) && $errors->has('kind-of-sports'))
+                    @if (count($errors) && $errors->has('kind_of_sports'))
                         <div class="help-block error">{!! $errors->first('kind-of-sports') !!}</div>
                     @endif
                 </div>

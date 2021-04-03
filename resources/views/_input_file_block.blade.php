@@ -4,8 +4,6 @@
     @endif
     <div class="col-md-12">
         <input {{ isset($inputId) ? 'id='.$inputId : '' }} type="file" name="{{ $name }}" class="file-styled">
-        @if ($errors && $errors->has($name))
-            <span class="help-block error">{{ $errors->first($name) }}</span>
-        @endif
+        @include('_input_error_block')
     </div>
 </div>

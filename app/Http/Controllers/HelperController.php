@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 //use Illuminate\Http\Request;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 
@@ -10,30 +11,31 @@ class HelperController extends Controller
 {
     use HelperTrait;
 
-    public function userCreds()
+    public function userCreds($userModel=null, $withOutDiv=false)
     {
-        $user = '';
-        if (Auth::user()->family) {
-            $user = $this->simpleCreds(Auth::user());
-        } elseif (Auth::user()->name) {
-            $user = Auth::user()->name;
-            if (Auth::user()->surname){
-                $user .= ' '.Auth::user()->surname;
+        if (!$userModel) $userModel = Auth::user();
+        
+        if ($userModel->family) {
+            $user = $this->simpleCreds($userModel, $withOutDiv);
+        } elseif ($userModel->name) {
+            $user = $userModel->name;
+            if ($userModel->surname){
+                $user .= ' '.$userModel->surname;
             }
-        } elseif (Auth::user()->email) {
-            $user = Auth::user()->email;
-        } elseif (Auth::user()->phone) {
-            $user = Auth::user()->phone;
+        } elseif ($userModel->email) {
+            $user = $userModel->email;
+        } elseif ($userModel->phone) {
+            $user = $userModel->phone;
         } else {
-            $user = Auth::user()->vk_id;
+            $user = 'VK: '.$userModel->vk_id;
         }
         return $user;
     }
     
-    public function simpleCreds($user)
+    public function simpleCreds($user, $withOutDiv=false)
     {
-        $divOpen = '<div class="name-part">';
-        $divClose = '</div>';
+        $divOpen = $withOutDiv ? ' ' : '<div class="name-part">';
+        $divClose = $withOutDiv ? '' : '</div>';
         if (App::getLocale() == 'en') return str_slug($user->family).$divOpen.str_slug($user->name).' '.str_slug($user->surname).$divClose;
         else return $user->family.$divOpen.$user->name.' '.$user->surname.$divClose;
     }

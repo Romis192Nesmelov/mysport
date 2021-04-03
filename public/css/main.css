@@ -147,8 +147,14 @@ p.text-center {
     color: #ff7070;
 }
 
+.image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .image > img {
-    width: 100%;
+    height: 100%;
 }
 
 .navbar-inverse {
@@ -433,8 +439,8 @@ input[type=tel]:focus {
     border: 1px solid #087fae;
 }
 
-.form-group.has-feedback.has-error input {
-    color: #ff7070;
+.has-error input {
+    border-color: #ff7070;
 }
 
 .clearfix.form-group.textarea.has-feedback .cke {
@@ -871,7 +877,8 @@ a.active {
 
 #map {
     width: 100%;
-    height: 558px;
+    /*height: 558px;*/
+    height: 508px;
 }
 
 .map-point {
@@ -1173,7 +1180,7 @@ a.active {
 .calendar-block table tr td {
     text-align: center;
     vertical-align: middle;
-    padding: 5px;
+    padding: 4px;
     font-size: 15px;
     color: black;
 }

@@ -5,30 +5,38 @@ namespace App\Http\Controllers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Area;
 use App\Event;
 use App\Organization;
 use App\Section;
 use App\Place;
+use App\KindOfSport;
 //use App\User;
 //use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Settings;
 use Illuminate\Support\Facades\Config;
-use phpDocumentor\Reflection\Types\Integer;
 
 trait HelperTrait
 {
     private $validationEmail = 'required|email|unique:users,email';
+    private $validationNoUniqueEmail = 'required|email';
     private $validationPhone = 'required|regex:/^((\+)?(\d)(\s)?(\()?[0-9]{3}(\))?(\s)?([0-9]{3})(\-)?([0-9]{2})(\-)?([0-9]{2}))$/';
+    private $validationSite = 'required|url';
     private $validationUser = 'required|integer|exists:users,id';
+    private $validationTrainer = 'required|integer|exists:trainers,id';
+    private $validationKindOfSport = 'required|integer|exists:kind_of_sports,id';
     private $validationCharField = 'required|min:3|max:255';
+    private $validationTextField = 'required|min:10|max:800';
     private $validationGender = 'required|in:M,W,М,Ж';
     private $validationPassword = 'required|confirmed|min:4|max:50';
     private $validationCoordinates = 'required|regex:/^(\d{2}\.\d{5,6})$/';
     private $validationDate = ['required','regex:/^((([0-2][0-9])|(3[0-1]))\.((0[1-9])|([0-1][0-2]))\.((19\d{2})|(20[0-2][0-9])))$/'];
     private $validationTime = ['required','regex:/^((([0-1][0-9])|(2[0-4]))\.[0-5][0-9])$/'];
-    private $validationImage = 'image|min:5|max:5000';
+    private $validationImage = 'image|min:5|max:2000';
     private $validationArea = 'required|integer|exists:areas,id';
+    private $validationOrganization = 'required|integer|exists:organizations,id';
+    private $validationPlace = 'required|integer|exists:places,id';
     private $validationEvent = 'required|integer|exists:events,id';
     private $metas = [
         'meta_description' => ['name' => 'description', 'property' => false],
@@ -55,6 +63,16 @@ trait HelperTrait
         if ($useActive) $events->where('active',1);
         if ($useOwner) $events->where('user_id',Auth::id());
         $this->data['events_on_year'] = $events->get();
+    }
+    
+    private function getActiveKindOfSport()
+    {
+        return KindOfSport::where('active',1)->get();
+    }
+    
+    private function getActiveAreas()
+    {
+        return Area::where('active',1)->get();
     }
 
     private function getItem(Request $request, Model $model, $slug)
@@ -146,10 +164,12 @@ trait HelperTrait
         return $imageField;
     }
 
-    private function deleteSomething(Request $request, Model $model, $files=null, $addValidation=null)
+    private function deleteSomething(Request $request, Model $model, $files=null, $addValidation=null, $notValidate=false)
     {
-        $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id'.($addValidation ? '|'.$addValidation : '')]);
-        $table = $model->find($request->input('id'));
+        if (!$notValidate) {
+            $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id'.($addValidation ? '|'.$addValidation : '')]);
+            $table = $model->find($request->input('id'));
+        } else $table = $model; 
         $table->delete();
 
         if ($files) {
@@ -159,6 +179,14 @@ trait HelperTrait
                 }
             } else $this->unlinkFile($table, $files);
         }
+        
+        if (isset($table->gallery) && count($table->gallery)) {
+            foreach ($table->gallery as $gallery) {
+                $this->unlinkFile($gallery, 'photo');
+                $gallery->delete();
+            }
+        }
+        
         return response()->json(['success' => true]);
     }
 
@@ -168,7 +196,7 @@ trait HelperTrait
         if (isset($table[$file]) && $table[$file] && file_exists($fullPath)) unlink($fullPath);
     }
 
-    private function findSport($areaId=null,$kindOfSport=null,$events=1,$organizations=1,$sections=1,$places=1)
+    private function findSport($areaId=null,$kindOfSport=null,$events=1,$organizations=1,$sections=1,$places=null)
     {  
         $eventsPoints = $events ? $this->getPoints(new Event(),$areaId,false) : null;
         $organizationsPoints = $organizations ? $this->getPoints(new Organization(),$areaId,false) : null;

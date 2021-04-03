@@ -1,5 +1,40 @@
-.error {
+textarea {
+    border: 1px solid #ddd;
+}
+
+.navigation > li.active > a,
+.navigation > li.active > a:hover,
+.navigation > li.active > a:focus,
+.bootstrap-switch-handle-on.bootstrap-switch-primary,
+.bootstrap-switch-handle-off.bootstrap-switch-primary {
+    background-color: #087fae;
+}
+
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.textarea .form-control-feedback {
+    margin-top: 20px;
+}
+
+.error,
+.form-control-feedback .icon-cancel-circle2 {
     color: red;
+}
+
+.has-error {
+    border: 1px solid red;
+}
+
+.input-label .star {
+    color: red;
+}
+
+.bg-blue {
+    background-color: #087fae;
+    border-color: #087fae;
 }
 
 .id {
@@ -32,10 +67,52 @@ textarea {
     resize: vertical;
 }
 
+.dropdown-toggle .avatar {
+    display: table;
+    float: left;
+    margin-top: 5px;
+}
+
 .modal-body {
     width: 100%;
     background-color: #f1f1f1;
     border: 1px solid #eaeaea;
     display: table;
     margin-bottom: 20px;
+}
+
+.name {
+    font-size: 18px;
+}
+
+.name-part {
+    font-size: 15px;
+    color: grey;
+    text-align: center;
+}
+
+.panel-heading .name-part {
+    font-size: 100%;
+    display: inline-block;
+    text-align: left;
+    margin-left: 5px;
+}
+
+.icon-delete {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    padding-top: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    left: 100%;
+    top: -10px;
+    text-align: center;
+    background-color: white;
+    transform: translateX(-50%);
+    z-index: 999;
+}
+
+.icon-delete:hover {
+    color: red;
 }

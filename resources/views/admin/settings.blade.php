@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="panel panel-flat">
-        @include('_panel_title_block',['title' => trans('admin.settings'), 'h' => 4])
+        @include('admin._panel_title_block',['title' => trans('admin.settings'), 'h' => 4])
         <div class="panel-body">
             <form class="form-horizontal" action="{{ url('/admin/settings') }}" method="post">
                 {{ csrf_field() }}

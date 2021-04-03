@@ -8,6 +8,7 @@ use App\User;
 use App\Kid;
 use App\Event;
 use App\EventsRecord;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
@@ -99,11 +100,15 @@ class UserController extends StaticController
 
     public function editEvent(Request $request)
     {
-        if (Gate::denies('trainer') && Gate::denies('organizer')) abort(403);
-        
+        return $this->processingEvent($request);
+    }
+    
+    protected function processingEvent(Request $request, $adminMode=false)
+    {
+        if (Gate::denies('trainer') && Gate::denies('organizer') && !$adminMode) abort(403);
         $validationArr = [
             'name_ru' => $this->validationCharField,
-            'description_ru' => 'required|min:3|max:700',
+            'description_ru' => $this->validationTextField,
             'date' => $this->validationDate,
             'start_time' => $this->validationTime,
             'end_time' => $this->validationTime,
@@ -115,21 +120,13 @@ class UserController extends StaticController
         ];
 
         if ($request->has('id')) $validationArr['id'] = $this->validationEvent;
-        $ignoreFields = ['date','start_time','end_time'];
-        $sportsFields = [];
-        $sportSelectedFlag = false;
-        $sports = KindOfSport::where('active',1)->get();
-        foreach ($sports as $sport) {
-            $fieldName = 'sport'.$sport->id;
-            $fieldValue = (bool)$request->input($fieldName);
-            $ignoreFields[] = $fieldName;
-            $sportsFields[] = ['id' => (int)$sport->id, 'value' => $fieldValue];
-            if ($fieldValue) $sportSelectedFlag = true;
-        }
+        if ($adminMode) $validationArr['user_id'] = $this->validationUser;
+        
+        list($ignoreFields,$sportsFields,$sportSelectedFlag) = $this->setSportsAndIgnoreFields($request, ['date','start_time','end_time'], $adminMode);
 
         $this->validate($request, $validationArr);
-
-        $fields = $this->processingFields($request, null, $ignoreFields);
+        $fields = $this->processingFields($request, ($adminMode ? 'active' : null), $ignoreFields);
+        
         $date = $this->convertDate($request->input('date'));
         $startTime = $this->convertTime($request->input('start_time'));
         $endTime = $this->convertTime($request->input('end_time'));
@@ -137,7 +134,7 @@ class UserController extends StaticController
         $fields['end_time'] = $this->getMoscowTimeZone($date + $endTime);
 
         $errors = [];
-        if (!$sportSelectedFlag) $errors['kind-of-sports'] = trans('validation.one_of_kind_of_sport_must_be_selected');
+        if (!$sportSelectedFlag) $errors['kind_of_sports'] = trans('validation.one_of_kind_of_sport_must_be_selected');
         if ($startTime > $endTime) $errors['start_time'] = trans('validation.invalid_time');
         if ((int)$fields['latitude'] < 59 || (int)$fields['latitude'] > 60) $errors['latitude'] = trans('validation.invalid_coordinates');
         if ((int)$fields['longitude'] < 29 || (int)$fields['longitude'] > 31) $errors['latitude'] = trans('validation.invalid_coordinates');
@@ -146,12 +143,38 @@ class UserController extends StaticController
 
         if ($request->has('id')) {
             $event = Event::find($request->input('id'));
-            if (Gate::denies('owner',$event)) abort(403);
+            if (Gate::denies('owner',$event) && !$adminMode) abort(403);
             $event->update($fields);
-
+        } else {
+            if (!$adminMode) $fields['user_id'] = Auth::id();
+            $event = Event::create($fields);
+        }
+        $this->linkKindOfSports($request, $event, new EventSport(), $sportsFields, 'event_id');
+        
+        return redirect($adminMode ? '/admin/events' : '/profile')->with('message', trans('content.save_complete'));
+    }
+    
+    protected function setSportsAndIgnoreFields(Request $request, $ignoreFields, $checkboxMode=false)
+    {
+        $sportsFields = [];
+        $sportSelectedFlag = false;
+        $sports = $this->getActiveKindOfSport();
+        foreach ($sports as $sport) {
+            $fieldName = 'sport'.$sport->id;
+            $fieldValue = $checkboxMode ? $request->input($fieldName) == 'on' : (bool)$request->input($fieldName);
+            $ignoreFields[] = $fieldName;
+            $sportsFields[] = ['id' => (int)$sport->id, 'value' => $fieldValue];
+            if ($fieldValue) $sportSelectedFlag = true;
+        }
+        return [$ignoreFields,$sportsFields,$sportSelectedFlag];
+    }
+    
+    protected function linkKindOfSports(Request $request, Model $baseModel, Model $foreignModel, $sportsFields, $foreignKey)
+    {
+        if ($request->has('id')) {
             foreach ($sportsFields as $field) {
                 $matchFlag = false;
-                foreach ($event->sports as $eventSport) {
+                foreach ($baseModel->sports as $eventSport) {
                     if ($field['id'] == $eventSport->kind_of_sport_id) {
                         $matchFlag = true;
                         if (!$field['value']) {
@@ -160,26 +183,22 @@ class UserController extends StaticController
                     }
                 }
                 if (!$matchFlag && $field['value']) {
-                    EventSport::create([
-                        'event_id' => $event->id,
+                    $foreignModel->create([
+                        $foreignKey => $baseModel->id,
                         'kind_of_sport_id' => $field['id']
                     ]);
                 }
             }
         } else {
-            $fields['user_id'] = Auth::id();
-            $event = Event::create($fields);
-
             foreach ($sportsFields as $field) {
                 if ($field['value']) {
-                    EventSport::create([
-                        'event_id' => $event->id,
+                    $foreignModel->create([
+                        $foreignKey => $baseModel->id,
                         'kind_of_sport_id' => $field['id']
                     ]);
                 }
             }
         }
-        return redirect('/profile')->with('message', trans('content.save_complete'));
     }
 
 //    public function deleteProfile()

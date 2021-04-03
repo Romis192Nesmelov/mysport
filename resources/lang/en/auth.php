@@ -49,18 +49,7 @@ return [
     'save_new_password' => 'Save new password',
     'new_password_success' => 'Your password has been successfully changed!',
 
-    'user' => 'User',
-    'user_profile' => 'User profile',
-    'new_user_is_confirmed' => 'New user is confirmed',
-    'unsubscribe' => 'You have unsubscribed from the automatic newsletter!',
-    'you_have_no_rights' => 'You have no rights!',
-
     'avatar' => 'Avatar',
-    'document' => 'Identity document',
-    'confirmed_account' => 'Account confirmed',
-    'confirmed_not_account' => 'Account not confirmed',
-    'nick' => 'Nick',
-    'company_name' => 'Name of your company or legal entity',
     'phone' => 'Phone',
     'email' => 'E-Mail',
     'old_password' => 'Old password',
@@ -98,11 +87,6 @@ return [
     'user_not_active' => 'You have not activated your account.<br>Click on the <a href="/send-confirm-mail">link</a> to receive your confirmation email again.',
 
     'capcha-error' => 'Wrong capcha!',
-    'i_employee' => 'I\'m employee',
-    'i_employer' => 'I\'m employer',
-    'employee' => 'Employee',
-    'employer' => 'Employer',
-    'admin' => 'Admin',
     'register_date' => 'Register date',
 
     'reset_password_button' => 'Reset Password',

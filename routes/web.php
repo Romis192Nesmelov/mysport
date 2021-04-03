@@ -12,7 +12,8 @@
 */
 Route::auth();
 
-//Route::get('/login', 'StaticController@index');
+Route::get('/?auth=login', 'StaticController@index')->name('login');
+Route::get('/login', 'StaticController@redirect');
 //Route::get('/register', 'StaticController@index');
 //Route::get('/password-reset', 'StaticController@index');
 //Route::get('/send-confirm', 'StaticController@index');
@@ -37,19 +38,52 @@ Route::get('/vk-callback', 'OAuthController@vkCallback');
 
 Route::get('/google-callback', 'OAuthController@googleCallback');
 
-//Route::post('/search', 'UserController@search');
+Route::get('/admin', 'AdminController@index');
 
-//Route::get('/admin', 'AdminController@index');
+Route::get('/admin/seo', 'AdminController@seo');
+Route::post('/admin/seo', 'AdminController@editSeo');
 
-//Route::get('/admin/seo', 'AdminController@seo');
-//Route::post('/admin/seo', 'AdminController@editSeo');
+Route::get('/admin/settings', 'AdminController@settings');
+Route::post('/admin/settings', 'AdminController@editSettings');
 
-//Route::get('/admin/users/{slug?}', 'AdminController@users');
-//Route::post('/admin/user', 'AdminController@editUser');
-//Route::post('/admin/delete-user', 'AdminController@deleteUser');
+Route::get('/admin/kids/{slug?}', 'AdminController@kids');
+Route::post('/admin/kid', 'AdminController@editKid');
+Route::post('/admin/delete-kid', 'AdminController@deleteKid');
 
-//Route::get('/admin/settings', 'AdminController@settings');
-//Route::post('/admin/settings', 'AdminController@editSettings');
+Route::get('/admin/users/{slug?}', 'AdminController@users');
+Route::post('/admin/user', 'AdminController@editUser');
+Route::post('/admin/delete-user', 'AdminController@deleteUser');
+
+Route::get('/admin/news/{slug?}', 'AdminController@news');
+Route::post('/admin/news', 'AdminController@editNews');
+Route::post('/admin/delete-news', 'AdminController@deleteNews');
+
+Route::get('/admin/areas/{slug?}', 'AdminController@areas');
+Route::post('/admin/area', 'AdminController@editArea');
+Route::post('/admin/delete-area', 'AdminController@deleteArea');
+
+Route::get('/admin/organizations/{slug?}', 'AdminController@organizations');
+Route::post('/admin/organization', 'AdminController@editOrganization');
+Route::post('/admin/delete-organization', 'AdminController@deleteOrganizations');
+
+Route::get('/admin/places/{slug?}', 'AdminController@places');
+Route::post('/admin/place', 'AdminController@editPlace');
+Route::post('/admin/delete-place', 'AdminController@deletePlace');
+
+Route::get('/admin/sections/{slug?}', 'AdminController@sections');
+Route::post('/admin/section', 'AdminController@editSection');
+Route::post('/admin/delete-section', 'AdminController@deleteSection');
+
+Route::get('/admin/kind_of_sports', 'AdminController@kindOfSports');
+Route::post('/admin/kind_of_sport', 'AdminController@editKindOfSports');
+Route::post('/admin/delete-kind_of_sport', 'AdminController@deleteKindOfSports');
+
+Route::get('/admin/events/{slug?}', 'AdminController@events');
+Route::post('/admin/event', 'AdminController@editEvent');
+Route::post('/admin/delete-event', 'AdminController@deleteEvent');
+
+Route::post('/admin/gallery', 'AdminController@editGallery');
+Route::post('/admin/delete-gallery', 'AdminController@deleteGallery');
 
 Route::get('/', 'StaticController@index');
 Route::get('/area/{slug?}', 'StaticController@area');

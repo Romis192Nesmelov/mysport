@@ -20,7 +20,13 @@ class StaticController extends Controller
     use HelperTrait;
 
     protected $data = [];
-//    protected $breadcrumbs = [];
+    protected $breadcrumbs = [];
+
+    public function redirect(Request $request)
+    {
+        if ($request->path() == 'login') return redirect('/?auth=login');
+        else return redirect('/');
+    }
 
     public function index(Request $request, $token=null)
     {
@@ -148,8 +154,8 @@ class StaticController extends Controller
                 $request->input('kind_of_sport'),
                 $request->input('events'),
                 $request->input('organizations'),
-                $request->input('sections'),
-                $request->input('places')
+                $request->input('sections')
+//                $request->input('places')
             )
         ]);
     }
@@ -166,7 +172,7 @@ class StaticController extends Controller
             ['data_scroll' => 'trainers', 'name' => trans('menu.trainers')]
         ];
         
-        $areas = Area::where('active',1)->get();
+        $areas = $this->getActiveAreas();
         $sports = KindOfSport::where('active',1)->get();
         $socnets = [
             ['icon' => 'yt', 'href' => '#'],

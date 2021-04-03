@@ -9,12 +9,6 @@ $(document).ready(function() {
 
     // $('.styled').uniform();
     $('a.img-preview').fancybox({padding: 3});
-
-    // window.phoneRegExp = /^((\+)[0-9]{11})$/gi;
-    $('input[name=phone]').mask("+7(999)999-99-99");
-    $('input[name=born]').mask("99.99.9999");
-    $('input[name=start_time],input[name=end_time]').mask("99.99");
-    $('input[name=latitude],input[name=longitude]').mask("99.999999");
     
     // Owlcarousel
     var navButtonBlack1 = '<img src="/images/arrow_left_black.svg" />',
@@ -165,6 +159,23 @@ $(document).ready(function() {
     // Changing area select
     bindAreaChange();
 });
+
+function unifiedHeight() {
+    var unifiedHeight = [
+        {
+            'obj'       :$('.event'),
+            'reserve'   :0,
+            'except'    :null,
+            'include'   :$('.calendar-container')
+        }
+    ];
+
+    setTimeout(function () {
+        $.each(unifiedHeight, function (k,item) {
+            maxHeight(item.obj,item.reserve,item.except,item.include);
+        });
+    },1000);
+}
 
 function bindAreaChange() {
     var select = $('select[name=area]');

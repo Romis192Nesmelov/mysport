@@ -11,6 +11,7 @@ class Place extends Model
     
     protected $fillable = [
         'slug',
+        'image',
         'name_ru',
         'name_en',
         'address_ru',

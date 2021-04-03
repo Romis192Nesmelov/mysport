@@ -1,20 +1,3 @@
-function unifiedHeight() {
-    var unifiedHeight = [
-        {
-            'obj'       :$('.event'),
-            'reserve'   :0,
-            'except'    :null,
-            'include'   :$('.calendar-container')
-        }
-    ];
-
-    setTimeout(function () {
-        $.each(unifiedHeight, function (k,item) {
-            maxHeight(item.obj,item.reserve,item.except,item.include);
-        });
-    },1000);
-}
-
 function maxHeight(objects,reserve,exceptClassName,include) {
     if ($(window).width() > 768) {
         var maxHeight = 0;

@@ -170,11 +170,11 @@
                         'active' => 1
                     ])
 
-                    @include('_checkbox_type1_block',[
-                        'name' => 'places',
-                        'label' => trans('content.sports_grounds'),
-                        'active' => 1
-                    ])
+                    {{--@include('_checkbox_type1_block',[--}}
+                        {{--'name' => 'places',--}}
+                        {{--'label' => trans('content.sports_grounds'),--}}
+                        {{--'active' => 1--}}
+                    {{--])--}}
 
                     <div id="exec-find" class="button green">{{ trans('content.execute_find') }}</div>
                 </div>

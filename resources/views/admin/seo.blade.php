@@ -3,25 +3,25 @@
 @section('content')
     <div class="panel panel-flat">
         <div class="panel-body">
-            <form class="form-horizontal" enctype="multipart/form-data" action="{{ url('/admin/seo') }}" method="post">
+            <form class="form-horizontal" action="{{ url('/admin/seo') }}" method="post">
                 {{ csrf_field() }}
                 <div class="panel-body">
+                    {{--@include('_input_block', [--}}
+                        {{--'label' => 'Title (Eng)',--}}
+                        {{--'name' => 'title_en',--}}
+                        {{--'type' => 'text',--}}
+                        {{--'placeholder' => 'Title',--}}
+                        {{--'value' => $data['seo']['title_en']--}}
+                    {{--])--}}
                     @include('_input_block', [
-                        'label' => 'Title (Eng)',
-                        'name' => 'title_en',
-                        'type' => 'text',
-                        'placeholder' => 'Title',
-                        'value' => $data['seo']['title_en']
-                    ])
-                    @include('_input_block', [
-                        'label' => 'Title (Рус)',
+                        'label' => 'Title',
                         'name' => 'title_ru',
                         'type' => 'text',
                         'placeholder' => 'Title',
                         'value' => $data['seo']['title_ru']
                     ])
                 </div>
-                @include('_panel_title_block',['title' => trans('admin.meta_tags'),'h' => 4])
+                @include('admin._panel_title_block',['title' => trans('admin.meta_tags'),'h' => 4])
                 <div class="panel-body">
                     @foreach($data['metas'] as $meta => $params)
                         @if ($params['name'] == 'description' || $params['name'] == 'keywords' || $params['property'] == 'og:description')

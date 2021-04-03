@@ -30,7 +30,7 @@ class CreateOrganizationsTable extends Migration
             $table->string('phone');
             $table->string('email');
             $table->string('site')->nullable();
-            $table->string('schedule_ru');
+            $table->string('schedule_ru')->nullable();
             $table->string('schedule_en')->nullable();
             $table->boolean('active');
             $table->timestamps();

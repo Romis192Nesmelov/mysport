@@ -2,6 +2,7 @@
 
 return [
     'active' => 'Активен',
+    'not_active' => 'Не активен',
     'event_active' => 'Событие активно',
     'years' => 'лет',
     'year' => 'года',
@@ -50,6 +51,12 @@ return [
     
     'yes' => 'Да',
     'no' => 'Нет',
+    'first' => 'Первый',
+    'last' => 'Последний',
+    'filter' => 'Фильтр',
+    'filtering_by' => 'Сортировать по',
+    'show_by' => 'Показывть по',
+    'next' => 'Следующий',
     'enter' => 'Войти',
     'cancel' => 'Отмена',
     'whoops' => 'Ой!',
@@ -86,9 +93,12 @@ return [
     'logout' => 'Выйти',
     'born_date' => 'Дата рождения:',
     'your_gender' => 'Ваш пол:',
+    'gender' => 'Пол:',
     'kid_gender' => 'Пол ребенка:',
     'man_letter' => 'М',
     'woman_letter' => 'Ж',
+    'man' => 'Мужчина',
+    'woman' => 'Женщина',
     'add_kid_profile' => 'Добавить профиль ребенка',
     'adding_kid_profile' => 'Добавление профиля ребенка',
     'change_password' => 'Изменить пароль',
@@ -122,6 +132,7 @@ return [
     'kind_of_sport' => 'Виды спорта<br><span>Санкт-Петербурга</span>',
     'open_all_kind_of_sport' => 'Открыть все виды спорта',
     'sport_map' => 'Карта спортивных объектов<br><span>Санкт-Петербурга</span>',
+    'best_trainer' => 'Лучший тренер',
     'best_trainers' => 'Лучшие тренеры<br><span>Санкт-Петербурга</span>',
     'show_all_trainers' => 'Показать всех тренеров',
     'trainer_section' => 'Секция: :section',
@@ -151,5 +162,6 @@ return [
     'longitude' => 'Долгота:',
 
     'no_file_selected' => 'Файл не выбран',
+    'no_data' => 'Нет данных',
     'footer_text' => '© 2020 Комитет по физической<br>культуре и спорту<br>Санкт-Петербурга'
 ];

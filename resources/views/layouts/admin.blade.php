@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ Settings::getSeoTags()['title'] ? Settings::getSeoTags()['title'].'. '.trans('menu.admin_page') : trans('menu.admin_page') }}</title>
+    <title>{{ Settings::getSeoTags()['title'] ? Settings::getSeoTags()['title'].'. '.trans('admin.admin_page') : trans('admin.admin_page') }}</title>
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -47,7 +47,7 @@
     <script type="text/javascript" src="{{ asset('js/plugins/pickers/pickadate/legacy.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/pages/picker_date.js') }}"></script>
 
-    <script type="text/javascript" src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/tables/datatables/datatables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/forms/selects/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/media/fancybox.min.js') }}"></script>
@@ -62,22 +62,19 @@
     <!-- /theme JS files -->
 
     <script type="text/javascript" src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
-    {{--<script type="text/javascript" src="{{ asset('js/map.js') }}"></script>--}}
+{{--<script type="text/javascript" src="{{ asset('js/map.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('js/loader.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/delete.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/delete.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/preview_image.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/masks.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/admin/admin.js') }}"></script>
 
     {{--<script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>--}}
 </head>
 
 <body>
 @include('layouts._message_modal_block')
-
-@if (Session::has('modal'))
-    {!! Session::get('modal') !!}
-@endif
-
 <!-- Main navbar -->
 <div class="navbar navbar-inverse">
     <div class="navbar-header">
@@ -90,53 +87,54 @@
     <div class="navbar-collapse collapse" id="navbar-mobile">
         <div class="navbar-right">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" id="message-counter-container" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-bubbles4"></i>
-                        <span class="visible-xs-inline-block position-right">{{ trans('admin.messages') }}</span>
-                        @if (count($messages))
-                            <span id="message-counter" class="badge bg-warning-400">{{ count($messages) }}</span>
-                        @endif
-                    </a>
-                    <div id="messages" class="dropdown-menu dropdown-content width-350">
-                        <div class="messages dropdown-content-heading">
-                            @if (count($messages))
-                                <a id="drop-messages" href="#">{{ trans('content.mark_all_as_read') }}</a>
-                            @endif
-                        </div>
-                        <ul class="messages media-list dropdown-content-body">
-                            @foreach($messages as $message)
-                                <li class="media">
-                                    <a href="{{ $message['href'] }}" class="media-heading">
-                                        <span class="text-semibold">{{ $message['head_'.App::getLocale()] }}</span>
-                                        <span class="media-annotation pull-right">{{ $message->created_at->format('d.m.Y') }}</span>
-                                    </a>
-                                    <span class="text-muted">{{ Helper::croppedContent($message['content_'.App::getLocale()],100) }}</span>
-                                </li>
-                            @endforeach
-                        </ul>
+                {{--<li class="dropdown">--}}
+                    {{--<a href="#" id="message-counter-container" class="dropdown-toggle" data-toggle="dropdown">--}}
+                        {{--<i class="icon-bubbles4"></i>--}}
+                        {{--<span class="visible-xs-inline-block position-right">{{ trans('admin.messages') }}</span>--}}
+                        {{--@if (count($messages))--}}
+                            {{--<span id="message-counter" class="badge bg-warning-400">{{ count($messages) }}</span>--}}
+                        {{--@endif--}}
+                    {{--</a>--}}
+                    {{--<div id="messages" class="dropdown-menu dropdown-content width-350">--}}
+                        {{--<div class="messages dropdown-content-heading">--}}
+                            {{--@if (count($messages))--}}
+                                {{--<a id="drop-messages" href="#">{{ trans('content.mark_all_as_read') }}</a>--}}
+                            {{--@endif--}}
+                        {{--</div>--}}
+                        {{--<ul class="messages media-list dropdown-content-body">--}}
+                            {{--@foreach($messages as $message)--}}
+                                {{--<li class="media">--}}
+                                    {{--<a href="{{ $message['href'] }}" class="media-heading">--}}
+                                        {{--<span class="text-semibold">{{ $message['head_'.App::getLocale()] }}</span>--}}
+                                        {{--<span class="media-annotation pull-right">{{ $message->created_at->format('d.m.Y') }}</span>--}}
+                                    {{--</a>--}}
+                                    {{--<span class="text-muted">{{ Helper::croppedContent($message['content_'.App::getLocale()],100) }}</span>--}}
+                                {{--</li>--}}
+                            {{--@endforeach--}}
+                        {{--</ul>--}}
 
-                        <div class="dropdown-content-footer">
-                            <a href="{{ url('admin/messages') }}" data-popup="tooltip" title="{{ trans('admin.all_messages') }}"><i class="icon-menu display-block"></i></a>
-                        </div>
-                    </div>
-                </li>
+                        {{--<div class="dropdown-content-footer">--}}
+                            {{--<a href="{{ url('admin/messages') }}" data-popup="tooltip" title="{{ trans('admin.all_messages') }}"><i class="icon-menu display-block"></i></a>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</li>--}}
 
-                <li class="dropdown language-switch">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ asset('images/'.(App::getLocale() == 'en' ? 'eng' : 'rus').'.png') }}" class="position-left" alt="">
-                        {{ App::getLocale() == 'en' ? 'English' : 'Русский' }}
-                        <span class="caret"></span>
-                    </a>
+                {{--<li class="dropdown language-switch">--}}
+                    {{--<a class="dropdown-toggle" data-toggle="dropdown">--}}
+                        {{--<img src="{{ asset('images/'.(App::getLocale() == 'en' ? 'eng' : 'rus').'.png') }}" class="position-left" alt="">--}}
+                        {{--{{ App::getLocale() == 'en' ? 'English' : 'Русский' }}--}}
+                        {{--<span class="caret"></span>--}}
+                    {{--</a>--}}
 
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ url('/change-lang?lang=en') }}" class="english"><img src="{{ asset('images/eng.png') }}" alt=""> {{ trans('content.en') }}</a></li>
-                        <li><a href="{{ url('/change-lang?lang=ru') }}" class="russian"><img src="{{ asset('images/rus.png') }}" alt=""> {{ trans('content.ru') }}</a></li>
-                    </ul>
-                </li>
+                    {{--<ul class="dropdown-menu">--}}
+                        {{--<li><a href="{{ url('/change-lang?lang=en') }}" class="english"><img src="{{ asset('images/eng.png') }}" alt=""> {{ trans('content.en') }}</a></li>--}}
+                        {{--<li><a href="{{ url('/change-lang?lang=ru') }}" class="russian"><img src="{{ asset('images/rus.png') }}" alt=""> {{ trans('content.ru') }}</a></li>--}}
+                    {{--</ul>--}}
+                {{--</li>--}}
 
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
+                        @include('layouts._avatar_block',['avatar' => Auth::user()->avatar])
                         <span>{{ Auth::user()->email }}</span>
                         <i class="caret"></i>
                     </a>
@@ -197,8 +195,8 @@
                                         }
                                     }
                                     ?>
-                                    <li {{ (preg_match('/^(admin\/'.str_replace('/','\/',$menu['href'].'/'.$submenu['href']).')/', Request::path())) /*|| (Request::path() == 'admin/products' && Request::has('id') && Request::input('id') == (int)str_replace('?id=','',$submenu['href']))*/ ? 'class=active' : '' }}>
-                                        <a href="{{ url('/admin/'.$menu['href'].'/'.$submenu['href']) }}" {!! $addAttrStr !!}>{{ str_limit($submenu['name'], 20) }}</a>
+                                    <li {{ (preg_match('/^(admin\/'.str_replace('/','\/',$submenu['href']).')/', Request::path())) /*|| (Request::path() == 'admin/products' && Request::has('id') && Request::input('id') == (int)str_replace('?id=','',$submenu['href']))*/ ? 'class=active' : '' }}>
+                                        <a href="{{ url('/admin/'.$submenu['href']) }}" {!! $addAttrStr !!}>{{ str_limit($submenu['name'], 20) }}</a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -256,8 +254,6 @@
 
 </div>
 <!-- /page container -->
-
-<script>window.urlPrefix = "{{ $urlPrefix }}";</script>
 
 </body>
 </html>

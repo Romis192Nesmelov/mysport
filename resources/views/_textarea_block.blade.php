@@ -1,12 +1,15 @@
 <div class="clearfix form-group textarea has-feedback {{ $errors && $errors->has($name) ? 'has-error' : '' }}">
     @if (isset($label) && $label)
-        <div class="description input-label">{{ $label }}</div>
+        <div class="description input-label">
+            {{ $label }}
+            @if (isset($star) && $star)
+                <span class="star">*</span>
+            @endif
+        </div>
     @endif
-    <textarea {{ isset($simple) && $simple ? 'class=simple' : '' }} name="{{ $name }}">{{ count($errors->getMessageBag()) ? old($name) : (isset($value) ? $value : '') }}</textarea>
+    <textarea class="{{ isset($simple) && $simple ? 'simple' : '' }} {{ count($errors) && $errors->has($name) ? 'has-error' : '' }}" name="{{ $name }}">{{ count($errors->getMessageBag()) ? old($name) : (isset($value) ? $value : '') }}</textarea>
+    @include('_input_error_block')
 
-    @if ($errors && $errors->has($name) || (isset($useAjax) && $useAjax))
-        <div class="help-block error error-{{ $name }}">{{ $errors->first($name) }}</div>
-    @endif
     @if (!isset($simple) || !$simple)
         <script>
             var editor = CKEDITOR.replace('{{ $name }}', {

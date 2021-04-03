@@ -73,7 +73,7 @@ class UsersTableSeeder extends Seeder
             ],
             
             [
-                'avatar' => null,
+                'avatar' => '',
                 'email' => 'vnn@12.ru',
                 'name' => 'Владимир',
                 'surname' => 'Батькович',
@@ -84,7 +84,7 @@ class UsersTableSeeder extends Seeder
                 'type' => 2
             ],
             [
-                'avatar' => null,
+                'avatar' => '',
                 'name' => 'Евгения',
                 'surname' => 'Владимировна',
                 'family' => 'Цаплева',
@@ -107,13 +107,11 @@ class UsersTableSeeder extends Seeder
         ];
 
         foreach ($userData as $k => $user) {
-            if ($k) {
-                $user['email'] = $this->getRandomEmail();
-                $user['phone'] = $this->getRandomPhone();
-                $user['password'] = bcrypt(str_random(5));
-                $user['born'] = rand(1,473414255);
-                isset($user['type']) ? $user['type'] : $user['type'] = 1;
-            }
+            if (!isset($user['email'])) $user['email'] = $this->getRandomEmail();
+            if (!isset($user['phone'])) $user['phone'] = $this->getRandomPhone();
+            if (!isset($user['password'])) $user['password'] = bcrypt(str_random(5));
+            if (!isset($user['born'])) $user['born'] = rand(1,473414255);
+            if (!isset($user['type'])) $user['type'] = 1;
 
             if (!isset($user['avatar'])) $user['avatar'] = 'images/avatars/user_avatar'.($k+1).'.jpg';
             $user['active'] = 1;
@@ -138,7 +136,7 @@ class UsersTableSeeder extends Seeder
                 'phone' => $this->getRandomPhone(),
                 'password' => bcrypt(str_random(10)),
                 'active' => 1,
-                'type' => 1,
+                'type' => 3,
                 'send_mail' => 0
             ]);
         }

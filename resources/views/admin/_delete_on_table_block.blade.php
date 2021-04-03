@@ -1,0 +1,1 @@
+<td class="delete"><span del-data="{{ $id }}" modal-data="{{ $method }}" class="glyphicon glyphicon-remove-circle"></span></td>

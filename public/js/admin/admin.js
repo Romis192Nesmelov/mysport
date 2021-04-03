@@ -1,16 +1,34 @@
 $(document).ready(function() {
+    unifiedHeight();
+    $(window).resize(function() {
+        unifiedHeight();
+    });
+
     $('a.img-preview').fancybox({
         padding: 3
     });
 
-    var singleHeightNods = $('.single-height');
-    $(window).resize(function() {
-        maxHeight(singleHeightNods);
+    $('table.datatable-basic').on('draw.dt', function () {
+        bindDelete();
     });
-    maxHeight(singleHeightNods);
-    
-    $('input[name=phone]').mask("+7(999)999-99-99");
 });
+
+function unifiedHeight() {
+    var unifiedHeight = [
+        {
+            'obj'       :$('.gallery-photo'),
+            'reserve'   :0,
+            'except'    :null,
+            'include'   :null
+        }
+    ];
+
+    setTimeout(function () {
+        $.each(unifiedHeight, function (k,item) {
+            maxHeight(item.obj,item.reserve,item.except,item.include);
+        });
+    },1000);
+}
 
 function translit(text, engToRus) {
     var rus = "щ ш ч ц ю я ё ж ъ ы э а б в г д е з и й к л м н о п р с т у ф х ь".split(/ +/g),

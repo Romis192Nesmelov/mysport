@@ -14,7 +14,6 @@
         @endif
     @endforeach
 
-    <meta name="google-site-verification" content="8Q5JkMQz_Rz_MJMSU4oysoF0JGTI9JK04e6a2La_Nbg" />
     {{--<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">--}}
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
     <link href="{{ asset('css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
@@ -91,6 +90,7 @@
 
     <script type="text/javascript" src="{{ asset('/js/yamap.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/delete.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/masks.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
 </head>
 <body>

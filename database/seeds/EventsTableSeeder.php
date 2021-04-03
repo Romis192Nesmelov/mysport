@@ -62,10 +62,12 @@ class EventsTableSeeder extends Seeder
             else $usersForAll[] = $user->id;
         }
 
-        for ($i=0;$i<100;$i++) {
+        $monthCount = 1;
+        for ($i=0;$i<50;$i++) {
             $areaId = $areas[rand(0,count($areas)-1)];
-            $month = date('n')+(ceil($i/11));
-            $day = $day > cal_days_in_month(CAL_GREGORIAN,$month,2021) ? 1 : $day+1;
+            $month = date('n')+$monthCount;
+            $monthCount = !rand(0,3) && date('n')+$monthCount < 12 ? $monthCount+1 : 0;
+            $day = $day > cal_days_in_month(CAL_GREGORIAN,$month,date('Y')) ? 1 : $day+1;
             $hour = rand(7,15);
             $halfHour = rand(1,50) > 25 ? '30' : '00';
             $startTime = strtotime($month.'/'.$day.'/2021 '.$hour.':'.$halfHour.':00');

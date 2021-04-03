@@ -2,6 +2,7 @@
 
 return [
     'active' => 'Active',
+    'not_active' => 'Not active',
     'event_active' => 'Event active',
     'years' => 'years',
     'year' => 'year',
@@ -50,6 +51,13 @@ return [
 
     'yes' => 'Yes',
     'no' => 'No',
+    'first' => 'First',
+    'last' => 'Last',
+    'filter' => 'Filter',
+    'filtering_by' => 'Filtering_by',
+    'show_by' => 'Show by',
+    'next' => 'Next',
+    'previous' => 'Previous',
     'enter' => 'Enter',
     'cancel' => 'Cancel',
     'whoops' => 'Whoops!',
@@ -86,9 +94,12 @@ return [
     'logout' => 'Logout',
     'born_date' => 'Born date:',
     'your_gender' => 'Your gender:',
+    'gender' => 'Gender:',
     'kid_gender' => 'Child gender:',
     'man_letter' => 'M',
     'woman_letter' => 'W',
+    'man' => 'Man',
+    'woman' => 'Woman',
     'add_kid_profile' => 'Add child profile',
     'adding_kid_profile' => 'Adding child profile',
     'change_password' => 'Change password',
@@ -122,6 +133,7 @@ return [
     'kind_of_sport' => 'Kind of sport<br><span>of St.Petersburg</span>',
     'open_all_kind_of_sport' => 'Open all kind of sport',
     'sport_map' => 'Sports facilities map<br><span>of St.Petersburg</span>',
+    'best_trainer' => 'Лучшие тренер',
     'best_trainers' => 'Best trainers<br><span>of St.Petersburg</span>',
     'show_all_trainers' => 'Show all trainers',
     'trainer_section' => 'Kind of sport: :section',
@@ -149,5 +161,6 @@ return [
     'longitude' => 'Longitude:',
 
     'no_file_selected' => 'No file selected',
+    'no_data' => 'No data',
     'footer_text' => '© 2020 Committee for<br>Physical Culture and Sports<br>of St. Petersburg'
 ];

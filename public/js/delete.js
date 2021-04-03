@@ -1,17 +1,6 @@
 $(document).ready(function() {
     // Click to delete items
-    $('.delete-icon').click(function () {
-        var obj = $(this),
-            deleteModal = $('#'+obj.attr('modal-data'));
-
-        localStorage.clear();
-        window.deleteId = obj.attr('del-data');
-        window.deleteFunc = deleteModal.find('.modal-body').attr('del-function');
-        window.deleteRow = obj.parents('tr').length ? obj.parents('tr').attr('id') : obj.parents('.col-xs-12').attr('id');
-        window.deleteModal = obj.attr('modal-data');
-
-        deleteModal.modal('show');
-    });
+    bindDelete();    
 
     // Click YES on delete modal
     $('.delete-yes').click(function () {
@@ -30,3 +19,18 @@ $(document).ready(function() {
         });
     });
 });
+
+function bindDelete() {
+    $('.delete-icon, .glyphicon.glyphicon-remove-circle').click(function () {
+        var obj = $(this),
+            deleteModal = $('#'+obj.attr('modal-data'));
+
+        localStorage.clear();
+        window.deleteId = obj.attr('del-data');
+        window.deleteFunc = deleteModal.find('.modal-body').attr('del-function');
+        window.deleteRow = obj.parents('tr').length ? obj.parents('tr').attr('id') : obj.parents('.col-xs-12').attr('id');
+        window.deleteModal = obj.attr('modal-data');
+
+        deleteModal.modal('show');
+    });
+}
