@@ -30,6 +30,16 @@ return [
     'user_active' => 'User is active',
     'user_not_active' => 'User is not active',
 
+    'record-user_active' => 'User is active',
+    'record-user_not_active' => 'User is not active',
+
+    'add_record_user' => 'Record user',
+    'add_record_kid' => 'Record kid',
+
+    'select_account' => 'Select the account',
+    'account_already_recorded' => 'Account already recorded!',
+    'record_complete' => 'Record complete!',
+
     'kid' => 'Kid\'s account',
     'parent' => 'Parent\'s account',
     'kids' => 'Kid\'s accounts',
@@ -40,6 +50,9 @@ return [
     'do_you_want_to_delete_kid' => 'Do you really want to delete this kid\'s account?',
     'kid_active' => 'Kid\'s account is active',
     'kid_not_active' => 'Kid\'s account is not active',
+
+    'record-kid_active' => 'Kid\'s account is active',
+    'record-kid_not_active' => 'Kid\'s account is not active',
     
     'main_email' => 'Main E-mail',
 
@@ -110,4 +123,5 @@ return [
     'users_hy_recorded' => 'Recorded users',
     'kids_hy_recorded' => 'Recorded kids',
     'do_you_want_to_delete_photo' => 'Do you really want to delete this photo?',
+    'delete_record' => 'Delete record',
 ];

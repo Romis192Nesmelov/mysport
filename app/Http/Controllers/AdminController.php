@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\EventsRecord;
+use App\SectionsRecord;
 use App\Sport;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
@@ -112,7 +114,7 @@ class AdminController extends UserController
 
     public function sections(Request $request, $slug=null)
     {
-        return $this->getObjects($request, new Section(), $slug, 'name', new Trainer());
+        return $this->getObjects($request, new Section(), $slug, 'name', [new User(), new Kid(), new Trainer()]);
     }
 
     public function places(Request $request, $slug=null)
@@ -127,7 +129,7 @@ class AdminController extends UserController
     
     public function events(Request $request, $slug=null)
     {
-        return $this->getObjects($request, new Event(), $slug, 'name', [new User(), new KindOfSport(), new Area()], 'start_time');
+        return $this->getObjects($request, new Event(), $slug, 'name', [new User(), new Kid(), new KindOfSport(), new Area()], 'start_time');
     }
 
     private function getObjects(Request $request, Model $model, $slug, $headName, $addCollection=false, $descField=false)
@@ -477,6 +479,46 @@ class AdminController extends UserController
         }
         return redirect()->back()->with('message',trans('content.save_complete'));
     }
+    
+    public function recordEventUser(Request $request)
+    {
+        return $this->recordUser($request, new EventsRecord(), new User(), 'user_id', 'event_id');
+    }
+
+    public function recordEventKid(Request $request)
+    {
+        return $this->recordUser($request, new EventsRecord(), new User(), 'kid_id', 'event_id');
+    }
+
+    public function recordSectionUser(Request $request)
+    {
+        return $this->recordUser($request, new SectionsRecord(), new User(), 'user_id', 'section_id');
+    }
+    
+    public function recordSectionKid(Request $request)
+    {
+        return $this->recordUser($request, new SectionsRecord(), new User(), 'kid_id', 'section_id');
+    }
+    
+    private function recordUser(Request $request, Model $modelRecord, Model $modelUser, $userField, $itemField)
+    {
+        $this->validate($request, [
+            'id' => 'required|integer|exists:'.$modelRecord->getTable().',id',
+            'user_id' => 'required|integer|exists:'.$modelUser->getTable().',id',
+        ]);
+        $itemId = $request->input('id');
+        $userId = $request->input('user_id');
+        
+        $record = $modelRecord->where($userField,$userId)->where($itemField,$itemId)->first();
+        if ($record) return redirect()->back()->with('message',trans('admin.account_already_recorded'));
+        else {
+            $modelRecord->create([
+                $userField => $userId,
+                $itemField => $itemId
+            ]);
+            return redirect()->back()->with('message',trans('admin.record_complete'));
+        }
+    }
 
     public function deleteUser(Request $request)
     {
@@ -534,6 +576,16 @@ class AdminController extends UserController
     {
         return $this->deleteSomething($request, new Event());
     }
+    
+    public function deleteRecordEvent(Request $request)
+    {
+        return $this->deleteSomething($request, new EventsRecord());
+    }
+
+    public function deleteRecordSection(Request $request)
+    {
+        return $this->deleteSomething($request, new SectionsRecord());
+    }
 
     public function deleteGallery(Request $request)
     {
@@ -542,11 +594,6 @@ class AdminController extends UserController
     
     public function showView(Request $request, $view, $token=null)
     {
-//        $submenuChapters = [];
-//        foreach ($this->data['chapters'] as $chapter) {
-//            $submenuChapters[] = ['href' => '?id='.$chapter->id,'name' => $chapter['head_'.App::getLocale()]];
-//        }
-
         $menus = [
             ['href' => 'seo', 'name' => 'SEO', 'icon' => 'icon-price-tags'],
             ['href' => 'settings', 'name' => trans('admin.settings'), 'icon' => 'icon-gear'],

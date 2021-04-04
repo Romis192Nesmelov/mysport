@@ -14,7 +14,7 @@ Route::auth();
 
 Route::get('/?auth=login', 'StaticController@index')->name('login');
 Route::get('/login', 'StaticController@redirect');
-//Route::get('/register', 'StaticController@index');
+Route::get('/register', 'StaticController@redirect');
 //Route::get('/password-reset', 'StaticController@index');
 //Route::get('/send-confirm', 'StaticController@index');
 //Route::get('password/reset/{token}', 'StaticController@index');
@@ -81,6 +81,15 @@ Route::post('/admin/delete-kind_of_sport', 'AdminController@deleteKindOfSports')
 Route::get('/admin/events/{slug?}', 'AdminController@events');
 Route::post('/admin/event', 'AdminController@editEvent');
 Route::post('/admin/delete-event', 'AdminController@deleteEvent');
+
+Route::post('/admin/delete-record-event', 'AdminController@deleteRecordEvent');
+Route::post('/admin/delete-record-section', 'AdminController@deleteRecordSection');
+
+Route::post('/admin/record-event-user', 'AdminController@recordEventUser');
+Route::post('/admin/record-event-kid', 'AdminController@recordEventKid');
+
+Route::post('/admin/record-section-user', 'AdminController@recordEventUser');
+Route::post('/admin/record-section-kid', 'AdminController@recordEventKid');
 
 Route::post('/admin/gallery', 'AdminController@editGallery');
 Route::post('/admin/delete-gallery', 'AdminController@deleteGallery');

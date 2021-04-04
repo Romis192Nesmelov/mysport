@@ -18,7 +18,7 @@
                         @include('admin._panel_title_block',['title' => trans('auth.star_mark'),'h' => 3])
                         <div class="panel-body">
                             @include('admin._select_trainers_block',[
-                                'trainers' => $data['collection'],
+                                'trainers' => $data['collections']['trainers'],
                                 'selected' => isset($data['item']) ? $data['item']->trainer_id : null
                             ])
                             @include('admin._name_and_description_block')
@@ -49,7 +49,7 @@
     </div>
     @if (isset($data['item']))
         @include('admin._gallery_block',['model' => $data['item']])
-        @include('admin._users_records_table_block',['objectName' => 'user'])
-        @include('admin._users_records_table_block',['objectName' => 'kid'])
+        @include('admin._users_records_table_block',['objectName' => 'user','recordName' => 'section'])
+        @include('admin._users_records_table_block',['objectName' => 'kid','recordName' => 'section'])
     @endif
 @endsection

@@ -1,4 +1,4 @@
-<tr class="data" role="row" id="{{ $objectName.'_'.$user->id }}">
+<tr class="data" role="row" id="{{ $objectName.'_'.(isset($deleteId) && $deleteId ? $deleteId : $user->id) }}">
     @include('admin._image_on_table_block',['image' => $user->avatar])
     <td class="text-center name">{!! Helper::userCreds($user) !!}</td>
     <td class="text-center">
@@ -22,5 +22,5 @@
         ])
     </td>
     @include('admin._edit_on_table_block',['method' => $objectName.'s', 'id' => $user->id, 'addVars' => isset($parent) && $parent && !is_bool($parent) ? ['user_id' => $user->id] : []])
-    @include('admin._delete_on_table_block',['method' => 'delete-'.$objectName.'-modal', 'id' => $user->id])
+    @include('admin._delete_on_table_block',['method' => 'delete-'.$objectName.'-modal', 'id' => isset($deleteId) && $deleteId ? $deleteId : $user->id])
 </tr>

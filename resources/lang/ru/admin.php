@@ -30,6 +30,16 @@ return [
     'user_active' => 'Пользователь активен',
     'user_not_active' => 'Пользователь не активен',
 
+    'record-user_active' => 'Пользователь активен',
+    'record-user_not_active' => 'Пользователь не активен',
+    
+    'add_record_user' => 'Записать пользователя',
+    'add_record_kid' => 'Записать ребенка',
+    
+    'select_account' => 'Выберите аккаунт',
+    'account_already_recorded' => 'Аккаунт уже записан!',
+    'record_complete' => 'Запись произведене!',
+
     'kid' => 'Аккаунты ребенка',
     'parent' => 'Аккаунт родителя',
     'kids' => 'Аккаунты детей',
@@ -40,6 +50,9 @@ return [
     'do_you_want_to_delete_kid' => 'Вы действительно хотите удалить этот аккаунт?',
     'kid_active' => 'Аккаунт активен',
     'kid_not_active' => 'Аккаунт не активен',
+
+    'record-kid_active' => 'Аккаунт активен',
+    'record-kid_not_active' => 'Аккаунт не активен',
 
     'main_email' => 'Главный E-mail',
     
@@ -110,4 +123,5 @@ return [
     'users_hy_recorded' => 'Записавшиеся пользователи',
     'kids_hy_recorded' => 'Записанные дети',
     'do_you_want_to_delete_photo' => 'Вы действительно хотите удалить эту фотографию?',
+    'delete_record' => 'Удалить запись',
 ];

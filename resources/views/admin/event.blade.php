@@ -92,8 +92,8 @@
     </div>
 
     @if (isset($data['item']))
-        @include('admin._users_records_table_block',['objectName' => 'user'])
-        @include('admin._users_records_table_block',['objectName' => 'kid'])
+        @include('admin._users_records_table_block',['objectName' => 'user','recordName' => 'event'])
+        @include('admin._users_records_table_block',['objectName' => 'kid','recordName' => 'event'])
     @endif
 
 @endsection

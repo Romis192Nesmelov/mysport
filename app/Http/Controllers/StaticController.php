@@ -25,6 +25,7 @@ class StaticController extends Controller
     public function redirect(Request $request)
     {
         if ($request->path() == 'login') return redirect('/?auth=login');
+        elseif ($request->path() == 'register') return redirect('/?auth=register');
         else return redirect('/');
     }
 
