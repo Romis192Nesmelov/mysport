@@ -1,7 +1,7 @@
 @if (isset($label))
     <div class="description input-label">{{ $label }}</div>
 @endif
-<div class="{{ isset($addClass) ? $addClass : '' }} form-group has-feedback {{ $errors && $errors->has($name) ? 'has-error' : '' }}">
+<div class="{{ isset($addClass) ? $addClass : '' }} form-group has-feedback {{ count($errors) && $errors->has($name) ? 'has-error' : '' }}">
     <select name="{{ $name }}" class="form-control">
         @if (is_array($values))
             @foreach ($values as $value => $options)

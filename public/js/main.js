@@ -9,6 +9,14 @@ $(document).ready(function() {
 
     // $('.styled').uniform();
     $('a.img-preview').fancybox({padding: 3});
+    $('.avatar img').each(function () {
+        if ($(this).width() > $(this).height()) {
+            $(this).css({
+                'width':'auto',
+                'height':'100%'
+            });
+        }
+    });
     
     // Owlcarousel
     var navButtonBlack1 = '<img src="/images/arrow_left_black.svg" />',

@@ -272,6 +272,9 @@ button[type=submit] {
 .avatar img {
     width: 100%;
     height: auto;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .navbar-right .navbar-nav .avatar {

@@ -1,4 +1,4 @@
-<div class="clearfix form-group textarea has-feedback {{ $errors && $errors->has($name) ? 'has-error' : '' }}">
+<div class="clearfix form-group textarea has-feedback">
     @if (isset($label) && $label)
         <div class="description input-label">
             {{ $label }}
