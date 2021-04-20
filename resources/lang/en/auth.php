@@ -101,5 +101,9 @@ return [
     'auth_err' => 'Auth error',
     'finish_auth' => 'We were not able to automatically get some of your profile information, please complete authorization manually!',
     'define_your_creds' => 'You must specify missing data in your profile!',
-    'star_mark' => 'Fields marked with <span class="error">*</span> are required!'
+    'star_mark' => 'Fields marked with <span class="error">*</span> are required!',
+    'soc_nets' => 'Social nets',
+    'fb_profile' => 'Facebook profile',
+    'vk_profile' => 'VKontakte profile',
+    'inst_profile' => 'Instagram profile',
 ];

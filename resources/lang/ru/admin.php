@@ -124,4 +124,6 @@ return [
     'kids_hy_recorded' => 'Записанные дети',
     'do_you_want_to_delete_photo' => 'Вы действительно хотите удалить эту фотографию?',
     'delete_record' => 'Удалить запись',
+
+    'advertising_banners' => 'Рекламные баннеры',
 ];

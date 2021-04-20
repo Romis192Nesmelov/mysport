@@ -127,9 +127,10 @@ class AdminController extends UserController
         return $this->getObjects($request, new KindOfSport(), null, 'name');
     }
     
-    public function events(Request $request, $slug=null)
+    public function banners(Request $request)
     {
-        return $this->getObjects($request, new Event(), $slug, 'name', [new User(), new Kid(), new KindOfSport(), new Area()], 'start_time');
+        $this->breadcrumbs = ['banners' => trans('admin.advertising_banners')];
+        return $this->showView($request, 'banners');
     }
 
     private function getObjects(Request $request, Model $model, $slug, $headName, $addCollection=false, $descField=false)
@@ -221,6 +222,11 @@ class AdminController extends UserController
             'since' => 'required|integer|min:1900|max:'.(string)date('Y'),
             'kind_of_sport_id' => $this->validationKindOfSport
         ];
+
+        foreach ($this->trainerSocNets as $net) {
+            if ($request->input($net)) $trainerFields[$net] = $this->validationSocNets[$net];
+        }
+        
         $trainerBoolFields = ['best'];
         $ignoreFields = ['avatar','password','password_confirmation','trainer_active','is_trainer'];
         $isTrainer = $request->has('is_trainer') && $request->input('is_trainer') == 'on';
@@ -309,9 +315,10 @@ class AdminController extends UserController
         $validationArr = [
             'image' => $this->validationImage,
             'head_ru' => $this->validationCharField,
-            'content_ru' => $this->validationTextField,
+            'content_ru' => 'required|min:10|max:5000',
+            'date' => $this->validationDate
         ];
-        return $this->editObject($request, new News(), $validationArr, ['active'], ['image'], 'news', 'news');
+        return $this->editObject($request, new News(), $validationArr, ['active'], ['image'], ['date'], 'news', 'news');
     }
 
     public function editArea(Request $request)
@@ -326,7 +333,7 @@ class AdminController extends UserController
         if ($request->has('phone')) $validationArr['phone'] = $this->validationPhone;
         if ($request->has('email')) $validationArr['email'] = $this->validationNoUniqueEmail;
 
-        return $this->editObject($request, new Area(), $validationArr, ['active'], ['image'], 'areas', 'arms');
+        return $this->editObject($request, new Area(), $validationArr, ['active'], ['image'], [], 'areas', 'arms');
     }
 
     public function editOrganization(Request $request)
@@ -346,7 +353,7 @@ class AdminController extends UserController
         ];
 
         if ($request->has('site')) $validationArr['site'] = $this->validationSite;
-        return $this->editObject($request, new Organization(), $validationArr, ['active'], ['image'], 'organizations', 'objects');
+        return $this->editObject($request, new Organization(), $validationArr, ['active'], ['image'], [], 'organizations', 'objects');
     }
 
     public function editSection(Request $request)
@@ -365,7 +372,7 @@ class AdminController extends UserController
         ];
 
         if ($request->has('site')) $validationArr['site'] = $this->validationSite;
-        return $this->editObject($request, new Section(), $validationArr, ['active'], ['image'], 'sections', 'objects');
+        return $this->editObject($request, new Section(), $validationArr, ['active'], ['image'], [], 'sections', 'objects');
     }
 
     public function editPlace(Request $request)
@@ -418,7 +425,7 @@ class AdminController extends UserController
             'recommendation_ru' => $this->validationTextField,
             'needed_ru' => $this->validationTextField,
         ];
-        return $this->editObject($request, new KindOfSport(), $validationArr, ['active'], ['icon'], 'kind_of_sports', 'sports_icons');
+        return $this->editObject($request, new KindOfSport(), $validationArr, ['active'], ['icon'], [], 'kind_of_sports', 'sports_icons');
     }
 
     public function editEvent(Request $request)
@@ -426,9 +433,9 @@ class AdminController extends UserController
         return $this->processingEvent($request,true);
     }
 
-    private function editObject(Request $request, Model $model, array $validationArr, array $checkboxFields, array $ignoreFields, $backUri, $imageFolder=null)
+    private function editObject(Request $request, Model $model, array $validationArr, array $checkboxFields, array $ignoreFields, array $timeFields, $backUri, $imageFolder=null)
     {
-        $fields = $this->processingFields($request, $checkboxFields, $ignoreFields);
+        $fields = $this->processingFields($request, $checkboxFields, $ignoreFields, $timeFields);
         if ((isset($validationArr['image']) || isset($validationArr['icon'])) && $imageFolder) $imageField = isset($validationArr['image']) ? 'image' : 'icon';
         else $imageField = null;
 
@@ -448,6 +455,25 @@ class AdminController extends UserController
             $item->update($userFields);
         }
         return redirect('/admin/'.$backUri)->with('message',trans('content.save_complete'));
+    }
+
+    public function editBanners(Request $request)
+    {
+        $validationArr = [];
+        for ($b=1;$b<=3;$b++) {
+            $field = 'banner'.$b;
+            if ($request->hasFile($field)) {
+                $validationArr['banner'.$b] = 'required|mimes:jpg';
+            }
+        }
+        $this->validate($request, $validationArr);
+        for ($b=1;$b<=3;$b++) {
+            $field = 'banner'.$b;
+            if ($request->hasFile($field)) {
+                $request->file($field)->move(base_path('public/images'),$field.'.jpg');
+            }
+        }
+        return redirect('/admin/banners')->with('message',trans('content.save_complete'));
     }
 
     public function editGallery(Request $request)
@@ -605,6 +631,7 @@ class AdminController extends UserController
             ['href' => 'places', 'name' => trans('admin.places'), 'icon' => 'icon-pin-alt'],
             ['href' => 'kind_of_sports', 'name' => trans('admin.kind_of_sports'), 'icon' => 'icon-medal2'],
             ['href' => 'events', 'name' => trans('admin.events'), 'icon' => 'icon-calendar3'],
+            ['href' => 'banners', 'name' => trans('admin.advertising_banners'), 'icon' => 'icon-image3'],
         ];
 
         return view('admin.'.$view, [

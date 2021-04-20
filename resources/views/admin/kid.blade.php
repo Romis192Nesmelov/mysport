@@ -9,7 +9,6 @@
                 @include('admin._hidden_id_block',['item' => isset($data['kid']) ? $data['kid'] : null])
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     @include('_image_block', [
-                        'col' => 12,
                         'label' => trans('content.avatar'),
                         'preview' => isset($data['kid']) ? $data['kid']->avatar : '',
                         'name' => 'avatar',

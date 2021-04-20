@@ -163,6 +163,27 @@
                     ])
 
                     @include('_input_block',[
+                        'label' => trans('auth.fb_profile'),
+                        'type' => 'text',
+                        'name' => 'fb',
+                        'value' => Auth::user()->trainer->fb
+                    ])
+
+                    @include('_input_block',[
+                        'label' => trans('auth.vk_profile'),
+                        'type' => 'text',
+                        'name' => 'vk',
+                        'value' => Auth::user()->trainer->vk
+                    ])
+
+                    @include('_input_block',[
+                        'label' => trans('auth.inst_profile'),
+                        'type' => 'text',
+                        'name' => 'inst',
+                        'value' => Auth::user()->trainer->inst
+                    ])
+
+                    @include('_input_block',[
                         'label' => trans('content.experience_since').' ('.trans('content.year').')',
                         'type' => 'number',
                         'name' => 'since',

@@ -39,6 +39,12 @@ trait HelperTrait
     private $validationSection = 'required|integer|exists:sections,id';
     private $validationPlace = 'required|integer|exists:places,id';
     private $validationEvent = 'required|integer|exists:events,id';
+    private $trainerSocNets = ['fb','vk','inst'];
+    private $validationSocNets = [
+        'fb' => ['required','regex:/(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]*)/'],
+        'vk' => ['required','regex:/^(https?:\/\/(www\.)?vk\.com\/(\d|\w)+(\/)?)$/'],
+        'inst' => ['required','regex:/^(https:\/\/www.instagram.com\/(\d|\w)+(\/)?)$/']
+    ];
     private $metas = [
         'meta_description' => ['name' => 'description', 'property' => false],
         'meta_keywords' => ['name' => 'keywords', 'property' => false],
@@ -110,7 +116,7 @@ trait HelperTrait
         $fields = $request->except($exceptFields);
 
         if ($checkboxFields) {
-            if (is_array($checkboxFields)) {
+            if (is_array($checkboxFields) && count($checkboxFields)) {
                 foreach ($checkboxFields as $field) {
                     $fields[$field] = isset($fields[$field]) && $fields[$field] == 'on' ? 1 : 0;
                 }
@@ -120,7 +126,7 @@ trait HelperTrait
         }
 
         if ($timeFields) {
-            if (is_array($timeFields)) {
+            if (is_array($timeFields) && count($timeFields)) {
                 foreach ($timeFields as $field) {
 //                    $fields[$field] = Carbon::createFromTimestamp($this->convertDate($fields[$field]))->toDateTimeString();
                     $fields[$field] = $this->convertDate($fields[$field]);
@@ -132,7 +138,7 @@ trait HelperTrait
         }
 
         if ($colorFields) {
-            if (is_array($colorFields)) {
+            if (is_array($colorFields) && count($colorFields)) {
                 foreach ($colorFields as $field) {
                     $fields[$field] = $this->convertColor($fields[$field]);
                 }

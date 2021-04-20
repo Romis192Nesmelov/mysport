@@ -5,7 +5,6 @@
                 <div class="icon-delete"><span del-data="{{ $gallery->id }}" modal-data="delete-gallery-modal" class="glyphicon glyphicon-remove-circle"></span></div>
             @endif
             @include('_image_block', [
-                'col' => 12,
                 'label' => trans('content.image'),
                 'preview' => $gallery ? $gallery->photo : '',
                 'full' => $gallery ? $gallery->photo : '',

@@ -9,7 +9,7 @@ h1, h2, h3, h4 {
 }
 
 .pagination {
-    margin: auto;
+    margin: 30px auto;
 }
 
 .pagination .page-link {
@@ -92,6 +92,10 @@ p.text-center {
     margin: auto;
 }
 
+.section.current-news h1 {
+    font-size: 30px;
+}
+
 .section .header > .button {
     float: none;
     border: 2px solid #756e85;
@@ -125,6 +129,12 @@ p.text-center {
     height: 90px;
     float: left;
     margin-right: 25px;
+}
+
+.section.current-news .header img {
+    height: 30px;
+    margin-top: -5px;
+    margin-right: 10px !important;
 }
 
 .section .header img:last-child {
@@ -235,11 +245,23 @@ button[type=submit] {
     margin-left: 5px;
 }
 
+.soc-nets {
+    display: table;
+    padding-top: 5px;
+    margin-bottom: 20px;
+}
+
 .soc-net {
     width: 31px;
     height: 31px;
     float: right;
     margin-left: 10px;
+}
+
+.soc-nets .soc-net {
+    float: right;
+    margin-right: 10px;
+    margin-left: auto;
 }
 
 .soc-net img {
@@ -424,7 +446,8 @@ input[type=tel] {
 
 .has-feedback-left .form-control-feedback i {
     font-size: 16px;
-    top: 5px;
+    top: 1px;
+    left: -10px;
 }
 
 select.type2 {
@@ -748,6 +771,7 @@ a.active {
 
 .news .text > .content {
     font-size: 18px;
+    padding: 0;
 }
 
 .col-md-4 .news .text > .head {

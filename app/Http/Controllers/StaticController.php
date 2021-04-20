@@ -38,6 +38,18 @@ class StaticController extends Controller
         $this->data['events'] = Event::where('active',1)->orderBy('start_time','desc')->limit(5)->get();
         return $this->showView($request, 'home', $token);
     }
+    
+    public function news(Request $request)
+    {
+        if ($request->has('id')) {
+            $this->validate($request, ['id' => 'required|integer|exists:news,id']);
+            $this->data['news'] = News::find($request->input('id'));
+            return $this->showView($request, 'current_news');
+        } else {
+            $this->data['news'] = News::where('active',1)->orderBy('id','desc')->paginate(6);
+            return $this->showView($request, 'news');
+        }
+    }
 
     public function area(Request $request,$slug=null)
     {
@@ -93,8 +105,8 @@ class StaticController extends Controller
             $this->data['sport'] = KindOfSport::find($request->input('id'));
             if (!$this->data['sport'] || !$this->data['sport']->active) abort(404);
 
-            $this->getForegnGallery($this->data['sport']->sections);
-            $this->getForegnGallery($this->data['sport']->places, 'place');
+            $this->getForeignGallery($this->data['sport']->sections);
+            $this->getForeignGallery($this->data['sport']->places, 'place');
 
             $this->data['counters'] = [];
             $this->data['counters']['events'] = 0;
@@ -109,7 +121,7 @@ class StaticController extends Controller
         }
     }
     
-    private function getForegnGallery($items, $pivotModel=null)
+    private function getForeignGallery($items, $pivotModel=null)
     {
         if (!isset($this->data['gallery'])) $this->data['gallery'] = [];
         foreach ($items as $item) {

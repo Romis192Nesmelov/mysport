@@ -94,7 +94,11 @@ Route::post('/admin/record-section-kid', 'AdminController@recordEventKid');
 Route::post('/admin/gallery', 'AdminController@editGallery');
 Route::post('/admin/delete-gallery', 'AdminController@deleteGallery');
 
+Route::get('/admin/banners', 'AdminController@banners');
+Route::post('/admin/banners', 'AdminController@editBanners');
+
 Route::get('/', 'StaticController@index');
+Route::get('/news/{slug?}', 'StaticController@news');
 Route::get('/area/{slug?}', 'StaticController@area');
 Route::get('/events/{slug?}', 'StaticController@events');
 Route::get('/organizations/{slug?}', 'StaticController@organization');

@@ -8,13 +8,29 @@
                 {{ csrf_field() }}
                 @include('admin._hidden_id_block',['item' => isset($data['news']) ? $data['news'] : null])
 
-                @include('admin._object_left_block',[
-                    'item' => isset($data['news']) ? $data['news'] : null,
-                    'objectName' => 'news',
-                    'col' => 4
-                ])
+                <div class="col-md-{{ isset($col) ? $col : '3' }} col-sm-{{ isset($col) ? $col : '3' }} col-xs-12">
+                    @include('_image_block', [
+                        'label' => trans('content.image'),
+                        'preview' => isset($data['news']) ? $data['news']->image : '',
+                        'name' => 'image',
+                        'placeholder' => asset('images/placeholder.jpg')
+                    ])
 
-                <div class="col-md-8 col-sm-8 col-xs-12">
+                    @include('admin._date_block', [
+                        'label' => trans('content.date'),
+                        'name' => 'date',
+                        'value' => isset($data['news']) ? $data['news']->date : date('d.m.Y')
+                    ])
+
+                    @include('_checkbox_block',[
+                        'col' => 12,
+                        'label' => trans('admin.news_active'),
+                        'name' => 'active',
+                        'checked' => isset($data['news']) ? $data['news']->active : true
+                    ])
+                </div>
+
+                <div class="col-md-9 col-sm-9 col-xs-12 current-news">
                     <div class="panel panel-flat">
                         @include('admin._panel_title_block',['title' => trans('auth.star_mark'),'h' => 3])
                         <div class="panel-body">
@@ -32,8 +48,8 @@
                                 'star' => true,
                                 'label' => trans('admin.content'),
                                 'name' => 'content_ru',
-                                'max' => 500,
-                                'simple' => true,
+                                'max' => 5000,
+                                'simple' => false,
                                 'value' => isset($data['news']) ? $data['news']->content_ru : ''
                             ])
                         </div>

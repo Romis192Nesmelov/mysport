@@ -75,24 +75,10 @@
                 'image' => asset('images/hooks_logo.png'),
                 'button' => ['class' => '', 'href' => 'news', 'text' => trans('content.read_all_news')]
             ])
-
             @foreach($data['news'] as $k => $news)
-                <div class="col-md-{{ !$k ? 8 : 4 }} col-sm-12 col-xs-12">
-                    <div class="news">
-                        <img src="{{ asset($news->image) }}" />
-                        <div class="grad"></div>
-                        <div class="text">
-                            <div class="head">{{ $news['head_'.App::getLocale()] }}</div>
-                            @if (!$k)
-                                <div class="content hidden-sm hidden-xs">{{ $news['content_'.App::getLocale()] }}</div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
+                @include('_news_block',['col' => (!$k ? 8 : 4), 'news' => $news])
             @endforeach
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="banner"><img src="{{ asset('images/banner2.jpg') }}" /></div>
-            </div>
+            @include('_news_banner_block')
         </div>
     </div>
 

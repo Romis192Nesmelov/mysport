@@ -124,4 +124,6 @@ return [
     'kids_hy_recorded' => 'Recorded kids',
     'do_you_want_to_delete_photo' => 'Do you really want to delete this photo?',
     'delete_record' => 'Delete record',
+    
+    'advertising_banners' => 'Advertising banners',
 ];

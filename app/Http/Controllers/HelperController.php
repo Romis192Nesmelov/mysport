@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\App;
 class HelperController extends Controller
 {
     use HelperTrait;
+    
+    public function getTrainerSocNets()
+    {
+        return $this->trainerSocNets;
+    }
 
     public function userCreds($userModel=null, $withOutDiv=false)
     {

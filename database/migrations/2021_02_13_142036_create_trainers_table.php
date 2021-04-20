@@ -24,6 +24,11 @@ class CreateTrainersTable extends Migration
             $table->string('achievements_ru');
             $table->string('achievements_en')->nullable();
             $table->smallInteger('since');
+
+            $table->string('fb')->nullable();
+            $table->string('vk')->nullable();
+            $table->string('inst')->nullable();
+            
             $table->boolean('best');
             $table->boolean('active');
             $table->timestamps();

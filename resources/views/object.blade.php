@@ -45,8 +45,6 @@
                 @include('_left_gray_block',['content' => ob_get_clean(),'buttons' => false])
             @endif
 
-
-
             @php ob_start(); @endphp
             @include('_header_block', [
                 'tagName' => 'h1',

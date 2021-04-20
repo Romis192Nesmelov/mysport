@@ -57,6 +57,10 @@ class UserController extends StaticController
             $validationArr['add_education_ru'] = 'max:255';
             $validationArr['achievements'] = 'max:255';
             $validationArr['since'] = 'required|integer|min:1970|max:' . (int)date('Y');
+
+            foreach ($this->trainerSocNets as $net) {
+                if ($request->input($net)) $validationArr[$net] = $this->validationSocNets[$net];
+            }
         }
 
         $fieldsUser = $this->processingFields($request, 'send_mail', array_merge($ignoringFieldsForAll, $ignoringFieldsForUser));

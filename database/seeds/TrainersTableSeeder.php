@@ -21,6 +21,12 @@ class TrainersTableSeeder extends Seeder
                 'kind_of_sport_id' => $sports[array_rand($sports)],
                 'user_id' => $t
             ];
+            
+            if ($t == 1) {
+                $data['fb'] = 'https://www.facebook.com/romisnesmelov';
+                $data['vk'] = 'https://vk.com/nesmelov_and_co';
+            }
+            
             Trainer::create($data);
         }
     }

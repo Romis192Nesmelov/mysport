@@ -9,7 +9,6 @@
                 @include('admin._hidden_id_block',['item' => isset($data['user']) ? $data['user'] : null])
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     @include('_image_block', [
-                        'col' => 12,
                         'label' => trans('content.avatar'),
                         'preview' => isset($data['user']) ? $data['user']->avatar : '',
                         'name' => 'avatar',
@@ -175,6 +174,33 @@
                                 'max' => 255,
                                 'placeholder' => trans('content.achievements'),
                                 'value' => isset($data['user']) && $data['user']->trainer ? $data['user']->trainer->achievements_ru : ''
+                            ])
+
+                            @include('_input_block', [
+                                'label' => trans('auth.fb_profile'),
+                                'name' => 'fb',
+                                'type' => 'text',
+                                'max' => 255,
+                                'placeholder' => trans('auth.fb_profile'),
+                                'value' => isset($data['user']) && $data['user']->trainer ? $data['user']->trainer->fb : ''
+                            ])
+
+                            @include('_input_block', [
+                                'label' => trans('auth.vk_profile'),
+                                'name' => 'vk',
+                                'type' => 'text',
+                                'max' => 255,
+                                'placeholder' => trans('auth.vk_profile'),
+                                'value' => isset($data['user']) && $data['user']->trainer ? $data['user']->trainer->vk : ''
+                            ])
+
+                            @include('_input_block', [
+                                'label' => trans('auth.inst_profile'),
+                                'name' => 'vk',
+                                'type' => 'text',
+                                'max' => 255,
+                                'placeholder' => trans('auth.inst_profile'),
+                                'value' => isset($data['user']) && $data['user']->trainer ? $data['user']->trainer->inst : ''
                             ])
 
                             <div class="col-md-6 col-sm-12 col-xs-12">

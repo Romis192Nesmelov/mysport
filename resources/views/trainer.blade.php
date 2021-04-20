@@ -48,6 +48,23 @@
                 'useParagraph' => true
             ])
 
+            @php ob_start(); @endphp
+            <div class="soc-nets">
+                @foreach (Helper::getTrainerSocNets() as $net)
+                    @if ($data['trainer'][$net])
+                        <div class="soc-net">
+                            <a href="{{ $data['trainer'][$net] }}" target="_blank"><img src="{{ asset('images/soc_nets/'.$net.'.png') }}" /></a>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+
+            @include('_description_block',[
+                'description' => trans('auth.soc_nets'),
+                'content' => ob_get_clean(),
+                'useParagraph' => false
+            ])
+
             @include('_header_block', [
                 'tagName' => 'h1',
                 'head' => trans('content.sport_organizations_and_sections'),
