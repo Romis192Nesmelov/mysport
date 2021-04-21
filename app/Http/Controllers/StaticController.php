@@ -11,6 +11,7 @@ use App\Organization;
 use App\Section;
 use App\Place;
 use App\Event;
+use Illuminate\Support\Facades\App;
 //use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Helper;
 use Illuminate\Support\Facades\Settings;
@@ -39,11 +40,18 @@ class StaticController extends Controller
         return $this->showView($request, 'home', $token);
     }
     
-    public function news(Request $request)
+    public function setBlind()
     {
-        if ($request->has('id')) {
-            $this->validate($request, ['id' => 'required|integer|exists:news,id']);
-            $this->data['news'] = News::find($request->input('id'));
+        if (!isset($_COOKIE['blind'])) setcookie('blind', 1, time()+(60*60*24*365*5), '/');
+        else setcookie('blind', null, -1, '/');
+        return redirect()->back();
+    }
+    
+    public function news(Request $request,$slug=null)
+    {
+        if ($slug) {
+            $this->data['news'] = News::where('slug',$slug)->first();
+            if (!$this->data['news']) abort(404);
             return $this->showView($request, 'current_news');
         } else {
             $this->data['news'] = News::where('active',1)->orderBy('id','desc')->paginate(6);
@@ -61,16 +69,22 @@ class StaticController extends Controller
 
     public function events(Request $request,$slug=null)
     {
-        $this->getItem($request, new Event(), $slug);
-        $this->data['area_id'] = $this->data['item']->area->id;
-        $this->data['points'] =
-            [
-                'events' => [$this->data['item']],
-                'organizations' => null,
-                'sections' => null,
-                'places' => null
-            ];
-        return $this->showView($request,'event');
+        if ($slug && $slug == 'all') {
+            $this->getEventOnTheYear();
+            $this->data['events'] = Event::where('active',1)->orderBy('start_time','desc')->paginate(9);
+            return $this->showView($request,'events');
+        } else {
+            $this->getItem($request, new Event(), $slug);
+            $this->data['area_id'] = $this->data['item']->area->id;
+            $this->data['points'] =
+                [
+                    'events' => [$this->data['item']],
+                    'organizations' => null,
+                    'sections' => null,
+                    'places' => null
+                ];
+            return $this->showView($request,'event');
+        }
     }
     
     public function organization(Request $request,$slug=null)
@@ -88,14 +102,34 @@ class StaticController extends Controller
         return $this->getObject($request, new Place(), $slug);
     }
     
-    public function trainers(Request $request)
+    public function trainers(Request $request,$slug=null)
     {
         if ($request->has('id')) {
             $this->data['trainer'] = Trainer::find($request->input('id'));
             if (!$this->data['trainer'] || !$this->data['trainer']->active) abort(404);
             return $this->showView($request,'trainer');
         } else {
-
+            $sports = KindOfSport::where('active',1)->orderBy('name_ru')->get();
+            $this->data['glossary'] = [];
+            $firstLetter = null;
+            foreach ($sports as $sport) {
+                $letter = mb_substr($sport['name_'.App::getLocale()], 0, 1);
+                if ($firstLetter != $letter) {
+                    $this->data['glossary'][$letter] = [];
+                    $firstLetter = $letter;
+                }
+                $this->data['glossary'][$letter][] = $sport;
+            }
+            
+            $trainers = Trainer::where('active',1);
+            if ($slug) {
+                $this->data['slug'] = $slug;
+                $sportId = KindOfSport::where('slug',$slug)->pluck('id')->first();
+                $this->data['trainers'] = $trainers->where('kind_of_sport_id',$sportId)->paginate(16);
+            } else {
+                $this->data['trainers'] = $trainers->paginate(16);
+            }
+            return $this->showView($request,'trainers');
         }
     }
     
@@ -175,8 +209,6 @@ class StaticController extends Controller
     protected function showView(Request $request, $view, $token=null)
     {
         $this->data['seo'] = Settings::getSeoTags();
-        $blindVer = $request->has('blind') && $request->input('blind');
-
         $mainMenu = [
             ['data_scroll' => 'news', 'name' => trans('menu.news')],
             ['data_scroll' => 'events', 'name' => trans('menu.events')],
@@ -196,7 +228,7 @@ class StaticController extends Controller
 
         return view($view, [
 //            'breadcrumbs' => $this->breadcrumbs,
-            'blindVer' => $blindVer,
+            'blindVer' => isset($_COOKIE['blind']),
             'mainMenu' => $mainMenu,
             'areas' => $areas,
             'sports' => $sports,

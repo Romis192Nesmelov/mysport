@@ -36,21 +36,10 @@
                 'tagName' => 'h1',
                 'icon' => 'icon_sports_events',
                 'head' => trans('content.sports_events_poster'),
-                'button' => ['class' => '', 'href' => 'events', 'text' => trans('content.all_events')]
+                'button' => ['class' => '', 'href' => 'events/all', 'text' => trans('content.all_events')]
             ])
-            <div class="col-md-{{ $blindVer ? '4' : '3' }} col-sm-{{ $blindVer ? '6' : '4' }} col-xs-12 calendar-container">
-                @include('_header_block', [
-                    'tagName' => 'h2',
-                    'icon' => 'icon_date',
-                    'head' => trans('content.the_calendar_of_sports_events')
-                ])
-                @include('_calendar_block',[
-                    'year' => $data['year'],
-                    'events' => $data['events_on_year']
-                ])
-            </div>
-            @for($i=0;$i<(count($data['events']) > 5 ? 5 : count($data['events']));$i++)
-                @php $event = $data['events'][$i]; @endphp
+            @include('_events_calendar_block')
+            @foreach($data['events'] as $event)
                 @include('_event_block', [
                     'event' => $event,
                     'colMd' => 3,
@@ -58,10 +47,8 @@
                     'colSm' => 4,
                     'blindColSm' => 6
                 ])
-            @endfor
-            <div class="col-md-6 col-sm-{{ $blindVer ? '12' : '6' }} col-xs-12 banner3">
-                <div class="banner"><img src="{{ asset('images/banner3.jpg') }}" /></div>
-            </div>
+            @endforeach
+            @include('_events_banner_block')
         </div>
     </div>
 
@@ -87,8 +74,7 @@
             @include('_header_block', [
                 'tagName' => 'h1',
                 'icon' => 'icon_kind_of_sport',
-                'head' => trans('content.kind_of_sport'),
-                'button' => ['class' => 'red', 'href' => '#', 'text' => trans('content.open_all_kind_of_sport')]
+                'head' => trans('content.kind_of_sport')
             ])
         </div>
     </div>
@@ -175,25 +161,12 @@
                 'tagName' => 'h1',
                 'icon' => 'icons_trainer',
                 'head' => trans('content.best_trainers'),
-                'button' => ['class' => 'red', 'href' => '#', 'text' => trans('content.show_all_trainers')]
+                'button' => ['class' => 'red', 'href' => url('/trainers'), 'text' => trans('content.show_all_trainers')]
             ])
 
             <div class="owl-carousel sports">
                 @foreach($data['trainers'] as $trainer)
-                    @if ($trainer->sport->active)
-                        <div class="trainer">
-                            <a href="{{ url('/trainers/?id='.$trainer->id) }}">
-                                <div class="photo"><img src="{{ asset($trainer->user->avatar) }}" /></div>
-                                <div class="family">{{ App::getLocale() == 'en' ? str_slug($trainer->user->family) : $trainer->user->family }}</div>
-                                @if (App::getLocale() == 'en')
-                                    {{ str_slug($trainer->user->name).' '.str_slug($trainer->user->surname) }}
-                                @else
-                                    {{ $trainer->user->name.' '.$trainer->user->surname }}
-                                @endif
-                                <div class="section-name">{{ trans('content.trainer_section', ['section' => $trainer->sport['name_'.App::getLocale()]]) }}</div>
-                            </a>
-                        </div>
-                    @endif
+                    @include('_trainer_block', ['trainer' => $trainer])
                 @endforeach
             </div>
         </div>

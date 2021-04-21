@@ -135,6 +135,7 @@ return [
     'sport_map' => 'Sports facilities map<br><span>of St.Petersburg</span>',
     'best_trainer' => 'Лучшие тренер',
     'best_trainers' => 'Best trainers<br><span>of St.Petersburg</span>',
+    'all_trainers' => 'Sports trainers<br><span>of St.Petersburg</span>',
     'show_all_trainers' => 'Show all trainers',
     'trainer_section' => 'Kind of sport: :section',
     'created_with_support' => 'Site created<br>with the support',

@@ -17,6 +17,11 @@ $(document).ready(function() {
             });
         }
     });
+
+    var scrollBlock = '.scroll-block';
+    if ($(scrollBlock).length) {
+        new PerfectScrollbar(scrollBlock);
+    }
     
     // Owlcarousel
     var navButtonBlack1 = '<img src="/images/arrow_left_black.svg" />',
@@ -175,6 +180,18 @@ function unifiedHeight() {
             'reserve'   :0,
             'except'    :null,
             'include'   :$('.calendar-container')
+        },
+        {
+            'obj'       :$('.trainer'),
+            'reserve'   :20,
+            'except'    :null,
+            'include'   :null
+        },
+        {
+            'obj'       :$('.trainers-block'),
+            'reserve'   :0,
+            'except'    :null,
+            'include'   :null
         }
     ];
 

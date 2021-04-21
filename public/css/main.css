@@ -718,8 +718,16 @@ a.active {
 .container .banner {
     border-radius: 20px;
     overflow: hidden;
-    margin-top: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.container .news-banner {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.container .events-banner {
+    margin-bottom: 20px;
 }
 
 .banner img {
@@ -837,6 +845,49 @@ a.active {
 .rounded-block.gray.left-block h2.name .name-part {
     font-size: 18px;
     color: grey;
+}
+
+.scroll-block {
+    position: relative;
+    overflow: hidden;
+}
+
+.sports-glossary {
+    width: 100%;
+    display: table;
+    position: relative;
+}
+
+.sports-glossary .head {
+    width: 100%;
+    font-size: 18px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.sports-glossary .letter {
+    width: 100%;
+    text-align: left;
+    font-size: 21px;
+    margin-top: 15px;
+    color: #13a28a;
+    font-weight: bold;
+}
+
+.sports-glossary table {
+    width: 100%;
+    padding: 0;
+    font-size: 16px;
+}
+
+.sports-glossary table tr.selected {
+    border-bottom: 1px solid #13a28a;
+}
+
+.sports-glossary table td.counter {
+    width: 2%;
+    text-align: right;
+    color: black;
 }
 
 .name-part {
@@ -1098,6 +1149,7 @@ a.active {
 .trainer {
     text-align: center;
     font-size: 13px;
+    line-height: 1.2em;
 }
 
 .trainer .photo {
@@ -1128,6 +1180,10 @@ a.active {
     margin-top: 5px;
     font-size: 12px;
     text-transform: uppercase;
+}
+
+.trainers-block {
+    display: table;
 }
 
 .support-logo {

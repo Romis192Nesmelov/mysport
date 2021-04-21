@@ -15,6 +15,7 @@ class CreateKindOfSportsTable extends Migration
     {
         Schema::create('kind_of_sports', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('slug');
             $table->string('icon');
             $table->string('name_ru');
             $table->string('name_en')->nullable();

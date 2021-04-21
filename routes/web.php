@@ -98,13 +98,14 @@ Route::get('/admin/banners', 'AdminController@banners');
 Route::post('/admin/banners', 'AdminController@editBanners');
 
 Route::get('/', 'StaticController@index');
+Route::get('/blind', 'StaticController@setBlind');
 Route::get('/news/{slug?}', 'StaticController@news');
 Route::get('/area/{slug?}', 'StaticController@area');
 Route::get('/events/{slug?}', 'StaticController@events');
 Route::get('/organizations/{slug?}', 'StaticController@organization');
 Route::get('/sections/{slug?}', 'StaticController@section');
 Route::get('/places/{slug?}', 'StaticController@place');
-Route::get('/trainers', 'StaticController@trainers');
+Route::get('/trainers/{slug?}', 'StaticController@trainers');
 Route::get('/kinds-of-sport', 'StaticController@kindsOfSport');
 
 Route::get('/change-lang', 'StaticController@changeLang');

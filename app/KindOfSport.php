@@ -1,12 +1,17 @@
 <?php
 
 namespace App;
+
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class KindOfSport extends Model
 {
+    use Sluggable;
+    
     protected $fillable = [
         'icon',
+        'slug',
         'name_ru',
         'name_en',
         'description_ru',
@@ -17,6 +22,24 @@ class KindOfSport extends Model
         'needed_en',
         'active'
     ];
+
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name_ru',
+                'maxLength' => 255,
+                'maxLengthKeepWords' => true,
+                'method' => null,
+                'separator' => '-',
+                'unique' => true,
+                'uniqueSuffix' => null,
+                'includeTrashed' => false,
+                'reserved' => null,
+                'onUpdate' => false
+            ]
+        ];
+    }
 
     public function trainers()
     {

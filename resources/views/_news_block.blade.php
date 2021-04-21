@@ -1,5 +1,5 @@
 <div class="col-md-{{ $col }} col-sm-12 col-xs-12">
-    <a href="{{ url('news?id='.$news->id) }}">
+    <a href="{{ url('news/'.$news->slug) }}">
         <div class="news">
             <img src="{{ asset($news->image) }}" />
             <div class="grad"></div>

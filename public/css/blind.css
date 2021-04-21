@@ -145,6 +145,18 @@ select.type2 {
     color: #087fae;
 }
 
+.sports-glossary .head {
+    font-size: 22px;
+}
+
+.sports-glossary .letter {
+    font-size: 25px;
+}
+
+.sports-glossary table {
+    font-size: 20px;
+}
+
 .footer ul.menu > li > a {
     font-size: 18px;
 }

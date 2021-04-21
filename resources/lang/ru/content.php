@@ -134,6 +134,7 @@ return [
     'sport_map' => 'Карта спортивных объектов<br><span>Санкт-Петербурга</span>',
     'best_trainer' => 'Лучший тренер',
     'best_trainers' => 'Лучшие тренеры<br><span>Санкт-Петербурга</span>',
+    'all_trainers' => 'Спортивные тренеры<br><span>Санкт-Петербурга</span>',
     'show_all_trainers' => 'Показать всех тренеров',
     'trainer_section' => 'Секция: :section',
     'created_with_support' => 'Сайт создан<br>при поддержке',

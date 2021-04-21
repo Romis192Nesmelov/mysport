@@ -28,6 +28,7 @@
     <link href="{{ asset('css/loader.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/owl.carousel.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/owl.theme.default.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/perfect-scrollbar.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/calendar.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css">
 
@@ -82,6 +83,7 @@
     {{--<script type="text/javascript" src="{{ asset('js/plugins/forms/styling/switchery.min.js') }}"></script>--}}
     {{--<script type="text/javascript" src="{{ asset('js/core/app.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('js/core/main.controls.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/perfect-scrollbar.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('js/loader.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/owl.carousel.js') }}"></script>
@@ -128,7 +130,7 @@
                     {{--</ul>--}}
                 {{--</li>--}}
 
-                <li class="button"><a href="?blind={{ $blindVer ? '0' : '1' }}">{{ $blindVer ? trans('menu.normal_version') : trans('menu.blind_version') }}</a></li>
+                <li class="button"><a href="{{ url('/blind') }}">{{ $blindVer ? trans('menu.normal_version') : trans('menu.blind_version') }}</a></li>
                 @if (Auth::guest())
                     <li class="button green"><a href="{{ url('?auth=login') }}">{{ trans('menu.login_register') }}</a></li>
                 @else
@@ -150,7 +152,7 @@
 </div>
 <!-- /top navbar -->
 
-<div class="container">
+<div class="container top-block">
     @if (!$blindVer)
         <div class="col-md-4 col-sm-12 col-xs-12 logo-container">
             @include('layouts._logo_block',['tagName' => 'h1', 'withSpan' => true])
