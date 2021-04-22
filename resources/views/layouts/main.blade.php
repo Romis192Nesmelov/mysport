@@ -115,7 +115,6 @@
         <div class="navbar-logo">
             <a class="navbar-brand" href="/"><img src="{{ asset('images/logo.svg') }}" alt="{{ $data['seo']['title'] }}"></a>
         </div>
-
         <div class="navbar-right">
             <ul class="nav navbar-nav">
                 {{--<li class="dropdown language-switch">--}}

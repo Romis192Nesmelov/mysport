@@ -19,17 +19,25 @@ textarea {
     margin-top: 20px;
 }
 
+.form-control.daterange-single {
+    padding-left: 10px;
+}
+
 .error,
 .form-control-feedback .icon-cancel-circle2 {
     color: red;
 }
 
-.has-error {
-    border: 1px solid red;
-}
-
 .input-label .star {
     color: red;
+}
+
+.input-group {
+    width: 100%;
+}
+
+.input-group-addon {
+    width: 40px;
 }
 
 .bg-blue {

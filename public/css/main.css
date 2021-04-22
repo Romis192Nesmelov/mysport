@@ -508,12 +508,6 @@ input[type=tel]:focus {
     padding-left: 30px;
 }
 
-p.label {
-    margin-bottom: 0;
-    padding-left: 15px;
-    color: black;
-}
-
 .radio-buttons {
     display: table;
     padding: 0 !important;
@@ -821,7 +815,7 @@ a.active {
     height: 220px;
     border-radius: 50%;
     overflow: hidden;
-    margin: auto;
+    margin: 0 auto 5px auto;
     background-color: #dbe2ea;
 }
 

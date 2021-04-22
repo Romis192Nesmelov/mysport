@@ -34,29 +34,35 @@
 
                     @include('admin._choice_gender_block',['user' => isset($data['user']) ? $data['user'] : null])
 
-                    @include('admin._date_block', [
-                        'label' => trans('content.born_date'),
-                        'name' => 'born',
-                        'value' => isset($data['user']) ? $data['user']->born : time() - (60 * 60 * 24 * 365 * 18)
-                    ])
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="panel panel-flat">
+                            <div class="panel-body">
+                                @include('admin._date_block', [
+                                    'label' => trans('content.born_date'),
+                                    'name' => 'born',
+                                    'value' => isset($data['user']) ? $data['user']->born : time() - (60 * 60 * 24 * 365 * 18)
+                                ])
 
-                    @include('_checkbox_block',[
-                        'label' => trans('admin.trainer'),
-                        'name' => 'is_trainer',
-                        'checked' => isset($data['user']) ? $data['user']->trainer : true
-                    ])
+                                @include('_checkbox_block',[
+                                    'label' => trans('admin.trainer'),
+                                    'name' => 'is_trainer',
+                                    'checked' => isset($data['user']) ? $data['user']->trainer : true
+                                ])
 
-                    @include('_checkbox_block',[
-                        'label' => trans('auth.sending_mail'),
-                        'name' => 'send_mail',
-                        'checked' => isset($data['user']) ? $data['user']->send_mail : true
-                    ])
+                                @include('_checkbox_block',[
+                                    'label' => trans('auth.sending_mail'),
+                                    'name' => 'send_mail',
+                                    'checked' => isset($data['user']) ? $data['user']->send_mail : true
+                                ])
 
-                    @include('_checkbox_block',[
-                        'label' => trans('content.active'),
-                        'name' => 'active',
-                        'checked' => isset($data['user']) ? $data['user']->active : true
-                    ])
+                                @include('_checkbox_block',[
+                                    'label' => trans('content.active'),
+                                    'name' => 'active',
+                                    'checked' => isset($data['user']) ? $data['user']->active : true
+                                ])
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-md-9 col-sm-9 col-xs-12">
