@@ -446,8 +446,8 @@ input[type=tel] {
 
 .has-feedback-left .form-control-feedback i {
     font-size: 16px;
-    top: 1px;
-    left: -10px;
+    top: 5px;
+    /*left: -10px;*/
 }
 
 select.type2 {
