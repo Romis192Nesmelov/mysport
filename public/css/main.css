@@ -316,6 +316,10 @@ button[type=submit] {
     line-height: 1.2em;
 }
 
+.navbar-right .navbar-nav .user-creds .name-part {
+    margin-left: 2px;
+}
+
 .navbar-right .navbar-nav a.dropdown-toggle .caret {
     float: right;
     margin-top: 13px;
