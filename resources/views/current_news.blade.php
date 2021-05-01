@@ -7,7 +7,7 @@
                 <h1>{{ $data['news']['head_'.App::getLocale()] }}</h1>
                 <div class="header">
                     <h3 class="text-left">
-                        <img class="icon" src="http://mysport/images/icon_date.svg">
+                        <img class="icon" src="{{ asset('images/icon_date.svg') }}">
                         {{ date('d.m.Y',$data['news']->date) }}
                     </h3>
                 </div>
