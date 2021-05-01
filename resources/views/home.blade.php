@@ -8,20 +8,24 @@
                 @php
                     switch ($i) {
                         case 1:
-                            $addClass = 'orange';
+                            $addClass = 'gray';
+                            $blockHref = url('/trainers');
                             break;
                         case 2:
-                            $addClass = 'green';
+                            $addClass = 'orange';
+                            $blockHref = url('/trainers');
                             break;
                         case 3:
-                            $addClass = 'gray';
+                            $addClass = 'green';
+                            $blockHref = url('/kinds-of-sport');
                             break;
+
                     }
                 @endphp
                 <div class="col-md-{{ $blindVer ? 12 : 4 }} col-sm-{{ $blindVer ? 12 : 4 }} col-xs-12">
                     <div class="triple-block {{ $addClass }}" style="background-image: url({{ asset('images/triple_block_bg'.$i.'.png') }})">
                         <div>{{ trans('content.triple_block_text'.$i) }}</div>
-                        <a data-scroll="map"><button><span>{!! trans('content.triple_block_button_text'.$i) !!}</span><i class="icon-arrow-right32"></i></button></a>
+                        <a href="{{ $blockHref }}"><button><span>{!! trans('content.triple_block_button_text'.$i) !!}</span><i class="icon-arrow-right32"></i></button></a>
                     </div>
                 </div>
             @endfor
@@ -74,7 +78,8 @@
             @include('_header_block', [
                 'tagName' => 'h1',
                 'icon' => 'icon_kind_of_sport',
-                'head' => trans('content.kind_of_sport')
+                'head' => trans('content.kind_of_sport'),
+                'button' => ['class' => 'red', 'href' => url('/kinds-of-sport'), 'text' => trans('content.open_all_kind_of_sport')]
             ])
         </div>
     </div>

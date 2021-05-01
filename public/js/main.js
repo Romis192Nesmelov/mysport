@@ -1,9 +1,11 @@
 $(document).ready(function() {
     unifiedHeight();
+    checkWindowHeight();
     // $('.styled').uniform();
     
     $(window).resize(function() {
         unifiedHeight();
+        checkWindowHeight();
     });
     // singleHeight();
 
@@ -170,7 +172,9 @@ $(document).ready(function() {
     });
 
     // Changing area select
-    bindAreaChange();
+    $('select.type1[name=area]').change(function () {
+        window.location.href = '/area/?id='+$(this).val();
+    });
 });
 
 function unifiedHeight() {
@@ -192,6 +196,12 @@ function unifiedHeight() {
             'reserve'   :0,
             'except'    :null,
             'include'   :null
+        },
+        {
+            'obj'       :$('.kind-of-sport.col-xs-12'),
+            'reserve'   :0,
+            'except'    :null,
+            'include'   :null
         }
     ];
 
@@ -202,17 +212,21 @@ function unifiedHeight() {
     },1000);
 }
 
-function bindAreaChange() {
-    var select = $('select[name=area]');
-    select.change(function () {
-        if (window.uri == '/') {
-            var value = $(this).val();
-            select.unbind().val(value).change();
-            bindAreaChange();
-        } else {
-            window.location.href = '/area/?id='+select.val();
-        }
-    });
+function checkWindowHeight() {
+    var footer = $('.footer'),
+        contentHeight = $('.navbar').height() + $('.top-block').height() + $('.page-container').height() + footer.height();
+
+    if (contentHeight < $(window).height()) {
+        footer.css({
+            'position':'fixed',
+            'bottom':0
+        });
+    } else {
+        footer.css({
+            'position':'relative',
+            'bottom':'auto'
+        });
+    }
 }
 
 function goToScroll(scrollData) {

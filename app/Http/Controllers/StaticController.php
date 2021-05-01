@@ -109,7 +109,7 @@ class StaticController extends Controller
             if (!$this->data['trainer'] || !$this->data['trainer']->active) abort(404);
             return $this->showView($request,'trainer');
         } else {
-            $sports = KindOfSport::where('active',1)->orderBy('name_ru')->get();
+            $sports = KindOfSport::where('active',1)->orderBy('name_'.App::getLocale())->get();
             $this->data['glossary'] = [];
             $firstLetter = null;
             foreach ($sports as $sport) {
@@ -151,7 +151,8 @@ class StaticController extends Controller
 
             return $this->showView($request,'kind_of_sport');
         } else {
-
+            $this->data['kinds_of_sport'] = KindOfSport::where('active',1)->orderBy('name_'.App::getLocale())->get();
+            return $this->showView($request,'kinds_of_sport');
         }
     }
     
@@ -204,6 +205,11 @@ class StaticController extends Controller
 //                $request->input('places')
             )
         ]);
+    }
+
+    public function search(Request $request)
+    {
+        return $this->showView($request,'search');
     }
 
     protected function showView(Request $request, $view, $token=null)

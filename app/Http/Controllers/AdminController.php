@@ -534,6 +534,7 @@ class AdminController extends UserController
         ]);
         $itemId = $request->input('id');
         $userId = $request->input('user_id');
+        $user = User::find($userId);
         
         $record = $modelRecord->where($userField,$userId)->where($itemField,$itemId)->first();
         if ($record) return redirect()->back()->with('message',trans('admin.account_already_recorded'));
@@ -542,6 +543,18 @@ class AdminController extends UserController
                 $userField => $userId,
                 $itemField => $itemId
             ]);
+
+            if ($modelRecord instanceof EventsRecord) {
+                $isEvent = true;
+                $owner = $modelRecord->event->user;
+                $mailModel = $modelRecord->event;
+            } else {
+                $isEvent = false;
+                $owner = $modelRecord->section->leader->user;
+                $mailModel = $modelRecord->section;
+            }
+
+            $this->sendRecordsEmails($user, $owner, $mailModel, true, $isEvent, $userField == 'kid_id');
             return redirect()->back()->with('message',trans('admin.record_complete'));
         }
     }

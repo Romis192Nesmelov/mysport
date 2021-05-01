@@ -108,6 +108,7 @@
 @endif
 
 @include('layouts._message_modal_block')
+@include('layouts._search_modal_block')
 
 <!-- Top navbar -->
 <div class="navbar navbar-inverse">
@@ -153,7 +154,7 @@
 
 <div class="container top-block">
     @if (!$blindVer)
-        <div class="col-md-4 col-sm-12 col-xs-12 logo-container">
+        <div class="col-md-{{ !Auth::guest() && Gate::allows('trainer') ? '4' : '3' }} col-sm-12 col-xs-12 logo-container">
             @include('layouts._logo_block',['tagName' => 'h1', 'withSpan' => true])
         </div>
     @endif
@@ -167,7 +168,7 @@
                     'selected' => isset($data['area_id']) ? $data['area_id'] : null
                 ])
                 @include('layouts._soc_nets_block')
-                <div class="button pull-right red small"><a data-scroll="map">{{ trans('menu.search') }}</a><i class="glyphicon glyphicon-search"></i></div>
+                <div class="button pull-right red small"><a data-toggle="modal" data-target="#search-modal">{{ trans('menu.search') }}</a><i class="glyphicon glyphicon-search"></i></div>
             </div>
         </div>
         <!-- Main navbar -->
@@ -187,11 +188,8 @@
         </nav>
         <!-- /main navbar -->
         <div class="line-menu hidden-xs">
-            @if (Auth::guest() || Gate::denies('trainer'))
-                <div class="button gray1"><a data-scroll="#">{{ trans('menu.to_record') }}</a></div>
-            @else
-                <div class="button pull-left gray2"><a href="#">{{ trans('menu.create_a_training') }}</a></div>
-                <div class="button pull-left green"><a href="{{ url('/trainer/events/add') }}">{{ trans('menu.organize_an_event') }}</a></div>
+            @if (!Auth::guest() && Gate::allows('trainer'))
+                <div class="button green"><a href="{{ url('/trainer/events/add') }}">{{ trans('menu.organize_an_event') }}</a></div>
             @endif
         </div>
     </div>

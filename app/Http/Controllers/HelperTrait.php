@@ -11,11 +11,13 @@ use App\Organization;
 use App\Section;
 use App\Place;
 use App\KindOfSport;
-//use App\User;
+use App\User;
 //use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Settings;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Helper;
+use Illuminate\Support\Facades\App;
 
 trait HelperTrait
 {
@@ -105,7 +107,6 @@ trait HelperTrait
 
     private function processingFields(Request $request, $checkboxFields=null, $ignoreFields=null, $timeFields=null, $colorFields=null)
     {
-
         $exceptFields = ['_token','id'];
         if ($ignoreFields) {
             if (is_array($ignoreFields)) $exceptFields = array_merge($exceptFields, $ignoreFields);
@@ -556,6 +557,21 @@ trait HelperTrait
     public function transliteration($string)
     {
         return str_replace('_',' ',str_slug($string));
+    }
+
+    private function sendRecordsEmails($user, User $owner, Model $model, $isNew, $isEvent, $isKid)
+    {
+        $userName = Helper::simpleCreds($user, true);
+        $template = 'auth.emails.'.($isEvent ? 'event' : 'section').'_record';
+        
+        $fields = [
+            'head' => trans('mail.'.($isNew ? 'new' : 'cancel').'_record_to_'.($isEvent ? 'event' : 'section'), ['name' => $model['name_'.App::getLocale()]]),
+            'user' => $isKid ? trans('mail.child',['child_name' => $userName]) : trans('mail.user',['user_name' => $userName]),
+            'model' => $model
+        ];
+            
+        if ($user->email && $user->send_mail) $this->sendMessage($user->email, $template, $fields);
+        if ($owner->email && $owner->send_mail) $this->sendMessage($owner->email, $template, $fields);
     }
 
     public function sendMessage($destination, $template, array $fields, $copyTo=null, $pathToFile=null)

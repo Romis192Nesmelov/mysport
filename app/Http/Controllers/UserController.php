@@ -287,18 +287,32 @@ class UserController extends StaticController
         $this->validate($request, $validationArr);
         $recordId = $request->input('id');
         $record = $model->where($foreignKey,$recordId)->where('user_id',Auth::id())->first();
+                
+        if ($model instanceof EventsRecord) {
+            if ($record->event->start_time < time()) abort(403);
+            $isEvent = true;
+            $owner = $record->event->user;
+            $mailModel = $record->event;
+        } else {
+            $isEvent = false;
+            $owner = $record->section->leader->user;
+            $mailModel = $record->section;
+        }
         
-        if ($model instanceof EventsRecord && $record->event->start_time >= time()) abort(403);
         if ($record) {
             $record->delete();
+            $isNew = false;
             $message = trans('content.record_canceled');
         } else {
+            $isNew = true;
             $model->create([
                 'user_id' => Auth::id(),
                 $foreignKey => $recordId
             ]);
             $message = trans('content.you_are_record');
         }
+
+        $this->sendRecordsEmails(Auth::user(), $owner, $mailModel, $isNew, $isEvent, false);
         return redirect()->back()->with('message',$message);
     }
     
@@ -313,16 +327,34 @@ class UserController extends StaticController
 
         foreach (Auth::user()->kids as $kid) {
             $record = $model->where($foreignKey,$recordId)->where('kid_id',$kid->id)->first();
+            $mailFlag = false;
+            $isNew = false;
+
+            if ($model instanceof EventsRecord) {
+                if ($record->event->start_time < time()) abort(403);
+                $isEvent = true;
+                $owner = $record->event->user;
+                $mailModel = $record->event;
+            } else {
+                $isEvent = false;
+                $owner = $record->section->leader->user;
+                $mailModel = $record->section;
+            }
+
             if ($record && !$fields['kid'.$kid->id]) {
                 $cancelRecords++;
+                $mailFlag = true;
                 $record->delete();
             } elseif (!$record && $fields['kid'.$kid->id]) {
                 $createRecords++;
+                $isNew = true;
+                $mailFlag = true;
                 $model->create([
                     'kid_id' => $kid->id,
                     $foreignKey => $recordId
                 ]);
             }
+            if ($mailFlag) $this->sendRecordsEmails(Auth::user(), $owner, $mailModel, $isNew, $isEvent, true);
         }
         if ($cancelRecords == $kidsCount) $message = $cancelRecords == 1 ? trans('content.record_canceled') : trans('content.records_canceled');
         elseif ($createRecords == $kidsCount) $message = $cancelRecords == 1 ? trans('content.your_kid_is_record') : trans('content.your_kids_are_record');

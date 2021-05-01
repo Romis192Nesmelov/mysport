@@ -116,9 +116,9 @@ return [
     'section' => 'Sports section:',
     'organizations' => 'Sports organizations',
 
-    'triple_block_text1' => 'Sign up for a raining session by sport and sports ground',
-    'triple_block_text2' => 'Find out which sport is right for you',
-    'triple_block_text3' => 'Find a sports coach',
+    'triple_block_text1' => 'Find a sports trainer',
+    'triple_block_text2' => 'Sign up for a raining session by sport and sports ground',
+    'triple_block_text3' => 'Find out which sport is right for you',
 
     'triple_block_button_text1' => 'Sports ground<br>nearby',
     'triple_block_button_text2' => 'Get tested',
