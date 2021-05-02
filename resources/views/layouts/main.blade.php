@@ -40,6 +40,10 @@
         <link href="{{ asset('css/blind.css') }}" rel="stylesheet" type="text/css">
     @endif
 
+    <!-- Lang vars -->
+    @include('layouts._lang_vars_block')
+    <!-- /Lang vars -->
+
     <script>
         window.uri = "{{ Request::path() }}";
         window.no_file_selected = "{{ trans('content.no_file_selected') }}";
@@ -67,10 +71,10 @@
     {{--<script type="text/javascript" src="{{ asset('js/plugins/pickers/pickadate/legacy.js') }}"></script>--}}
     {{--<script type="text/javascript" src="{{ asset('js/pages/picker_date.js') }}"></script>--}}
 
-    {{--<script type="text/javascript" src="{{ asset('js/plugins/tables/datatables/datatables.min.js') }}"></script>--}}
-    {{--<script type="text/javascript" src="{{ asset('js/plugins/forms/selects/select2.min.js') }}"></script>--}}
+    <script type="text/javascript" src="{{ asset('js/plugins/tables/datatables/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/plugins/forms/selects/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/media/fancybox.min.js') }}"></script>
-    {{--<script type="text/javascript" src="{{ asset('js/pages/datatables_basic.js') }}"></script>--}}
+    <script type="text/javascript" src="{{ asset('js/pages/datatables_basic.js') }}"></script>
     {{--<script type="text/javascript" src="{{ asset('js/pages/components_thumbnails.js') }}"></script>--}}
 
     {{--<script type="text/javascript" src="{{ asset('js/core/main.controls.js') }}"></script>--}}

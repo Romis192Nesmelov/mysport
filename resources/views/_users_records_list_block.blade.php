@@ -3,7 +3,7 @@
 
 @php ob_start(); @endphp
 
-<table class="users-list">
+<table class="table datatable-basic users-list">
     <tr>
         <th></th>
         <th>{{ trans('content.user') }}</th>
@@ -31,3 +31,5 @@
     'description' => trans('content.participants'),
     'credential' => ob_get_clean()
 ])
+
+<script>window.dtColumns = 3;</script>

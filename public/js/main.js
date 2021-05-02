@@ -20,6 +20,10 @@ $(document).ready(function() {
         }
     });
 
+    $('table.datatable-basic').on('draw.dt', function () {
+        bindDelete();
+    });
+
     var scrollBlock = '.scroll-block';
     if ($(scrollBlock).length) {
         new PerfectScrollbar(scrollBlock);

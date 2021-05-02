@@ -7,6 +7,6 @@
     @elseif ($avatar)
         <img src="{{ asset($avatar) }}">
     @else
-        <img src="{{ asset('images/placeholder.jpg') }}">
+        <img class="placeholder" src="{{ asset('images/placeholder.jpg') }}">
     @endif
 </div>
