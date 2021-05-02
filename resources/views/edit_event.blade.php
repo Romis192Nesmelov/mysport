@@ -151,6 +151,13 @@
                 </div>
 
                 @include('_submit_button_block')
+
+                @if (isset($data['item']) && count($data['item']->records))
+                    @include('_users_records_list_block',[
+                        'records' => $data['item']->records,
+                        'objectName' => 'section'
+                    ])
+                @endif
             </form>
 
             @include('_right_gray_block',[

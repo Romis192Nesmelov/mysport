@@ -2,5 +2,11 @@
     @if (isset($deleteModal) && $deleteModal)
         <i class="delete-icon icon-close2" modal-data="{{ $deleteModal }}" del-data="{{ $delData }}"></i>
     @endif
-    <img src="{{ asset($avatar ? $avatar : 'images/placeholder.jpg') }}">
+    @if ($avatar && isset($usePreview) && $usePreview)
+        <a class="img-preview" href="{{ asset($avatar) }}"><img src="{{ asset($avatar) }}"></a>
+    @elseif ($avatar)
+        <img src="{{ asset($avatar) }}">
+    @else
+        <img src="{{ asset('images/placeholder.jpg') }}">
+    @endif
 </div>

@@ -81,6 +81,7 @@ return [
     'ru' => 'Russian',
 
     'head' => 'Head',
+    'user' => 'User:',
     'name' => 'Name',
     'user_name' => 'Your name:',
     'surname' => 'Surname:',
@@ -144,6 +145,7 @@ return [
     'select_the_kind_of_sport' => 'Select the kind of sport:',
     'not_select_the_kind_of_sport' => 'A kind of sport isn\'t selected',
     'to_record_kid' => 'To record my kid',
+    'delete_participant' => 'Delete participant',
     'confirm_delete_record' => 'Are you sure you want to delete this entry?',
     'do_you_want_to_sign_up_for_this_event' => 'Do you want to sign up for this event?',
     'do_you_want_to_sign_up_your_child_for_this_event' => 'Do you want to sign up your child/children for this event?',
@@ -162,6 +164,7 @@ return [
     'add_event' => 'Add sports event',
     'latitude' => 'Latitude:',
     'longitude' => 'Longitude:',
+    'participants' => 'Participants:',
 
     'no_file_selected' => 'No file selected',
     'no_data' => 'No data',

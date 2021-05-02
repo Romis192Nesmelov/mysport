@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\EventSport;
+use App\Section;
 use App\User;
 use App\Kid;
 use App\Event;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Helper;
 
 class UserController extends StaticController
@@ -264,7 +266,7 @@ class UserController extends StaticController
     
     public function eventUserRecord(Request $request)
     {
-        return $this->userRecord($request, new EventsRecord(), ['id' => $this->validationEvent], 'event_id');
+        return $this->userRecord($request, new EventsRecord(), new Event(), 'event_id');
     }
 
     public function eventKidsRecord(Request $request)
@@ -274,7 +276,7 @@ class UserController extends StaticController
 
     public function sectionUserRecord(Request $request)
     {
-        return $this->userRecord($request, new SectionsRecord(), ['id' => $this->validationSection], 'section_id');
+        return $this->userRecord($request, new SectionsRecord(), new Section(), 'section_id');
     }
 
     public function sectionKidsRecord(Request $request)
@@ -282,28 +284,26 @@ class UserController extends StaticController
         return $this->kidRecord($request, new SectionsRecord(), ['id' => $this->validationEvent], 'section_id');
     }
 
-    private function userRecord(Request $request, Model $model, array $validationArr, $foreignKey)
+    private function userRecord(Request $request, Model $model, Model $foreignModel, $foreignKey)
     {
-        $this->validate($request, $validationArr);
+        $this->validate($request, ['id' => 'required|integer|exists:'.$foreignModel->getTable().',id']);
+        
         $recordId = $request->input('id');
         $record = $model->where($foreignKey,$recordId)->where('user_id',Auth::id())->first();
-                
-        if ($model instanceof EventsRecord) {
-            if ($record->event->start_time < time()) abort(403);
-            $isEvent = true;
-            $owner = $record->event->user;
-            $mailModel = $record->event;
-        } else {
-            $isEvent = false;
-            $owner = $record->section->leader->user;
-            $mailModel = $record->section;
-        }
+
+        list($isEvent, $owner, $mailModel) = $this->getVarsForCreateOrDeleteRecord($record);
         
         if ($record) {
             $record->delete();
             $isNew = false;
             $message = trans('content.record_canceled');
         } else {
+            $foreignTable = $foreignModel->find($request->input('id'));
+            if (
+                ($foreignTable instanceof Event && Gate::allows('owner', $foreignTable)) ||
+                ($foreignTable instanceof Section && Gate::allows('owner', $foreignTable->leader))
+            ) abort(403);
+            
             $isNew = true;
             $model->create([
                 'user_id' => Auth::id(),
@@ -330,16 +330,7 @@ class UserController extends StaticController
             $mailFlag = false;
             $isNew = false;
 
-            if ($model instanceof EventsRecord) {
-                if ($record->event->start_time < time()) abort(403);
-                $isEvent = true;
-                $owner = $record->event->user;
-                $mailModel = $record->event;
-            } else {
-                $isEvent = false;
-                $owner = $record->section->leader->user;
-                $mailModel = $record->section;
-            }
+            list($isEvent, $owner, $mailModel) = $this->getVarsForCreateOrDeleteRecord($record);
 
             if ($record && !$fields['kid'.$kid->id]) {
                 $cancelRecords++;
@@ -362,7 +353,54 @@ class UserController extends StaticController
 
         return redirect()->back()->with('message',$message);
     }
-    
+
+    public function deleteRecordEvent(Request $request)
+    {
+        return $this->deleteRecord($request, new EventsRecord());
+    }
+
+    public function deleteRecordSection(Request $request)
+    {
+        return $this->deleteRecord($request, new SectionsRecord());
+    }
+
+    private function deleteRecord(Request $request, Model $model)
+    {
+        $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id']);
+        $record = $model->find($request->input('id'));
+
+        if (
+            Gate::denies('trainer')     &&
+            Gate::denies('organizer')   &&
+            Gate::denies('admin')       &&
+            (
+                ($record instanceof EventsRecord && Gate::denies('owner', $record->event)) ||
+                ($record instanceof SectionsRecord && Gate::denies('owner', $record->section->leader))
+            )
+        ) abort(403);
+        
+        list($isEvent, $owner, $mailModel) = $this->getVarsForCreateOrDeleteRecord($record);
+        $this->sendRecordsEmails($record->kid_id ? $record->kid->parent : $record->user, $owner, $mailModel, false, $isEvent, $record->kid_id);
+//        $record->delete();
+        return response()->json(['success' => true]);
+    }
+
+    private function getVarsForCreateOrDeleteRecord(Model $record)
+    {
+        if ($record instanceof EventsRecord) {
+            if ($record->event->start_time < time()) abort(403);
+            $isEvent = true;
+            $owner = $record->event->user;
+            $mailModel = $record->event;
+        } else {
+            if (Gate::allows('owner',$record->section->leader)) abort(403);
+            $isEvent = false;
+            $owner = $record->section->leader->user;
+            $mailModel = $record->section;
+        }
+        return [$isEvent, $owner, $mailModel];
+    }
+
     private function setGender($gender)
     {
         return $gender == 'M' || $gender == 'М' ? 1 : 0;
@@ -379,5 +417,20 @@ class UserController extends StaticController
 
         if ($checkKid || $day > $maxDaysInMonth) return false;
         else return strtotime($month.'/'.$day.'/'.$year);
+    }
+
+    protected function sendRecordsEmails($user, $owner, Model $model, $isNew, $isEvent, $isKid)
+    {
+        $userName = Helper::userCreds($user, true);
+        $template = 'auth.emails.'.($isEvent ? 'event' : 'section').'_record';
+
+        $fields = [
+            'head' => trans('mail.'.($isNew ? 'new' : 'cancel').'_record_to_'.($isEvent ? 'event' : 'section'), ['name' => $model['name_'.App::getLocale()]]),
+            'user' => $isKid ? trans('mail.child',['child_name' => $userName]) : trans('mail.user',['user_name' => $userName]),
+            'model' => $model
+        ];
+
+        if ($user->email && $user->send_mail) $this->sendMessage($user->email, $template, $fields);
+        if ($owner->email && $owner->send_mail) $this->sendMessage($owner->email, $template, $fields);
     }
 }

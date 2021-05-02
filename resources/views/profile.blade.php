@@ -135,6 +135,26 @@
                         'head' => trans('content.trainer_info')
                     ])
 
+                    @if (count(Auth::user()->trainer->sections))
+                        <div class="credentials-block">
+                            @php
+                                $sections = '';
+                                foreach (Auth::user()->trainer->sections as $k => $section) {
+                                    $comma = $k != count(Auth::user()->trainer->sections)-1 ? ', ' : '';
+                                    $sections .= '<a href="'.url('/sections/'.$section->slug).'">'.$section['name_'.App::getLocale()].'</a>'.$comma;
+                                }
+                            @endphp
+
+                            @include('_credentials_block',[
+                                'colMd' => 12,
+                                'colSm' => 12,
+                                'description' => trans('content.list_of_sections'),
+                                'credential' => $sections,
+                                'scroll' => 'sections'
+                            ])
+                        </div>
+                    @endif
+
                     @include('_textarea_block', [
                         'label' => trans('content.about_me'),
                         'name' => 'about_ru',

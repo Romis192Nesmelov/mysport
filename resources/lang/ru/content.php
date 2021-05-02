@@ -80,6 +80,7 @@ return [
     'ru' => 'Русский',
     
     'head' => 'Заголовок',
+    'user' => 'Пользователь:',
     'name' => 'Название',
     'user_name' => 'Имя:',
     'surname' => 'Отчество:',
@@ -145,6 +146,7 @@ return [
     'select_the_kind_of_sport' => 'Выберите вид спорта:',
     'not_select_the_kind_of_sport' => 'Вид спорта не выбран',
     'to_record_kid' => 'Записать ребенка',
+    'delete_participant' => 'Удалить участника',
     'confirm_delete_record' => 'Вы действительно хотите удалить эту запись?',
     'do_you_want_to_sign_up_for_this_event' => 'Вы хотите записаться на данное мероприятие?',
     'do_you_want_to_sign_up_your_child_for_this_event' => 'Вы хотите записать ребенка/детей на данное мероприятие?',
@@ -163,6 +165,7 @@ return [
     'add_event' => 'Добавить спортивное событие',
     'latitude' => 'Широта:',
     'longitude' => 'Долгота:',
+    'participants' => 'Участники:',
 
     'no_file_selected' => 'Файл не выбран',
     'no_data' => 'Нет данных',

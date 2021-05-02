@@ -120,3 +120,6 @@ Route::post('/event-kids-record', 'UserController@eventKidsRecord');
 
 Route::post('/section-user-record', 'UserController@sectionUserRecord');
 Route::post('/section-kids-record', 'UserController@sectionKidsRecord');
+
+Route::post('/delete-record-event', 'UserController@deleteRecordEvent');
+Route::post('/delete-record-section', 'UserController@deleteRecordSection');

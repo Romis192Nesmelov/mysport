@@ -12,7 +12,7 @@
 
             @include('_left_gray_block', [
                 'content' => ob_get_clean(),
-                'buttons' => time() < $data['item']->start_time,
+                'buttons' => time() < $data['item']->start_time && Gate::denies('owner',$data['item']),
                 'recordUserMessage' => trans('content.do_you_want_to_sign_up_for_this_event'),
                 'recordKidMessage' => trans('content.do_you_want_to_sign_up_your_child_for_this_event'),
                 'recordUserAction' => 'event-user-record',
@@ -93,6 +93,13 @@
                     'description' => trans('content.age_group'),
                     'credential' => Helper::getAgeGroup($data['item']->age_group)
                 ])
+
+                @if (Gate::allows('owner',$data['item']) && count($data['item']->records))
+                    @include('_users_records_list_block',[
+                        'records' => $data['item']->records,
+                        'objectName' => 'section'
+                    ])
+                @endif
             </div>
 
             @include('_right_gray_block',['content' => ob_get_clean(), 'useMap' => true])

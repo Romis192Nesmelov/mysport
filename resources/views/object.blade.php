@@ -31,7 +31,7 @@
 
                 @include('_left_gray_block', [
                     'content' => ob_get_clean(),
-                    'buttons' => true,
+                    'buttons' => Gate::denies('owner',$data['item']->leader),
                     'recordUserMessage' => trans('content.do_you_want_to_sign_up_for_this_section'),
                     'recordKidMessage' => trans('content.do_you_want_to_sign_up_your_child_for_this_section'),
                     'recordUserAction' => 'section-user-record',
@@ -183,6 +183,13 @@
                         'colSm' => $blindVer ? 12 : 6,
                         'description' => trans('content.timetable'),
                         'credential' => $data['item']['schedule_'.App::getLocale()]
+                    ])
+                @endif
+
+                @if (Gate::allows('owner',$data['item']) && count($data['item']->records))
+                    @include('_users_records_list_block',[
+                        'records' => $data['item']->records,
+                        'objectName' => 'event'
                     ])
                 @endif
             </div>

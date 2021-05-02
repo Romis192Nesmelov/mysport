@@ -616,15 +616,15 @@ class AdminController extends UserController
         return $this->deleteSomething($request, new Event());
     }
     
-    public function deleteRecordEvent(Request $request)
-    {
-        return $this->deleteSomething($request, new EventsRecord());
-    }
-
-    public function deleteRecordSection(Request $request)
-    {
-        return $this->deleteSomething($request, new SectionsRecord());
-    }
+//    public function deleteRecordEvent(Request $request)
+//    {
+//        return $this->deleteSomething($request, new EventsRecord());
+//    }
+//
+//    public function deleteRecordSection(Request $request)
+//    {
+//        return $this->deleteSomething($request, new SectionsRecord());
+//    }
 
     public function deleteGallery(Request $request)
     {
