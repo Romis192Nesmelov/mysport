@@ -25,7 +25,7 @@ h1, h2, h3, h4 {
 }
 
 .paginate_button {
-    padding: 2px !important;
+    padding: 7px !important;
     text-decoration: none !important;
     background-color: white !important;
     border: 1px solid #ddd !important;
@@ -382,13 +382,18 @@ table.users-list td.delete span {
     font-size: 13px;
 }
 
-.dataTables_filter > label:after {
-    margin-top: -10px;
+.dataTables_filter input,
+.select2-selection--single:not([class*=bg-]) {
+    border-radius: 20px;
 }
 
 .dataTables_filter > label > span,
 .dataTables_length > label > span:first-child {
-    margin: 4px 15px;
+    margin: 8px 15px;
+}
+
+.select2-results__option[aria-selected=true] {
+    background-color: #13a28a;
 }
 
 .navbar-right .navbar-nav .user-creds {

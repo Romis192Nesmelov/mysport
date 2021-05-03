@@ -25,10 +25,19 @@ $(document).ready(function() {
     });
     
     // Unlock to search button
-    $('input[name=search]').keyup(function () {
-        var searchButton = $('#searching');
+    var subMitForm = $('form.search-form'),
+        searchInput = $('input[name=search]'),
+        searchButton = subMitForm.find('button');
+
+    searchInput.keyup(function () {
         if ($(this).val().length) searchButton.prop('disabled',false);
         else searchButton.prop('disabled',true);
+    });
+
+    // Substitution search URL
+    searchButton.click(function (e) {
+        e.preventDefault();
+        window.location.href = subMitForm.attr('action') + '/' + searchInput.val();
     });
 
     var scrollBlock = '.scroll-block';

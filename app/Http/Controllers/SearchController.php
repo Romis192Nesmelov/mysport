@@ -16,15 +16,9 @@ class SearchController extends StaticController
 {
     use HelperTrait;
 
-    public function search(Request $request)
+    public function search($slug)
     {
-        if ($request->has('search')) {
-            $this->data['search'] = trim($request->input('search'));
-            Session::put('search',$this->data['search']);
-        } elseif (Session::has('search')) {
-            $this->data['search'] = Session::get('search');
-        } else return redirect()->back();
-
+        $this->data['search'] = trim($slug);
         $locale = App::getLocale();
         $this->data['words'] = preg_split('/[\s,\.;]+/', $this->data['search']);
         $this->data['found'] = collect();
@@ -55,6 +49,7 @@ class SearchController extends StaticController
             foreach ($fields as $field) {
                 foreach ($this->data['words'] as $word) {
                     $content = $item[$field];
+                    $word = mb_strtolower($word);
                     if (preg_match('/'.$word.'/ui', $content)) {
                         $maxLength = 100;
                         $strPos = mb_strpos($content,$word,0,'UTF-8');

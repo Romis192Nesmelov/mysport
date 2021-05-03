@@ -33,7 +33,7 @@ class UserController extends StaticController
     public function profile(Request $request)
     {
         if (Gate::allows('trainer') || Gate::allows('organizer')) $this->data['events'] = Event::where('user_id',Auth::id())->orderBy('start_time','desc')->paginate(6);
-        return $this->showView($request, 'profile');
+        return $this->showView('profile');
     }
 
     public function editProfile(Request $request)
@@ -101,7 +101,7 @@ class UserController extends StaticController
             $this->data['points'] = [[$this->data['item']]];
         } elseif (Gate::denies('trainer') && Gate::denies('organizer')) abort(403);
         $this->getEventOnTheYear(true,false);
-        return $this->showView($request, 'edit_event');
+        return $this->showView('edit_event');
     }
 
     public function editEvent(Request $request)
@@ -222,7 +222,7 @@ class UserController extends StaticController
             $this->data['kid'] = Kid::find($request->input('id'));
             if (!$this->data['kid']) abort(404);
         }
-        return $this->showView($request,'child');
+        return $this->showView('child');
     }
     
     public function editChild(Request $request)
