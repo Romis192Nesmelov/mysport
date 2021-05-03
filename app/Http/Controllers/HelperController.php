@@ -149,6 +149,14 @@ class HelperController extends Controller
         return $this->wordNumeral($value, 'kid', true, 'детей', 'ребенок', 'ребенка');
     }
 
+    public function markFound($string, $words)
+    {
+        foreach ($words as $word) {
+            $string = preg_replace('/'.$word.'/ui', '<span class="found-word">'.$word.'</span>', $string);
+        }
+        return $string;
+    }
+
     private function wordNumeral($value, $pluralForm, $englishCase, $numeral1, $numeral2, $numeral3=null)
     {
         if (App::getLocale() == 'en') {

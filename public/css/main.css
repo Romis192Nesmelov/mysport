@@ -12,9 +12,23 @@ h1, h2, h3, h4 {
     margin: 30px auto;
 }
 
-.pagination .page-link {
-    border-radius: 50%;
+.dataTables_paginate {
+    float: left !important;
+}
+
+.pagination .page-link,
+.paginate_button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50% !important;
     overflow: hidden;
+}
+
+.paginate_button {
+    padding: 2px !important;
+    text-decoration: none !important;
+    background-color: white !important;
+    border: 1px solid #ddd !important;
 }
 
 .pagination > .active > a,
@@ -22,9 +36,13 @@ h1, h2, h3, h4 {
 .pagination > .active > a:hover,
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
-.pagination > .active > span:focus {
-    background-color: #13a28a;
-    border-color: #13a28a;
+.pagination > .active > span:focus,
+.paginate_button.current,
+.paginate_button.current:hover,
+.paginate_button.current:focus {
+    background-color: #13a28a !important;
+    border-color: #13a28a !important;
+    color: white !important;
 }
 
 p {
@@ -40,8 +58,25 @@ div.table {
     color: #ff7070;
 }
 
+.modal-body {
+    text-align: center;
+}
+
 .modal-body.modal-delete h3 {
     text-align: center;
+}
+
+.modal-body button.green {
+    min-width: 260px;
+    border-radius: 25px;
+    height: 50px;
+    font-size: 15px;
+    padding: 0 20px;
+    float: none;
+}
+
+button[disabled] {
+    opacity: 0.5;
 }
 
 p.text-center {
@@ -879,8 +914,7 @@ a.active {
     width: 80%;
     position: relative;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translateY(-50%);
 }
 
 .rounded-block.gray.left-block h1,
@@ -942,6 +976,26 @@ a.active {
 
 .name-part {
     text-align: center;
+}
+
+.found-word {
+    color: #13a28a;
+}
+
+.search-results h3 {
+    color: black;
+}
+
+.search-results p {
+    color: grey;
+}
+
+.search-results h3:hover {
+    color: #ff7070;
+}
+
+.search-results p:hover {
+    color: #ff7070;
 }
 
 .rounded-block.gray.right-block {
@@ -1452,23 +1506,6 @@ a.active {
 
 .footer .copyright .soc-net:last-child {
     margin-left: 0;
-}
-
-#ya-site-results {
-    background: none;
-    font-family: 'Rubik', sans-serif !important;
-    font-size: 18px;
-}
-
-.b-head.b-head_type_search-simple {
-    display: none;
-}
-
-#ya-site-form0 .ya-site-form__submit_type_image {
-    width: 35px !important;
-    height: 35px !important;
-    background: url("../images/icons-search.svg") center no-repeat !important;
-    background-size: 100% !important;
 }
 
 @media screen and (max-width: 1300px) {

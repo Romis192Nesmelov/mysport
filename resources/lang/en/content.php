@@ -165,6 +165,11 @@ return [
     'latitude' => 'Latitude:',
     'longitude' => 'Longitude:',
     'participants' => 'Participants:',
+    'to_search' => 'To search',
+    'enter_search_string' => 'Enter search string',
+    'on_request' => 'On request: «:request»',
+    'nothing_found' => 'Nothing found',
+    'found' => 'found :coincidences coincidences:',
 
     'no_file_selected' => 'No file selected',
     'no_data' => 'No data',

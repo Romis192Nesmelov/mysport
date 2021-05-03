@@ -1,11 +1,3 @@
-#login .modal-body,
-#register .modal-body,
-#password-reset .modal-body,
-#send-confirm .modal-body,
-#reset .modal-body {
-    text-align: center;
-}
-
 .auth {
     margin: 10px auto 0 auto;
     text-align: center;
@@ -44,13 +36,4 @@ p.auth-register {
 
 .soc-icon img {
     width: 100%;
-}
-
-.modal-body button.green {
-    min-width: 260px;
-    border-radius: 25px;
-    height: 50px;
-    font-size: 15px;
-    padding: 0 20px;
-    float: none;
 }

@@ -110,7 +110,7 @@ Route::get('/kinds-of-sport', 'StaticController@kindsOfSport');
 
 Route::get('/change-lang', 'StaticController@changeLang');
 Route::post('/find-points', 'StaticController@findPoints');
-Route::get('/search', 'StaticController@search');
+Route::get('/search', 'SearchController@search');
 
 Route::get('/trainer/events/{slug?}', 'UserController@events');
 

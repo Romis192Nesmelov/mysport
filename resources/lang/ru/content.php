@@ -166,6 +166,11 @@ return [
     'latitude' => 'Широта:',
     'longitude' => 'Долгота:',
     'participants' => 'Участники:',
+    'to_search' => 'Искать',
+    'enter_search_string' => 'Введите строку поиска',
+    'on_request' => 'По запросу:<br>«:request»',
+    'nothing_found' => 'ничего не найдено',
+    'found' => 'найдено :coincidences совпадений',
 
     'no_file_selected' => 'Файл не выбран',
     'no_data' => 'Нет данных',

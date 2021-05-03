@@ -21,7 +21,7 @@ class StaticController extends Controller
     use HelperTrait;
 
     protected $data = [];
-    protected $breadcrumbs = [];
+//    protected $breadcrumbs = [];
 
     public function redirect(Request $request)
     {
@@ -30,14 +30,14 @@ class StaticController extends Controller
         else return redirect('/');
     }
 
-    public function index(Request $request, $token=null)
+    public function index($token=null)
     {
         $this->data['news'] = News::where('active',1)->orderBy('id','desc')->limit(3)->get();
         $this->data['trainers'] = Trainer::where('active',1)->where('best',1)->get();
         $this->data['points'] = $this->findSport();
         $this->getEventOnTheYear();
         $this->data['events'] = Event::where('active',1)->orderBy('start_time','desc')->limit(5)->get();
-        return $this->showView($request, 'home', $token);
+        return $this->showView('home', $token);
     }
     
     public function setBlind()
@@ -47,15 +47,15 @@ class StaticController extends Controller
         return redirect()->back();
     }
     
-    public function news(Request $request,$slug=null)
+    public function news($slug=null)
     {
         if ($slug) {
             $this->data['news'] = News::where('slug',$slug)->first();
             if (!$this->data['news']) abort(404);
-            return $this->showView($request, 'current_news');
+            return $this->showView('current_news');
         } else {
             $this->data['news'] = News::where('active',1)->orderBy('id','desc')->paginate(6);
-            return $this->showView($request, 'news');
+            return $this->showView('news');
         }
     }
 
@@ -64,7 +64,7 @@ class StaticController extends Controller
         $this->getItem($request, new Area(), $slug);
         $this->data['area_id'] = $this->data['item']->id;
         $this->data['points'] = $this->findSport($this->data['item']->id);
-        return $this->showView($request,'area');
+        return $this->showView('area');
     }
 
     public function events(Request $request,$slug=null)
@@ -72,7 +72,7 @@ class StaticController extends Controller
         if ($slug && $slug == 'all') {
             $this->getEventOnTheYear();
             $this->data['events'] = Event::where('active',1)->orderBy('start_time','desc')->paginate(9);
-            return $this->showView($request,'events');
+            return $this->showView('events');
         } else {
             $this->getItem($request, new Event(), $slug);
             $this->data['area_id'] = $this->data['item']->area->id;
@@ -83,7 +83,7 @@ class StaticController extends Controller
                     'sections' => null,
                     'places' => null
                 ];
-            return $this->showView($request,'event');
+            return $this->showView('event');
         }
     }
     
@@ -107,7 +107,7 @@ class StaticController extends Controller
         if ($request->has('id')) {
             $this->data['trainer'] = Trainer::find($request->input('id'));
             if (!$this->data['trainer'] || !$this->data['trainer']->active) abort(404);
-            return $this->showView($request,'trainer');
+            return $this->showView('trainer');
         } else {
             $sports = KindOfSport::where('active',1)->orderBy('name_'.App::getLocale())->get();
             $this->data['glossary'] = [];
@@ -129,7 +129,7 @@ class StaticController extends Controller
             } else {
                 $this->data['trainers'] = $trainers->paginate(16);
             }
-            return $this->showView($request,'trainers');
+            return $this->showView('trainers');
         }
     }
     
@@ -149,10 +149,10 @@ class StaticController extends Controller
             }
 //            $this->data['counters']['places'] = count($this->data['sport']->places);
 
-            return $this->showView($request,'kind_of_sport');
+            return $this->showView('kind_of_sport');
         } else {
             $this->data['kinds_of_sport'] = KindOfSport::where('active',1)->orderBy('name_'.App::getLocale())->get();
-            return $this->showView($request,'kinds_of_sport');
+            return $this->showView('kinds_of_sport');
         }
     }
     
@@ -182,7 +182,7 @@ class StaticController extends Controller
             $this->data['points']['organizations'] = null;
             $this->data['points']['sections'] = [$this->data['item']];
         }
-        return $this->showView($request,'object');
+        return $this->showView('object');
     }
     
     public function changeLang(Request $request)
@@ -207,12 +207,7 @@ class StaticController extends Controller
         ]);
     }
 
-    public function search(Request $request)
-    {
-        return $this->showView($request,'search');
-    }
-
-    protected function showView(Request $request, $view, $token=null)
+    protected function showView($view, $token=null)
     {
         $this->data['seo'] = Settings::getSeoTags();
         $mainMenu = [

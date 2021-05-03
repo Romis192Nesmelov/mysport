@@ -23,6 +23,13 @@ $(document).ready(function() {
     $('table.datatable-basic').on('draw.dt', function () {
         bindDelete();
     });
+    
+    // Unlock to search button
+    $('input[name=search]').keyup(function () {
+        var searchButton = $('#searching');
+        if ($(this).val().length) searchButton.prop('disabled',false);
+        else searchButton.prop('disabled',true);
+    });
 
     var scrollBlock = '.scroll-block';
     if ($(scrollBlock).length) {
