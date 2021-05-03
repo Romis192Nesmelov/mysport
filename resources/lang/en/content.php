@@ -169,6 +169,7 @@ return [
     'enter_search_string' => 'Enter search string',
     'on_request' => 'On request: «:request»',
     'nothing_found' => 'Nothing found',
+    'found_zero_coincidences' => 'No results were found for «:request»',
     'found' => 'found :coincidences coincidences:',
 
     'no_file_selected' => 'No file selected',

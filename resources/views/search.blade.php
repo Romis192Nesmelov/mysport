@@ -17,24 +17,28 @@
 
             @php ob_start(); @endphp
 
-            @foreach($data['found'] as $found)
-                @php
-                    $locale = App::getLocale();
-                    $head = isset($found['item']['name_'.$locale]) ? $found['item']['name_'.$locale] : $found['item']['head_'.$locale];
-                @endphp
-                <a href="{{ url($found['href']) }}">
-                    <h3>{!! Helper::markFound($head,$data['words']) !!}</h3>
-                    @if (count($found['fields']))
-                        @foreach($found['fields'] as $field => $content)
-                            <p>{!! Helper::markFound($content,$data['words']) !!}</p>
-                        @endforeach
-                    @else
-                        <p>{!! Helper::croppedContent((isset($found['item']['content_'.$locale]) ? $found['item']['content_'.$locale] : $found['item']['description_'.$locale]),100) !!}</p>
-                    @endif
-                </a>
-            @endforeach
+            @if (count($data['found'])))
+                @foreach($data['found'] as $found)
+                    @php
+                        $locale = App::getLocale();
+                        $head = isset($found['item']['name_'.$locale]) ? $found['item']['name_'.$locale] : $found['item']['head_'.$locale];
+                    @endphp
+                    <a href="{{ url($found['href']) }}">
+                        <h3>{!! Helper::markFound($head,$data['words']) !!}</h3>
+                        @if (count($found['fields']))
+                            @foreach($found['fields'] as $field => $content)
+                                <p>{!! Helper::markFound($content,$data['words']) !!}</p>
+                            @endforeach
+                        @else
+                            <p>{!! Helper::croppedContent((isset($found['item']['content_'.$locale]) ? $found['item']['content_'.$locale] : $found['item']['description_'.$locale]),100) !!}</p>
+                        @endif
+                    </a>
+                @endforeach
 
-            {{ $data['found']->render() }}
+                {{ $data['found']->render() }}
+            @else
+                <h1 class="text-center">{{ trans('content.found_zero_coincidences',['request' => $data['search']]) }}</h1>
+            @endif
 
             @include('_right_gray_block',[
                 'addClass' => 'search-results',

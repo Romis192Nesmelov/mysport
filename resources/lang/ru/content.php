@@ -170,6 +170,7 @@ return [
     'enter_search_string' => 'Введите строку поиска',
     'on_request' => 'По запросу:<br>«:request»',
     'nothing_found' => 'ничего не найдено',
+    'found_zero_coincidences' => 'По запросу «:request» ничего не найдено',
     'found' => 'найдено :coincidences совпадений',
 
     'no_file_selected' => 'Файл не выбран',
