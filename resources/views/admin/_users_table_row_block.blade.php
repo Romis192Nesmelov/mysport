@@ -6,6 +6,11 @@
             <a href="{{ url('admin/users?id='.$user->parent->id) }}">{!! Helper::userCreds($user->parent) !!}</a>
         @elseif (isset($user->trainer) && $user->trainer)
             <span class="label label-success">{{ trans('admin.trainer') }}</span>
+            @include('admin._status_simple_block',[
+                'status' => $user->trainer->active,
+                'trueLabel' => trans('admin.trainer_active'),
+                'falseLabel' => trans('admin.trainer_not_active')
+            ])
         @elseif (isset($user->type))
             @include('admin._status_multiply_block',['status' => $user->type-1, 'statuses' => [
                 trans('admin.admin'),

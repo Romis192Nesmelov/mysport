@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
         
         Gate::define('trainer', function ($user) {
-            return $user->trainer;
+            return $user->trainer && $user->trainer->active;
         });
 
         Gate::define('organizer', function ($user) {
@@ -39,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
         });
         
         Gate::define('owner', function ($user, Model $model) {
-            return ($user->trainer || $user->type == 2) && $user->id == $model->user_id;
+            return ( ($user->trainer && $user->trainer->active) || $user->type == 2) && $user->id == $model->user_id;
         });
     }
 }

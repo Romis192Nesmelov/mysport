@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use App\EventSport;
 use App\Section;
 use App\User;
+use App\Trainer;
 use App\Kid;
 use App\Event;
 use App\EventsRecord;
 use App\SectionsRecord;
+use App\Message;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Helper;
+use Illuminate\Support\Facades\Settings;
 
 class UserController extends StaticController
 {
@@ -32,7 +35,8 @@ class UserController extends StaticController
 
     public function profile(Request $request)
     {
-        if (Gate::allows('trainer') || Gate::allows('organizer')) $this->data['events'] = Event::where('user_id',Auth::id())->orderBy('start_time','desc')->paginate(6);
+        if (Gate::allows('trainer') || Gate::allows('organizer')) $this->data['events'] = Event::where('user_id',Auth::id())->orderBy('start_time','desc')->paginate(12);
+        $this->data['free_sections'] = Section::where('trainer_id',null)->get();
         return $this->showView('profile');
     }
 
@@ -49,11 +53,13 @@ class UserController extends StaticController
             'avatar' => $this->validationImage
         ];
 
-        $ignoringFieldsForAll = ['avatar', 'password', 'password_confirmation'];
+        $ignoringFieldsForAll = ['avatar', 'password', 'password_confirmation','new_section_id','trainer_request'];
         $ignoringFieldsForUser = ['about_me', 'education_ru', 'add_education_ru', 'achievements', 'since'];
         $ignoringFieldsForTrainer = ['email', 'phone', 'name', 'surname', 'family', 'born', 'gender'];
+        $trainerRequest = $request->has('trainer_request') && (int)$request->input('trainer_request');
+        $masterMail = (string)Settings::getSettings()->email;
 
-        if (Gate::allows('trainer')) {
+        if (Auth::user()->trainer || $trainerRequest) {
             $validationArr['about_me'] = 'max:1000';
             $validationArr['education_ru'] = 'required|min:5|max:255';
             $validationArr['add_education_ru'] = 'max:255';
@@ -65,8 +71,10 @@ class UserController extends StaticController
             }
         }
 
-        $fieldsUser = $this->processingFields($request, 'send_mail', array_merge($ignoringFieldsForAll, $ignoringFieldsForUser));
+        $fieldsUser = $this->processingFields($request, null, array_merge($ignoringFieldsForAll, $ignoringFieldsForUser));
         $fieldsUser['gender'] = $this->setGender($fieldsUser['gender']);
+        $newSection = $trainerRequest && $request->has('new_section_id') ? $request->input('new_section_id') : false;
+        if ($newSection) $validationArr['new_section_id'] = $this->validationSection;
 
         if (!$fieldsUser['born'] = $this->setBornDate($fieldsUser['born']))
             return redirect()->back()->withInput()->withErrors(['born' => trans('validation.invalid_date')]);
@@ -86,9 +94,48 @@ class UserController extends StaticController
             $user->update($fieldsUser);
         }
 
-        if (Gate::allows('trainer')) {
+        if (Auth::user()->trainer && Gate::denies('trainer') && !$trainerRequest) {
+            $message = Message::where('trainer_id',Auth::user()->trainer->id)->first();
+            $message->delete();
+
+            $this->sendMessage(
+                $masterMail,
+                'auth.emails.trainer_request',
+                ['head' => trans('mail.trainer_request_withdrawn'), 'user' => Auth::user()],
+                Auth::user()->email && Auth::user()->send_mail ? Auth::user()->email : null
+            );
+
+            Auth::user()->trainer->delete();
+
+        } elseif (Auth::user()->trainer || $trainerRequest) {
             $fieldsTrainer = $this->processingFields($request, null, array_merge($ignoringFieldsForAll, $ignoringFieldsForTrainer));
-            $user->trainer->update($fieldsTrainer);
+
+            if (Auth::user()->trainer) {
+                $user->trainer->update($fieldsTrainer);
+                $trainer = $user->trainer;
+            } else {
+                $fieldsTrainer['active'] = 0;
+                $fieldsTrainer['user_id'] = Auth::id();
+                $trainer = Trainer::create($fieldsTrainer);
+
+                Message::create([
+                    'for_admin' => true,
+                    'trainer_id' => $trainer->id
+                ]);
+
+                $this->sendMessage(
+                    $masterMail,
+                    'auth.emails.trainer_request',
+                    ['head' => trans('mail.new_trainer_request'), 'user' => $trainer->user],
+                    $trainer->user->email && $trainer->user->send_mail ? $trainer->user->email : null
+                );
+            }
+
+            if ($newSection) {
+                $section = Section::find($newSection);
+                $section->trainer_id = $trainer->id;
+                $section->save();
+            }
         }
         return redirect('/profile')->with('message', trans('content.save_complete'));
     }
@@ -382,6 +429,16 @@ class UserController extends StaticController
         list($isEvent, $owner, $mailModel) = $this->getVarsForCreateOrDeleteRecord($record);
         $this->sendRecordsEmails($record->kid_id ? $record->kid->parent : $record->user, $owner, $mailModel, false, $isEvent, $record->kid_id);
 //        $record->delete();
+        return response()->json(['success' => true]);
+    }
+
+    public function deleteTrainerSection(Request $request)
+    {
+        $this->validate($request, ['id' => $this->validationSection]);
+        $section = Section::find($request->input('id'));
+        if (Gate::denies('admin') && (Gate::denies('trainer') || Auth::user()->trainer->id != $section->trainer_id)) abort(403);
+        $section->trainer_id = null;
+        $section->save();
         return response()->json(['success' => true]);
     }
 

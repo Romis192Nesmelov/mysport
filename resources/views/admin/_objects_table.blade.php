@@ -51,7 +51,9 @@
             <h4 class="text-center">{{ trans('content.no_data') }}</h4>
         @endif
     </div>
-    <div class="panel-body">
-        @include('admin._add_button_block',['href' => $objectName.'s/add', 'text' => trans('admin.add_'.$objectName)])
-    </div>
+    @if (!isset($withOutAdding) || !$withOutAdding)
+        <div class="panel-body">
+            @include('admin._add_button_block',['href' => $objectName.'s/add', 'text' => trans('admin.add_'.$objectName)])
+        </div>
+    @endif
 </div>

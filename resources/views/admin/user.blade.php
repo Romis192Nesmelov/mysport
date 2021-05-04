@@ -147,6 +147,25 @@
                             <h4 class="text-grey-300">{!! trans('admin.trainer') !!}</h4>
                         </div>
                         <div class="panel-body">
+                            @if (isset($data['user']) && $data['user']->trainer)
+                                @include('admin._objects_table',[
+                                    'objects' => $data['user']->trainer->sections,
+                                    'objectName' => 'trainer-section',
+                                    'withOutAdding' => true
+                                ])
+                            @endif
+
+                            @if (count($data['free_sections']))
+                                @include('_select_block',[
+                                    'label' => trans('content.add_section'),
+                                    'name' => 'new_section_id',
+                                    'values' => $data['free_sections'],
+                                    'optionName' => 'name_ru',
+                                    'selected' => null,
+                                    'useNull' => true
+                                ])
+                            @endif
+
                             @include('_textarea_block', [
                                 'label' => trans('content.about_me'),
                                 'name' => 'about_ru',

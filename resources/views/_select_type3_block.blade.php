@@ -1,5 +1,5 @@
 @php ob_start(); @endphp
-<select name="{{ $name }}" class="form-control">
+<select name="{{ $name }}" class="type3">
     @if (isset($useNull) && $useNull)
         <option value="0">{{ trans('content.not_defined') }}</option>
     @endif

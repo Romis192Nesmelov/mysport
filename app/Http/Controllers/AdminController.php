@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\EventsRecord;
+use App\Message;
 use App\SectionsRecord;
 use App\Sport;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ use App\KindOfSport;
 use App\Event;
 use App\Place;
 use App\Gallery;
+use App\Messa;
 use Illuminate\Support\Facades\Helper;
 use Illuminate\Support\Facades\Settings;
 use Illuminate\Support\Facades\App;
@@ -26,6 +28,8 @@ class AdminController extends UserController
 {
     use HelperTrait;
 
+    private $breadcrumbs = [];
+
     public function __construct()
     {
         parent::__construct();
@@ -33,7 +37,7 @@ class AdminController extends UserController
     }
 
     // Get block
-    public function index(Request $request, $token=null)
+    public function index($token=null)
     {
         return redirect('/admin/users');
     }
@@ -43,18 +47,18 @@ class AdminController extends UserController
         $this->breadcrumbs = ['seo' => 'SEO'];
         $this->data['metas'] = $this->metas;
         $this->data['seo'] = Settings::getSeoTags();
-        return $this->showView($request, 'seo');
+        return $this->showView('seo');
     }
 
     public function settings(Request $request)
     {
         $this->breadcrumbs = ['settings' => trans('admin.settings')];
-        return $this->showView($request,'settings');
+        return $this->showView('settings');
     }
 
     public function users(Request $request, $slug=null)
     {
-        return $this->getUsers($request, new User(), $slug, 'user', new KindOfSport());
+        return $this->getUsers($request, new User(), $slug, 'user', new KindOfSport(), true);
     }
 
     public function kids(Request $request, $slug=null)
@@ -62,7 +66,7 @@ class AdminController extends UserController
         return $this->getUsers($request, new Kid(), $slug, 'kid', new User());
     }
 
-    private function getUsers(Request $request, Model $model, $slug, $objectName, $addCollection=false)
+    private function getUsers(Request $request, Model $model, $slug, $objectName, $addCollection=false, $userMode=false)
     {
         $this->breadcrumbs = [$objectName.'s' => trans('admin.'.$objectName.'s')];
         if ($request->has('id')) {
@@ -74,14 +78,20 @@ class AdminController extends UserController
             ];
             $this->breadcrumbs[$objectName.'s?id='.$this->data[$objectName]->id] = Helper::userCreds($this->data[$objectName], true);
             if ($addCollection) $this->data['collection'] = $addCollection->all();
-            return $this->showView($request, $objectName);
+            if ($userMode) {
+                $this->data['free_sections'] = Section::where('trainer_id',null)->get();
+                if ($this->data[$objectName]->trainer) {
+                    Message::where('for_admin',1)->where('read',null)->where('trainer_id',$this->data[$objectName]->trainer->id)->update(['read' => 1]);
+                }
+            }
+            return $this->showView($objectName);
         } else if ($slug && $slug == 'add') {
             $this->breadcrumbs[$objectName.'s/add'] = trans('admin.adding_'.$objectName);
             if ($addCollection) $this->data['collection'] = $addCollection->all();
-            return $this->showView($request, $objectName);
+            return $this->showView($objectName);
         } else {
             $this->data[$objectName.'s'] = $model->orderBy('id','desc')->get();
-            return $this->showView($request, $objectName.'s');
+            return $this->showView($objectName.'s');
         }
     }
 
@@ -92,13 +102,13 @@ class AdminController extends UserController
             $this->data['news'] = News::find($request->input('id'));
             if (!$this->data['news']) abort(404);
             $this->breadcrumbs['news?id='.$this->data['news']->id] = $this->data['news']['head_'.App::getLocale()];
-            return $this->showView($request, 'news');
+            return $this->showView('news');
         } else if ($slug && $slug == 'add') {
             $this->breadcrumbs['news/add'] = trans('admin.adding_news');
-            return $this->showView($request, 'news');
+            return $this->showView('news');
         } else {
             $this->data['all_news'] = News::orderBy('id','desc')->get();
-            return $this->showView($request, 'all_news');
+            return $this->showView('all_news');
         }
     }
     
@@ -127,10 +137,17 @@ class AdminController extends UserController
         return $this->getObjects($request, new KindOfSport(), null, 'name');
     }
     
-    public function banners(Request $request)
+    public function banners()
     {
         $this->breadcrumbs = ['banners' => trans('admin.advertising_banners')];
-        return $this->showView($request, 'banners');
+        return $this->showView('banners');
+    }
+
+    public function messages()
+    {
+        $this->breadcrumbs = ['banners' => trans('admin.messages')];
+        $this->data['messages'] = Message::orderBy('created_at','desc')->get();
+        return $this->showView('messages');
     }
 
     private function getObjects(Request $request, Model $model, $slug, $headName, $addCollection=false, $descField=false)
@@ -145,14 +162,14 @@ class AdminController extends UserController
             else $this->breadcrumbs[$objectName.'s?id='.$this->data['item']->id] = $this->data['item'][$headName.'_'.App::getLocale()];
 
             if ($addCollection) $this->getAddCollections($addCollection);
-            return $this->showView($request, $objectName);
+            return $this->showView($objectName);
         } else if ($slug && $slug == 'add') {
             $this->breadcrumbs[$objectName.'s/add'] = trans('admin.adding_'.$objectName);
             if ($addCollection) $this->getAddCollections($addCollection);
-            return $this->showView($request, $objectName);
+            return $this->showView($objectName);
         } else {
             $this->data['items'] = $descField ? $model->orderBy($descField,'desc')->get() : $model->all();
-            return $this->showView($request, $objectName.'s');
+            return $this->showView($objectName.'s');
         }
     }
     
@@ -228,8 +245,9 @@ class AdminController extends UserController
         }
         
         $trainerBoolFields = ['best'];
-        $ignoreFields = ['avatar','password','password_confirmation','trainer_active','is_trainer'];
+        $ignoreFields = ['avatar','password','password_confirmation','trainer_active','is_trainer','new_section_id'];
         $isTrainer = $request->has('is_trainer') && $request->input('is_trainer') == 'on';
+        $newSection = $request->has('new_section_id') ? $request->input('new_section_id') : false;
         
         $ignoreFieldsForUser = array_merge($ignoreFields, array_keys($trainerFields), $trainerBoolFields);
         $ignoreFieldsForTrainer = array_merge($ignoreFields, array_keys($userFields), $userBoolFields, array_keys($userTimeFields));
@@ -238,6 +256,7 @@ class AdminController extends UserController
 
         $userFields = $this->processingFields($request, $userBoolFields, $ignoreFieldsForUser, array_keys($userTimeFields));
         if ($request->has('password') && $request->input('password')) $userFields['password'] = bcrypt($request->input('password'));
+        if ($newSection) $trainerFields['new_section_id'] = $this->validationSection;
 
         // Processing user
         if ($request->has('id')) {
@@ -269,12 +288,28 @@ class AdminController extends UserController
             $trainerFields['active'] = $request->has('trainer_active') && $request->input('trainer_active') == 'on' ? 1 : 0;
             
             if ($user->trainer) {
+                if (!$user->trainer->active && $trainerFields['active'] && $user->email && $user->send_mail) {
+                    $this->sendMessage($user->email, 'auth.emails.trainer_request_agree', []);
+                }
                 $user->trainer->update($trainerFields);
+                $trainer = $user->trainer;
             } else {
                 $trainerFields['user_id'] = $user->id;
-                Trainer::create($trainerFields);
+                $trainer = Trainer::create($trainerFields);
             }
-        } elseif ($user->trainer) $user->trainer->delete();
+
+            if ($newSection) {
+                $section = Section::find($newSection);
+                $section->trainer_id = $trainer->id;
+                $section->save();
+            }
+
+        } elseif ($user->trainer) {
+            $user->trainer->delete();
+            if ($user->email && $user->send_mail) {
+                $this->sendMessage($user->email, 'auth.emails.trainer_request_rejected', []);
+            }
+        }
 
         return redirect('/admin/users')->with('message',trans('content.save_complete'));
     }
@@ -367,11 +402,11 @@ class AdminController extends UserController
             'longitude' => $this->validationCoordinates,
             'phone' => $this->validationPhone,
             'email' => $this->validationNoUniqueEmail,
-            'schedule' => 'max:255',
-            'trainer_id' => $this->validationTrainer
+            'schedule' => 'max:255'
         ];
 
-        if ($request->has('site')) $validationArr['site'] = $this->validationSite;
+        if ($request->has('trainer_id') && $request->input('trainer_id')) $validationArr['trainer_id'] = $this->validationTrainer;
+        if ($request->has('site') && $request->input('site')) $validationArr['site'] = $this->validationSite;
         return $this->editObject($request, new Section(), $validationArr, ['active'], ['image'], [], 'sections', 'objects');
     }
 
@@ -615,6 +650,11 @@ class AdminController extends UserController
     {
         return $this->deleteSomething($request, new Event());
     }
+
+    public function deleteMessage(Request $request)
+    {
+        return $this->deleteSomething($request, new Message());
+    }
     
 //    public function deleteRecordEvent(Request $request)
 //    {
@@ -631,7 +671,7 @@ class AdminController extends UserController
         return $this->deleteSomething($request, new Gallery(), 'photo');
     }
     
-    public function showView(Request $request, $view, $token=null)
+    public function showView($view, $token=null)
     {
         $menus = [
             ['href' => 'seo', 'name' => 'SEO', 'icon' => 'icon-price-tags'],
@@ -644,13 +684,15 @@ class AdminController extends UserController
             ['href' => 'places', 'name' => trans('admin.places'), 'icon' => 'icon-pin-alt'],
             ['href' => 'kind_of_sports', 'name' => trans('admin.kind_of_sports'), 'icon' => 'icon-medal2'],
             ['href' => 'events', 'name' => trans('admin.events'), 'icon' => 'icon-calendar3'],
+            ['href' => 'messages', 'name' => trans('admin.messages'), 'icon' => 'icon-bubbles4'],
             ['href' => 'banners', 'name' => trans('admin.advertising_banners'), 'icon' => 'icon-image3'],
         ];
 
         return view('admin.'.$view, [
             'breadcrumbs' => $this->breadcrumbs,
             'data' => $this->data,
-            'menus' => $menus
+            'menus' => $menus,
+            'messages' => Message::where('for_admin',1)->where('read',null)->get()
         ]);
     }
 }

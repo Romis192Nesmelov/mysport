@@ -87,37 +87,36 @@
     <div class="navbar-collapse collapse" id="navbar-mobile">
         <div class="navbar-right">
             <ul class="nav navbar-nav">
-                {{--<li class="dropdown">--}}
-                    {{--<a href="#" id="message-counter-container" class="dropdown-toggle" data-toggle="dropdown">--}}
-                        {{--<i class="icon-bubbles4"></i>--}}
-                        {{--<span class="visible-xs-inline-block position-right">{{ trans('admin.messages') }}</span>--}}
-                        {{--@if (count($messages))--}}
-                            {{--<span id="message-counter" class="badge bg-warning-400">{{ count($messages) }}</span>--}}
-                        {{--@endif--}}
-                    {{--</a>--}}
-                    {{--<div id="messages" class="dropdown-menu dropdown-content width-350">--}}
+                <li class="dropdown">
+                    <a href="#" id="message-counter-container" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-bubbles4"></i>
+                        <span class="visible-xs-inline-block position-right">{{ trans('admin.messages') }}</span>
+                        @if (count($messages))
+                            <span id="message-counter" class="badge bg-warning-400">{{ count($messages) }}</span>
+                        @endif
+                    </a>
+                    <div id="messages" class="dropdown-menu dropdown-content width-350">
                         {{--<div class="messages dropdown-content-heading">--}}
                             {{--@if (count($messages))--}}
                                 {{--<a id="drop-messages" href="#">{{ trans('content.mark_all_as_read') }}</a>--}}
                             {{--@endif--}}
                         {{--</div>--}}
-                        {{--<ul class="messages media-list dropdown-content-body">--}}
-                            {{--@foreach($messages as $message)--}}
-                                {{--<li class="media">--}}
-                                    {{--<a href="{{ $message['href'] }}" class="media-heading">--}}
-                                        {{--<span class="text-semibold">{{ $message['head_'.App::getLocale()] }}</span>--}}
-                                        {{--<span class="media-annotation pull-right">{{ $message->created_at->format('d.m.Y') }}</span>--}}
-                                    {{--</a>--}}
-                                    {{--<span class="text-muted">{{ Helper::croppedContent($message['content_'.App::getLocale()],100) }}</span>--}}
-                                {{--</li>--}}
-                            {{--@endforeach--}}
-                        {{--</ul>--}}
-
-                        {{--<div class="dropdown-content-footer">--}}
-                            {{--<a href="{{ url('admin/messages') }}" data-popup="tooltip" title="{{ trans('admin.all_messages') }}"><i class="icon-menu display-block"></i></a>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</li>--}}
+                        <ul class="messages media-list dropdown-content-body">
+                            @foreach($messages as $message)
+                                <li class="media">
+                                    <a href="{{ url('/admin/users/?id='.$message->trainer->user->id) }}" class="media-heading">
+                                        <span class="text-semibold">{{ mb_strtoupper(trans('messages.new_trainer_request'),'UTF-8') }}</span>
+                                        <span class="media-annotation pull-right">{{ $message->created_at->format('d.m.Y') }}</span>
+                                    </a>
+                                    <span class="text-muted">{{ Helper::userCreds($message->trainer->user,true) }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <div class="dropdown-content-footer">
+                            <a href="{{ url('admin/messages') }}" data-popup="tooltip" title="{{ trans('admin.messages') }}"><i class="icon-menu display-block"></i></a>
+                        </div>
+                    </div>
+                </li>
 
                 {{--<li class="dropdown language-switch">--}}
                     {{--<a class="dropdown-toggle" data-toggle="dropdown">--}}

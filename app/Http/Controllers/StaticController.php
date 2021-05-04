@@ -47,7 +47,7 @@ class StaticController extends Controller
         return redirect()->back();
     }
     
-    public function news($slug=null)
+    public function news(Request $request, $slug=null)
     {
         if ($slug) {
             $this->data['news'] = News::where('slug',$slug)->first();

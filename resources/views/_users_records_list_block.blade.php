@@ -3,7 +3,7 @@
 
 @php ob_start(); @endphp
 
-<table class="table datatable-basic users-list">
+<table class="table datatable-basic items-list">
     <tr>
         <th></th>
         <th>{{ trans('content.user') }}</th>

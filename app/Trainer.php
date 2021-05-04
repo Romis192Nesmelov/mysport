@@ -33,6 +33,11 @@ class Trainer extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function activeSections()
+    {
+        return $this->hasMany('App\Section','trainer_id')->where('active',1);
+    }
     
     public function sections()
     {

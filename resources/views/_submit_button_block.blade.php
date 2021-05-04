@@ -1,1 +1,1 @@
-<button type="submit" class="button">{{ trans('content.save') }}</button>
+<button type="submit" class="button {{ isset($addClass) ? $addClass : '' }}">{{ trans('content.save') }}</button>

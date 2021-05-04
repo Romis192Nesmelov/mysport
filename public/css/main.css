@@ -350,31 +350,31 @@ button[type=submit] {
     float: left;
 }
 
-table.users-list th {
+table.items-list th {
     font-size: 12px;
     color: black;
     text-align: center;
     line-height: 1em;
 }
 
-table.users-list .avatar {
+table.items-list .avatar {
     width: 42px !important;
     height: 42px !important;
-    margin: 0 !important;
+    margin: 0 auto !important;
 }
 
-table.users-list td {
+table.items-list td {
     padding: 5px 10px;
     font-size: 13px;
     vertical-align: middle;
 }
 
-table.users-list td.delete {
+table.items-list td.delete {
     width: 20px;
     text-align: center;
 }
 
-table.users-list td.delete span {
+table.items-list td.delete span {
     cursor: pointer;
 }
 
@@ -498,12 +498,12 @@ select.type1:focus {
 
 textarea.simple,
 select.type2,
+select.type3,
 input[type=email],
 input[type=text],
 input[type=number],
 input[type=password],
-input[type=tel],
-#ya-site-form0 .ya-site-form__form .ya-site-form__input-text {
+input[type=tel] {
     width: 100%;
     padding: 10px 20px;
     border-radius: 20px;
@@ -536,7 +536,7 @@ input[type=tel] {
 }
 
 .has-feedback-left .form-control {
-    padding-left: 30px !important;
+    padding-left: 40px;
 }
 
 .has-feedback-left .form-control-feedback i {
@@ -545,7 +545,12 @@ input[type=tel] {
     /*left: -10px;*/
 }
 
-select.type2 {
+.has-feedback-left .form-control-feedback .icon-cancel-circle2 {
+    top: 0;
+}
+
+select.type2,
+select.type3 {
     outline: none;
     appearance: none;
     -moz-appearance: none;
@@ -554,7 +559,8 @@ select.type2 {
     margin-bottom: 10px;
 }
 
-select.type2:focus {
+select.type2:focus,
+select.type3:focus {
     border: 1px solid #087fae;
     background: url("../images/arrow_down_blue.svg") 100% white no-repeat;
 }
@@ -607,6 +613,17 @@ input[type=tel]:focus,
 .radio-buttons {
     display: table;
     padding: 0 !important;
+}
+
+.radio-buttons.type1 .kind-of-sport .cir-block,
+.radio-buttons.type1 .kind-of-sport .label-block {
+    margin: auto;
+}
+
+.radio-buttons.type1 .kind-of-sport .label-block {
+    margin: auto;
+    text-align: center;
+    display: block;
 }
 
 .radio-buttons.type3 {

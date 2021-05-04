@@ -71,8 +71,10 @@ Route::post('/admin/place', 'AdminController@editPlace');
 Route::post('/admin/delete-place', 'AdminController@deletePlace');
 
 Route::get('/admin/sections/{slug?}', 'AdminController@sections');
+Route::get('/admin/trainer-sections/{slug?}', 'AdminController@sections');
 Route::post('/admin/section', 'AdminController@editSection');
 Route::post('/admin/delete-section', 'AdminController@deleteSection');
+Route::post('/admin/delete-trainer-section', 'AdminController@deleteTrainerSection');
 
 Route::get('/admin/kind_of_sports', 'AdminController@kindOfSports');
 Route::post('/admin/kind_of_sport', 'AdminController@editKindOfSports');
@@ -94,6 +96,9 @@ Route::post('/admin/record-section-kid', 'AdminController@recordEventKid');
 Route::post('/admin/gallery', 'AdminController@editGallery');
 Route::post('/admin/delete-gallery', 'AdminController@deleteGallery');
 
+Route::get('/admin/messages', 'AdminController@messages');
+Route::post('/admin/delete-message', 'AdminController@deleteMessage');
+
 Route::get('/admin/banners', 'AdminController@banners');
 Route::post('/admin/banners', 'AdminController@editBanners');
 
@@ -113,6 +118,8 @@ Route::post('/find-points', 'StaticController@findPoints');
 Route::get('/search/{slug}', 'SearchController@search');
 
 Route::get('/trainer/events/{slug?}', 'UserController@events');
+
+Route::post('/delete-trainer-section', 'UserController@deleteTrainerSection');
 
 Route::post('/event', 'UserController@editEvent');
 Route::post('/event-user-record', 'UserController@eventUserRecord');

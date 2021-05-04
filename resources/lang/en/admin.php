@@ -12,6 +12,11 @@ return [
     'blocked' => 'Blocked',
     'content' => 'Content',
     'gallery' => 'Gallery',
+    'has_read' => 'Has read',
+    'has_not_read' => 'Has not read',
+    'link' => 'Link',
+    'created_at' => 'Created at',
+    'read_at' => 'Read at',
     
     'settings' => 'Settings',
 
@@ -29,6 +34,8 @@ return [
     'do_you_want_to_delete_user' => 'Do you really want to delete this user?',
     'user_active' => 'User is active',
     'user_not_active' => 'User is not active',
+    'trainer_active' => 'Trainer is active',
+    'trainer_not_active' => 'Trainer is not active',
 
     'record-user_active' => 'User is active',
     'record-user_not_active' => 'User is not active',
@@ -92,6 +99,10 @@ return [
     'section_active' => 'Section is active',
     'section_not_active' => 'Section is not active',
 
+    'trainer-sections' => 'Trainers sections',
+    'trainer-section_active' => 'Section is active',
+    'do_you_want_to_delete_trainer-section' => 'Are you sure you want to remove this section from this trainer\'s list?',
+
     'places' => 'Places',
     'add_place' => 'Add place',
     'adding_place' => 'Adding place',
@@ -124,6 +135,9 @@ return [
     'kids_hy_recorded' => 'Recorded kids',
     'do_you_want_to_delete_photo' => 'Do you really want to delete this photo?',
     'delete_record' => 'Delete record',
+
+    'messages' => 'Messages',
+    'do_you_want_to_delete_message' => 'Do you really want to delete this message?',
     
     'advertising_banners' => 'Advertising banners',
 ];

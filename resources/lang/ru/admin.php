@@ -12,6 +12,11 @@ return [
     'blocked' => 'Заблокированно',
     'content' => 'Контент',
     'gallery' => 'Галерея',
+    'has_read' => 'Прочитано',
+    'has_not_read' => 'Не прочитано',
+    'link' => 'Ссылка',
+    'created_at' => 'Создано',
+    'read_at' => 'Прочитано',
     
     'settings' => 'Настройки',
     
@@ -29,6 +34,8 @@ return [
     'do_you_want_to_delete_user' => 'Вы действительно хотите удалить этого пользователя?',
     'user_active' => 'Пользователь активен',
     'user_not_active' => 'Пользователь не активен',
+    'trainer_active' => 'Тренер активен',
+    'trainer_not_active' => 'Тренер не активен',
 
     'record-user_active' => 'Пользователь активен',
     'record-user_not_active' => 'Пользователь не активен',
@@ -88,16 +95,20 @@ return [
     'adding_section' => 'Добавление секции',
     'editing_section' => 'Редактирование секции',
     'new_section' => 'Новая секция',
-    'do_you_want_to_delete_section' => 'Вы действительно хотите удалить эту секцию',
+    'do_you_want_to_delete_section' => 'Вы действительно хотите удалить эту секцию?',
     'section_active' => 'Секция активна',
     'section_not_active' => 'Секцмя не активна',
+    
+    'trainer-sections' => 'Секции тренера',
+    'trainer-section_active' => 'Секция активна',
+    'do_you_want_to_delete_trainer-section' => 'Вы действительно хотите убрать эту секцию из списка данного тренера?',
 
     'places' => 'Спорт-площадки',
     'add_place' => 'Добавить спорт-площадку',
     'adding_place' => 'Добавление спорт-площадки',
     'editing_place' => 'Редактирование спорт-площадки',
     'new_place' => 'Новая спорт-площадка',
-    'do_you_want_to_delete_place' => 'Вы действительно хотите удалить эту спорт-площадку',
+    'do_you_want_to_delete_place' => 'Вы действительно хотите удалить эту спорт-площадку?',
     'place_active' => 'Спорт-площадка активна',
     'place_not_active' => 'Спорт-площадка не активна',
 
@@ -106,7 +117,7 @@ return [
     'adding_kind_of_sport' => 'Добавление вида спорта',
     'editing_kind_of_sport' => 'Редактирование вида спорта',
     'new_kind_of_sport' => 'Новый вид спорта',
-    'do_you_want_to_delete_kind_of_sport' => 'Вы действительно хотите удалить этот вид спорта',
+    'do_you_want_to_delete_kind_of_sport' => 'Вы действительно хотите удалить этот вид спорта?',
     'kind_of_sport_active' => 'Вид спорта активен',
     'kind_of_sport_not_active' => 'Вид спорта не активен',
 
@@ -115,7 +126,7 @@ return [
     'adding_event' => 'Добавление спортивного мероприятия',
     'editing_event' => 'Редактирование спортивного мероприятия',
     'new_event' => 'Новое спортивное мероприятие',
-    'do_you_want_to_delete_event' => 'Вы действительно хотите удалить это мероприятие',
+    'do_you_want_to_delete_event' => 'Вы действительно хотите удалить это мероприятие?',
     'event_active' => 'Мероприятие активно',
     'event_sport_not_active' => 'Мероприятие не активно',
     'start_end' => 'Начало-конец',
@@ -124,6 +135,9 @@ return [
     'kids_hy_recorded' => 'Записанные дети',
     'do_you_want_to_delete_photo' => 'Вы действительно хотите удалить эту фотографию?',
     'delete_record' => 'Удалить запись',
+    
+    'messages' => 'Сообщения',
+    'do_you_want_to_delete_message' => 'Вы действительно хотите удалить это сообщение?',
 
     'advertising_banners' => 'Рекламные баннеры',
 ];

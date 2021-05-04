@@ -15,13 +15,13 @@ class CreateTrainersTable extends Migration
     {
         Schema::create('trainers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('about_ru');
+            $table->text('about_ru')->nullable();
             $table->text('about_en')->nullable();
             $table->string('education_ru');
             $table->string('education_en')->nullable();
-            $table->string('add_education_ru');
+            $table->string('add_education_ru')->nullable();
             $table->string('add_education_en')->nullable();
-            $table->string('achievements_ru');
+            $table->string('achievements_ru')->nullable();
             $table->string('achievements_en')->nullable();
             $table->smallInteger('since');
 
@@ -29,8 +29,8 @@ class CreateTrainersTable extends Migration
             $table->string('vk')->nullable();
             $table->string('inst')->nullable();
             
-            $table->boolean('best');
-            $table->boolean('active');
+            $table->boolean('best')->nullable();
+            $table->boolean('active')->nullable();
             $table->timestamps();
         });
     }

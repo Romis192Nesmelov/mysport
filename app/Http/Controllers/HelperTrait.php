@@ -147,6 +147,11 @@ trait HelperTrait
                 $fields[$colorFields] = $this->convertColor($fields[$colorFields]);
             }
         }
+        
+        foreach ($fields as $name => $value) {
+            if ($value === '0') $fields[$name] = null;
+        }
+        
         return $fields;
     }
 

@@ -24,6 +24,22 @@ $(document).ready(function() {
         bindDelete();
     });
     
+    // Change checkbox trainer request
+    var trainerRequest = $('input[name=trainer_request]'),
+        middleSaveButton = $('.middle-save-button');
+
+    trainerRequest.parents('.checkbox').click(function () {
+        var trainerFieldsBlock = $('.trainer-fields');
+        if (parseInt(trainerRequest.val())) {
+            trainerFieldsBlock.removeClass('hidden');
+            middleSaveButton.addClass('hidden');
+        } else {
+            trainerFieldsBlock.addClass('hidden');
+            middleSaveButton.removeClass('hidden');
+        }
+        unifiedHeight();
+    });
+    
     // Unlock to search button
     var subMitForm = $('form.search-form'),
         searchInput = $('input[name=search]'),
@@ -229,7 +245,7 @@ function unifiedHeight() {
         $.each(unifiedHeight, function (k,item) {
             maxHeight(item.obj,item.reserve,item.except,item.include);
         });
-    },1000);
+    },500);
 }
 
 function checkWindowHeight() {

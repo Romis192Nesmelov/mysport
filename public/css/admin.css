@@ -2,6 +2,10 @@ textarea {
     border: 1px solid #ddd;
 }
 
+select {
+    padding-left: 10px !important;
+}
+
 .navigation > li.active > a,
 .navigation > li.active > a:hover,
 .navigation > li.active > a:focus,
