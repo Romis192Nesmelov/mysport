@@ -38,25 +38,28 @@ Route::get('/vk-callback', 'OAuthController@vkCallback');
 
 Route::get('/google-callback', 'OAuthController@googleCallback');
 
-Route::get('/admin', 'AdminController@index');
+Route::get('/admin', 'HalfAdminController@index');
+
+Route::get('/admin/users/{slug?}', 'HalfAdminController@users');
+Route::post('/admin/user', 'HalfAdminController@editUser');
+Route::post('/admin/delete-user', 'HalfAdminController@deleteUser');
+
+Route::get('/admin/kids/{slug?}', 'HalfAdminController@kids');
+Route::post('/admin/kid', 'HalfAdminController@editKid');
+Route::post('/admin/delete-kid', 'HalfAdminController@deleteKid');
+
+Route::get('/admin/news/{slug?}', 'HalfAdminController@news');
+Route::post('/admin/news', 'HalfAdminController@editNews');
+Route::post('/admin/delete-news', 'HalfAdminController@deleteNews');
+
+Route::get('/admin/banners', 'HalfAdminController@banners');
+Route::post('/admin/banners', 'HalfAdminController@editBanners');
 
 Route::get('/admin/seo', 'AdminController@seo');
 Route::post('/admin/seo', 'AdminController@editSeo');
 
 Route::get('/admin/settings', 'AdminController@settings');
 Route::post('/admin/settings', 'AdminController@editSettings');
-
-Route::get('/admin/kids/{slug?}', 'AdminController@kids');
-Route::post('/admin/kid', 'AdminController@editKid');
-Route::post('/admin/delete-kid', 'AdminController@deleteKid');
-
-Route::get('/admin/users/{slug?}', 'AdminController@users');
-Route::post('/admin/user', 'AdminController@editUser');
-Route::post('/admin/delete-user', 'AdminController@deleteUser');
-
-Route::get('/admin/news/{slug?}', 'AdminController@news');
-Route::post('/admin/news', 'AdminController@editNews');
-Route::post('/admin/delete-news', 'AdminController@deleteNews');
 
 Route::get('/admin/areas/{slug?}', 'AdminController@areas');
 Route::post('/admin/area', 'AdminController@editArea');
@@ -98,9 +101,6 @@ Route::post('/admin/delete-gallery', 'AdminController@deleteGallery');
 
 Route::get('/admin/messages', 'AdminController@messages');
 Route::post('/admin/delete-message', 'AdminController@deleteMessage');
-
-Route::get('/admin/banners', 'AdminController@banners');
-Route::post('/admin/banners', 'AdminController@editBanners');
 
 Route::get('/', 'StaticController@index');
 Route::get('/blind', 'StaticController@setBlind');

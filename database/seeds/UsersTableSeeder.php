@@ -33,43 +33,43 @@ class UsersTableSeeder extends Seeder
                 'name' => 'Вильгельмина',
                 'surname' => 'Имануиловна',
                 'family' => 'Константинович',
-                'gender' => 2,
+                'gender' => 4,
             ],
             [
                 'name' => 'Николай',
                 'surname' => 'Петрович',
                 'family' => 'Денисенков',
-                'gender' => 1,
+                'gender' => 4,
             ],
             [
                 'name' => 'Екатерина',
                 'surname' => 'Константиновна',
                 'family' => 'Иваненкова',
-                'gender' => 2,
+                'gender' => 4,
             ],
             [
                 'name' => 'Эвелина',
                 'surname' => 'Геннадьевна',
                 'family' => 'Десяцкова',
-                'gender' => 2,
+                'gender' => 4,
             ],
             [
                 'name' => 'Иван',
                 'surname' => 'Сергеевич',
                 'family' => 'Николяшин',
-                'gender' => 1,
+                'gender' => 4,
             ],
             [
                 'name' => 'Елена',
                 'surname' => 'Викторовна',
                 'family' => 'Петрова',
-                'gender' => 2,
+                'gender' => 4,
             ],
             [
                 'name' => 'Денис',
                 'surname' => 'Александрович',
                 'family' => 'Серебряков',
-                'gender' => 1,
+                'gender' => 4,
             ],
             
             [
@@ -81,7 +81,7 @@ class UsersTableSeeder extends Seeder
                 'phone' => '+7(926)221-47-19',
                 'password' => bcrypt('vnn12ru'),
                 'gender' => 1,
-                'type' => 2
+                'type' => 1
             ],
             [
                 'avatar' => '',
@@ -92,7 +92,7 @@ class UsersTableSeeder extends Seeder
                 'phone' => '+7(999)853-89-82',
                 'password' => bcrypt('jazzzfank'),
                 'gender' => 2,
-                'type' => 2
+                'type' => 1
             ],
             [
                 'avatar' => '',
@@ -104,7 +104,7 @@ class UsersTableSeeder extends Seeder
                 'phone' => '+7(926)247-77-25',
                 'password' => bcrypt('apg192'),
                 'born' => 206150400,
-                'type' => 3,
+                'type' => 2,
             ],
         ];
 
@@ -148,7 +148,7 @@ class UsersTableSeeder extends Seeder
                 'phone' => $this->getRandomPhone(),
                 'password' => bcrypt(str_random(10)),
                 'active' => 1,
-                'type' => 3,
+                'type' => 4,
                 'send_mail' => 0
             ]);
         }

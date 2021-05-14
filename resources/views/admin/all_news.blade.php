@@ -19,7 +19,7 @@
                         <tr class="data" role="row" id="{{ 'news_'.$news->id }}">
                             @include('admin._image_on_table_block',['image' => $news->image])
                             <td class="text-left name">{{ $news['head_'.App::getLocale()] }}</td>
-                            <td class="text-left">{{ $news['content_'.App::getLocale()] }}</td>
+                            <td class="text-left">{!! $news['content_'.App::getLocale()] !!}</td>
                             <td class="text-center">
                                 @include('admin._status_simple_block',[
                                     'status' => $news->active,

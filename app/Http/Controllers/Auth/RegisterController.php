@@ -72,7 +72,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'confirm_token' => $this->randString(),
             'active' => false,
-            'type' => 3,
+            'type' => 4,
             'send_mail' => 1
         ]);
         return $user;

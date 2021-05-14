@@ -21,6 +21,7 @@ return [
     'settings' => 'Settings',
 
     'admin' => 'Admin',
+    'half_admin' => 'Half-admin',
     'organizer' => 'Organizer',
     'trainer' => 'Trainer',
     

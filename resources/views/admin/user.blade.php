@@ -23,8 +23,9 @@
                                     'name' => 'type',
                                     'values' => [
                                         ['val' => 1, 'descript' => trans('admin.admin')],
-                                        ['val' => 2, 'descript' => trans('admin.organizer')],
-                                        ['val' => 3, 'descript' => trans('admin.user')],
+                                        ['val' => 2, 'descript' => trans('admin.half_admin')],
+                                        ['val' => 3, 'descript' => trans('admin.organizer')],
+                                        ['val' => 4, 'descript' => trans('admin.user')],
                                     ],
                                     'activeValue' => isset($data['user']) ? $data['user']->type : 3
                                 ])

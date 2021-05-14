@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
@@ -14,15 +15,10 @@ class AdminMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $type)
     {
-        if (Auth::user()->type != 1) {
-            if ($request->ajax() || $request->wantsJson()) {
-                return response('Unauthorized.', 401);
-            } else {
-                return redirect()->guest('login');
-            }
-        }
+        if ($type != 'admin' && $type != 'half') throw new Exception('Getting wrong user type in auth.admin');
+        if (!in_array(Auth::user()->type,($type == 'half' ? [1,2] : [1]))) abort(403);
         return $next($request);
     }
 }

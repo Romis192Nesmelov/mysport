@@ -14,6 +14,7 @@
         @elseif (isset($user->type))
             @include('admin._status_multiply_block',['status' => $user->type-1, 'statuses' => [
                 trans('admin.admin'),
+                trans('admin.half_admin'),
                 trans('admin.organizer'),
                 trans('admin.user'),
             ]])

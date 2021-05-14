@@ -21,6 +21,7 @@ return [
     'settings' => 'Настройки',
     
     'admin' => 'Администратор',
+    'half_admin' => 'Полуадмин',
     'organizer' => 'Организатор',
     'trainer' => 'Тренер',
     

@@ -477,6 +477,7 @@ class ComposerStaticInit36700ca7ce84343aa349dca1a0daa316
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\ExampleMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/ExampleMiddleware.php',
+        'App\\Http\\Middleware\\HalfAdminMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/HalfAdminMiddleware.php',
         'App\\Http\\Middleware\\LangMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/LangMiddleware.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',

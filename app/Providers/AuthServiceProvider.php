@@ -30,12 +30,16 @@ class AuthServiceProvider extends ServiceProvider
             return $user->trainer && $user->trainer->active;
         });
 
-        Gate::define('organizer', function ($user) {
+        Gate::define('admin', function ($user) {
+            return $user->type == 1;
+        });
+
+        Gate::define('half_admin', function ($user) {
             return $user->type == 2;
         });
 
-        Gate::define('admin', function ($user) {
-            return $user->type == 1;
+        Gate::define('organizer', function ($user) {
+            return $user->type == 3;
         });
         
         Gate::define('owner', function ($user, Model $model) {
