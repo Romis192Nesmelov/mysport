@@ -17,7 +17,7 @@
 
             @php ob_start(); @endphp
 
-            @if (count($data['found'])))
+            @if (count($data['found']))
                 @foreach($data['found'] as $found)
                     @php
                         $locale = App::getLocale();
