@@ -53,8 +53,13 @@ select {
     width: 20px;
 }
 
+.image {
+    display: table;
+}
+
 td.image {
     width: 10%;
+    display: block;
     text-align: center;
     vertical-align: middle;
 }

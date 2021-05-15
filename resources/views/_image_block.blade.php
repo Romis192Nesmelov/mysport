@@ -4,7 +4,7 @@
             @if (isset($full) && $full)
                 <a class="img-preview" href="{{ asset($full) }}">
             @endif
-                <img src="{{ asset($preview ? $preview.'?'.Helper::randHash() : 'images/placeholder.jpg') }} }}" />
+                <img src="{{ asset($preview ? $preview.'?'.Helper::randHash() : 'images/placeholder.jpg') }}" />
             @if (isset($full) && $full)
                 </a>
             @endif

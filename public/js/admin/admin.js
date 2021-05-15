@@ -1,7 +1,9 @@
 $(document).ready(function() {
     unifiedHeight();
+    imagePreviewHeight();
     $(window).resize(function() {
         unifiedHeight();
+        imagePreviewHeight();
     });
 
     $('a.img-preview').fancybox({
@@ -27,7 +29,7 @@ function unifiedHeight() {
         $.each(unifiedHeight, function (k,item) {
             maxHeight(item.obj,item.reserve,item.except,item.include);
         });
-    },1000);
+    },500);
 }
 
 function translit(text, engToRus) {

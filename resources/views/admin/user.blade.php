@@ -57,7 +57,7 @@
                                 @include('_checkbox_block',[
                                     'label' => trans('admin.trainer'),
                                     'name' => 'is_trainer',
-                                    'checked' => isset($data['user']) ? $data['user']->trainer : true
+                                    'checked' => isset($data['user']) ? $data['user']->trainer : false
                                 ])
 
                                 @include('_checkbox_block',[
@@ -181,7 +181,7 @@
                                 ])
                             @endif
 
-                            @if (count($data['free_sections']))
+                            @if (isset($data['free_sections']) && count($data['free_sections']))
                                 @include('_select_block',[
                                     'label' => trans('content.add_section'),
                                     'name' => 'new_section_id',
@@ -303,8 +303,11 @@
     <script>
         $('input[name=is_trainer]').change(function () {
             var trainerFields = $('#trainer-fields');
-            if ($(this).is(':checked')) trainerFields.show('fast');
-            else trainerFields.hide('fast');
+            if ($(this).is(':checked')) {
+                trainerFields.show('fast',function () {
+                    imagePreviewHeight();
+                });
+            } else trainerFields.hide('fast');
         });
     </script>
 @endsection
