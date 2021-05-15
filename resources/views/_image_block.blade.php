@@ -1,10 +1,10 @@
 <div class="edit-image-preview">
     <div class="cir-image image">
-        @if (isset($preview) && $preview)
+        @if (isset($preview))
             @if (isset($full) && $full)
                 <a class="img-preview" href="{{ asset($full) }}">
             @endif
-                <img src="{{ asset($preview.'?'.Helper::randHash()) }} }}" />
+                <img src="{{ asset($preview ? $preview.'?'.Helper::randHash() : 'images/placeholder.jpg') }} }}" />
             @if (isset($full) && $full)
                 </a>
             @endif

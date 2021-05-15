@@ -54,17 +54,18 @@ class UserController extends StaticController
         ];
 
         $ignoringFieldsForAll = ['avatar', 'password', 'password_confirmation','new_section_id','trainer_request'];
-        $ignoringFieldsForUser = ['about_me', 'education_ru', 'add_education_ru', 'achievements', 'since'];
+        $ignoringFieldsForUser = ['license', 'about_ru', 'education_ru', 'add_education_ru', 'achievements', 'since'];
         $ignoringFieldsForTrainer = ['email', 'phone', 'name', 'surname', 'family', 'born', 'gender'];
         $trainerRequest = $request->has('trainer_request') && (int)$request->input('trainer_request');
         $masterMail = (string)Settings::getSettings()->email;
 
         if (Auth::user()->trainer || $trainerRequest) {
-            $validationArr['about_me'] = 'max:1000';
+            $validationArr['license'] = ($trainerRequest && !Auth::user()->trainer->license ? 'required|' : '').$this->validationImage;
+            $validationArr['about_ru'] = 'max:1000';
             $validationArr['education_ru'] = 'required|min:5|max:255';
             $validationArr['add_education_ru'] = 'max:255';
             $validationArr['achievements'] = 'max:255';
-            $validationArr['since'] = 'required|integer|min:1970|max:' . (int)date('Y');
+            $validationArr['since'] = 'required|integer|min:1970|max:'.(int)date('Y');
 
             foreach ($this->trainerSocNets as $net) {
                 if ($request->input($net)) $validationArr[$net] = $this->validationSocNets[$net];
@@ -90,8 +91,8 @@ class UserController extends StaticController
         $user->update($fieldsUser);
 
         if ($request->hasFile('avatar')) {
-            $fieldsUser = $this->processingImage($request, $user, 'avatar', 'user_avatar' . $user->id, 'images/avatars');
-            $user->update($fieldsUser);
+            $fieldAvatar = $this->processingImage($request, $user, 'avatar', 'user_avatar'.$user->id, 'images/avatars');
+            $user->update($fieldAvatar);
         }
 
         if (Auth::user()->trainer && Gate::denies('trainer') && !$trainerRequest) {
@@ -135,6 +136,11 @@ class UserController extends StaticController
                 $section = Section::find($newSection);
                 $section->trainer_id = $trainer->id;
                 $section->save();
+            }
+
+            if ($request->hasFile('license')) {
+                $fieldLicense = $this->processingImage($request, $trainer, 'license', 'license'.$trainer->id, 'images/docs');
+                $trainer->update($fieldLicense);
             }
         }
         return redirect('/profile')->with('message', trans('content.save_complete'));

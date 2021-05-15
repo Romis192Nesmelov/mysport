@@ -19,7 +19,7 @@
                     @include('admin._date_block', [
                         'label' => trans('content.date'),
                         'name' => 'date',
-                        'value' => isset($data['news']) ? $data['news']->date : date('d.m.Y')
+                        'value' => isset($data['news']) ? $data['news']->date : time()
                     ])
 
                     @include('_checkbox_block',[

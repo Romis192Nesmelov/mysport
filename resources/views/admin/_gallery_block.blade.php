@@ -7,7 +7,7 @@
             <input type="hidden" name="model" value="{{ substr($model->getTable(),0,-1) }}">
             <input type="hidden" name="id" value="{{ $model->id }}">
             @foreach($model->gallery as $gallery)
-            @include('admin._gallery_container_block',['gallery' => $gallery])
+                @include('admin._gallery_container_block',['gallery' => $gallery])
             @endforeach
             @include('admin._gallery_container_block',['gallery' => null])
             <div class="col-md-12 col-sm-12 col-xs-12">

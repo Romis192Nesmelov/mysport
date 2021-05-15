@@ -88,7 +88,7 @@
                             'active' => Auth::user()->gender ? trans('content.man_letter') : trans('content.woman_letter')
                         ])
                     </div>
-                    @if (Gate::denies('trainer'))
+                    @if (Gate::denies('trainer') && Gate::denies('organizer'))
                         @php
                             $hasErrsTrainerFields = false;
                             if (count($errors)) {
@@ -145,117 +145,132 @@
                 ])
 
                 <!-- Trainer block -->
-                @php ob_start(); @endphp
+                @if (Gate::denies('organizer'))
 
-                @include('_header_block', [
-                    'tagName' => 'h1',
-                    'head' => trans('content.trainer_info')
-                ])
+                    @php ob_start(); @endphp
+                    @include('_header_block', [
+                        'tagName' => 'h1',
+                        'head' => trans('content.trainer_info')
+                    ])
 
-                @include('_select_type3_block',[
-                    'label' => trans('content.select_the_kind_of_sport'),
-                    'name' => 'kind_of_sport_id',
-                    'values' => $sports,
-                    'optionName' => 'name_ru',
-                    'selected' => Auth::user()->trainer ? Auth::user()->trainer->kind_of_sport_id : ''
-                ])
+                    <h2>{{ trans('content.approve_docs') }}</h2>
+                    <div class="content-block table">
+                        <div class="description input-label">{{ trans('content.license') }}</div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            @include('_image_block',[
+                                'name' => 'license',
+                                'preview' => Auth::user()->trainer ? Auth::user()->trainer->license : ''
+                            ])
+                        </div>
+                    </div>
 
-                @if (Auth::user()->trainer && count(Auth::user()->trainer->activeSections))
-                    {{ csrf_field() }}
-                    @include('_modal_delete_block',['modalId' => 'delete-trainer-section-modal', 'function' => url('delete-trainer-section'), 'head' => trans('admin.do_you_want_to_delete_trainer-section')])
-                    <table class="table datatable-basic items-list">
-                        <tr>
-                            <th class="text-center">{{ trans('content.image') }}</th>
-                            <th class="text-center">{{ trans('content.name') }}</th>
-                            <th class="text-center">{{ trans('admin.del') }}</th>
-                        </tr>
-                        @foreach (Auth::user()->trainer->activeSections as $section)
-                            <tr id="{{ 'section_'.$section->id }}">
-                                <td class="text-center">@include('layouts._avatar_block',['avatar' => $section->image, 'usePreview' => true])</td>
-                                <td class="text-center"><a href="{{ url('/sections/'.$section->slug) }}">{{ $section['name_'.App::getLocale()] }}</a></td>
-                                <td class="delete"><span del-data="{{ $section->id }}" modal-data="delete-trainer-section-modal" class="glyphicon glyphicon-remove-circle"></span></td>
+                    @include('_select_type3_block',[
+                        'label' => trans('content.select_the_kind_of_sport'),
+                        'name' => 'kind_of_sport_id',
+                        'values' => $sports,
+                        'optionName' => 'name_ru',
+                        'selected' => Auth::user()->trainer ? Auth::user()->trainer->kind_of_sport_id : ''
+                    ])
+
+                    @if (Auth::user()->trainer && count(Auth::user()->trainer->activeSections))
+                        {{ csrf_field() }}
+                        @include('_modal_delete_block',['modalId' => 'delete-trainer-section-modal', 'function' => url('delete-trainer-section'), 'head' => trans('admin.do_you_want_to_delete_trainer-section')])
+                        <table class="table datatable-basic items-list">
+                            <tr>
+                                <th class="text-center">{{ trans('content.image') }}</th>
+                                <th class="text-center">{{ trans('content.name') }}</th>
+                                <th class="text-center">{{ trans('admin.del') }}</th>
                             </tr>
-                        @endforeach
-                    </table>
-                    <script>window.dtColumns = 2;</script>
+                            @foreach (Auth::user()->trainer->activeSections as $section)
+                                <tr id="{{ 'section_'.$section->id }}">
+                                    <td class="text-center">@include('layouts._avatar_block',['avatar' => $section->image, 'usePreview' => true])</td>
+                                    <td class="text-center"><a href="{{ url('/sections/'.$section->slug) }}">{{ $section['name_'.App::getLocale()] }}</a></td>
+                                    <td class="delete"><span del-data="{{ $section->id }}" modal-data="delete-trainer-section-modal" class="glyphicon glyphicon-remove-circle"></span></td>
+                                </tr>
+                            @endforeach
+                        </table>
+                        <script>window.dtColumns = 2;</script>
 
-                    @if (count($data['free_sections']))
-                        @include('_select_type3_block',[
-                            'label' => trans('content.add_section'),
-                            'name' => 'new_section_id',
-                            'values' => $data['free_sections'],
-                            'optionName' => 'name_ru',
-                            'selected' => null,
-                            'useNull' => true
-                        ])
+                        @if (count($data['free_sections']))
+                            @include('_select_type3_block',[
+                                'label' => trans('content.add_section'),
+                                'name' => 'new_section_id',
+                                'values' => $data['free_sections'],
+                                'optionName' => 'name_ru',
+                                'selected' => null,
+                                'useNull' => true
+                            ])
+                        @endif
                     @endif
+
+                    @include('_textarea_block', [
+                        'label' => trans('content.about_me'),
+                        'name' => 'about_ru',
+                        'value' => Auth::user()->trainer ? Auth::user()->trainer->about_ru : ''
+                    ])
+
+                    @include('_input_block',[
+                        'label' => trans('content.education'),
+                        'type' => 'text',
+                        'name' => 'education_ru',
+                        'value' => Auth::user()->trainer ? Auth::user()->trainer->education_ru : ''
+                    ])
+
+                    @include('_input_block',[
+                        'label' => trans('content.add_education'),
+                        'type' => 'text',
+                        'name' => 'add_education_ru',
+                        'value' => Auth::user()->trainer ? Auth::user()->trainer->add_education_ru : ''
+                    ])
+
+                    @include('_input_block',[
+                        'label' => trans('content.achievements'),
+                        'type' => 'text',
+                        'name' => 'achievements_ru',
+                        'value' => Auth::user()->trainer ? Auth::user()->trainer->achievements_ru : ''
+                    ])
+
+                    @include('_input_block',[
+                        'label' => trans('auth.fb_profile'),
+                        'type' => 'text',
+                        'name' => 'fb',
+                        'value' => Auth::user()->trainer ? Auth::user()->trainer->fb : ''
+                    ])
+
+                    @include('_input_block',[
+                        'label' => trans('auth.vk_profile'),
+                        'type' => 'text',
+                        'name' => 'vk',
+                        'value' => Auth::user()->trainer ? Auth::user()->trainer->vk : ''
+                    ])
+
+                    @include('_input_block',[
+                        'label' => trans('auth.inst_profile'),
+                        'type' => 'text',
+                        'name' => 'inst',
+                        'value' => Auth::user()->trainer ? Auth::user()->trainer->inst : ''
+                    ])
+
+                    @include('_input_block',[
+                        'label' => trans('content.experience_since').' ('.trans('content.year').')',
+                        'type' => 'number',
+                        'name' => 'since',
+                        'min' => 1970,
+                        'max' => (int)date('Y'),
+                        'value' => Auth::user()->trainer ? Auth::user()->trainer->since : date('Y'),
+                        'addAttr' => ['style' => 'width:150px']
+                    ])
+
+                    @include('_submit_button_block')
+
+                    @include('_right_gray_block',[
+                        'addClass' => 'narrow trainer-fields'.(!Auth::user()->trainer && !$hasErrsTrainerFields ? ' hidden' : ''),
+                        'content' => ob_get_clean(),
+                        'useMap' => false
+                    ])
+
                 @endif
-
-                @include('_textarea_block', [
-                    'label' => trans('content.about_me'),
-                    'name' => 'about_ru',
-                    'value' => Auth::user()->trainer ? Auth::user()->trainer->about_ru : ''
-                ])
-
-                @include('_input_block',[
-                    'label' => trans('content.education'),
-                    'type' => 'text',
-                    'name' => 'education_ru',
-                    'value' => Auth::user()->trainer ? Auth::user()->trainer->education_ru : ''
-                ])
-
-                @include('_input_block',[
-                    'label' => trans('content.add_education'),
-                    'type' => 'text',
-                    'name' => 'add_education_ru',
-                    'value' => Auth::user()->trainer ? Auth::user()->trainer->add_education_ru : ''
-                ])
-
-                @include('_input_block',[
-                    'label' => trans('content.achievements'),
-                    'type' => 'text',
-                    'name' => 'achievements_ru',
-                    'value' => Auth::user()->trainer ? Auth::user()->trainer->achievements_ru : ''
-                ])
-
-                @include('_input_block',[
-                    'label' => trans('auth.fb_profile'),
-                    'type' => 'text',
-                    'name' => 'fb',
-                    'value' => Auth::user()->trainer ? Auth::user()->trainer->fb : ''
-                ])
-
-                @include('_input_block',[
-                    'label' => trans('auth.vk_profile'),
-                    'type' => 'text',
-                    'name' => 'vk',
-                    'value' => Auth::user()->trainer ? Auth::user()->trainer->vk : ''
-                ])
-
-                @include('_input_block',[
-                    'label' => trans('auth.inst_profile'),
-                    'type' => 'text',
-                    'name' => 'inst',
-                    'value' => Auth::user()->trainer ? Auth::user()->trainer->inst : ''
-                ])
-
-                @include('_input_block',[
-                    'label' => trans('content.experience_since').' ('.trans('content.year').')',
-                    'type' => 'number',
-                    'name' => 'since',
-                    'min' => 1970,
-                    'max' => (int)date('Y'),
-                    'value' => Auth::user()->trainer ? Auth::user()->trainer->since : date('Y'),
-                    'addAttr' => ['style' => 'width:150px']
-                ])
-
-                @include('_submit_button_block')
-
-                @include('_right_gray_block',[
-                    'addClass' => 'narrow trainer-fields'.(!Auth::user()->trainer && !$hasErrsTrainerFields ? ' hidden' : ''),
-                    'content' => ob_get_clean(),
-                    'useMap' => false
-                ])
+                <!-- /trainer block -->
             </form>
             @if (Gate::allows('trainer') || Gate::allows('organizer'))
 

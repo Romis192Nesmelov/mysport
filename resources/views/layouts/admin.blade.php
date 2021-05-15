@@ -66,6 +66,7 @@
     <script type="text/javascript" src="{{ asset('js/loader.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/delete.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/image_preview_height.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/preview_image.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/masks.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/admin/admin.js') }}"></script>
@@ -139,6 +140,7 @@
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="{{ url('/') }}"><i class="icon-home"></i> {{ trans('content.back_main_page') }}</a></li>
                         <li><a href="{{ url('/logout') }}"><i class="icon-switch2"></i> {{ trans('auth.logout') }}</a></li>
                     </ul>
                 </li>

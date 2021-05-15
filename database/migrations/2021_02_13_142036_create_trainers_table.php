@@ -15,14 +15,21 @@ class CreateTrainersTable extends Migration
     {
         Schema::create('trainers', function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            $table->text('license')->nullable();
+            
             $table->text('about_ru')->nullable();
             $table->text('about_en')->nullable();
+            
             $table->string('education_ru');
             $table->string('education_en')->nullable();
+            
             $table->string('add_education_ru')->nullable();
             $table->string('add_education_en')->nullable();
+            
             $table->string('achievements_ru')->nullable();
             $table->string('achievements_en')->nullable();
+            
             $table->smallInteger('since');
 
             $table->string('fb')->nullable();

@@ -92,11 +92,6 @@ class HelperController extends Controller
     {
         return $this->ageGroups()[$group-1].' '.trans('content.years');
     }
-    
-    public function isAdmin()
-    {
-        return !Auth::guest() && Auth::user()->type == 4;
-    }
 
     public function getDaysInMonth($month, $year)
     {

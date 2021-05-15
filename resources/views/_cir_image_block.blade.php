@@ -1,7 +1,7 @@
 @if (isset($inputName) && $inputName)
     @include('_image_block',[
         'name' => $inputName,
-        'preview' => $image ? $image : 'images/placeholder.jpg'
+        'preview' => $image
     ])
 @else
     <div class="cir-image image">

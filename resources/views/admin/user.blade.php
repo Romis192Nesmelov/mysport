@@ -7,7 +7,7 @@
             <form class="form-horizontal" enctype="multipart/form-data" action="{{ url('/admin/user') }}" method="post">
                 {{ csrf_field() }}
                 @include('admin._hidden_id_block',['item' => isset($data['user']) ? $data['user'] : null])
-                <div class="col-md-3 col-sm-3 col-xs-12">
+                <div class="col-md-3 col-sm-3 col-xs-12 left-block">
                     @include('_image_block', [
                         'label' => trans('content.avatar'),
                         'preview' => isset($data['user']) ? $data['user']->avatar : '',
@@ -19,14 +19,24 @@
                         <div class="panel panel-flat">
                             @include('admin._panel_title_block',['title' => trans('admin.user_type'),'h' => 5])
                             <div class="panel-body">
+                                @php
+                                    if (Gate::allows('admin')) {
+                                        $userTypesValues = [
+                                            ['val' => 1, 'descript' => trans('admin.admin')],
+                                            ['val' => 2, 'descript' => trans('admin.half_admin')]
+                                        ];
+                                    } else {
+                                        $userTypesValues = [
+                                            ['val' => 2, 'descript' => trans('admin.admin')]
+                                        ];
+                                    }
+                                    $userTypesValues[] = ['val' => 3, 'descript' => trans('admin.organizer')];
+                                    $userTypesValues[] = ['val' => 4, 'descript' => trans('admin.user')];
+                                @endphp
+
                                 @include('_radio_button_block', [
                                     'name' => 'type',
-                                    'values' => [
-                                        ['val' => 1, 'descript' => trans('admin.admin')],
-                                        ['val' => 2, 'descript' => trans('admin.half_admin')],
-                                        ['val' => 3, 'descript' => trans('admin.organizer')],
-                                        ['val' => 4, 'descript' => trans('admin.user')],
-                                    ],
+                                    'values' => $userTypesValues,
                                     'activeValue' => isset($data['user']) ? $data['user']->type : 3
                                 ])
                             </div>
@@ -148,6 +158,21 @@
                             <h4 class="text-grey-300">{!! trans('admin.trainer') !!}</h4>
                         </div>
                         <div class="panel-body">
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">{!! trans('content.approve_docs') !!}</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <div class="description input-label">{{ trans('content.license') }}</div>
+                                        @include('_image_block',[
+                                            'name' => 'license',
+                                            'preview' => isset($data['user']) && $data['user']->trainer ? $data['user']->trainer->license : ''
+                                        ])
+                                    </div>
+                                </div>
+                            </div>
+
                             @if (isset($data['user']) && $data['user']->trainer)
                                 @include('admin._objects_table',[
                                     'objects' => $data['user']->trainer->sections,

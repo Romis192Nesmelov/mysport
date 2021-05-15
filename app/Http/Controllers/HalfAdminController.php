@@ -104,13 +104,14 @@ class HalfAdminController extends UserController
             'family' => $this->validationCharField,
             'email' => $this->validationEmail,
             'phone' => $this->validationPhone,
-            'type' => 'required|integer|min:1|max:3',
+            'type' => 'required|integer|'.(Gate::allows('admin') ? 'min:1' : 'min:2').'|max:4',
             'avatar' => $this->validationImage,
         ];
         $userBoolFields = ['active','send_mail'];
         $userTimeFields = ['born' => $this->validationDate];
 
         $trainerFields = [
+            'license' => $this->validationImage,
             'about_ru' => 'max:500',
             'education_ru' => $this->validationCharField,
             'add_education_ru' => 'max:255',
@@ -157,8 +158,8 @@ class HalfAdminController extends UserController
         }
 
         if ($request->hasFile('avatar')) {
-            $userFields = $this->processingImage($request, $user, 'avatar', 'user_avatar'.$user->id, 'images/avatars');
-            $user->update($userFields);
+            $fieldAvatar = $this->processingImage($request, $user, 'avatar', 'user_avatar'.$user->id, 'images/avatars');
+            $user->update($fieldAvatar);
         }
 
         // Processing trainer
@@ -183,7 +184,13 @@ class HalfAdminController extends UserController
                 $section->save();
             }
 
+            if ($request->hasFile('license')) {
+                $fieldLicense = $this->processingImage($request, $trainer, 'license', 'license'.$trainer->id, 'images/docs');
+                $trainer->update($fieldLicense);
+            }
+
         } elseif ($user->trainer) {
+            $this->unlinkFile($user->trainer, 'license');
             $user->trainer->delete();
             if ($user->email && $user->send_mail) {
                 $this->sendMessage($user->email, 'auth.emails.trainer_request_rejected', []);

@@ -93,6 +93,7 @@
     <script type="text/javascript" src="{{ asset('js/owl.carousel.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/preview_image.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/image_preview_height.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('/js/yamap.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/delete.js') }}"></script>
@@ -146,6 +147,9 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li><a href="{{ url('/profile') }}"><i class="icon-user-plus"></i> {{ trans('content.my_profile') }}</a></li>
+                            @if (Gate::allows('admin') || Gate::allows('half_admin'))
+                                <li><a href="{{ url('/admin') }}"><i class="icon-brain"></i> {{ trans('admin.admin_page') }}</a></li>
+                            @endif
                             <li><a href="{{ url('/logout') }}"><i class="icon-switch2"></i> {{ trans('content.logout') }}</a></li>
                         </ul>
                     </li>
