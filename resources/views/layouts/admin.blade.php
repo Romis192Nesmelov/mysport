@@ -57,7 +57,9 @@
 {{--    <script type="text/javascript" src="{{ asset('js/plugins/pickers/color/spectrum.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('js/core/app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/core/main.controls.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/preview_image_height.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/preview_image.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>
     {{--<script type="text/javascript" src="{{ asset('js/pages/picker_color.js') }}"></script>--}}
     <!-- /theme JS files -->
 
@@ -65,11 +67,8 @@
 {{--<script type="text/javascript" src="{{ asset('js/map.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('js/loader.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/delete.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/image_preview_height.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/preview_image.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/masks.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/admin.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
 
     {{--<script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>--}}
 </head>

@@ -167,7 +167,8 @@
                                         <div class="description input-label">{{ trans('content.license') }}</div>
                                         @include('_image_block',[
                                             'name' => 'license',
-                                            'preview' => isset($data['user']) && $data['user']->trainer ? $data['user']->trainer->license : ''
+                                            'preview' => isset($data['user']) && $data['user']->trainer ? $data['user']->trainer->license : '',
+                                            'full' => isset($data['user']) && $data['user']->trainer ? $data['user']->trainer->license : null,
                                         ])
                                     </div>
                                 </div>
@@ -305,7 +306,7 @@
             var trainerFields = $('#trainer-fields');
             if ($(this).is(':checked')) {
                 trainerFields.show('fast',function () {
-                    imagePreviewHeight();
+                    previewImageHeight();
                 });
             } else trainerFields.hide('fast');
         });

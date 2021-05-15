@@ -1,13 +1,13 @@
 $(document).ready(function() {
     unifiedHeight();
     checkWindowHeight();
-    imagePreviewHeight();
+    previewImageHeight();
     // $('.styled').uniform();
     
     $(window).resize(function() {
         unifiedHeight();
         checkWindowHeight();
-        imagePreviewHeight();
+        previewImageHeight();
     });
     // singleHeight();
 

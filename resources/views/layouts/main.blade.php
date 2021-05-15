@@ -91,9 +91,9 @@
 
     <script type="text/javascript" src="{{ asset('js/loader.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/owl.carousel.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/preview_image_height.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/preview_image.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/max_height.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/image_preview_height.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('/js/yamap.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/delete.js') }}"></script>

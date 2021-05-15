@@ -1,9 +1,9 @@
 $(document).ready(function() {
     unifiedHeight();
-    imagePreviewHeight();
+    previewImageHeight();
     $(window).resize(function() {
         unifiedHeight();
-        imagePreviewHeight();
+        previewImageHeight();
     });
 
     $('a.img-preview').fancybox({

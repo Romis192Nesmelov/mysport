@@ -18,5 +18,6 @@ $(document).ready(function () {
         } else {
             imagePreview.attr('src', '/images/placeholder.jpg');
         }
+        previewImageHeight();
     });
 });

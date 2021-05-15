@@ -1,4 +1,4 @@
-function imagePreviewHeight() {
+function previewImageHeight() {
     if ($(window).width() > 768) {
         $('.edit-image-preview .image').each(function () {
             var self = $(this),

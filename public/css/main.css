@@ -212,6 +212,7 @@ p.text-center {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 5px;
 }
 
 .cir-image.image > img {
