@@ -61,7 +61,7 @@
                                 @include('admin._date_block', [
                                     'label' => trans('content.date'),
                                     'name' => 'date',
-                                    'value' => isset($data['item']) ? $data['item']->start_time : date('d.m.Y',time() + (60 * 60 * 24 * 10))
+                                    'value' => isset($data['item']) ? $data['item']->start_time : time() + (60 * 60 * 24 * 10)
                                 ])
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12">

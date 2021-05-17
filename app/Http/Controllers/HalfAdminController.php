@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Area;
+use App\Event;
 use App\Message;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +13,7 @@ use App\Trainer;
 use App\News;
 use App\Section;
 use App\KindOfSport;
+use Illuminate\Support\Facades\Settings;
 use Illuminate\Support\Facades\Helper;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
@@ -31,6 +34,20 @@ class HalfAdminController extends UserController
     public function index($token=null)
     {
         return redirect('/admin/users');
+    }
+
+    public function seo()
+    {
+        $this->breadcrumbs = ['seo' => 'SEO'];
+        $this->data['metas'] = $this->metas;
+        $this->data['seo'] = Settings::getSeoTags();
+        return $this->showView('seo');
+    }
+
+    public function settings()
+    {
+        $this->breadcrumbs = ['settings' => trans('admin.settings')];
+        return $this->showView('settings');
     }
 
     public function users(Request $request, $slug=null)
@@ -88,11 +105,51 @@ class HalfAdminController extends UserController
             return $this->showView('all_news');
         }
     }
+
+    public function events(Request $request, $slug=null)
+    {
+        return $this->getObjects($request, new Event(), $slug, 'name', [new Area(), new User(), new Kid(), new KindOfSport()]);
+    }
     
     public function banners()
     {
         $this->breadcrumbs = ['banners' => trans('admin.advertising_banners')];
         return $this->showView('banners');
+    }
+
+    protected function getObjects(Request $request, Model $model, $slug, $headName, $addCollection=false, $descField=false)
+    {
+        $objectName = substr($model->getTable(),0,-1);
+        $this->breadcrumbs = [$objectName.'s' => trans('admin.'.$objectName.'s')];
+        if ($request->has('id') || ($slug && $slug != 'add')) {
+            $this->data['item'] = $request->has('id') ? $model->find($request->input('id')) : $model->where('slug',$slug)->first();
+            if (!$this->data['item']) abort(404);
+
+            if (isset($this->data['item']->slug)) $this->breadcrumbs[$objectName.'s/'.$this->data['item']->slug] = $this->data['item'][$headName.'_'.App::getLocale()];
+            else $this->breadcrumbs[$objectName.'s?id='.$this->data['item']->id] = $this->data['item'][$headName.'_'.App::getLocale()];
+
+            if ($addCollection) $this->getAddCollections($addCollection);
+            return $this->showView($objectName);
+        } else if ($slug && $slug == 'add') {
+            $this->breadcrumbs[$objectName.'s/add'] = trans('admin.adding_'.$objectName);
+            if ($addCollection) $this->getAddCollections($addCollection);
+            return $this->showView($objectName);
+        } else {
+            $this->data['items'] = $descField ? $model->orderBy($descField,'desc')->get() : $model->all();
+            return $this->showView($objectName.'s');
+        }
+    }
+
+    protected function getAddCollections($addCollection)
+    {
+        if (is_array($addCollection)) {
+            $this->data['collections'] = [];
+            foreach ($addCollection as $collection) {
+                $this->data['collections'][$collection->getTable()] = $collection->where('active',1)->get();
+            }
+        } else {
+            $this->data['collection'] = $addCollection->where('active',1)->get();
+        }
     }
 
     // Post methods
@@ -242,20 +299,6 @@ class HalfAdminController extends UserController
         return $this->editObject($request, new News(), $validationArr, ['active'], ['image'], ['date'], 'news', 'news');
     }
 
-    
-
-    public function editKindOfSports(Request $request)
-    {
-        $validationArr = [
-            'icon' => $this->validationImage,
-            'name_ru' => $this->validationCharField,
-            'description_ru' => $this->validationTextField,
-            'recommendation_ru' => $this->validationTextField,
-            'needed_ru' => $this->validationTextField,
-        ];
-        return $this->editObject($request, new KindOfSport(), $validationArr, ['active'], ['icon'], [], 'kind_of_sports', 'sports_icons');
-    }
-
     public function editEvent(Request $request)
     {
         return $this->processingEvent($request,true);
@@ -322,20 +365,20 @@ class HalfAdminController extends UserController
     public function showView($view, $token=null)
     {
         $menus = [
+            ['href' => 'seo', 'name' => 'SEO', 'icon' => 'icon-price-tags'],
+            ['href' => 'settings', 'name' => trans('admin.settings'), 'icon' => 'icon-gear'],
             ['href' => 'users', 'name' => trans('admin.users'), 'icon' => 'icon-users', 'submenu' => [['href' => 'kids', 'name' => trans('content.children_accounts')]]],
             ['href' => 'news', 'name' => trans('admin.news'), 'icon' => 'icon-newspaper'],
+            ['href' => 'events', 'name' => trans('admin.events'), 'icon' => 'icon-calendar3'],
             ['href' => 'banners', 'name' => trans('admin.advertising_banners'), 'icon' => 'icon-image3']
         ];
 
         if (Gate::allows('admin')) {
-            $menus[] = ['href' => 'seo', 'name' => 'SEO', 'icon' => 'icon-price-tags'];
-            $menus[] = ['href' => 'settings', 'name' => trans('admin.settings'), 'icon' => 'icon-gear'];
             $menus[] = ['href' => 'areas', 'name' => trans('admin.areas'), 'icon' => 'icon-city'];
             $menus[] = ['href' => 'organizations', 'name' => trans('admin.organizations'), 'icon' => 'icon-stamp'];
             $menus[] = ['href' => 'sections', 'name' => trans('admin.sections'), 'icon' => 'icon-pie-chart2'];
             $menus[] = ['href' => 'places', 'name' => trans('admin.places'), 'icon' => 'icon-pin-alt'];
             $menus[] = ['href' => 'kind_of_sports', 'name' => trans('admin.kind_of_sports'), 'icon' => 'icon-medal2'];
-            $menus[] = ['href' => 'events', 'name' => trans('admin.events'), 'icon' => 'icon-calendar3'];
             $menus[] = ['href' => 'messages', 'name' => trans('admin.messages'), 'icon' => 'icon-bubbles4'];
         }
 

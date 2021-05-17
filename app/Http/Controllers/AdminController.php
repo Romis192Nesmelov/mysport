@@ -32,20 +32,6 @@ class AdminController extends HalfAdminController
     }
 
     // Gets methods
-    public function seo()
-    {
-        $this->breadcrumbs = ['seo' => 'SEO'];
-        $this->data['metas'] = $this->metas;
-        $this->data['seo'] = Settings::getSeoTags();
-        return $this->showView('seo');
-    }
-
-    public function settings()
-    {
-        $this->breadcrumbs = ['settings' => trans('admin.settings')];
-        return $this->showView('settings');
-    }
-    
     public function areas(Request $request, $slug=null)
     {
         return $this->getObjects($request, new Area(), $slug, 'name');
@@ -76,41 +62,6 @@ class AdminController extends HalfAdminController
         $this->breadcrumbs = ['banners' => trans('admin.messages')];
         $this->data['messages'] = Message::orderBy('created_at','desc')->get();
         return $this->showView('messages');
-    }
-
-    private function getObjects(Request $request, Model $model, $slug, $headName, $addCollection=false, $descField=false)
-    {
-        $objectName = substr($model->getTable(),0,-1);
-        $this->breadcrumbs = [$objectName.'s' => trans('admin.'.$objectName.'s')];
-        if ($request->has('id') || ($slug && $slug != 'add')) {
-            $this->data['item'] = $request->has('id') ? $model->find($request->input('id')) : $model->where('slug',$slug)->first();
-            if (!$this->data['item']) abort(404);
-
-            if (isset($this->data['item']->slug)) $this->breadcrumbs[$objectName.'s/'.$this->data['item']->slug] = $this->data['item'][$headName.'_'.App::getLocale()];
-            else $this->breadcrumbs[$objectName.'s?id='.$this->data['item']->id] = $this->data['item'][$headName.'_'.App::getLocale()];
-
-            if ($addCollection) $this->getAddCollections($addCollection);
-            return $this->showView($objectName);
-        } else if ($slug && $slug == 'add') {
-            $this->breadcrumbs[$objectName.'s/add'] = trans('admin.adding_'.$objectName);
-            if ($addCollection) $this->getAddCollections($addCollection);
-            return $this->showView($objectName);
-        } else {
-            $this->data['items'] = $descField ? $model->orderBy($descField,'desc')->get() : $model->all();
-            return $this->showView($objectName.'s');
-        }
-    }
-    
-    private function getAddCollections($addCollection)
-    {
-        if (is_array($addCollection)) {
-            $this->data['collections'] = [];
-            foreach ($addCollection as $collection) {
-                $this->data['collections'][$collection->getTable()] = $collection->where('active',1)->get();
-            }
-        } else {
-            $this->data['collection'] = $addCollection->where('active',1)->get();
-        }
     }
 
     // Posts methods
@@ -250,11 +201,6 @@ class AdminController extends HalfAdminController
             'needed_ru' => $this->validationTextField,
         ];
         return $this->editObject($request, new KindOfSport(), $validationArr, ['active'], ['icon'], [], 'kind_of_sports', 'sports_icons');
-    }
-
-    public function editEvent(Request $request)
-    {
-        return $this->processingEvent($request,true);
     }
 
     public function editGallery(Request $request)

@@ -40,6 +40,12 @@ Route::get('/google-callback', 'OAuthController@googleCallback');
 
 Route::get('/admin', 'HalfAdminController@index');
 
+Route::get('/admin/seo', 'HalfAdminController@seo');
+Route::post('/admin/seo', 'HalfAdminController@editSeo');
+
+Route::get('/admin/settings', 'HalfAdminController@settings');
+Route::post('/admin/settings', 'HalfAdminController@editSettings');
+
 Route::get('/admin/users/{slug?}', 'HalfAdminController@users');
 Route::post('/admin/user', 'HalfAdminController@editUser');
 Route::post('/admin/delete-user', 'HalfAdminController@deleteUser');
@@ -52,14 +58,12 @@ Route::get('/admin/news/{slug?}', 'HalfAdminController@news');
 Route::post('/admin/news', 'HalfAdminController@editNews');
 Route::post('/admin/delete-news', 'HalfAdminController@deleteNews');
 
+Route::get('/admin/events/{slug?}', 'HalfAdminController@events');
+Route::post('/admin/event', 'HalfAdminController@editEvent');
+Route::post('/admin/delete-event', 'HalfAdminController@deleteEvent');
+
 Route::get('/admin/banners', 'HalfAdminController@banners');
 Route::post('/admin/banners', 'HalfAdminController@editBanners');
-
-Route::get('/admin/seo', 'AdminController@seo');
-Route::post('/admin/seo', 'AdminController@editSeo');
-
-Route::get('/admin/settings', 'AdminController@settings');
-Route::post('/admin/settings', 'AdminController@editSettings');
 
 Route::get('/admin/areas/{slug?}', 'AdminController@areas');
 Route::post('/admin/area', 'AdminController@editArea');
@@ -82,10 +86,6 @@ Route::post('/admin/delete-trainer-section', 'AdminController@deleteTrainerSecti
 Route::get('/admin/kind_of_sports', 'AdminController@kindOfSports');
 Route::post('/admin/kind_of_sport', 'AdminController@editKindOfSports');
 Route::post('/admin/delete-kind_of_sport', 'AdminController@deleteKindOfSports');
-
-Route::get('/admin/events/{slug?}', 'AdminController@events');
-Route::post('/admin/event', 'AdminController@editEvent');
-Route::post('/admin/delete-event', 'AdminController@deleteEvent');
 
 Route::post('/admin/delete-record-event', 'AdminController@deleteRecordEvent');
 Route::post('/admin/delete-record-section', 'AdminController@deleteRecordSection');
