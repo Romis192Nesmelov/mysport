@@ -1,4 +1,4 @@
-<div class="col-md-{{ $col }} col-sm-12 col-xs-12">
+<div class="col-md-{{ $col }} col-sm-12 col-xs-12 no-resize">
     <div class="panel panel-flat">
         <div class="panel-body">
             @include('_image_block', [

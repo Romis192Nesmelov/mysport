@@ -83,7 +83,7 @@ Route::post('/admin/section', 'AdminController@editSection');
 Route::post('/admin/delete-section', 'AdminController@deleteSection');
 Route::post('/admin/delete-trainer-section', 'AdminController@deleteTrainerSection');
 
-Route::get('/admin/kind_of_sports', 'AdminController@kindOfSports');
+Route::get('/admin/kind_of_sports/{slug?}', 'AdminController@kindOfSports');
 Route::post('/admin/kind_of_sport', 'AdminController@editKindOfSports');
 Route::post('/admin/delete-kind_of_sport', 'AdminController@deleteKindOfSports');
 

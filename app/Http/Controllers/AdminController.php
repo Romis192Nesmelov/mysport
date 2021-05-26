@@ -52,9 +52,9 @@ class AdminController extends HalfAdminController
         return $this->getObjects($request, new Place(), $slug, 'name', [new KindOfSport(), new Area()]);
     }
 
-    public function kindOfSports(Request $request)
+    public function kindOfSports(Request $request, $slug=null)
     {
-        return $this->getObjects($request, new KindOfSport(), null, 'name');
+        return $this->getObjects($request, new KindOfSport(), $slug, 'name');
     }
 
     public function messages()
