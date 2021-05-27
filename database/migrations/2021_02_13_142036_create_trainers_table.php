@@ -16,7 +16,8 @@ class CreateTrainersTable extends Migration
         Schema::create('trainers', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->text('license')->nullable();
+            $table->string('license')->nullable();
+            $table->string('add_doc')->nullable();
             
             $table->text('about_ru')->nullable();
             $table->text('about_en')->nullable();

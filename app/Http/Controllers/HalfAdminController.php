@@ -117,6 +117,13 @@ class HalfAdminController extends UserController
         return $this->showView('banners');
     }
 
+    public function messages()
+    {
+        $this->breadcrumbs = ['banners' => trans('admin.messages')];
+        $this->data['messages'] = Message::orderBy('created_at','desc')->get();
+        return $this->showView('messages');
+    }
+
     protected function getObjects(Request $request, Model $model, $slug, $headName, $addCollection=false, $descField=false)
     {
         $objectName = substr($model->getTable(),0,-1);
@@ -153,6 +160,37 @@ class HalfAdminController extends UserController
     }
 
     // Post methods
+    public function editSeo(Request $request)
+    {
+        $this->validate($request, [
+            'title_ru' => $this->validationCharField,
+            'meta_description' => 'max:4000',
+            'meta_keywords' => 'max:4000',
+            'meta_twitter_card' => 'max:255',
+            'meta_twitter_size' => 'max:255',
+            'meta_twitter_creator' => 'max:255',
+            'meta_og_url' => 'max:255',
+            'meta_og_type' => 'max:255',
+            'meta_og_title' => 'max:255',
+            'meta_og_description' => 'max:4000',
+            'meta_og_image' => 'max:255',
+            'meta_robots' => 'max:255',
+            'meta_googlebot' => 'max:255',
+            'meta_google_site_verification' => 'max:255',
+        ]);
+        Settings::saveSeoTags($request);
+        return redirect('/admin/seo')->with('message',trans('content.save_complete'));
+    }
+
+    public function editSettings(Request $request)
+    {
+        $this->validate($request, [
+            'email' => $this->validationNoUniqueEmail
+        ]);
+        Settings::saveSettings($this->processingFields($request));
+        return redirect()->back()->with('message',trans('content.save_complete'));
+    }
+
     public function editUser(Request $request)
     {
         $userFields = [
@@ -169,6 +207,7 @@ class HalfAdminController extends UserController
 
         $trainerFields = [
             'license' => $this->validationImage,
+            'add_doc' => $this->validationImage,
             'about_ru' => 'max:500',
             'education_ru' => $this->validationCharField,
             'add_education_ru' => 'max:255',
@@ -246,8 +285,14 @@ class HalfAdminController extends UserController
                 $trainer->update($fieldLicense);
             }
 
+            if ($request->hasFile('add_doc')) {
+                $fieldAddDoc = $this->processingImage($request, $trainer, 'add_doc', 'add_doc'.$trainer->id, 'images/docs');
+                $trainer->update($fieldAddDoc);
+            }
+
         } elseif ($user->trainer) {
             $this->unlinkFile($user->trainer, 'license');
+            $this->unlinkFile($user->trainer, 'add_doc');
             $user->trainer->delete();
             if ($user->email && $user->send_mail) {
                 $this->sendMessage($user->email, 'auth.emails.trainer_request_rejected', []);
@@ -361,6 +406,11 @@ class HalfAdminController extends UserController
     {
         return $this->deleteSomething($request, new News(), 'image');
     }
+
+    public function deleteMessage(Request $request)
+    {
+        return $this->deleteSomething($request, new Message());
+    }
     
     public function showView($view, $token=null)
     {
@@ -370,7 +420,8 @@ class HalfAdminController extends UserController
             ['href' => 'users', 'name' => trans('admin.users'), 'icon' => 'icon-users', 'submenu' => [['href' => 'kids', 'name' => trans('content.children_accounts')]]],
             ['href' => 'news', 'name' => trans('admin.news'), 'icon' => 'icon-newspaper'],
             ['href' => 'events', 'name' => trans('admin.events'), 'icon' => 'icon-calendar3'],
-            ['href' => 'banners', 'name' => trans('admin.advertising_banners'), 'icon' => 'icon-image3']
+            ['href' => 'banners', 'name' => trans('admin.advertising_banners'), 'icon' => 'icon-image3'],
+            $menus[] = ['href' => 'messages', 'name' => trans('admin.messages'), 'icon' => 'icon-bubbles4']
         ];
 
         if (Gate::allows('admin')) {
@@ -379,7 +430,6 @@ class HalfAdminController extends UserController
             $menus[] = ['href' => 'sections', 'name' => trans('admin.sections'), 'icon' => 'icon-pie-chart2'];
             $menus[] = ['href' => 'places', 'name' => trans('admin.places'), 'icon' => 'icon-pin-alt'];
             $menus[] = ['href' => 'kind_of_sports', 'name' => trans('admin.kind_of_sports'), 'icon' => 'icon-medal2'];
-            $menus[] = ['href' => 'messages', 'name' => trans('admin.messages'), 'icon' => 'icon-bubbles4'];
         }
 
         return view('admin.'.$view, [

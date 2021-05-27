@@ -57,45 +57,7 @@ class AdminController extends HalfAdminController
         return $this->getObjects($request, new KindOfSport(), $slug, 'name');
     }
 
-    public function messages()
-    {
-        $this->breadcrumbs = ['banners' => trans('admin.messages')];
-        $this->data['messages'] = Message::orderBy('created_at','desc')->get();
-        return $this->showView('messages');
-    }
-
     // Posts methods
-    public function editSeo(Request $request)
-    {
-        $this->validate($request, [
-            'title_ru' => $this->validationCharField,
-            'meta_description' => 'max:4000',
-            'meta_keywords' => 'max:4000',
-            'meta_twitter_card' => 'max:255',
-            'meta_twitter_size' => 'max:255',
-            'meta_twitter_creator' => 'max:255',
-            'meta_og_url' => 'max:255',
-            'meta_og_type' => 'max:255',
-            'meta_og_title' => 'max:255',
-            'meta_og_description' => 'max:4000',
-            'meta_og_image' => 'max:255',
-            'meta_robots' => 'max:255',
-            'meta_googlebot' => 'max:255',
-            'meta_google_site_verification' => 'max:255',
-        ]);
-        Settings::saveSeoTags($request);
-        return redirect('/admin/seo')->with('message',trans('content.save_complete'));
-    }
-
-    public function editSettings(Request $request)
-    {
-        $this->validate($request, [
-            'email' => $this->validationNoUniqueEmail
-        ]);
-        Settings::saveSettings($this->processingFields($request));
-        return redirect()->back()->with('message',trans('content.save_complete'));
-    }
-
     public function editArea(Request $request)
     {
         $validationArr = [
@@ -326,11 +288,6 @@ class AdminController extends HalfAdminController
     public function deleteEvent(Request $request)
     {
         return $this->deleteSomething($request, new Event());
-    }
-
-    public function deleteMessage(Request $request)
-    {
-        return $this->deleteSomething($request, new Message());
     }
     
 //    public function deleteRecordEvent(Request $request)

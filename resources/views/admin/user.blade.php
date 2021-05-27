@@ -164,11 +164,13 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-md-6 col-sm-12 col-xs-12">
-                                        <div class="description input-label">{{ trans('content.license') }}</div>
-                                        @include('_image_block',[
-                                            'name' => 'license',
-                                            'preview' => isset($data['user']) && $data['user']->trainer ? $data['user']->trainer->license : '',
-                                            'full' => isset($data['user']) && $data['user']->trainer ? $data['user']->trainer->license : null,
+                                        @include('admin._trainer_doc_block',[
+                                            'description' => trans('content.license'),
+                                            'name' => 'license'
+                                        ])
+                                        @include('admin._trainer_doc_block',[
+                                            'description' => trans('content.add_doc'),
+                                            'name' => 'add_doc'
                                         ])
                                     </div>
                                 </div>

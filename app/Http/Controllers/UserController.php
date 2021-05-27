@@ -54,13 +54,14 @@ class UserController extends StaticController
         ];
 
         $ignoringFieldsForAll = ['avatar', 'password', 'password_confirmation','new_section_id','trainer_request'];
-        $ignoringFieldsForUser = ['license', 'about_ru', 'education_ru', 'add_education_ru', 'achievements', 'since'];
+        $ignoringFieldsForUser = ['license', 'add_doc', 'about_ru', 'education_ru', 'add_education_ru', 'achievements', 'since'];
         $ignoringFieldsForTrainer = ['email', 'phone', 'name', 'surname', 'family', 'born', 'gender'];
         $trainerRequest = $request->has('trainer_request') && (int)$request->input('trainer_request');
         $masterMail = (string)Settings::getSettings()->email;
 
         if (Auth::user()->trainer || $trainerRequest) {
             $validationArr['license'] = ($trainerRequest && !Auth::user()->trainer->license ? 'required|' : '').$this->validationImage;
+            $validationArr['add_doc'] = ($trainerRequest && !Auth::user()->trainer->add_doc ? 'required|' : '').$this->validationImage;
             $validationArr['about_ru'] = 'max:1000';
             $validationArr['education_ru'] = 'required|min:5|max:255';
             $validationArr['add_education_ru'] = 'max:255';
@@ -141,6 +142,11 @@ class UserController extends StaticController
             if ($request->hasFile('license')) {
                 $fieldLicense = $this->processingImage($request, $trainer, 'license', 'license'.$trainer->id, 'images/docs');
                 $trainer->update($fieldLicense);
+            }
+
+            if ($request->hasFile('add_doc')) {
+                $fieldAddDoc = $this->processingImage($request, $trainer, 'add_doc', 'add_doc'.$trainer->id, 'images/docs');
+                $trainer->update($fieldAddDoc);
             }
         }
         return redirect('/profile')->with('message', trans('content.save_complete'));

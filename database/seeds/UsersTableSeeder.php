@@ -106,6 +106,18 @@ class UsersTableSeeder extends Seeder
                 'born' => 206150400,
                 'type' => 2,
             ],
+            [
+                'avatar' => '',
+                'name' => 'Леонид',
+                'surname' => '',
+                'family' => 'Глушков',
+                'gender' => 1,
+                'email' => 'it-glushkov@directory.spb.ru',
+                'phone' => '',
+                'password' => bcrypt('glushkov'),
+                'born' => 1,
+                'type' => 2,
+            ],
         ];
 
         $kidData = [

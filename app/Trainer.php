@@ -7,6 +7,7 @@ class Trainer extends Model
 {
     protected $fillable = [
         'license',
+        'add_doc',
         'about_ru',
         'about_en',
         'education_ru',

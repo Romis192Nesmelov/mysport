@@ -13,6 +13,7 @@ return [
     'trainer_info' => 'Trainer info',
     'approve_docs' => 'Approve docs',
     'license' => 'License',
+    'add_doc' => 'Add. document',
     'about_me' => 'About me:',
     'education' => 'Education:',
     'add_education' => 'Additional education:',

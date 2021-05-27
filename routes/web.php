@@ -65,6 +65,9 @@ Route::post('/admin/delete-event', 'HalfAdminController@deleteEvent');
 Route::get('/admin/banners', 'HalfAdminController@banners');
 Route::post('/admin/banners', 'HalfAdminController@editBanners');
 
+Route::get('/admin/messages', 'HalfAdminController@messages');
+Route::post('/admin/delete-message', 'HalfAdminController@deleteMessage');
+
 Route::get('/admin/areas/{slug?}', 'AdminController@areas');
 Route::post('/admin/area', 'AdminController@editArea');
 Route::post('/admin/delete-area', 'AdminController@deleteArea');
@@ -98,9 +101,6 @@ Route::post('/admin/record-section-kid', 'AdminController@recordEventKid');
 
 Route::post('/admin/gallery', 'AdminController@editGallery');
 Route::post('/admin/delete-gallery', 'AdminController@deleteGallery');
-
-Route::get('/admin/messages', 'AdminController@messages');
-Route::post('/admin/delete-message', 'AdminController@deleteMessage');
 
 Route::get('/', 'StaticController@index');
 Route::get('/blind', 'StaticController@setBlind');

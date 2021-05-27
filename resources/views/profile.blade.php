@@ -100,7 +100,6 @@
                                 }
                             }
                         @endphp
-
                         @include('_checkbox_type1_block',[
                             'name' => 'trainer_request',
                             'label' => trans('content.trainer_request'),
@@ -153,15 +152,16 @@
                         'head' => trans('content.trainer_info')
                     ])
 
+                    <div class="table">
                     <h2>{{ trans('content.approve_docs') }}</h2>
-                    <div class="content-block table">
-                        <div class="description input-label">{{ trans('content.license') }}</div>
-                        <div class="col-md-6 col-sm-12 col-xs-12">
-                            @include('_image_block',[
-                                'name' => 'license',
-                                'preview' => Auth::user()->trainer ? Auth::user()->trainer->license : ''
-                            ])
-                        </div>
+                        @include('_trainer_doc_block',[
+                            'description' => trans('content.license'),
+                            'name' => 'license'
+                        ])
+                        @include('_trainer_doc_block',[
+                            'description' => trans('content.add_doc'),
+                            'name' => 'add_doc'
+                        ])
                     </div>
 
                     @include('_select_type3_block',[
