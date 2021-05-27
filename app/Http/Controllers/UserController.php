@@ -61,7 +61,7 @@ class UserController extends StaticController
 
         if (Auth::user()->trainer || $trainerRequest) {
             $validationArr['license'] = ($trainerRequest && !Auth::user()->trainer->license ? 'required|' : '').$this->validationImage;
-            $validationArr['add_doc'] = ($trainerRequest && !Auth::user()->trainer->add_doc ? 'required|' : '').$this->validationImage;
+            $validationArr['add_doc'] = $this->validationImage;
             $validationArr['about_ru'] = 'max:1000';
             $validationArr['education_ru'] = 'required|min:5|max:255';
             $validationArr['add_education_ru'] = 'max:255';
