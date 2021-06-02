@@ -78,9 +78,6 @@ class UserController extends StaticController
         $newSection = $trainerRequest && $request->has('new_section_id') ? $request->input('new_section_id') : false;
         if ($newSection) $validationArr['new_section_id'] = $this->validationSection;
 
-        if (!$fieldsUser['born'] = $this->setBornDate($fieldsUser['born']))
-            return redirect()->back()->withInput()->withErrors(['born' => trans('validation.invalid_date')]);
-
         if ($request->has('password') && $request->input('password')) {
             $fieldsUser['password'] = bcrypt($request->input('password'));
             $validationArr['old_password'] = 'required|min:4|max:50';
@@ -88,6 +85,9 @@ class UserController extends StaticController
         }
 
         $this->validate($request, $validationArr);
+        if (!$fieldsUser['born'] = $this->setBornDate($fieldsUser['born']))
+            return redirect()->back()->withInput()->withErrors(['born' => trans('validation.invalid_date')]);
+
         $user = User::find(Auth::id());
         $user->update($fieldsUser);
 
@@ -297,17 +297,20 @@ class UserController extends StaticController
 
         $fields = $this->processingFields($request, 'active', 'avatar');
         $fields['gender'] = $this->setGender($fields['gender']);
-        if (!$fields['born'] = $this->setBornDate($fields['born'], true))
-            return redirect()->back()->withInput()->withErrors(['born' => trans('validation.invalid_date')]);
         $fields['user_id'] = Auth::id();
 
         if ($request->has('id')) {
             $validationArr['id'] = $this->validationUser;
             $this->validate($request, $validationArr);
+            if (!$fields['born'] = $this->setBornDate($fields['born'], true))
+                return redirect()->back()->withInput()->withErrors(['born' => trans('validation.invalid_date')]);
+
             $kid = Kid::find($request->input('id'));
             $kid->update($fields);
         } else {
             $this->validate($request, $validationArr);
+            if (!$fields['born'] = $this->setBornDate($fields['born'], true))
+                return redirect()->back()->withInput()->withErrors(['born' => trans('validation.invalid_date')]);
             $kid = Kid::create($fields);
         }
 
